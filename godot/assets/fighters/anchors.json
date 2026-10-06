@@ -1,0 +1,178 @@
+{
+ "idle": {
+  "key": [
+   -42.6,
+   -48.8
+  ],
+  "hand": [
+   24.2,
+   -87.2
+  ],
+  "muzzle": [
+   57.8,
+   -88.9
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-IDLE/CHAR-IDLE_v2-st0.6_s43.png"
+ },
+ "walk": {
+  "key": [
+   -41.1,
+   -51.8
+  ],
+  "hand": [
+   27.0,
+   -86.4
+  ],
+  "muzzle": [
+   60.7,
+   -85.8
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-WALK/CHAR-WALK_v2-st0.6_s43.png"
+ },
+ "jab": {
+  "key": [
+   -39.4,
+   -54.6
+  ],
+  "hand": [
+   39.5,
+   -71.2
+  ],
+  "muzzle": [
+   73.0,
+   -68.2
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-JAB/CHAR-JAB_v2-st0.6_s43.png"
+ },
+ "cutlass": {
+  "key": [
+   -38.5,
+   -55.9
+  ],
+  "hand": [
+   42.3,
+   -65.1
+  ],
+  "muzzle": [
+   75.6,
+   -61.0
+  ],
+  "weapon_deg": -18.0,
+  "source": "raw/CHAR-CUTLASS/CHAR-CUTLASS_v2-st0.6_s43.png"
+ },
+ "pop": {
+  "key": [
+   -43.8,
+   -45.8
+  ],
+  "hand": [
+   28.6,
+   -80.4
+  ],
+  "muzzle": [
+   62.0,
+   -84.5
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-POP/CHAR-POP_v2-st0.6_s43.png"
+ },
+ "block": {
+  "key": [
+   -43.2,
+   -47.3
+  ],
+  "hand": [
+   13.5,
+   -93.0
+  ],
+  "muzzle": [
+   47.1,
+   -95.8
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-BLOCK/CHAR-BLOCK_v2-st0.6_s43.png"
+ },
+ "rewind": {
+  "key": [
+   -36.5,
+   -58.5
+  ],
+  "hand": [
+   32.6,
+   -67.2
+  ],
+  "muzzle": [
+   65.6,
+   -60.7
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-REWIND/CHAR-REWIND_v2-st0.6_s43.png"
+ },
+ "hurt": {
+  "key": [
+   -46.3,
+   -36.3
+  ],
+  "hand": [
+   -19.7,
+   -92.9
+  ],
+  "muzzle": [
+   12.1,
+   -103.8
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-HURT/CHAR-HURT_v2-st0.6_s43.png"
+ },
+ "empty": {
+  "key": [
+   -32.1,
+   -63.3
+  ],
+  "hand": [
+   22.9,
+   -44.0
+  ],
+  "muzzle": [
+   54.7,
+   -33.0
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-EMPTY/CHAR-EMPTY_v2-st0.6_s43.png"
+ },
+ "ko": {
+  "key": [
+   -5.1,
+   27.8
+  ],
+  "hand": [
+   -20.5,
+   -29.5
+  ],
+  "muzzle": [
+   -16.3,
+   -62.8
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-KO/CHAR-KO_v2-st0.6_s43.png"
+ },
+ "win": {
+  "key": [
+   -44.4,
+   -44.3
+  ],
+  "hand": [
+   -1.5,
+   -95.7
+  ],
+  "muzzle": [
+   31.8,
+   -100.9
+  ],
+  "weapon_deg": 0.0,
+  "source": "raw/CHAR-WIN/CHAR-WIN_v2-st0.6_s42.png"
+ }
+}
