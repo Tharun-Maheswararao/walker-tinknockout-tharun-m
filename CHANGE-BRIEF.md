@@ -69,3 +69,17 @@ All sounds are played by an `Sfx` helper that **listens** to gameplay signals. G
 | F5 | **Rewind clicks fire every frame** while the key is held (a machine-gun buzz). | Automated test: hold Rewind for exactly 2.0 s. Assert ticks == floor(rewound angle / 90°). |
 | F6 | **Muted play is unreadable:** you can't tell idle from rewinding, or empty from hurt. | Muted playtest (human) plus side-by-side state screenshots. Each state must be identifiable without sound or HUD text. |
 | F7 | **Weapon sprites don't line up with the hand** in generated poses (the anchor moves between poses). | Measure the hand anchor per pose after generation and store the offsets in code. Visually check every weapon pose in-engine. |
+
+## Revision 1 — 2026-10-06 (after building; results in TEST-REPORT.md)
+
+- **New assets:**
+  - `PROP-KEY`: the winding key as a separate sprite, see CHARACTER-SHEET revision 1.
+  - **Cork impact** reuses SFX-JAB at pitch 1.25. There is no separate generated sound for it.
+  - **Blocked hits** play their hit sound at pitch 0.8, still exactly once per hit.
+- **Gameplay rule changes found by testing:**
+  - a 1.5 s pop-gun cooldown for Rivet at round start;
+  - **HURT always returns to IDLE**, which fixes a stun-lock chain at 0 wind;
+  - a fighter with 0 wind cannot walk.
+- **Facing** follows the walk input (it was "always face the opponent").
+- **ENV-TITLE** was not made; the title is an overlay on the arena.
+- Predicted failures F1–F7: outcomes are in TEST-REPORT section 10.

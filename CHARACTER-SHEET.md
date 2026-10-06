@@ -97,3 +97,15 @@ Front, three-quarter, side and back at the same height, with a 112 px height bar
 ## Revisions
 
 *(none yet — generated poses will be added here with their asset-log IDs)*
+
+### Revision 1 — 2026-10-06: generated poses (ASSET-LOG CHAR-REF, CHAR-*)
+
+![generated poses](design/character/generated-poses.png)
+
+- **Accepted reference:** CHAR-REF v6 s40, with painted eyes (`raw/edits/CHAR-REF-eyes.png`; finalists in `design/rejected/CHAR-REF-finalists.jpg`). It adds **two antennae** (a short brass stalk and a taller red-ball stalk). They are now part of the consistency rules and are copied into every pose init.
+- **Poses:** SDXL-Turbo img2img from the spec sketches, at strength 0.6, seed 43 (win: seed 42).
+- **Rule 3 changed:** the winding key is now a **separate sprite** (`PROP-KEY`) at a per-pose back anchor (`godot/assets/fighters/anchors.json`). Code spins it during rewind, because the generated art drew a nozzle there instead of a key.
+- **Rule 2 met by an edit:** two eyes are painted on every pose (half-closed for EMPTY, X for KO).
+- **Facing changed:** the v1 sheet assumed Bolt always faces the opponent. In the slice, **facing follows the walk input**, as the assignment requires and the left art is a runtime flip. Walking away turns your back, and a block only works facing the attacker. That makes "back off to rewind" a real risk. The note that "hits from behind cannot happen" no longer holds: hits from behind land on the same 50×106 hurtbox. The key's overhang behind is still not hittable.
+- **Silhouette re-test** with generated art on the real background: `design/character/silhouette-generated-in-game.png`. The helmet, antennae and boots read; facing is weaker without the key (TEST-REPORT section 2).
+- **Palette re-check** on the real background: `evidence/contrast-F4-recheck.txt`. Rivet's suit is 2.35:1. Bolt's helmet vs. the pink castle is 1.02:1, which is a limitation.

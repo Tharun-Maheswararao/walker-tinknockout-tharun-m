@@ -1,0 +1,5 @@
+F4 re-check (2026-10-06): luminance contrast of each fighter's main colours vs the REAL background behind it
+  bolt  suit   #C84F3D vs background #E68798: 1.78:1
+  bolt  helmet #D09728 vs background #E68798: 1.02:1
+  rivet suit   #76BFAA vs background #7A6D5C: 2.35:1
+  rivet helmet #AA6234 vs background #7A6D5C: 1.08:1
