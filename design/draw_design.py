@@ -76,8 +76,15 @@ POSES = {
 }
 
 
-def bolt_layer(pose: str, pal=PAL, scale: float = 1.0, silhouette: bool = False):
-    """Return an RGBA image of Bolt facing RIGHT with feet at bottom-centre."""
+def bolt_layer(pose: str, pal=PAL, scale: float = 1.0, silhouette: bool = False, ref: bool = False):
+    """Return an RGBA image of Bolt facing RIGHT with feet at bottom-centre.
+
+    ref=True (added 2026-10-06, after CHAR-REF was accepted): draw the img2img
+    init version, which copies the accepted reference's extra features (two
+    antennae, yellow gloves, grey glass) and omits weapon props, which are
+    separate sprites. The default output (the v1 spec sketches) is unchanged."""
+    if ref:
+        pal = dict(pal, steel_glove="#E8B830", glass="#B9C0C6")
     h = H * scale
     w_img, h_img = int(h * 2.2), int(h * 1.6)
     img = Image.new("RGBA", (w_img, h_img), (0, 0, 0, 0))
@@ -119,7 +126,7 @@ def bolt_layer(pose: str, pal=PAL, scale: float = 1.0, silhouette: bool = False)
         u.line([sx, sy, ex, ey], fill=ol, width=int(h * 0.09))
         u.line([sx, sy, ex, ey], fill=c("enamel"), width=int(h * 0.06))
         r = h * 0.065
-        u.ellipse([ex - r, ey - r, ex + r, ey + r], fill=c("steel"), outline=ol, width=ow)
+        u.ellipse([ex - r, ey - r, ex + r, ey + r], fill=pal.get("steel_glove", c("steel")) if not silhouette else ol, outline=ol, width=ow)
         return ex, ey
 
     arm(*ba, front=False)
@@ -131,6 +138,11 @@ def bolt_layer(pose: str, pal=PAL, scale: float = 1.0, silhouette: bool = False)
     # helmet
     hr = h * 0.20
     hx, hy = cx + h * 0.02, hip - th - hr * 0.85
+    if ref:  # the accepted reference's two antennae: short brass stalk + taller red-ball stalk
+        u.line([hx - hr * 0.35, hy - hr * 0.8, hx - hr * 0.6, hy - hr * 1.35], fill=ol, width=int(h * 0.04))
+        u.ellipse([hx - hr * 0.75, hy - hr * 1.5, hx - hr * 0.45, hy - hr * 1.2], fill="#E8B830", outline=ol, width=ow)
+        u.line([hx + hr * 0.1, hy - hr * 0.95, hx + hr * 0.1, hy - hr * 1.6], fill=ol, width=int(h * 0.04))
+        u.ellipse([hx - hr * 0.1, hy - hr * 1.85, hx + hr * 0.3, hy - hr * 1.45], fill="#D8262B", outline=ol, width=ow)
     u.ellipse([hx - hr, hy - hr, hx + hr, hy + hr], fill=c("brass"), outline=ol, width=ow)
     pr = hr * 0.55
     px = hx + hr * 0.30
@@ -148,10 +160,10 @@ def bolt_layer(pose: str, pal=PAL, scale: float = 1.0, silhouette: bool = False)
                 u.ellipse([ex - 2.5, hy - 3, ex + 2.5, hy + 3], fill=ol)
     fx, fy = arm(*fa, front=True)
     # weapon / extras
-    if extra == "cutlass":
+    if extra == "cutlass" and not ref:
         u.line([fx, fy, fx + h * 0.45, fy - h * 0.18], fill=ol, width=int(h * 0.05))
         u.line([fx, fy, fx + h * 0.45, fy - h * 0.18], fill="#000" if silhouette else "#C9CED4", width=int(h * 0.03))
-    if extra == "popgun":
+    if extra == "popgun" and not ref:
         u.rectangle([fx - h * 0.02, fy - h * 0.05, fx + h * 0.28, fy + h * 0.02], fill=c("steel"), outline=ol, width=ow)
         if not silhouette:
             u.ellipse([fx + h * 0.30, fy - h * 0.05, fx + h * 0.38, fy + h * 0.02], fill="#B98A52", outline=ol)
