@@ -1,0 +1,47 @@
+
+== SFX-BELL
+    5.51  SFX-BELL_s1            attack     3ms decay    16ms hits  1 flat 0.300 cen  4671 drop 0.53
+  -70.14  SFX-BELL_s3            attack   781ms decay   118ms hits 19 flat 0.433 cen  4860 drop 1.00
+  -94.95  SFX-BELL_s2            attack   831ms decay   755ms hits 32 flat 0.241 cen  2289 drop 1.67
+
+== SFX-CUTLASS
+   -4.20  SFX-CUTLASS_s2         attack    30ms decay   205ms hits  3 flat 0.377 cen  4594 drop 0.62
+  -11.32  SFX-CUTLASS_s1         attack    35ms decay   180ms hits  5 flat 0.386 cen  3729 drop 1.57
+  -39.24  SFX-CUTLASS_v2_s7      attack    13ms decay   581ms hits 15 flat 0.149 cen  1764 drop 1.07
+  -39.56  SFX-CUTLASS_s3         attack    14ms decay   582ms hits 15 flat 0.197 cen  1837 drop 1.29
+  -40.09  SFX-CUTLASS_v2_s4      attack    14ms decay   580ms hits 15 flat 0.512 cen  4638 drop 0.95
+  -75.60  SFX-CUTLASS_v2_s6      attack   560ms decay    36ms hits  9 flat 0.219 cen  4673 drop 1.28
+  -78.92  SFX-CUTLASS_v2_s5      attack   559ms decay    32ms hits 10 flat 0.315 cen  5334 drop 1.02
+
+== SFX-EMPTY
+    1.08  SFX-EMPTY_v2_s2        attack   411ms decay   986ms hits 35 flat 0.170 cen  2436 drop 1.00
+    0.62  SFX-EMPTY_v2_s3        attack     8ms decay  1388ms hits 35 flat 0.338 cen  4544 drop 0.98
+    0.61  SFX-EMPTY_v2_s1        attack    16ms decay   153ms hits 15 flat 0.083 cen  1254 drop 0.90
+    0.39  SFX-EMPTY_v2_s4        attack  1354ms decay    42ms hits 35 flat 0.411 cen  5078 drop 0.97
+
+== SFX-JAB
+   -2.82  SFX-JAB_s2             attack    22ms decay   113ms hits  2 flat 0.361 cen  3420 drop 1.35
+   -6.54  SFX-JAB_v2_s5          attack    18ms decay    95ms hits  3 flat 0.272 cen  5573 drop 0.93
+  -19.75  SFX-JAB_s3             attack    67ms decay   185ms hits  6 flat 0.575 cen  3228 drop 1.31
+  -21.07  SFX-JAB_s1             attack    38ms decay    53ms hits  7 flat 0.440 cen  4207 drop 0.40
+  -29.53  SFX-JAB_v2_s7          attack    14ms decay   431ms hits 11 flat 0.246 cen  1983 drop 1.02
+  -32.28  SFX-JAB_v2_s4          attack    14ms decay   429ms hits 11 flat 0.509 cen  4737 drop 0.86
+  -52.71  SFX-JAB_v2_s6          attack   412ms decay    35ms hits  5 flat 0.348 cen  5129 drop 1.35
+
+== SFX-POP
+   -4.80  SFX-POP_s2             attack    11ms decay    98ms hits  2 flat 0.288 cen  3446 drop 1.36
+   -9.50  SFX-POP_s1             attack     3ms decay    87ms hits  4 flat 0.325 cen  3137 drop 0.21
+  -13.37  SFX-POP_v2_s5          attack    80ms decay    56ms hits  3 flat 0.394 cen  5610 drop 1.28
+  -24.07  SFX-POP_s3             attack    46ms decay   230ms hits  6 flat 0.573 cen  3211 drop 1.48
+  -38.29  SFX-POP_v2_s4          attack    15ms decay   379ms hits 10 flat 0.413 cen  4670 drop 0.93
+  -38.95  SFX-POP_v2_s7          attack    15ms decay   380ms hits 10 flat 0.111 cen  1769 drop 1.18
+  -55.83  SFX-POP_v2_s6          attack   372ms decay    25ms hits  7 flat 0.288 cen  5286 drop 1.30
+
+== SFX-REWIND
+  -12.95  SFX-REWIND_s2          attack    12ms decay   135ms hits  2 flat 0.294 cen  4568 drop 0.89
+  -18.97  SFX-REWIND_s1          attack     2ms decay   147ms hits  4 flat 0.166 cen  5481 drop 0.57
+  -21.04  SFX-REWIND_v2_s5       attack    17ms decay   153ms hits  4 flat 0.251 cen  5924 drop 1.04
+  -21.34  SFX-REWIND_v2_s6       attack    17ms decay   156ms hits  4 flat 0.196 cen  5674 drop 0.98
+  -21.39  SFX-REWIND_s3          attack    27ms decay   141ms hits  4 flat 0.677 cen  3790 drop 1.01
+  -24.60  SFX-REWIND_v2_s4       attack    14ms decay   160ms hits  5 flat 0.485 cen  4637 drop 0.93
+  -25.78  SFX-REWIND_v2_s7       attack    15ms decay   158ms hits  5 flat 0.143 cen  2194 drop 1.20

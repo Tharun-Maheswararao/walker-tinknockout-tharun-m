@@ -1,0 +1,10 @@
+== SFX-BELL
+    5.51  SFX-BELL_s1            attack     3ms decay    16ms hits  1 flat 0.299 cen  4656 drop 0.52
+   -8.28  SFX-BELL_v2_s14        attack   140ms decay    18ms hits  4 flat 0.416 cen  2697 drop 0.50
+   -9.71  SFX-BELL_v2_s12        attack    43ms decay   756ms hits  9 flat 0.262 cen  4332 drop 1.17
+  -20.30  SFX-BELL_s3            attack   153ms decay    97ms hits 10 flat 0.372 cen  5228 drop 0.99
+  -26.94  SFX-BELL_s2            attack   153ms decay   446ms hits 15 flat 0.097 cen  1762 drop 0.93
+  -39.20  SFX-BELL_v2_s13        attack    12ms decay  1473ms hits 25 flat 0.202 cen  4183 drop 1.02
+  -69.34  SFX-BELL_v2_s11        attack   153ms decay  1341ms hits 37 flat 0.086 cen  1146 drop 1.10
+
+== SFX-CUTLASS

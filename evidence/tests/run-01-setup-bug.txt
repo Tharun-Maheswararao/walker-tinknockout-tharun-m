@@ -1,0 +1,32 @@
+# First run of godot/tests/test_slice.gd (2026-10-06 ~16:00), before fixing the test's setup order.
+# Cause found by frame trace: the test froze Rivet's brain 3 frames AFTER the round started; in
+# those frames Rivet fired a cork that hit Bolt mid-test. Fix: freeze before the round starts
+# (test change), plus a 1.5 s pop-gun cooldown at round start (gameplay change). No assertion was
+# weakened; expected values are unchanged between this run and the passing run.
+FAIL  F2 jab: 8 presses in range -> 8 hits (got 7)
+FAIL  F2 jab: one SFX-JAB per hit (sfx 8, hits 7)
+PASS  held J for 1.5 s -> exactly 1 jab sound (got 1)
+FAIL  F2 cutlass: 5 swings in range -> 5 hits (got 4)
+PASS  F2 cutlass: one SFX-CUTLASS per hit (sfx 4)
+FAIL  pop-gun held 1 s -> 1 shot, 1 SFX-POP (got 2)
+PASS  cork travelled and hit Rivet (hp 90.0)
+FAIL  F5 rewind 2 s from 40 wind -> 6 clicks (one per 10 wind), not one per frame (got 4)
+PASS  F5 no clicks once the spring is full (got 6)
+PASS  wind refilled to 100 (got 100.0)
+PASS  jab with 8 wind -> EMPTY state (state 8)
+PASS  SFX-EMPTY once on entering EMPTY, not repeated while stalled (got 1)
+PASS  bell once at round start (got 1)
+FAIL  jab at 5 hp -> KO round state
+FAIL  bell once more at KO (got 1)
+PASS  music stopped on KO
+FAIL  no repeated KO bell while KO screen stays up (got 1)
+PASS  spring < 25% -> music slowed (pitch 0.85)
+PASS  pause -> Music bus low-pass on
+PASS  pause -> fighters frozen
+PASS  unpause -> low-pass off
+PASS  walking left flips Bolt's sprite (runtime flip)
+PASS  walking right faces right again
+      unmuted end state [59.5, 87.0, 49.35, 14.65, 161.44, 313.0, 2]
+      muted   end state [59.5, 87.0, 49.35, 14.65, 161.44, 313.0, 2]
+PASS  sound never decides state: muted run == unmuted run
+24 checks, 8 failed
