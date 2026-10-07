@@ -22,3 +22,13 @@ raw/
 .env
 .env.*
 credentials/
+
+# Film reel media (youtube/): real 4K gameplay and renders, far over the 25MB limit.
+# The reel's documents, beat sheet and evidence ledger ARE tracked.
+youtube/**/capture/*.mp4
+youtube/**/media/
+youtube/**/audio/
+youtube/**/exports/
+youtube/**/clips/
+youtube/**/mp3/
+youtube/**/_qc/frames/

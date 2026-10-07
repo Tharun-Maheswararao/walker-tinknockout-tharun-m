@@ -8,7 +8,7 @@
 
 | Check | Result |
 |---|---|
-| Fresh clone → `godot --path godot` runs the title screen | ⏳ **to be confirmed on a fresh clone at submission** (section 9) |
+| Fresh clone from GitHub at `f155d18` → import → tests | ✅ 2026-10-06 ~20:15: `git clone` into an empty folder, `godot --headless --path godot --import`, then `test_slice.gd` **25/25** and `check_seam.py` **2/2**. All 22 fighter sprites (11 Bolt + 11 Rivet), 6 SFX, the music, the background and 5 props are present. *Re-run on the final submitted commit before the Canvas upload.* |
 | Enter → "ROUND 1" → bell → FIGHT | ✅ automated: `fresh()` in every test; screenshot `evidence/screens/02-round-intro.png` |
 | A/D move, J jab, K cutlass, L pop-gun, I block, S rewind, Esc pause, M/N mute, R rematch, F1 hitboxes | ✅ automated input path for move, jab, cutlass, pop, rewind and pause (section 7). Block, mute keys, F1 and rematch are exercised by `godot/tools/shots.gd` and the capture driver. |
 | Every state reachable by input | ✅ `evidence/screens/` (some shots **posed**: fighters placed, then a real key press; see `godot/tools/shots.gd`) |

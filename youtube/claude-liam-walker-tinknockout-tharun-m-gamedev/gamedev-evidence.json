@@ -1,0 +1,938 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "game": {
+  "package": "walker-tinknockout-tharun-m",
+  "godot_folder": "godot",
+  "revision": "64c037a",
+  "engine": "4.7.2.stable.official.ed1daf0bf"
+ },
+ "files": [
+  {
+   "path": "assets/env/bowl.png",
+   "sha256": "a2350b7a79664d77baf5ed23eda9b1a5f4c22a5f4fdadefdd776fe3c9a67bf1b",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/env/bowl.png.import",
+   "sha256": "a7443d35c16b039c06a3f4c6ed814bbe33481d292fca8e52a26eefa2daffae5e",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/fighters/anchors.json",
+   "sha256": "b8c55ad52d1bf4ddd251c1175ced59a17a4094e4601fcc6d5f8fec80e5900e3f",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/block.png",
+   "sha256": "b22baf78b3863955730f929a2e47f51b247ae0f64fa4a5dbe0f197e4a6c4dfbe",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/block.png.import",
+   "sha256": "9d5dfec18f0dbb3c8c4d44c60da29b7433a601c598c9a0c22f013b78f2e5d850",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png",
+   "sha256": "1a26e800742436d445d514e8a6bfd8c0b48a071c3abc430601aa0b4ff0fedd95",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png.import",
+   "sha256": "98f6d1cf1505bcb1a8ed8ea40dcf6d5af701c3925156d2a051c94f6973a815d0",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png",
+   "sha256": "189be5d8e7d18e36badd122ec7a8b3891c652c927c0fd84d470a8ae2a145ba77",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png.import",
+   "sha256": "92f3c22c3f4f70ce2f1615b13f60ba1fb8a9d8399df9edca3eabf255c9806ce8",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png",
+   "sha256": "bfaecb8be872a806e03d434831817f1ff9276ec2a481f45a6543c9fc910c446c",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png.import",
+   "sha256": "1eea27092a312da8e6a71296f1041ec27bde4cff9288a04ddd1279203fc275f0",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png",
+   "sha256": "adf8f8a5e7da567b926083de343bc40d1cda6ff37310f7ba0a51c2deda3454fa",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png.import",
+   "sha256": "8d6935d047fb40071f8110aa76da288f52661abc26126428347c42ceacbf9d2b",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png",
+   "sha256": "7a4e513e4c86c623efa2134aca398202c66b2eccb2c81f1e6ee78d5b6c730a2d",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png.import",
+   "sha256": "b11f6589eac8cf9069aee5231da08228d8bc92ddcc3b6ad628042289e37bc16e",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png",
+   "sha256": "62930fe9cfcccf905b9fdaca32e9a3aeedbc338ac1c6083a8cf05afc394134bf",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png.import",
+   "sha256": "89e1799de609fd4b504efaeb0298d16fabd0dad08095c466e8288a581ed6cc46",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png",
+   "sha256": "65d02a9fba6d0d2800c13e3ef21a172dfe4bb210f86e3ca087e6da7a8766f90c",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png.import",
+   "sha256": "dd47a52382b8715517abe0631b884cd52e64fc3c12d9e3fc81b696ce52e6573e",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png",
+   "sha256": "d104845f64b9799410c0b3c53c81ebc8048f268b997540abbeb678e6793c0b45",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png.import",
+   "sha256": "100de195b6ac060cf8146f179a8439216dadee244d7408e5dc464c1f988fa63b",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png",
+   "sha256": "a7cf7d30ea3447498e2b594c5e19a3ad7419603d59dce34da8eee1b941a67878",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png.import",
+   "sha256": "fc363ff7b8366a2f4774bfcb2685cfbb5fcdc17db4a07b826fdf748c4a8509ad",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/win.png",
+   "sha256": "631de4c9e4b64830d3003b81d3dd100e9e88cb2c0a82ecbdc85978695db27866",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/bolt/win.png.import",
+   "sha256": "6693cd5ef809764829d0dca395b28b70b5dad20c34fe7c11050d64531a025e71",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/block.png",
+   "sha256": "c07caa65d273ff2e9aca47cfdffda798242c291de3fd198daa188242264585ec",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/block.png.import",
+   "sha256": "0b54774db5e4bd0af2840f37e3c70f3df0a0382ee1bf46b86405e0712de343d2",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png",
+   "sha256": "02f2b84bb525db5de4deefd1d29de799a0febab66de30436877aac0e0acdbe84",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png.import",
+   "sha256": "5c71b7ccbf4505eee3e2b526cd9dde9aee7071fe0bde7935074275209d328f2c",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png",
+   "sha256": "d3d8731cd19c9613abd1147022ef15d79e1664b5f104d488156ec5ff95109735",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png.import",
+   "sha256": "8f0c87ade24e5fa420524cc0eca890f7cff0d13ff372ff9b754a5f48a3e8f0e5",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png",
+   "sha256": "47c88435efc0a0a0202f5ae516ae04c0b5842631f3d92083bb5b5e7e98744ed7",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png.import",
+   "sha256": "e3456b22ada4afbbca8231445c32c7f6240a4399e577dac5a13c8b42e05dc865",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png",
+   "sha256": "d2e1150344395d715f50c53fea8ef92238f7638aa26b7d08c073fcaca8d31668",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png.import",
+   "sha256": "fa5dae14eb064fe40e4371739554ecdf68f4dea2b04095d33381376678d503c4",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png",
+   "sha256": "40442e170983a9860fe0792f40e688b2ae662162779f116e0914b3620e66c6cb",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png.import",
+   "sha256": "66d306b99c7e781e861055a599259b8d011d84e4e5a67c2cae14fcb0fb106cfb",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png",
+   "sha256": "2b9c110c415c8fbb7344d9e005312ae30bb94c92b3fd7d1288b7f743e9336b2e",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png.import",
+   "sha256": "918e78d8f633c97f53260270bbaa083333a5f072ebd0b7fa4b97a6d396707f55",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png",
+   "sha256": "e9abf1e50366740dbd6f2c2bcba2c05230b02724f2ff93984f066b3b50eef992",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png.import",
+   "sha256": "74531d74c00d3c28c266bc2f7943066043d859248c0456c8ac6297068abfed33",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png",
+   "sha256": "6086e280d784ac34c2f79a809b01f135c08c7f8b7f13914e916667935f9a3bd3",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png.import",
+   "sha256": "353eaceeb57b5983a8373b210f0b0e9ea6b8470621ca15e700b0e3026c801a19",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png",
+   "sha256": "77577ad595bb86f5cc729901f8dab96ea139543ce7b8a726eb2321916db4379a",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png.import",
+   "sha256": "aee2d13bd0b5674ff80089a102f355fe0cfc990119b9b9528076d92e6d75cc21",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/win.png",
+   "sha256": "ec392f3ba4c1ae9116f83fa691f78c6e3074e6b78eeaa31a8e9d5b7735beca8a",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/fighters/rivet/win.png.import",
+   "sha256": "2ce1af7528ce7cf5c0918b554f033a87dc0dd15b45f0e527cdf16c6132e509f5",
+   "role": "fighter pose texture, import settings or anchor data",
+   "component_ids": [
+    "fighter-art"
+   ]
+  },
+  {
+   "path": "assets/music/waltz.ogg",
+   "sha256": "596ac2d463f7bd9f6c8deb0dc13f0ca745c1a29a1e58f91d076215b40a9dd846",
+   "role": "music controller / MusicGen loop / Music+SFX bus layout with PauseMuffle low-pass",
+   "component_ids": [
+    "music"
+   ]
+  },
+  {
+   "path": "assets/music/waltz.ogg.import",
+   "sha256": "a4764fab50c7655cacaaa3e13f2302fb8f77d47cec9f20634fcb5d66042bb005",
+   "role": "music controller / MusicGen loop / Music+SFX bus layout with PauseMuffle low-pass",
+   "component_ids": [
+    "music"
+   ]
+  },
+  {
+   "path": "assets/props/cork.png",
+   "sha256": "09f6081a5a8132393d435b94277e66cc661a7eddb7684616f975635b1ea6b1cb",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/cork.png.import",
+   "sha256": "161f8ce365988374d1b69c926b522bfb4c3b21e82f4c059b53a1a2651bafc8f5",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/cutlass.png",
+   "sha256": "2d8c48f5bf28573c027606e350cba3046d77b7c4db480ee17efc55174eb1315d",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/cutlass.png.import",
+   "sha256": "f0b4a9df0200eabe4702b883b5da674299440d8a0e7ecdfb4ef595366948f091",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/key-bolt.png",
+   "sha256": "d09109009b002eeab1bf71158bfc78d645c4452cf267c8a6389464072ddd934b",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/key-bolt.png.import",
+   "sha256": "5fb9c5afb983865b41b561b416b79e00768241fafdaba59535b01e9e546ebc8d",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/key-rivet.png",
+   "sha256": "cb258c143179d1aff1cada2377b36ce7094029a9f64f7e84df8b9847d1fb657b",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/key-rivet.png.import",
+   "sha256": "d6930509eed0876f0bf705470b92491e8dea5fef5eed8e748e810a82ab3f5e7e",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/popgun.png",
+   "sha256": "a46dfde1e36b12eafcd902dd36b564401014ce145495771c9fc0f2c9d43c8bef",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/props/popgun.png.import",
+   "sha256": "aa74257e63b8267dafdbb7343ff34434a897f98b66792115fe439c270b441ebd",
+   "role": "prop or environment texture / import settings",
+   "component_ids": [
+    "props-env"
+   ]
+  },
+  {
+   "path": "assets/sfx/bell.ogg",
+   "sha256": "e9727e8785e528d407f02ad0aaea8f5a56fee0d9d84dcbf1f95d9bf44a429cc4",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/bell.ogg.import",
+   "sha256": "36cd40095275512ef20a6017af7e18608b979f63ca077ab4ca4b97a2faba861f",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg",
+   "sha256": "250e6bd5f366dd6fd4b8a0eb8820964cc6dc6871a9ca939d27312ec89b2c4888",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg.import",
+   "sha256": "a05da173b127efa4ad0a7580f8e0c2c3f63283a14573db620f3c57f156c9cf7b",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/empty.ogg",
+   "sha256": "9ff89569120f7c65e405f1deb946d0aa158b41e78a9d0cdfd73597c053c7bba0",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/empty.ogg.import",
+   "sha256": "15cc6620a35b9ebb2d3f456c0bd2494b8b9b88396536d0266ddc84799062c441",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/jab.ogg",
+   "sha256": "051905302bfd18de214487034bf05becb900c329b8d81d8d7d00690a9458788e",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/jab.ogg.import",
+   "sha256": "e26d5e674fd7a1a57b9610195056d74ffd887298f9df8450e50ec3d2ae673ba0",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/pop.ogg",
+   "sha256": "59dbaf51018ad5821eda95740018b6edb02aaecce176e35e6324415474b51252",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/pop.ogg.import",
+   "sha256": "78018306b2e484d15b32e7eae0500cccfcd7dbc11f077b72c538b196d090d3f2",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/rewind.ogg",
+   "sha256": "e7861427892e4b989c3cb7467d620b178f4ebf4ae98a125f724c03ad40445337",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "assets/sfx/rewind.ogg.import",
+   "sha256": "c6b26a836b7460cc31610e7a0e35e007c776a454e65a3e07ed906a773f91cb7b",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "audio/music.gd",
+   "sha256": "cbcb365c34d223586d335492ce2543b59ac5df04868517ad879816ef93767bd9",
+   "role": "music controller / MusicGen loop / Music+SFX bus layout with PauseMuffle low-pass",
+   "component_ids": [
+    "music"
+   ]
+  },
+  {
+   "path": "audio/sfx.gd",
+   "sha256": "c2665b629cc55855d1fc0a214d9e83940a33f0abd2eb16bae84d5294392485d2",
+   "role": "sound-effect listener / AudioLDM 2 sound asset or its import settings",
+   "component_ids": [
+    "sfx"
+   ]
+  },
+  {
+   "path": "default_bus_layout.tres",
+   "sha256": "e2c3406c316ae81b7ca486fc40d56800c6daf747c296b254f05a509d39439565",
+   "role": "music controller / MusicGen loop / Music+SFX bus layout with PauseMuffle low-pass",
+   "component_ids": [
+    "music"
+   ]
+  },
+  {
+   "path": "fighter/cork.gd",
+   "sha256": "dc99530db75f62288e520dbe69ea429e97103427cb61b22451bedc0d5701c001",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "fighter/fighter.gd",
+   "sha256": "78bdc73ccb7f1995e7fdf0d27dedaac171fe1a1989de20056ca2411ffa6546d2",
+   "role": "runtime script: fighter state machine and presentation",
+   "component_ids": [
+    "fighter"
+   ]
+  },
+  {
+   "path": "fighter/rivet_brain.gd",
+   "sha256": "7fdf6f047d4606444d919fa2514577ab37978cbf793344e2b8c6c1c821c229e3",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "game/controls.gd",
+   "sha256": "bbe072fa687a941fbe277e43c730eda4ecc84a0255ea8decb8170e0515a71a6e",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "game/main.gd",
+   "sha256": "c54fe180b305a33c5abbde2899fe258d697f0acf4269ea3fba9fe2e4d17f7822",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "game/main.tscn",
+   "sha256": "8b7f80273f3f379c15e09ca8240b86cf265504178918e0f81492f1f140e78543",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "project.godot",
+   "sha256": "5cfb4804e5d0a92baa2ab40e1c1aef75b84c0a931bbac4e6546a3516334b6823",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  },
+  {
+   "path": "tests/test_slice.gd",
+   "sha256": "41b105a92e6b579fb14412554cfa28a2ff623dd2b4cdff66166fd6c1b506ffd6",
+   "role": "headless test script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tools/capture_film.gd",
+   "sha256": "468a06864975fea5e4aeb47b2c1b9ae7ac72cc1da305eb66688bb0e3769a833d",
+   "role": "evidence capture tool (not loaded by the game)",
+   "component_ids": [
+    "film-tools"
+   ]
+  },
+  {
+   "path": "tools/shots.gd",
+   "sha256": "70709fc3deb8c2ea5fc5d4110fec98e8b62fea3dc0373aa696bc28017b0f9c02",
+   "role": "evidence capture tool (not loaded by the game)",
+   "component_ids": [
+    "film-tools"
+   ]
+  },
+  {
+   "path": "ui/hud.gd",
+   "sha256": "215cb445be683e749a5815d90ce1837ce12c8e61b71aa78d430ebdbed0ad9d91",
+   "role": "runtime script, scene or project configuration",
+   "component_ids": [
+    "round-flow"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "fighter",
+   "explanation": "Fighter state machine (IDLE/WALK/JAB/CUTLASS/POP/BLOCK/REWIND/HURT/EMPTY/KO/WIN), spring/wind economy, hitboxes and the code-created Sprite2D presentation. Emits signals only; never touches audio.",
+   "beat_ids": [
+    "B04",
+    "B06",
+    "B07"
+   ],
+   "files": [
+    "fighter/fighter.gd"
+   ]
+  },
+  {
+   "id": "sfx",
+   "explanation": "Event sounds: audio/sfx.gd listens to hit_landed, projectile_fired, rewind_tick and state_changed and plays one AudioLDM 2 sound per event; the six OGG files and their import settings.",
+   "beat_ids": [
+    "B08",
+    "B09"
+   ],
+   "files": [
+    "assets/sfx/bell.ogg",
+    "assets/sfx/bell.ogg.import",
+    "assets/sfx/cutlass.ogg",
+    "assets/sfx/cutlass.ogg.import",
+    "assets/sfx/empty.ogg",
+    "assets/sfx/empty.ogg.import",
+    "assets/sfx/jab.ogg",
+    "assets/sfx/jab.ogg.import",
+    "assets/sfx/pop.ogg",
+    "assets/sfx/pop.ogg.import",
+    "assets/sfx/rewind.ogg",
+    "assets/sfx/rewind.ogg.import",
+    "audio/sfx.gd"
+   ]
+  },
+  {
+   "id": "music",
+   "explanation": "MusicGen waltz loop and its controller: quiet on title, full in fight, pitch 0.85 below 25% spring, low-pass on pause via the Music bus effect, stops on KO.",
+   "beat_ids": [
+    "B08",
+    "B12",
+    "B13"
+   ],
+   "files": [
+    "assets/music/waltz.ogg",
+    "assets/music/waltz.ogg.import",
+    "audio/music.gd",
+    "default_bus_layout.tres"
+   ]
+  },
+  {
+   "id": "fighter-art",
+   "explanation": "SDXL-Turbo fighter poses (Bolt; Rivet = palette recolour), 480x450 canvases with the feet at (240,435), plus anchors.json for key/hand/muzzle positions.",
+   "beat_ids": [
+    "B03",
+    "B05"
+   ],
+   "files": [
+    "assets/fighters/anchors.json",
+    "assets/fighters/bolt/block.png",
+    "assets/fighters/bolt/block.png.import",
+    "assets/fighters/bolt/cutlass.png",
+    "assets/fighters/bolt/cutlass.png.import",
+    "assets/fighters/bolt/empty.png",
+    "assets/fighters/bolt/empty.png.import",
+    "assets/fighters/bolt/hurt.png",
+    "assets/fighters/bolt/hurt.png.import",
+    "assets/fighters/bolt/idle.png",
+    "assets/fighters/bolt/idle.png.import",
+    "assets/fighters/bolt/jab.png",
+    "assets/fighters/bolt/jab.png.import",
+    "assets/fighters/bolt/ko.png",
+    "assets/fighters/bolt/ko.png.import",
+    "assets/fighters/bolt/pop.png",
+    "assets/fighters/bolt/pop.png.import",
+    "assets/fighters/bolt/rewind.png",
+    "assets/fighters/bolt/rewind.png.import",
+    "assets/fighters/bolt/walk.png",
+    "assets/fighters/bolt/walk.png.import",
+    "assets/fighters/bolt/win.png",
+    "assets/fighters/bolt/win.png.import",
+    "assets/fighters/rivet/block.png",
+    "assets/fighters/rivet/block.png.import",
+    "assets/fighters/rivet/cutlass.png",
+    "assets/fighters/rivet/cutlass.png.import",
+    "assets/fighters/rivet/empty.png",
+    "assets/fighters/rivet/empty.png.import",
+    "assets/fighters/rivet/hurt.png",
+    "assets/fighters/rivet/hurt.png.import",
+    "assets/fighters/rivet/idle.png",
+    "assets/fighters/rivet/idle.png.import",
+    "assets/fighters/rivet/jab.png",
+    "assets/fighters/rivet/jab.png.import",
+    "assets/fighters/rivet/ko.png",
+    "assets/fighters/rivet/ko.png.import",
+    "assets/fighters/rivet/pop.png",
+    "assets/fighters/rivet/pop.png.import",
+    "assets/fighters/rivet/rewind.png",
+    "assets/fighters/rivet/rewind.png.import",
+    "assets/fighters/rivet/walk.png",
+    "assets/fighters/rivet/walk.png.import",
+    "assets/fighters/rivet/win.png",
+    "assets/fighters/rivet/win.png.import"
+   ]
+  },
+  {
+   "id": "props-env",
+   "explanation": "Bowl background, winding keys, cutlass, pop-gun and cork textures (SDXL-Turbo, edited).",
+   "beat_ids": [
+    "B02",
+    "B03"
+   ],
+   "files": [
+    "assets/env/bowl.png",
+    "assets/env/bowl.png.import",
+    "assets/props/cork.png",
+    "assets/props/cork.png.import",
+    "assets/props/cutlass.png",
+    "assets/props/cutlass.png.import",
+    "assets/props/key-bolt.png",
+    "assets/props/key-bolt.png.import",
+    "assets/props/key-rivet.png",
+    "assets/props/key-rivet.png.import",
+    "assets/props/popgun.png",
+    "assets/props/popgun.png.import"
+   ]
+  },
+  {
+   "id": "round-flow",
+   "explanation": "main.gd round flow (TITLE→INTRO→FIGHT→KO), player input reading, collision gap, corks, hit sparks/shake; main.tscn holds only the root node (everything else is created in code); controls.gd autoload registers input actions; hud.gd draws health bars and spring dials; rivet_brain.gd is Rivet's deterministic pattern controller; cork.gd the projectile.",
+   "beat_ids": [
+    "B02",
+    "B07",
+    "B09",
+    "B14"
+   ],
+   "files": [
+    "fighter/cork.gd",
+    "fighter/rivet_brain.gd",
+    "game/controls.gd",
+    "game/main.gd",
+    "game/main.tscn",
+    "project.godot",
+    "ui/hud.gd"
+   ]
+  },
+  {
+   "id": "tests",
+   "explanation": "tests/test_slice.gd: 25 headless checks through real input, including muted run == unmuted run.",
+   "beat_ids": [
+    "B11",
+    "B12"
+   ],
+   "files": [
+    "tests/test_slice.gd"
+   ]
+  },
+  {
+   "id": "film-tools",
+   "explanation": "tools/capture_film.gd (scripted-input Movie Maker driver for fight-4k) and tools/shots.gd (in-engine screenshots, some POSED).",
+   "beat_ids": [
+    "B05",
+    "B07",
+    "B09"
+   ],
+   "files": [
+    "tools/capture_film.gd",
+    "tools/shots.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B04",
+   "path": "fighter/fighter.gd",
+   "start_line": 71,
+   "end_line": 74,
+   "text": "func _ready() -> void:\n\tsprite = Sprite2D.new()\n\tsprite.centered = false   # offset = -FEET puts the feet on the node origin (was double-shifted when centred)\n\tadd_child(sprite)"
+  },
+  {
+   "beat_id": "B06",
+   "path": "fighter/fighter.gd",
+   "start_line": 206,
+   "end_line": 214,
+   "text": "\tif wind >= MAX_WIND:\n\t\treturn                  # full: the key stops turning, no more clicks\n\tcrank_deg += CRANK_DEG_PER_S * dt\n\twhile crank_deg >= 90.0 and wind < MAX_WIND:\n\t\tcrank_deg -= 90.0\n\t\twind = minf(MAX_WIND, wind + WIND_PER_CLICK)\n\t\twind_changed.emit(self, wind)\n\t\trewind_tick.emit(self)\n\tkey_spin = crank_deg"
+  },
+  {
+   "beat_id": "B08",
+   "path": "audio/sfx.gd",
+   "start_line": 30,
+   "end_line": 36,
+   "text": "func watch(f: Fighter) -> void:\n\tf.hit_landed.connect(func(_a, attack, blocked): play(attack if attack != \"pop\" else \"jab\", 0.8 if blocked else 1.0))\n\tf.projectile_fired.connect(func(_f): play(\"pop\"))\n\tf.rewind_tick.connect(func(_f): play(\"rewind\", 1.0 + 0.04 * (_f.wind / 100.0)))\n\tf.state_changed.connect(func(_f, _old, new_state):\n\t\tif new_state == Fighter.S.EMPTY:\n\t\t\tplay(\"empty\"))"
+  },
+  {
+   "beat_id": "B11",
+   "path": "tests/test_slice.gd",
+   "start_line": 207,
+   "end_line": 212,
+   "text": "func test_mute_does_not_change_game() -> void:\n\tvar a: Array = await scripted_fight(false)\n\tvar b: Array = await scripted_fight(true)\n\tprint(\"      unmuted end state \", a)\n\tprint(\"      muted   end state \", b)\n\tok(a == b, \"sound never decides state: muted run == unmuted run\")"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Version-control ignore list (.godot/, *.import.tmp); not loaded by the engine and not part of the playable system."
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B04",
+   "result_beat": "B05",
+   "observation": "Same posed jab, before vs after sprite.centered = false: before, both toys are drawn up-left of their green hurtboxes while the winding keys stay at the feet; after, the art stands inside the box.",
+   "media": {
+    "path": "evidence/B05-before-after.png",
+    "sha256": "b4881644be6fc6fa38dc01020a85ed382f44b79c9201578b6bacd4b706800f62"
+   }
+  },
+  {
+   "code_beat": "B06",
+   "result_beat": "B07",
+   "observation": "fight-4k 10.5–23.5 s: Bolt holds S (REWIND, \"rewinding\" tag), stands still while the key spins and his spring dial climbs; Rivet lands hits; later both fighters rewind side by side.",
+   "media": {
+    "path": "media/B07.mp4",
+    "sha256": "ee00e3a54c3c327bdc8ba89d630a22381e869a092618c54a1173a3fc37e6181f"
+   }
+  },
+  {
+   "code_beat": "B08",
+   "result_beat": "B09",
+   "observation": "fight-4k 1.8–18.9 s: jab exchange with sparks/hitstop, BLOCK and HURT poses, Bolt's pop-gun shot, then the EMPTY tag; each event is one emitted signal (sounds heard in B10, not under narration).",
+   "media": {
+    "path": "media/B09.mp4",
+    "sha256": "23403f82ddffe3fb4ca3be1b4c94c56d38be635603ce53d0408a04391502eb84"
+   }
+  },
+  {
+   "code_beat": "B11",
+   "result_beat": "B12",
+   "observation": "Recorded output of a fresh isolated run: 25 checks, 0 failed; muted and unmuted end states identical; check_seam.py PASS; engine exit warnings shown as printed.",
+   "media": {
+    "path": "evidence/B12-test-output.png",
+    "sha256": "daa6e9496e4cca5943c6759bc16e0552a641a4a56d2a8ae20c92d0e97287a0a2"
+   }
+  }
+ ]
+}

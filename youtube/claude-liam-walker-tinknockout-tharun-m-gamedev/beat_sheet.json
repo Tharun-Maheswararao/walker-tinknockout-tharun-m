@@ -1,0 +1,911 @@
+{
+  "metadata": {
+    "title": "Tin Knockout, Taken Apart",
+    "slug": "claude-liam-walker-tinknockout-tharun-m-gamedev",
+    "topic": "WALKER · GAME DEVELOPMENT",
+    "kind": "godot-gamedev",
+    "playlist": "Walker",
+    "brand": "claude-liam",
+    "audience": "CSYE 7270 reviewers and Walker users",
+    "register": "Teardown",
+    "engine": "kokoro",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "aspect_ratio": "16:9",
+    "captions": false,
+    "channel_title": "@NikBearBrown",
+    "channel": "@NikBearBrown",
+    "presenter": "Liam (in for Bear)",
+    "persona": "Liam (in for Bear)",
+    "episode_id": "walker-tinknockout-tharun-m",
+    "mode": "walker",
+    "game": {
+      "name": "walker-tinknockout-tharun-m",
+      "revision": "64c037a",
+      "godot_path": "godot",
+      "engine_version": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "student": "Tharun Maheswararao",
+    "course": "CSYE 7270 Fall 2026 · Assignment 2",
+    "note": "Walker-mode godot-gamedev film of walker-tinknockout-tharun-m at revision 64c037a. Gameplay is native 3840x2160 Godot Movie Maker capture driven by scripted input through Input.action_press/release (no state writes). B10 is the un-narrated game-audio segment (clock=source, audio_policy=preserve). B00 is an illustrative reconstruction, not a transcript. Editor views are labelled reconstructions.",
+    "build": {
+      "at": "2026-10-06T20:46:30",
+      "cut": "master",
+      "filled": 16,
+      "of": 16,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "role_note": "COLD OPEN / walker B00 — ClaudeComposerAsk. Illustrative reconstruction, not a transcript.",
+      "narration_text": "Hola, this is Liam, in for Bear. Today we take apart Tin Knockout, Tharun Maheswararao's Godot slice for assignment two: a tin wind-up diver toy boxing his repainted twin in a goldfish bowl, after the toy shop closes. The prompt on screen is an illustrative reconstruction, not a saved transcript.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "card lands on cream"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Hola, Liam",
+            "topic": "WALKER · GAME DEVELOPMENT",
+            "segment": "walker-tinknockout-tharun-m",
+            "command": "Please use Walker to convert my game design document about a tin wind-up deep-sea-diver toy who boxes his repainted twin in an empty goldfish bowl after the toy shop closes, where every move unwinds his spring, into a playable Godot slice.",
+            "runningText": "reading the GDD…",
+            "output": [
+              "■ walker-tinknockout-tharun-m  ·  Godot 4.7.2  ·  64c037a",
+              "  PLAYER   Bolt  ·  OPPONENT  Rivet (pattern, not AI)",
+              "  SPRING   every move costs wind  ·  hold S to rewind",
+              "  ASSETS   SDXL-Turbo art · AudioLDM 2 SFX · MusicGen waltz",
+              "  RECONSTRUCTED PROMPT — illustrative, not a transcript"
+            ],
+            "durationSeconds": 17.88
+          }
+        }
+      },
+      "estimated_duration_s": 20,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.88,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 17.9,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "role_note": "walker B01 — what was built and what this film explains. Hesitant writer; the correction is the misconception the body dismantles (sound does not drive the fight).",
+      "lead_silence_s": 0.8,
+      "narration_text": "Tin Knockout is one round of toy boxing where every move costs wind. The fight drives the sounds, never the other way round. So this film reads a few lines of code, then shows you what each one does on screen.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "card lands on cream"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Tin Knockout: one round of toy boxing\nwhere every move costs wind.\nSound decides the fight.",
+            "triggerWords": "decides",
+            "replacementWords": "follows",
+            "charMs": 18,
+            "mistakeRate": 3,
+            "hesitateBetween": 8,
+            "seed": "claude-liam-walker-tinknockout-tharun-m-gamedev",
+            "face": "serif",
+            "fontSize": 110,
+            "lineSpacing": 2.1,
+            "align": "left",
+            "ink": "#2b2118",
+            "durationSeconds": 11.86
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-10-07T00:35:21.157504+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 16,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 11.86,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 11.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "CONCEPT",
+      "role_note": "Concept and the four pillars, plainly, over a real engine frame.",
+      "narration_text": "The concept, plainly. You are Bolt, a tin wind-up deep-sea-diver toy. Rivet is the same toy, repainted copper and verdigris. The spring in your back is your stamina. Every punch, cutlass swing and cork pop-gun shot unwinds it, and so does walking. Hold S to rewind: one ratchet click per quarter turn, ten wind each, but rewinding locks you in place. Run down to zero and the toy stalls, empty. Get hit while rewinding or empty, and you are knocked down. Four pillars: every move costs wind, tin you can hear, read the fight at a glance, and toys after closing.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "evidence/B02-concept-pillars.png",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "real 4K engine frame beside the four CONCEPT.md pillars"
+          }
+        ],
+        "note": "Composite of real files, built by _tools/make_media.py; shown as media/B02.png."
+      },
+      "estimated_duration_s": 34,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 31.57,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 31.6,
+      "build": {
+        "status": "STILL",
+        "src": "media/B02.png",
+        "filled_by": "still",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "ASSET_TRACE",
+      "role_note": "One asset traced design → prompt → raw → edits → in-engine: CHAR-JAB.",
+      "narration_text": "One asset, traced end to end: the jab. It starts as a spec: pose P04 on a pose sheet Claude drew in code, and panel three of the storyboard. That pose became a flat init sketch. SDXL-Turbo, image to image, at strength zero point six, eight steps, seed forty-three, turned it into this raw five twelve square output, from the prompt on screen. The first pose batch drifted off-model, the failure predicted as F1, so it was rejected and redone against one reference image, which Tharun picked from four finalists. Then an edit script removed the background with rembg, painted two eyes on the helmet glass, and scaled him to three hundred thirty-six pixels, feet at two forty, four thirty-five. Rivet is the same file, recoloured. And in the engine, the jab lands.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "evidence/B03-jab-asset-trace.png",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "spec → init → candidates → raw → edited → in-engine, with prompt and settings"
+          }
+        ],
+        "note": "Composite of real files, built by _tools/make_media.py; shown as media/B03.png."
+      },
+      "estimated_duration_s": 45,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 41.57,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 41.6,
+      "build": {
+        "status": "STILL",
+        "src": "media/B03.png",
+        "filled_by": "still",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "MECHANISM",
+      "role_note": "Cause → effect, the cause: sprite.centered = false in fighter.gd.",
+      "narration_text": "Here is the cause and effect. In fighter dot g d, line seventy-two creates the sprite, and line seventy-three sets centered to false. Every pose is drawn on a four eighty by four fifty canvas with the feet at two forty, four thirty-five, and line two sixty-seven already offsets the sprite by minus those feet. Leave it centred, and the art is shifted twice.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "fighter/fighter.gd:71-74 at reading size"
+          }
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "The Sprite Anchor Fix",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://fighter/fighter.gd  ·  lines 71–74  ·  revision 64c037a",
+            "source": "Godot editor reconstruction · godot/fighter/fighter.gd lines 71–74 at 64c037a, verbatim",
+            "code": "func _ready() -> void:\n\tsprite = Sprite2D.new()\n\tsprite.centered = false   # offset = -FEET puts the feet on the node origin (was double-shifted when centred)\n\tadd_child(sprite)",
+            "startLine": 71,
+            "codeFontSize": 34,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "FEET (line 261)",
+                "value": "Vector2(240, 435)\nfeet inside each 480×450 canvas"
+              },
+              {
+                "label": "line 267",
+                "value": "sprite.offset = -FEET"
+              },
+              {
+                "label": "Before the fix",
+                "value": "centred AND offset:\nshifted twice"
+              }
+            ],
+            "cues": [
+              {
+                "at": 3.09,
+                "line": 72,
+                "label": "Sprite2D created in code (not in main.tscn)"
+              },
+              {
+                "at": 5.24,
+                "line": 73,
+                "label": "centered = false: offset alone places the feet"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 19.71
+          }
+        }
+      },
+      "estimated_duration_s": 20,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.71,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 19.733333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "RESULT",
+      "role_note": "Result of B04: before/after posed engine renders with the F1 hitbox overlay.",
+      "narration_text": "And here is the result. The green boxes are the hurtboxes, drawn by the F1 debug overlay. Both shots are posed: the fighters were placed, then a real jab input. On the left, before the fix, both toys are drawn about eighty pixels up and left of their own hurtboxes, while the winding keys stay put, so a toy would be hit where it is not drawn. On the right, after that one line, the art stands inside the box it is hit by.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "evidence/B05-before-after.png",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "before (sprite offset bug) vs after, same posed jab, hitbox overlay on"
+          }
+        ],
+        "note": "Composite of real files, built by _tools/make_media.py; shown as media/B05.png."
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.31,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 21.333333333333332,
+      "build": {
+        "status": "STILL",
+        "src": "media/B05.png",
+        "filled_by": "still",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "MECHANISM",
+      "role_note": "Spring mechanism: _rewind turns the key, adds wind per quarter turn, emits rewind_tick.",
+      "narration_text": "Now the spring. This function runs while S is held. Line two oh eight turns the key three hundred and sixty degrees a second. Every ninety degrees, line two eleven adds ten wind, and line two thirteen emits rewind tick: one ratchet click per quarter turn. Line two oh seven stops the clicks once the spring is full. Nothing here plays a sound. It only announces the click.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "fighter/fighter.gd:206-214 at reading size"
+          }
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Rewinding the Spring",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://fighter/fighter.gd  ·  lines 206–214  ·  revision 64c037a",
+            "source": "Godot editor reconstruction · godot/fighter/fighter.gd lines 206–214 at 64c037a, verbatim",
+            "code": "\tif wind >= MAX_WIND:\n\t\treturn                  # full: the key stops turning, no more clicks\n\tcrank_deg += CRANK_DEG_PER_S * dt\n\twhile crank_deg >= 90.0 and wind < MAX_WIND:\n\t\tcrank_deg -= 90.0\n\t\twind = minf(MAX_WIND, wind + WIND_PER_CLICK)\n\t\twind_changed.emit(self, wind)\n\t\trewind_tick.emit(self)\n\tkey_spin = crank_deg",
+            "startLine": 206,
+            "codeFontSize": 34,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "CRANK_DEG_PER_S (line 30)",
+                "value": "360.0"
+              },
+              {
+                "label": "WIND_PER_CLICK (line 31)",
+                "value": "10.0  (one quarter-turn)"
+              },
+              {
+                "label": "Inside _rewind() (202–214)",
+                "value": "step() calls it while\nstate == REWIND (S held)"
+              }
+            ],
+            "cues": [
+              {
+                "at": 2.86,
+                "line": 208,
+                "label": "the key turns 360° per second"
+              },
+              {
+                "at": 7.74,
+                "line": 211,
+                "label": "+10 wind per 90°"
+              },
+              {
+                "at": 9.75,
+                "line": 213,
+                "label": "emit rewind_tick — no audio here"
+              },
+              {
+                "at": 13.19,
+                "line": 206,
+                "label": "full spring: no more clicks"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 19.52
+          }
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.52,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 19.533333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "RESULT",
+      "role_note": "Result of B06: real capture, Bolt rewinding (REWIND state), locked in place, HUD spring dial.",
+      "narration_text": "Scripted input, real engine. Bolt's spring dial is in the red. He holds S, the key on his back spins and the dial climbs, but he is locked in place, and Rivet's hits land. Then both toys stand still and rewind, side by side.",
+      "shot": {
+        "type": "SCREEN",
+        "capture_kind": "godot-movie-maker gameplay capture (CAPTURE)",
+        "source": "godot-movie-maker",
+        "motion": "hold",
+        "capture_clip": "fight",
+        "label": "SCRIPTED INPUT",
+        "capture_window_s": [
+          10.5,
+          23.51
+        ],
+        "evidence_media": "media/B07.mp4",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "Bolt at the left wall: HURT, REWIND, both fighters rewinding, then the walk back in"
+          }
+        ]
+      },
+      "qc": {
+        "contrast_regions": [
+          {
+            "label": "film-label-top",
+            "box": [
+              0.06,
+              0.055,
+              0.94,
+              0.108
+            ]
+          },
+          {
+            "label": "film-label-bottom",
+            "box": [
+              0.06,
+              0.894,
+              0.94,
+              0.94
+            ]
+          }
+        ],
+        "contrast_reason": "Real Godot gameplay (Movie Maker, 3840x2160) inset to 90% on the cream ground. The frame average is dominated by the game's own painted bowl and shop shelves; that is the game's art, not a scrim over text. The film's own readable text is the ink-on-cream label lines above and below the inset, so those regions are what is measured."
+      },
+      "estimated_duration_s": 13,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 13.01,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 13.033333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "MECHANISM",
+      "role_note": "Sound wiring: sfx.gd listens to gameplay signals.",
+      "narration_text": "Here is how sound is wired. In s f x dot g d, watch connects to the fighter's signals. Line thirty-one: hit landed plays the jab or cutlass sound, pitched lower when blocked. Line thirty-two: projectile fired plays the pop. Line thirty-three: each rewind tick plays one ratchet click. Lines thirty-four to thirty-six: entering EMPTY plays the stall. Gameplay never calls this node.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "audio/sfx.gd:30-36 at reading size"
+          }
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Sound Listens, Gameplay Decides",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://audio/sfx.gd  ·  lines 30–36  ·  revision 64c037a",
+            "source": "Godot editor reconstruction · godot/audio/sfx.gd lines 30–36 at 64c037a, verbatim",
+            "code": "func watch(f: Fighter) -> void:\n\tf.hit_landed.connect(func(_a, attack, blocked): play(attack if attack != \"pop\" else \"jab\", 0.8 if blocked else 1.0))\n\tf.projectile_fired.connect(func(_f): play(\"pop\"))\n\tf.rewind_tick.connect(func(_f): play(\"rewind\", 1.0 + 0.04 * (_f.wind / 100.0)))\n\tf.state_changed.connect(func(_f, _old, new_state):\n\t\tif new_state == Fighter.S.EMPTY:\n\t\t\tplay(\"empty\"))",
+            "startLine": 30,
+            "codeFontSize": 34,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "Signals (fighter.gd 13–16)",
+                "value": "state_changed · hit_landed\nprojectile_fired · rewind_tick"
+              },
+              {
+                "label": "Bell",
+                "value": "main.gd: round_changed → FIGHT, KO"
+              },
+              {
+                "label": "Music (music.gd)",
+                "value": "pitch 0.85 below 25% spring\nlow-pass on pause · stops on KO"
+              }
+            ],
+            "cues": [
+              {
+                "at": 6.28,
+                "line": 31,
+                "label": "hit_landed → jab / cutlass sound"
+              },
+              {
+                "at": 10.89,
+                "line": 32,
+                "label": "projectile_fired → pop"
+              },
+              {
+                "at": 13.2,
+                "line": 33,
+                "label": "rewind_tick → one click"
+              },
+              {
+                "at": 16.16,
+                "line": 35,
+                "label": "EMPTY entered → stall sound"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 20.74
+          }
+        }
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 20.74,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 20.766666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "RESULT",
+      "role_note": "Result of B08: real capture, the opening exchange — JAB, BLOCK, HURT, POP, EMPTY states; announces the un-narrated segment.",
+      "narration_text": "From the opening bell: Bolt jabs, Rivet jabs back, and every contact sparks and freezes for a few frames. Then Bolt backs away and fires the cork pop-gun, and that shot empties his spring. Each of those is one signal and one sound. Next is the same round with no narration at all, so you hear only the game.",
+      "shot": {
+        "type": "SCREEN",
+        "capture_kind": "godot-movie-maker gameplay capture (CAPTURE)",
+        "source": "godot-movie-maker",
+        "motion": "hold",
+        "capture_clip": "fight",
+        "label": "SCRIPTED INPUT",
+        "capture_window_s": [
+          1.8,
+          18.93
+        ],
+        "evidence_media": "media/B09.mp4",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "title → ROUND 1 → FIGHT, jab exchange, pop-gun shot, EMPTY"
+          }
+        ]
+      },
+      "qc": {
+        "contrast_regions": [
+          {
+            "label": "film-label-top",
+            "box": [
+              0.06,
+              0.055,
+              0.94,
+              0.108
+            ]
+          },
+          {
+            "label": "film-label-bottom",
+            "box": [
+              0.06,
+              0.894,
+              0.94,
+              0.94
+            ]
+          }
+        ],
+        "contrast_reason": "Real Godot gameplay (Movie Maker, 3840x2160) inset to 90% on the cream ground. The frame average is dominated by the game's own painted bowl and shop shelves; that is the game's art, not a scrim over text. The film's own readable text is the ink-on-cream label lines above and below the inset, so those regions are what is measured."
+      },
+      "estimated_duration_s": 19,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.13,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 17.133333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "GAME_AUDIO",
+      "role_note": "UN-NARRATED: the slice's own mixed audio (Movie Maker PCM → AAC), whole scripted round. No narration_text by design.",
+      "kind": "source_report",
+      "clock": "source",
+      "audio_policy": "preserve",
+      "shot": {
+        "type": "SCREEN",
+        "capture_kind": "godot-movie-maker gameplay capture (CAPTURE)",
+        "source": "godot-movie-maker",
+        "motion": "hold",
+        "capture_clip": "fight",
+        "label": "GAME AUDIO — NO NARRATION · SCRIPTED INPUT",
+        "capture_window_s": [
+          0.0,
+          24.433
+        ],
+        "show": [
+          {
+            "at": "0.00",
+            "event": "full take, game audio only: bell, jabs, cutlass, pop, ratchet clicks, EMPTY, waltz, KO bell"
+          }
+        ]
+      },
+      "qc": {
+        "contrast_regions": [
+          {
+            "label": "film-label-top",
+            "box": [
+              0.06,
+              0.055,
+              0.94,
+              0.108
+            ]
+          },
+          {
+            "label": "film-label-bottom",
+            "box": [
+              0.06,
+              0.894,
+              0.94,
+              0.94
+            ]
+          }
+        ],
+        "contrast_reason": "Real Godot gameplay (Movie Maker, 3840x2160) inset to 90% on the cream ground. The frame average is dominated by the game's own painted bowl and shop shelves; that is the game's art, not a scrim over text. The film's own readable text is the ink-on-cream label lines above and below the inset, so those regions are what is measured."
+      },
+      "actual_duration_s": 24.433333,
+      "render_duration_s": 24.433333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "MECHANISM",
+      "role_note": "Tests: muted run == unmuted run.",
+      "narration_text": "The tests. The slice has twenty-five checks in test slice dot g d. This one runs the same scripted fight twice: line two oh eight unmuted, line two oh nine with both buses muted. It prints both end states, and line two twelve requires them to be identical: health, wind, positions and round state.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "tests/test_slice.gd:207-212 at reading size"
+          }
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Muted Must Equal Unmuted",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://tests/test_slice.gd  ·  lines 207–212  ·  revision 64c037a",
+            "source": "Godot editor reconstruction · godot/tests/test_slice.gd lines 207–212 at 64c037a, verbatim",
+            "code": "func test_mute_does_not_change_game() -> void:\n\tvar a: Array = await scripted_fight(false)\n\tvar b: Array = await scripted_fight(true)\n\tprint(\"      unmuted end state \", a)\n\tprint(\"      muted   end state \", b)\n\tok(a == b, \"sound never decides state: muted run == unmuted run\")",
+            "startLine": 207,
+            "codeFontSize": 34,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "scripted_fight() (190–205)",
+                "value": "real Input taps; returns\nhp, wind, x, round state"
+              },
+              {
+                "label": "What it cannot prove",
+                "value": "that a person can read\nthe fight with sound off"
+              }
+            ],
+            "cues": [
+              {
+                "at": 6.63,
+                "line": 208,
+                "label": "run 1: unmuted"
+              },
+              {
+                "at": 8.21,
+                "line": 209,
+                "label": "run 2: Music and SFX buses muted"
+              },
+              {
+                "at": 12.62,
+                "line": 212,
+                "label": "end states must be identical"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 17.02
+          }
+        }
+      },
+      "estimated_duration_s": 20,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.02,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 17.033333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "RESULT",
+      "role_note": "Result of B11: the recorded test output from an isolated copy, plus the seam check.",
+      "narration_text": "Here is the real output, from a fresh run on an isolated copy. Twenty-five checks, zero failed, and the muted and unmuted end states match number for number. The first ever run had eight failures. The cause was the test's own setup order: Rivet fired a cork before the test froze him. The setup was fixed, a one and a half second pop-gun cooldown was added at round start, and no expected value changed. The music loop seam check passes too. The engine's exit warnings are shown as printed.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "evidence/B12-test-output.png",
+        "show": [
+          {
+            "at": "0.05",
+            "event": "recorded test_slice.gd output and check_seam.py output"
+          }
+        ],
+        "note": "Composite of real files, built by _tools/make_media.py; shown as media/B12.png."
+      },
+      "estimated_duration_s": 28,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 27.94,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 27.966666666666665,
+      "build": {
+        "status": "STILL",
+        "src": "media/B12.png",
+        "filled_by": "still",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "VERDICT",
+      "role_note": "VERDICT — tested vs uncertain; models per asset; revision shown.",
+      "narration_text": "The verdict, at revision six four c zero three a. Tested: twenty-five automated checks pass, the music loop seam passes, and a muted run ends in exactly the same state as an unmuted one. Tharun's own playtest, sound on and then muted, is recorded in TEST-REPORT dot m d. He found the music fine on its own and the muted slice still readable, but the game and the characters very simple, and the mix full of metal sounds. On checking, that came from the dense tin effects, the rewind clicks and clangs, not the music. Uncertain: Claude picked those sound effects by signal analysis, because Tharun asked it to choose, and Claude cannot hear. The bowl is seen from outside, though the concept says inside. Rivet is a pattern, not an AI. The eyes are hand-painted on every pose, and the win pose uses a different seed. This 4K take also differs from the headless dry run, because physics stepping changes under fixed f p s. Models: all art is SDXL-Turbo, under Stability's non-commercial research licence. The six sound effects are AudioLDM 2, C C BY N C S A. The waltz is MusicGen small, C C BY N C. All ran locally on an Apple M4.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "card lands on cream"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "walker-tinknockout-tharun-m",
+            "artifactHeading": "VERDICT · revision 64c037a",
+            "brandLabel": "WALKER · GODOT 4.7.2",
+            "artifactLines": [
+              "TESTED",
+              "  25 checks, 0 failed · seam PASS · muted == unmuted",
+              "  Tharun playtest (TEST-REPORT.md): muted still readable",
+              "  mix \"full of metal sounds\": the dense tin SFX",
+              "UNCERTAIN",
+              "  SFX picked by signal analysis, not by ear",
+              "  bowl seen from outside · Rivet is a pattern",
+              "  eyes hand-painted · win pose: other seed",
+              "  4K take differs from headless dry run",
+              "MODELS  art SDXL-Turbo · SFX AudioLDM 2 · music MusicGen-small"
+            ],
+            "durationSeconds": 62.54
+          },
+          "rendered": {
+            "out": "media/B13.mp4",
+            "at": "2026-10-07T00:37:41.458276+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 55,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 62.54,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 62.56666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B13.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "YOUR_TURN",
+      "role_note": "YOUR TURN — a useful Walker prompt read aloud, one bounded change + prediction, credits, revision; Liam signs off before the locked outro.",
+      "narration_text": "Your turn. Here is a useful Walker prompt. Please use Walker to change rivet brain dot g d so a cornered Rivet blocks instead of rewinding when Bolt is closer than one hundred seventy pixels, add one test for it, and state your prediction before you run it. Mine: Rivet gets knocked down while rewinding less often, and rounds last longer. Write yours down first, then run the tests. Tharun's own next step is just as bounded: a quieter rewind click and a lower effects mix, then richer character art. Toward the full game, add a real opponent AI and weapon pickups from the toy box. Credits, plainly. Tharun chose the game and the weapons, rejected reusing his assignment one character, picked Bolt, picked the reference image from four finalists, and approved the documents. Claude Code wrote the prompts, code, tests and edit scripts, picked the poses by the character sheet's rules, and picked the sounds by signal analysis. This voice is Kokoro text to speech. The source shown is revision six four c zero three a. Liam, in for Bear.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "card lands on cream"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "WALKER · YOUR TURN + CREDITS",
+            "segment": "one bounded change",
+            "command": "Please use Walker to change rivet_brain.gd so a cornered Rivet blocks instead of rewinding when Bolt is closer than 170 px, add one test for it, and state your prediction before you run it.",
+            "runningText": "over to you…",
+            "output": [
+              "■ prediction, written first",
+              "  Rivet is knocked down while rewinding less often",
+              "■ Tharun's next step: quieter rewind click, lower SFX mix",
+              "■ credits  ·  revision 64c037a",
+              "  HUMAN  Tharun — game, weapons, Bolt, reference pick, approvals",
+              "  AI     Claude Code — prompts, code, tests, edits, pose + SFX picks",
+              "  VOICE  Liam — Kokoro am_onyx, AI text-to-speech"
+            ],
+            "durationSeconds": 55.07
+          },
+          "rendered": {
+            "out": "media/B14.mp4",
+            "at": "2026-10-07T00:39:36.164623+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 55,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 55.07,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 55.1,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B14.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-06T20:46:30"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "OUTRO",
+      "kind": "outro_voice",
+      "role_note": "OUTRO-LOCK — exact title, @NikBearBrown, slug-seeded mascot. Spoken, never scored; 1.0 s silent tail.",
+      "narration_text": "Tin Knockout, Taken Apart. At Nik Bear Brown.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "card lands on cream"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Tin Knockout, Taken Apart",
+            "slug": "claude-liam-walker-tinknockout-tharun-m-gamedev",
+            "durationSeconds": 4.48
+          }
+        }
+      },
+      "estimated_duration_s": 5,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 4.48,
+      "audio_file": "mp3/beat-B15.mp3",
+      "outro_tail_s": 1.0,
+      "render_duration_s": 4.5,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B15.mp4",
+        "filled_by": "media",
+        "at": "2026-10-06T20:46:30"
+      }
+    }
+  ]
+}
