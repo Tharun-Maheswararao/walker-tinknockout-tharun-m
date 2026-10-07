@@ -73,3 +73,11 @@ Dated entries, written as the work happened. "Human" = Tharun (me). "Claude" = C
 ## 2026-10-06 — scope and time (retrospective note)
 
 The Claude app was closed overnight for longer than either of us realised. Work resumed at about 15:50 with 8 hours left. To fit the deadline, the film was handed to a separate Claude agent working from a written brief, while the docs were written in parallel. My own playtest and listening check happened (or didn't) as recorded in TEST-REPORT section 8.
+
+## 2026-10-06 ~20:00 — my playtest
+
+- **Played** a sound-on round, then a muted round (M + N).
+- **What I found:** the game and the characters feel **very simple**, and with sound on it was "full of metal sounds". With effects off (N) **the music alone is fine**, so the problem is the dense tin effects, mostly the rewind clicks (4 per second while held), not the music. **Muted, it still works**: I could follow the fight.
+- **Decided:** not to change the game tonight, because the film is built on the frozen revision `64c037a`. Claude had started warmer music candidates before I narrowed it down; we stopped them once I said the music was fine.
+- **Next:** a quieter, lower rewind click (or one per half-turn), effects about 6 dB under the music, and richer character art. The simplicity is the cost of choosing consistency over detail in the pose pass.
+- **Human / Claude:** the observations are mine; Claude recorded them and proposed the next steps.
