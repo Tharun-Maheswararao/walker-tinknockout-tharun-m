@@ -72,4 +72,4 @@ python tools/edit/check_seam.py                                     # music loop
 
 ## Film
 
-**Final film:** *link and SHA-256 added in SUBMISSION.md once rendered and uploaded* (MP4s are kept out of GitHub).
+**Final film:** [claude-liam-walker-tinknockout-tharun-m-gamedev.mp4](https://drive.google.com/file/d/1vp5DGYY0RXe-cttXE4endf4W7YCuIrck/view?usp=sharing) (Google Drive, 4K, 6:46). SHA-256 `8c6c491bb59df135f083786f04832c0b68c3f74a2b47c13303581a1e86edeb83`. Shows source revision `64c037a`. The MP4 is kept out of GitHub; the reel's beat sheet, evidence ledger and QC records are in `youtube/claude-liam-walker-tinknockout-tharun-m-gamedev/`.
