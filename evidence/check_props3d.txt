@@ -32,7 +32,7 @@ Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
   node toybox scale=(1.0, 1.0, 1.0) rotation_deg=(0.0, 0.0, 0.0)
   surface 0 toybox_red albedo=#B5302A tris=12 centre_z=0.000
   surface 1 toybox_cream albedo=#E8DCC0 tris=12 centre_z=0.000
-  surface 2 toybox_navy albedo=#23395B tris=12 centre_z=0.000
+  surface 2 toybox_navy albedo=#2E7D32 tris=12 centre_z=0.000
   surface 3 toybox_brass albedo=#C9A23A tris=12 centre_z=0.365
   PASS  toybox_brass is on the +Z (front) side
   aabb size=(1.26, 0.75, 0.76)  min_y=0.0000
