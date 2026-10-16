@@ -82,7 +82,7 @@ python tools/edit/check_seam.py                                     # music loop
 
 **Versions:** Godot 4.7.2.stable · Blender 5.2.2 LTS · MCP for Blender 2.1.9 (add-on 1.8) · macOS 15.6.
 
-**Routes:** castle = Blender MCP; windkey and toybox = script route (headless Blender). See TEST-REPORT.md "Assignment 3".
+**Routes:** castle and windkey = Blender MCP; toybox = script route (headless Blender). See TEST-REPORT.md "Assignment 3".
 
 **Run the check** (from the repo root; `timeout` is from Homebrew coreutils):
 ```bash
@@ -97,6 +97,6 @@ Expect `RESULT: PASS (0 failing)`. Read that line: Godot exits 0 even if the scr
 
 **Rebuild an asset:** `blender -b --factory-startup --python-exit-code 1 --python tools/blender/build_<asset>.py`, then `blender -b assets/blender/<asset>.blend --python-exit-code 1 --python tools/blender/export_glb.py -- godot/assets/props3d/<asset>.glb`.
 
-**Known limitations (A3):** only the castle went through the MCP; the other two used the script route. The prop room is not connected to the 2D game. Look-checks from behind and below are recorded in TEST-REPORT A3-7. The A3 film: see SUBMISSION.md.
+**Known limitations (A3):** the toy box used the script route, not the MCP. The cream lid reads near-white under the scene light. The prop room is not connected to the 2D game. The A3 film: see SUBMISSION.md.
 
 Docs for A3: CHANGE-BRIEF.md (bottom), BLENDER-NOTES.md, TEST-REPORT.md (bottom), FRICTIONAL.md (bottom), SOURCES.md (bottom).

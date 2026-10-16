@@ -13,7 +13,7 @@
   - `castle`: the sunken-castle ornament on the goldfish-bowl floor; the environment landmark behind the fighters. 1.80 × 0.82 × 2.30 m.
   - `windkey`: a spare brass winding key; a collectible that would refill Bolt's spring. 0.60 × 0.14 × 0.70 m.
   - `toybox`: the tin toy box that future weapon pickups come out of; a prop. 1.26 × 0.76 × 0.75 m.
-- **MCP project and version, or "script route":** MCP for Blender (`mcp-for-blender` 2.1.9, Blender add-on 1.8) for **castle**. **Script route** (headless Blender) for **windkey** and **toybox**, because time ran out, not because the MCP failed.
+- **MCP project and version, or "script route":** MCP for Blender (`mcp-for-blender` 2.1.9, Blender add-on 1.8) for **castle** and **windkey**. **Script route** (headless Blender) for **toybox**.
 - **My hand edit in Blender:** recoloured the toy box band from navy `#23395B` to green `#2E7D32` in the Material tab (Base Color) in Material Preview; size and scale unchanged; re-exported (before/after screenshots in `evidence/blender/`).
 - **Checks run (command and result):**
   - `godot --headless --path godot --import`: no errors.
@@ -21,6 +21,6 @@
   - Headless re-run of `tools/blender/build_castle.py` and inspection of each `.blend`: dimensions, origin, scale and colours match the brief.
 - **Final film URL and filename:** none; not made.
 - **Final film SHA-256:** n/a
-- **Summary of my changes:** an A3 brief committed before building; Blender MCP set up (with three setup fixes logged); castle built through the MCP, key and box by script route; three `.glb` files, a Godot prop room, and a headless check that Claude first wrote wrongly (false pass) and then fixed; interface notes and an A3 test report.
-- **Known limitations:** only one asset used the MCP route (the rubric asks for two). **No Brutalist film was made**, because the deadline arrived first. The cream lid reads near-white under the scene light (TEST-REPORT A3-7). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
+- **Summary of my changes:** an A3 brief committed before building; Blender MCP set up (with three setup fixes logged); castle and key built through the MCP, toy box by script route; my hand edit of the toy box band; three `.glb` files, a Godot prop room, and a headless check that Claude first wrote wrongly (false pass) and then fixed; interface notes and an A3 test report.
+- **Known limitations:** **No Brutalist film was made**, because the deadline arrived first. The cream lid reads near-white under the scene light (TEST-REPORT A3-7). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
 - **Changed games since Assignment 2:** no.

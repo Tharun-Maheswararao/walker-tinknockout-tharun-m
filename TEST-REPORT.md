@@ -154,7 +154,7 @@ godot --headless --path godot --script res://tests/test_slice.gd
 
 *Blender 5.2.2 LTS · Godot 4.7.2.stable.official.ed1daf0bf · macOS 15.6 (Apple M4) · MCP for Blender package 2.1.9 / add-on 1.8 · 2026-10-15*
 
-**Route per asset:** `castle` was built **through the Blender MCP**, in a separate Claude Code session driving my open Blender (code in `tools/blender/build_castle.py`). `windkey` and `toybox` were built by the **script route**: Claude wrote `tools/blender/build_windkey.py` and `build_toybox.py` and ran them in headless Blender, because time ran out before the MCP session could build them. All three were exported by `tools/blender/export_glb.py` (glTF Binary, +Y Up on).
+**Route per asset:** `castle` and `windkey` were built **through the Blender MCP**, in a separate Claude Code session driving my open Blender (code in `tools/blender/build_castle.py` and `build_windkey.py`). `toybox` was built by the **script route** (`tools/blender/build_toybox.py`, headless Blender). The first windkey was also script-route (`build_windkey_script_route.py`, kept for comparison); it was rebuilt through the MCP on 2026-10-16 and gave identical numbers. All three were exported by `tools/blender/export_glb.py` (glTF Binary, +Y Up on).
 
 ## A3-1. Interface notes
 Six parts in BLENDER-NOTES.md, with my own screenshots `evidence/blender/01-mcp-connected-port-9876.webp` and `02-interface.webp`. The descriptions are Claude-drafted and labelled as such; the "What I noticed" lines are my observations.
@@ -212,4 +212,4 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 | F4 unapplied scale/rotation | Did not happen. Node scale (1,1,1), rotation 0. The key's lobes are rotated 90° per part and applied before joining. |
 | F5 too detailed | Did not happen. Segment counts are as specified, and all three are under budget. |
 | F6 colour lost | Not lost: Godot albedo hex values equal the Blender values (e.g. castle `#D98BA0`, `#3E8E86`, `#3A2A20`; band `#2E7D32` after my edit). But the cream lid *reads* near-white under the sun light (A3-7), so a colour can survive export and still not look right. |
-| F7 MCP breaks | Partly. Setup needed three fixes (FRICTIONAL.md), then the MCP built the castle. The key and box used the script route for time, not because the MCP failed. |
+| F7 MCP breaks | Partly. Setup needed three fixes (FRICTIONAL.md). The first `get_scene_info` returned `Could not connect to Blender`; it worked 4 minutes later. Then the MCP built the castle and, on 2026-10-16, the key (after the auto-mode safety check blocked a scene-clearing call and I approved it). The toy box stayed script-route. |
