@@ -18,7 +18,7 @@ The large central area where the scene is drawn and edited. The label in its top
 
 The column of icons down the viewport's left edge: Select, Cursor, Move, Rotate, Scale, Transform, Annotate, Measure, and Add Cube. It picks what a left-click-drag does in the viewport. It does not show numbers; for exact values I use the sidebar.
 
-- **What I noticed:** Nothing specific yet. I moved the view with the gizmo rather than the toolbar's tools. I'll add a line here after my hand edit, when I actually use Move or Scale.
+- **What I noticed:** I moved the view with the gizmo rather than the toolbar's tools. My hand edit was a colour change, so I did not end up using Move or Scale.
 
 ## 3. Outliner
 
@@ -31,6 +31,7 @@ The tree in the top right that lists everything in the scene: Scene Collection â
 The bottom-right panel with a vertical strip of tabs (render, output, scene, world, object, modifiers, physics, constraints, data, material). The orange-square **Object** tab shows the active object's Transform. The **Material** tab, the red sphere at the bottom of the strip, is where the flat colours will go.
 
 - **What I noticed:** The column of Properties tabs was confusing at first. The icons are small and it was hard to tell which tab was which without hovering.
+- **After my hand edit (my own words):** Editing the hand taught me that Blenderâ€™s interface relies on coordinating specific Properties tabs, color pickers, and viewport shading modes just to see surface changes take effect in real time.
 
 ## 5. Sidebar (N)
 

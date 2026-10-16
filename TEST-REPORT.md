@@ -167,7 +167,7 @@ Six parts in BLENDER-NOTES.md, with my own screenshots `evidence/blender/01-mcp-
 | windkey | 0.60 × 0.14 × 0.70 | 0.60 × 0.14 × 0.70 | 0.60 × 0.70 × 0.14 | match |
 | toybox | 1.26 × 0.76 × 0.75 | 1.26 × 0.76 × 0.75 | 1.26 × 0.75 × 0.76 | match |
 
-The Blender numbers were read by a headless script from the saved `.blend` files (`ob.dimensions`), and for castle and windkey also by the MCP's `get_scene_info` in my live session. **Sidebar screenshots:** only the toy box has one (`evidence/blender/05-toybox-after.webp`, Item tab: 1.26 × 0.76 × 0.75 m, scale 1.000). I did not take sidebar screenshots of the castle or the key; their views are the MCP `look` images (e.g. `evidence/blender/03-castle-mcp-look.png`).
+The Blender numbers were read by a headless script from the saved `.blend` files (`ob.dimensions`), and for castle and windkey also by the MCP's `get_scene_info` in my live session. **Sidebar screenshots:** only the toy box has one (`evidence/blender/05-toybox-after.webp`, Item tab: 1.26 × 0.76 × 0.75 m, scale 1.000). The key also has one: `evidence/blender/06-windkey-sidebar.webp`, my own screenshot. It shows the Item tab at 0.6 × 0.14 × 0.7 m, Scale 1.000, and Statistics *Triangles 192 / 192*. I did not take one of the castle; its views are the MCP `look` images (`evidence/blender/03-castle-mcp-look.png`).
 
 ## A3-3. Upright and scale
 Godot check: every scene and mesh node has scale (1, 1, 1) and rotation 0, and the castle and key are tallest along Y. The castle's door surface and the toy box's latch surface sit at +Z (0.40 and 0.365), so the **front faces a +Z camera**. Prediction A3-F2 did not happen.
@@ -176,7 +176,7 @@ Godot check: every scene and mesh node has scale (1, 1, 1) and rotation 0, and t
 The AABB min Y is 0.0000 for all three, alone and in `prop_room.tscn` (world x ranges −3.10..−1.30, −0.30..0.30, 1.37..2.63). Each prop placed at y = 0 sits on the floor. The render `evidence/godot/prop_room.png` shows the bases on the floor, with shadows touching. Prediction A3-F3 did not happen.
 
 ## A3-5. Triangle count
-castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by the Blender script (n-gons fan-triangulated) and agree with the Godot check's surface index counts and the MCP's `get_scene_info` tri counts. The Scene Statistics overlay was switched on in my Blender for the key, but no screenshot of it was taken.
+castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by the Blender script (n-gons fan-triangulated) and agree with the Godot check's surface index counts and the MCP's `get_scene_info` tri counts. Blender's Statistics overlay shows *Triangles 192 / 192* for the key in my screenshot `06-windkey-sidebar.webp`.
 
 ## A3-6. Imports and appears
 `godot --headless --path godot --import` gave no errors. The check `timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60` gives **RESULT: PASS (0 failing)**, exit 0. Full output: `evidence/check_props3d.txt`. The render `evidence/godot/prop_room.png` shows all three side by side: floor, one DirectionalLight3D, one camera.
@@ -201,7 +201,7 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 
 ## A3-9. Inspect → revise
 1. **Check revised from an observation** (A3-8): the engine ERROR lines showed the room check proved nothing. The transform maths was rewritten and the check rerun.
-2. **Hand edit in Blender (mine):** I recoloured the toy box band from navy `#23395B` to green `#2E7D32`, in the Material tab → Base Color in Material Preview (`evidence/blender/04-toybox-before.webp`, `05-toybox-after.webp`). The Item tab still showed 1.26 × 0.76 × 0.75 m at scale 1.000. Re-exported; the Godot check reads albedo `#2E7D32` and still passes. The material slot is still *named* `toybox_navy`.
+2. **Hand edit in Blender (mine):** I recoloured the toy box band from navy `#23395B` to green `#2E7D32`, in the Material tab → Base Color in Material Preview (`evidence/blender/04-toybox-before.webp`, `05-toybox-after.webp`). The Item tab still showed 1.26 × 0.76 × 0.75 m at scale 1.000. Re-exported; the Godot check reads albedo `#2E7D32` and still passes. The material slot is still *named* `toybox_navy`. **What it taught me (my words):** "Editing the hand taught me that Blender’s interface relies on coordinating specific Properties tabs, color pickers, and viewport shading modes just to see surface changes take effect in real time."
 
 ## A3-10. Predicted failures A3-F1 … F7: outcomes
 | # | Outcome |
