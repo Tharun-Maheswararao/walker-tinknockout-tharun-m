@@ -32,3 +32,6 @@ youtube/**/exports/
 youtube/**/clips/
 youtube/**/mp3/
 youtube/**/_qc/frames/
+
+# Blender auto-backup saves
+*.blend1
