@@ -61,3 +61,21 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 | **Code** | Playtested | Wrote all GDScript, tests, capture tools | — |
 | **Verification** | Human playtest, sound on and muted | Automated tests, seam check, screenshots | — |
 | **Film** | Watch-and-listen check of the export | Beat sheet, script, captures, assembly via Brutalist | Narration: local TTS voice (see film credits) |
+
+---
+
+## Assignment 3 — 3D props
+
+| Tool | Version | Use |
+|---|---|---|
+| Blender | 5.2.2 LTS (Homebrew cask), macOS 15.6 Apple M4 | Modelling, .blend sources, glTF export |
+| MCP for Blender ("mcp-for-blender", the community project the syllabus names) | package **2.1.9** via `uvx`; Blender add-on **1.8** | Claude Code driving my open Blender for the **castle**. Telemetry off (`DISABLE_TELEMETRY=true`; add-on consent off). Poly Haven, Sketchfab, Poly Pizza, Hyper3D, Hunyuan3D and Tripo left off; no `generate_3d`, `search_assets` or `import_asset` calls. |
+| uv | 0.13.1 (Homebrew) | runs the MCP server |
+| Godot | 4.7.2.stable.official.ed1daf0bf | glTF import, `prop_room.tscn`, headless check |
+| Claude Code (Claude Opus 5.5) | 2.1.295, in the Claude desktop app | see below |
+
+**Geometry:** all three props are built from Blender primitives by code in `tools/blender/`. No downloaded or AI-generated meshes. Colours are hex values chosen in CHANGE-BRIEF.md; there is no external colour source.
+
+**Who did what (A3):**
+- **Me:** chose the three assets (dropped the cork) and character scale; reviewed and accepted the brief; installed/approved tools; did the "Learn the window" session and screenshots; ran the MCP build session for the castle and saved `castle.blend`. *Hand edit and human look-check: see FRICTIONAL.md for whether done.*
+- **Claude:** drafted CHANGE-BRIEF A3 (numbers, colours, failure cases), BLENDER-NOTES descriptions, and the "What I noticed" sentences from options I picked. Wrote all Blender code: the castle via MCP in a separate session, windkey/toybox by script route. Wrote the export script, `prop_room.tscn`, `tests/check_props3d.gd` and `tools/shot_prop_room.gd`, and this session's docs. Found and fixed its own false-passing check.

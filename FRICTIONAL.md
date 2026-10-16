@@ -104,3 +104,15 @@ The Claude app was closed overnight for longer than either of us realised. Work 
 - **BLENDER-NOTES.md:** I asked Claude to write the six descriptions. Claude drafted them and labelled them as its own, because the assignment asks for my own words. The "What I noticed" lines are left for me to fill in.
 - **Assets (my decision):** I first picked four: sunken-castle ornament, winding key pickup, cork harpoon ammo, toy-box crate. The assignment allows three, so **I dropped the cork**, Claude's suggestion. At one or two shapes it would show the least about the workflow. The three are the **sunken-castle ornament** (environment), the **winding key pickup** (collectible) and the **toy-box crate** (prop).
 - **Scale (my decision):** character scale, **Bolt = 1.8 m**, so normal Godot camera and physics ranges apply. I chose it over real toy scale (~0.2 m).
+
+## 2026-10-15 — building the castle through the MCP (separate Claude Code session)
+
+- **What the record shows:** the build session committed `tools/blender/build_castle.py` (8 `execute_blender_code` bodies, calls 0–7) and `.gitignore` `*.blend1` (`bec93b5`), then `assets/blender/castle.blend` (`c9b71fa`). I saved the .blend (first to `assets/blender/`, not the `blender/` folder suggested).
+- **Claude's independent check (this session):** re-running `build_castle.py` headless rebuilt the castle at 1.80 × 0.82 × 2.30 m, 156 tris. Opening the saved `castle.blend` headless showed the same numbers, origin (0,0,0), scale 1, and the three brief colours. So the saved file is the MCP-built asset and matches the brief.
+- **Not recorded:** whether `get_scene_info` worked first time, and whether I changed or rejected any of Claude's proposals in that session. I did not write these down before the deadline, and Claude did not invent them.
+
+## 2026-10-15 ~23:15 — deadline: windkey and toybox by script route
+
+- **Decision (mine):** with ~40 minutes left, I asked Claude to finish. Claude built `windkey` and `toybox` by the **script route** (headless Blender) in this session, because this session cannot see the MCP tools. This is a time decision, not an MCP failure; the castle shows the MCP route worked. I accept that this earns less than "MCP for at least two assets".
+- **Results:** windkey 0.60 × 0.14 × 0.70 m, 192 tris; toybox 1.26 × 0.76 × 0.75 m, 48 tris. Both have origin at the base and scale 1. All three exported with `export_glb.py` (+Y Up).
+- **Claude's own check was wrong at first:** the first `check_props3d.gd` printed PASS for "sits on the floor in the room" while Godot logged `!is_inside_tree()` errors. `global_transform` returned the identity, so placement was never tested. Claude rewrote the transform maths; the rerun shows real positions. A second edit hit a GDScript parse error, **and Godot still exited 0**. Lesson: read the RESULT line, not the exit code. Output: `evidence/check_props3d.txt`.

@@ -73,3 +73,30 @@ python tools/edit/check_seam.py                                     # music loop
 ## Film
 
 **Final film:** [claude-liam-walker-tinknockout-tharun-m-gamedev.mp4](https://drive.google.com/file/d/1vp5DGYY0RXe-cttXE4endf4W7YCuIrck/view?usp=sharing) (Google Drive, 4K, 6:46). SHA-256 `8c6c491bb59df135f083786f04832c0b68c3f74a2b47c13303581a1e86edeb83`. Shows source revision `64c037a`. The MP4 is kept out of GitHub; the reel's beat sheet, evidence ledger and QC records are in `youtube/claude-liam-walker-tinknockout-tharun-m-gamedev/`.
+
+---
+
+## Assignment 3 — three 3D props (tag `a3`)
+
+**Added:** a small Godot 3D scene `godot/prop_room/prop_room.tscn` (floor, one light, a camera) with three props at character scale (Bolt = 1.80 m): the **sunken-castle ornament** (environment), the **winding key** pickup (collectible) and the **toy box** (prop). Built in Blender from primitives, exported as `.glb` to `godot/assets/props3d/`, with `.blend` sources in `assets/blender/` and build code in `tools/blender/`.
+
+**Versions:** Godot 4.7.2.stable · Blender 5.2.2 LTS · MCP for Blender 2.1.9 (add-on 1.8) · macOS 15.6.
+
+**Routes:** castle = Blender MCP; windkey and toybox = script route (headless Blender). See TEST-REPORT.md "Assignment 3".
+
+**Run the check** (from the repo root; `timeout` is from Homebrew coreutils):
+```bash
+godot --headless --path godot --import
+```
+```bash
+timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60
+```
+Expect `RESULT: PASS (0 failing)`. Read that line: Godot exits 0 even if the script fails to parse.
+
+**Open the scene:** `godot --path godot -e`, then open `res://prop_room/prop_room.tscn` and press F6.
+
+**Rebuild an asset:** `blender -b --factory-startup --python-exit-code 1 --python tools/blender/build_<asset>.py`, then `blender -b assets/blender/<asset>.blend --python-exit-code 1 --python tools/blender/export_glb.py -- godot/assets/props3d/<asset>.glb`.
+
+**Known limitations (A3):** only the castle went through the MCP; the other two used the script route. The prop room is not connected to the 2D game. Look-checks from behind and below are recorded in TEST-REPORT A3-7. The A3 film: see SUBMISSION.md.
+
+Docs for A3: CHANGE-BRIEF.md (bottom), BLENDER-NOTES.md, TEST-REPORT.md (bottom), FRICTIONAL.md (bottom), SOURCES.md (bottom).

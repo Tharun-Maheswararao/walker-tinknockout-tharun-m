@@ -147,3 +147,59 @@ godot --headless --path godot --script res://tests/test_slice.gd
 6. Low luminance contrast between Bolt's helmet and the pink castle (section 9).
 7. **Playtester verdict: "very simple"** characters and game. The effects mix is dense with metal sounds (section 8).
 8. Only one human playtester, and that is me, the developer.
+
+---
+
+# Assignment 3 — 3D props (castle, windkey, toybox)
+
+*Blender 5.2.2 LTS · Godot 4.7.2.stable.official.ed1daf0bf · macOS 15.6 (Apple M4) · MCP for Blender package 2.1.9 / add-on 1.8 · 2026-10-15*
+
+**Route per asset:** `castle` was built **through the Blender MCP**, in a separate Claude Code session driving my open Blender (code in `tools/blender/build_castle.py`). `windkey` and `toybox` were built by the **script route**: Claude wrote `tools/blender/build_windkey.py` and `build_toybox.py` and ran them in headless Blender, because time ran out before the MCP session could build them. All three were exported by `tools/blender/export_glb.py` (glTF Binary, +Y Up on).
+
+## A3-1. Interface notes
+Six parts in BLENDER-NOTES.md, with my own screenshots `evidence/blender/01-mcp-connected-port-9876.webp` and `02-interface.webp`. The descriptions are Claude-drafted and labelled as such; the "What I noticed" lines are my observations.
+
+## A3-2. Size: brief vs Blender vs Godot (metres, W × D × H; Godot reports X × Y × Z, so its Y is height)
+
+| Asset | Brief | Blender (saved .blend, `dimensions`) | Godot AABB (headless) | Result |
+|---|---|---|---|---|
+| castle | 1.80 × 0.82 × 2.30 | 1.80 × 0.82 × 2.30 | 1.80 × 2.30 × 0.82 | match |
+| windkey | 0.60 × 0.14 × 0.70 | 0.60 × 0.14 × 0.70 | 0.60 × 0.70 × 0.14 | match |
+| toybox | 1.26 × 0.76 × 0.75 | 1.26 × 0.76 × 0.75 | 1.26 × 0.75 × 0.76 | match |
+
+The Blender numbers were read by a headless script from the saved `.blend` files (`ob.dimensions`), not from the sidebar. **Still to do:** my own sidebar screenshot per asset.
+
+## A3-3. Upright and scale
+Godot check: every scene and mesh node has scale (1, 1, 1) and rotation 0, and the castle and key are tallest along Y. The castle's door surface and the toy box's latch surface sit at +Z (0.40 and 0.365), so the **front faces a +Z camera**. Prediction A3-F2 did not happen.
+
+## A3-4. Origin
+The AABB min Y is 0.0000 for all three, alone and in `prop_room.tscn` (world x ranges −3.10..−1.30, −0.30..0.30, 1.37..2.63). Each prop placed at y = 0 sits on the floor. The render `evidence/godot/prop_room.png` shows the bases on the floor, with shadows touching. Prediction A3-F3 did not happen.
+
+## A3-5. Triangle count
+castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by the Blender script (n-gons fan-triangulated) and agree with the Godot check's surface index counts. **Still to do:** Blender's Scene Statistics screenshot.
+
+## A3-6. Imports and appears
+`godot --headless --path godot --import` gave no errors. The check `timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60` gives **RESULT: PASS (0 failing)**, exit 0. Full output: `evidence/check_props3d.txt`. The render `evidence/godot/prop_room.png` shows all three side by side: floor, one DirectionalLight3D, one camera.
+
+**What the check does NOT show:** whether the props look right, read as what they are, or suit Tin Knockout's style or lighting. **Also:** Godot exited 0 even when the check script failed to parse, so a 0 exit code alone is not proof. Read the `RESULT:` line.
+
+## A3-7. HUMAN CHECK: look
+**Not yet done by me.** I still need to walk the camera around each prop in the Godot editor, including from behind and below. Claude's notes on the one render (not a substitute for my check): the cream lid looks almost white under the sun light, and the key is small at this camera distance. No missing faces are visible from the front.
+
+## A3-8. What Claude got wrong
+**Claude's first Godot check passed when it should not have.** It called `global_transform` on nodes not yet inside the scene tree. Godot logged `Condition "!is_inside_tree()" is true. Returning: Transform3D()` and returned the identity, so "toybox sits on the floor in the room" was computed as if every prop stood at the origin, and printed PASS without testing placement. This is the same kind of error as the Module 3 floor check. **Fix:** compute transforms from local transforms up to the root (`to_root()`). The rerun reports real world positions (castle x −3.10..−1.30) and no engine errors. The second attempt also hit a GDScript parse error, and Godot still exited 0; see A3-6.
+
+## A3-9. Inspect → revise
+1. **Check revised from an observation** (A3-8): the engine ERROR lines showed the room check proved nothing. The transform maths was rewritten and the check rerun.
+2. **Hand edit in Blender:** *pending, see FRICTIONAL.md.*
+
+## A3-10. Predicted failures A3-F1 … F7: outcomes
+| # | Outcome |
+|---|---|
+| F1 wrong size ×2/×10 | Did not happen. All three match within ±0.01 m in Blender and Godot. The castle code avoided the 2 m default cube by using `size=1.0` and scale, then applying. |
+| F2 lying on side / backwards | Did not happen (A3-3). |
+| F3 floats/sinks | Did not happen (A3-4). |
+| F4 unapplied scale/rotation | Did not happen. Node scale (1,1,1), rotation 0. The key's lobes are rotated 90° per part and applied before joining. |
+| F5 too detailed | Did not happen. Segment counts are as specified, and all three are under budget. |
+| F6 colour lost | Did not happen numerically. Godot albedo hex values equal the brief's (e.g. castle `#D98BA0`, `#3E8E86`, `#3A2A20`). Visual check pending (A3-7). |
+| F7 MCP breaks | Partly. Setup needed three fixes (FRICTIONAL.md), then the MCP built the castle. The key and box used the script route for time, not because the MCP failed. |
