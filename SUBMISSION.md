@@ -1,21 +1,26 @@
-# SUBMISSION
+# SUBMISSION — Assignment 3
 
-- **Assignment:** Assignment 2 - Generate Art, Sound, and Music for Your Game
+*(The Assignment 2 submission note is preserved at tag `a2`, commit `9788922`.)*
+
+- **Assignment:** Assignment 3 - Your First 3D Game Assets with Claude, the Blender MCP, and Blender
 - **Student:** Tharun Maheswararao (maheswararao.t@northeastern.edu)
-- **Project name:** walker-tinknockout-tharun-m
-- **Game concept in one sentence:** Tin wind-up toys box in a glass bowl in a toy shop after closing: you are Bolt, a tin diver toy whose every punch, cutlass swing and cork shot unwinds the spring in your back, so you win by spending wind wisely and rewinding only when it is safe.
-- **GitHub repository/folder URL:** https://github.com/Tharun-Maheswararao/walker-tinknockout-tharun-m
-- **Started from:** an empty Godot 4.7 project. Patterns, not code, come from my Assignment 1 (walker-jumpman-tharun-m @ bb63748, an extension of nikbearbrown/walker-jumpman @ 9387542).
-- **Submitted commit SHA:** given in the Canvas copy of this file (a commit cannot contain its own hash). It is the head of `main` on GitHub at submission.
-- **Source revision shown in the film:** `64c037a` (game source frozen here; later commits are documentation and film records only. Check with `git diff --stat 64c037a <submitted> -- godot/`, which should be empty)
-- **Godot version and operating system:** Godot 4.7.2.stable.official.ed1daf0bf on macOS 15.6 (Darwin 24.6.0), Apple M4
-- **Generative models used (name, version, where run, license):**
-  - SDXL-Turbo `stabilityai/sdxl-turbo` @ 71153311, local (Apple M4, MPS, diffusers 0.40.0), Stability AI Non-Commercial Research Community License — all art
-  - AudioLDM 2 `cvssp/audioldm2` @ c8e7e189, local CPU, CC BY-NC-SA 4.0 — 6 sound effects
-  - MusicGen-small `facebook/musicgen-small` @ 4c8334b0, local CPU, CC BY-NC 4.0 — music loop
-- **Final film URL and filename:** https://drive.google.com/file/d/1vp5DGYY0RXe-cttXE4endf4W7YCuIrck/view?usp=sharing — `claude-liam-walker-tinknockout-tharun-m-gamedev.mp4` (3840×2160, 30 fps, 406.1 s, Brutalist godot-gamedev + walker; reel records in `youtube/claude-liam-walker-tinknockout-tharun-m-gamedev/`)
-- **Final film SHA-256:** `8c6c491bb59df135f083786f04832c0b68c3f74a2b47c13303581a1e86edeb83`
-- **Summary of my work:** see README.md "What the slice demonstrates", FRICTIONAL.md and SOURCES.md "Who did what".
-- **Known limitations:** README.md "Known limitations" and TEST-REPORT.md section 11.
-
-- **Note:** submitted on 2026-10-07, after the 2026-10-06 23:59 due date (late).
+- **Project name:** walker-tinknockout-tharun-m (Tin Knockout)
+- **GitHub repository URL:** https://github.com/Tharun-Maheswararao/walker-tinknockout-tharun-m
+- **Git tag and submitted commit SHA:** tag `a3`; the SHA is given in the Canvas copy of this note (a commit cannot contain its own hash).
+- **Game-source revision shown in the film:** no A3 film was made (see Known limitations).
+- **Godot version, Blender version, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Blender 5.2.2 LTS · macOS 15.6 (Darwin 24.6.0), Apple M4
+- **The three assets and what each is for:**
+  - `castle`: the sunken-castle ornament on the goldfish-bowl floor; the environment landmark behind the fighters. 1.80 × 0.82 × 2.30 m.
+  - `windkey`: a spare brass winding key; a collectible that would refill Bolt's spring. 0.60 × 0.14 × 0.70 m.
+  - `toybox`: the tin toy box that future weapon pickups come out of; a prop. 1.26 × 0.76 × 0.75 m.
+- **MCP project and version, or "script route":** MCP for Blender (`mcp-for-blender` 2.1.9, Blender add-on 1.8) for **castle**. **Script route** (headless Blender) for **windkey** and **toybox**, because time ran out, not because the MCP failed.
+- **My hand edit in Blender:** **not done** at submission (FRICTIONAL.md, last entry).
+- **Checks run (command and result):**
+  - `godot --headless --path godot --import`: no errors.
+  - `timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60`: `RESULT: PASS (0 failing)`. Size within ±0.01 m of the brief, base at y = 0, scale 1 and rotation 0, upright, front at +Z, triangles within budget, all three on the floor in `prop_room.tscn`. Output in `evidence/check_props3d.txt`.
+  - Headless re-run of `tools/blender/build_castle.py` and inspection of each `.blend`: dimensions, origin, scale and colours match the brief.
+- **Final film URL and filename:** none; not made.
+- **Final film SHA-256:** n/a
+- **Summary of my changes:** an A3 brief committed before building; Blender MCP set up (with three setup fixes logged); castle built through the MCP, key and box by script route; three `.glb` files, a Godot prop room, and a headless check that Claude first wrote wrongly (false pass) and then fixed; interface notes and an A3 test report.
+- **Known limitations:** only one asset used the MCP route (the rubric asks for two). **No Brutalist film was made**, because the deadline arrived first. **No hand edit and no human look-check** were done before the deadline (TEST-REPORT A3-7, A3-9). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
+- **Changed games since Assignment 2:** no.

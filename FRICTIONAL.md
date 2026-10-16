@@ -116,3 +116,8 @@ The Claude app was closed overnight for longer than either of us realised. Work 
 - **Decision (mine):** with ~40 minutes left, I asked Claude to finish. Claude built `windkey` and `toybox` by the **script route** (headless Blender) in this session, because this session cannot see the MCP tools. This is a time decision, not an MCP failure; the castle shows the MCP route worked. I accept that this earns less than "MCP for at least two assets".
 - **Results:** windkey 0.60 × 0.14 × 0.70 m, 192 tris; toybox 1.26 × 0.76 × 0.75 m, 48 tris. Both have origin at the base and scale 1. All three exported with `export_glb.py` (+Y Up).
 - **Claude's own check was wrong at first:** the first `check_props3d.gd` printed PASS for "sits on the floor in the room" while Godot logged `!is_inside_tree()` errors. `global_transform` returned the identity, so placement was never tested. Claude rewrote the transform maths; the rerun shows real positions. A second edit hit a GDScript parse error, **and Godot still exited 0**. Lesson: read the RESULT line, not the exit code. Output: `evidence/check_props3d.txt`.
+
+## 2026-10-15 ~23:20 — what was not done, and why
+
+- I asked Claude to "do everything", including the hand edit and the checks. Claude did the build, export, Godot and docs work, but declined three items that the assignment defines as mine: **the hand edit in Blender's window** (a scripted edit would not be a hand edit), **the HUMAN CHECK: look**, and **my account of the MCP build session**. At submission all three are **not done / not recorded**. Nothing here is written as if they happened.
+- The planned hand edit (CHANGE-BRIEF A3.4, recolour the toy box band) is therefore not in this submission.

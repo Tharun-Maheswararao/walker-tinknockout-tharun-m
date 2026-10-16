@@ -184,14 +184,14 @@ castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by 
 **What the check does NOT show:** whether the props look right, read as what they are, or suit Tin Knockout's style or lighting. **Also:** Godot exited 0 even when the check script failed to parse, so a 0 exit code alone is not proof. Read the `RESULT:` line.
 
 ## A3-7. HUMAN CHECK: look
-**Not yet done by me.** I still need to walk the camera around each prop in the Godot editor, including from behind and below. Claude's notes on the one render (not a substitute for my check): the cream lid looks almost white under the sun light, and the key is small at this camera distance. No missing faces are visible from the front.
+**Not done at submission.** I did not walk the camera around each prop in the Godot editor, including from behind and below. Claude's notes on the one render (not a substitute for my check): the cream lid looks almost white under the sun light, and the key is small at this camera distance. No missing faces are visible from the front.
 
 ## A3-8. What Claude got wrong
 **Claude's first Godot check passed when it should not have.** It called `global_transform` on nodes not yet inside the scene tree. Godot logged `Condition "!is_inside_tree()" is true. Returning: Transform3D()` and returned the identity, so "toybox sits on the floor in the room" was computed as if every prop stood at the origin, and printed PASS without testing placement. This is the same kind of error as the Module 3 floor check. **Fix:** compute transforms from local transforms up to the root (`to_root()`). The rerun reports real world positions (castle x −3.10..−1.30) and no engine errors. The second attempt also hit a GDScript parse error, and Godot still exited 0; see A3-6.
 
 ## A3-9. Inspect → revise
 1. **Check revised from an observation** (A3-8): the engine ERROR lines showed the room check proved nothing. The transform maths was rewritten and the check rerun.
-2. **Hand edit in Blender:** *pending, see FRICTIONAL.md.*
+2. **Hand edit in Blender:** not done at submission.
 
 ## A3-10. Predicted failures A3-F1 … F7: outcomes
 | # | Outcome |
