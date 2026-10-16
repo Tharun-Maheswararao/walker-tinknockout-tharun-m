@@ -121,3 +121,9 @@ The Claude app was closed overnight for longer than either of us realised. Work 
 
 - I asked Claude to "do everything", including the hand edit and the checks. Claude did the build, export, Godot and docs work, but declined three items that the assignment defines as mine: **the hand edit in Blender's window** (a scripted edit would not be a hand edit), **the HUMAN CHECK: look**, and **my account of the MCP build session**. At submission all three are **not done / not recorded**. Nothing here is written as if they happened.
 - The planned hand edit (CHANGE-BRIEF A3.4, recolour the toy box band) is therefore not in this submission.
+
+## 2026-10-16 00:05–00:25 — the deadline moved: hand edit and look check
+
+- **Decision (mine):** submit a day late (10 % penalty) so the film and my own parts can be done. Claude stopped the film agent, which had started from the old `a3` (navy band, "no hand edit"), so the film will be made from the final source. The two "not done" entries above are now superseded for the hand edit and the look check.
+- **Hand edit (mine, in Blender's window):** I opened `toybox.blend` and switched the viewport to Material Preview (third shading sphere; I first mistook the X/Y/Z gizmo for it). In the Material tab I chose slot `toybox_navy` and changed Base Color to `#2E7D32` green, then saved at 00:11. Claude checked the saved file headless: size, origin, scale and 48 tris were unchanged. It re-exported the .glb, and the check passed with albedo `#2E7D32` (`08f96cd`). The slot name still says "navy".
+- **Look check (mine):** I opened `prop_room.tscn` in the Godot editor, orbited the props and ran it with F6. Everything looked fine to me. I forgot to take a screenshot, so Claude rendered six angles (`evidence/godot/views/`) and noted the near-white lid; that observation is Claude's.

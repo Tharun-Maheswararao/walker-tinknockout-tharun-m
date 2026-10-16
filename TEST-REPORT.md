@@ -184,14 +184,24 @@ castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by 
 **What the check does NOT show:** whether the props look right, read as what they are, or suit Tin Knockout's style or lighting. **Also:** Godot exited 0 even when the check script failed to parse, so a 0 exit code alone is not proof. Read the `RESULT:` line.
 
 ## A3-7. HUMAN CHECK: look
-**Not done at submission.** I did not walk the camera around each prop in the Godot editor, including from behind and below. Claude's notes on the one render (not a substitute for my check): the cream lid looks almost white under the sun light, and the key is small at this camera distance. No missing faces are visible from the front.
+**My check (2026-10-16, after the hand edit):** I opened `prop_room.tscn` in the Godot editor, walked the camera around the three props, and ran the scene with F6. My verdict: **"everything works fine"**: they read as what they are, with no problems I noticed. I did not take a screenshot.
+
+**Claude's renders, for evidence (not my screenshots):** `godot/tools/shot_prop_views.gd` rendered the scene from six angles into `evidence/godot/views/` (`contact_sheet.png`: front, behind, below, and a close-up of each prop). Claude's observations:
+- Front: the door and latch face the camera; the green band shows.
+- Behind: no holes; the back of the castle is plain (the door is front only).
+- Below, through the one-sided floor: every base is closed; no missing faces.
+- The **cream lid (`#E8DCC0`) reads as near-white** under this light. Next step: a darker cream, or less sun energy.
+- The key is small beside the castle, which is correct for the brief's sizes.
+- In the key close-up the castle looks tilted. That is wide-angle perspective at close range, not geometry; the castle close-up shows it upright.
+
+The first run of this render script hit the same `Node not inside tree` mistake as the check (`look_at` before the room was in the tree), so its first view used the wrong camera. It was fixed (`look_at_from_position` after one frame) and re-rendered with no errors.
 
 ## A3-8. What Claude got wrong
 **Claude's first Godot check passed when it should not have.** It called `global_transform` on nodes not yet inside the scene tree. Godot logged `Condition "!is_inside_tree()" is true. Returning: Transform3D()` and returned the identity, so "toybox sits on the floor in the room" was computed as if every prop stood at the origin, and printed PASS without testing placement. This is the same kind of error as the Module 3 floor check. **Fix:** compute transforms from local transforms up to the root (`to_root()`). The rerun reports real world positions (castle x −3.10..−1.30) and no engine errors. The second attempt also hit a GDScript parse error, and Godot still exited 0; see A3-6.
 
 ## A3-9. Inspect → revise
 1. **Check revised from an observation** (A3-8): the engine ERROR lines showed the room check proved nothing. The transform maths was rewritten and the check rerun.
-2. **Hand edit in Blender:** not done at submission.
+2. **Hand edit in Blender (mine):** I recoloured the toy box band from navy `#23395B` to green `#2E7D32`, in the Material tab → Base Color in Material Preview (`evidence/blender/04-toybox-before.webp`, `05-toybox-after.webp`). The Item tab still showed 1.26 × 0.76 × 0.75 m at scale 1.000. Re-exported; the Godot check reads albedo `#2E7D32` and still passes. The material slot is still *named* `toybox_navy`.
 
 ## A3-10. Predicted failures A3-F1 … F7: outcomes
 | # | Outcome |
@@ -201,5 +211,5 @@ castle 156 / 200 · windkey 192 / 250 · toybox 48 / 100. These were counted by 
 | F3 floats/sinks | Did not happen (A3-4). |
 | F4 unapplied scale/rotation | Did not happen. Node scale (1,1,1), rotation 0. The key's lobes are rotated 90° per part and applied before joining. |
 | F5 too detailed | Did not happen. Segment counts are as specified, and all three are under budget. |
-| F6 colour lost | Did not happen numerically. Godot albedo hex values equal the brief's (e.g. castle `#D98BA0`, `#3E8E86`, `#3A2A20`). Visual check pending (A3-7). |
+| F6 colour lost | Not lost: Godot albedo hex values equal the Blender values (e.g. castle `#D98BA0`, `#3E8E86`, `#3A2A20`; band `#2E7D32` after my edit). But the cream lid *reads* near-white under the sun light (A3-7), so a colour can survive export and still not look right. |
 | F7 MCP breaks | Partly. Setup needed three fixes (FRICTIONAL.md), then the MCP built the castle. The key and box used the script route for time, not because the MCP failed. |
