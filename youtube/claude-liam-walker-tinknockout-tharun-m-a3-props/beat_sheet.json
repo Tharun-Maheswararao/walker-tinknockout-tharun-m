@@ -1,0 +1,2254 @@
+{
+  "metadata": {
+    "title": "Tin Knockout, Three Props in Blender",
+    "slug": "claude-liam-walker-tinknockout-tharun-m-a3-props",
+    "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 3",
+    "kind": "godot-gamedev",
+    "playlist": "Walker",
+    "brand": "claude-liam",
+    "audience": "CSYE 7270 reviewers and Walker users",
+    "register": "Teardown",
+    "engine": "kokoro",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "aspect_ratio": "16:9",
+    "captions": false,
+    "channel_title": "@NikBearBrown",
+    "channel": "@NikBearBrown",
+    "presenter": "Liam (in for Bear)",
+    "persona": "Liam (in for Bear)",
+    "episode_id": "walker-tinknockout-tharun-m-a3",
+    "mode": "walker",
+    "game": {
+      "name": "walker-tinknockout-tharun-m",
+      "revision": "1d93dcb89ebd16f1d09d423b2787087bebcded5a",
+      "docs_revision": "fd99467",
+      "godot_path": "godot",
+      "engine_version": "4.7.2.stable.official.ed1daf0bf",
+      "blender_version": "5.2.2 LTS"
+    },
+    "student": "Tharun Maheswararao",
+    "course": "CSYE 7270 Fall 2026 · Assignment 3",
+    "note": "Walker-mode godot-gamedev film of the A3 props. Game source shown: 1d93dcb; docs and student evidence read at fd99467 (docs-only commits 0bc2b4d, fd99467). Real Blender images are the student's own screenshots (01, 02, 04, 05, 06, 07) and the MCP look tool image (03) from the student's live session. Godot images are real engine output: repo renders by shot_prop_room.gd / shot_prop_views.gd (Claude-made) and a Movie Maker orbit captured for this film on an isolated copy. B00 is an illustrative reconstruction; B06 is the real pasted castle prompt. Editor views are labelled reconstructions.",
+    "build": {
+      "at": "2026-10-17T00:16:36",
+      "cut": "master",
+      "filled": 28,
+      "of": 28,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "role_note": "COLD OPEN / walker B00 — ClaudeComposerAsk. Illustrative reconstruction, not a transcript.",
+      "narration_text": "Merhaba, this is Liam, in for Bear. Today we take apart assignment three of Tin Knockout, Tharun Maheswararao's game about tin wind-up toys boxing in an empty goldfish bowl. This time the game gets three 3D props, built in Blender and checked in Godot. The prompt on screen is an illustrative reconstruction, not a saved transcript.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the reconstructed Walker ask; output lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Merhaba, Liam",
+            "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 3",
+            "segment": "walker-tinknockout-tharun-m",
+            "command": "Please use Walker to convert my game design document about tin wind-up toys boxing in an empty goldfish bowl into three 3D props for my Godot game: a sunken-castle ornament, a spare winding key and a tin toy box, sized against Bolt at 1.80 m.",
+            "runningText": "reading the brief…",
+            "output": [
+              "■ walker-tinknockout-tharun-m  ·  Godot 4.7.2  ·  Blender 5.2.2  ·  1d93dcb",
+              "  castle   1.80 × 0.82 × 2.30 m  ·  156 tris  ·  Blender MCP",
+              "  windkey  0.60 × 0.14 × 0.70 m  ·  192 tris  ·  Blender MCP",
+              "  toybox   1.26 × 0.76 × 0.75 m  ·   48 tris  ·  script route",
+              "  RECONSTRUCTED PROMPT — illustrative, not a transcript"
+            ],
+            "durationSeconds": 18.65
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-10-17T03:36:54.015616+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 18.65,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 18.666666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "role_note": "walker B01 — what was built and what the film explains. The correction is the misconception the body dismantles: a headless check proves measurements, not looks.",
+      "lead_silence_s": 0.8,
+      "narration_text": "Tin Knockout got three 3D props: a castle, a key and a toy box. The headless check proves they measure right. Whether they look right took a person, and this film shows both.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "writer types the overview; \"look right\" is struck and corrected to \"measure right\""
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Tin Knockout got three 3D props:\na castle, a key and a toy box.\nThe check proves they look right.",
+            "triggerWords": "look",
+            "replacementWords": "measure",
+            "charMs": 10,
+            "mistakeRate": 2,
+            "hesitateBetween": 4,
+            "seed": "claude-liam-walker-tinknockout-tharun-m-a3-props",
+            "face": "serif",
+            "fontSize": 108,
+            "lineSpacing": 2.6,
+            "align": "left",
+            "ink": "#2b2118",
+            "durationSeconds": 10.63
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-10-17T04:12:05.531800+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 11,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 10.63,
+      "audio_file": "mp3/beat-B01.mp3",
+      "lead_silence_baked": true,
+      "voice_duration_s": 9.83,
+      "render_duration_s": 10.633333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "ASSETS",
+      "role_note": "The game, the three assets, their jobs and sizes at character scale, over the real engine render.",
+      "narration_text": "Here is the real engine render of the prop room, all three props on its floor. Everything is sized against Bolt, one point eight metres tall. The castle is the sunken-castle ornament, the landmark that says goldfish bowl, at two point three metres. The windkey is a spare brass winding key, a collectible that would refill Bolt's spring. The toy box is where weapon pickups would come from. Its lid sits at Bolt's waist.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B02.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "evidence/godot/prop_room.png (real engine render) with the concept line"
+          },
+          {
+            "at": "Bolt, one point eight",
+            "event": "scale rule: Bolt = 1.80 m"
+          },
+          {
+            "at": "The castle is",
+            "event": "castle card lights: environment · 1.80 × 0.82 × 2.30 m · why"
+          },
+          {
+            "at": "The windkey is",
+            "event": "windkey card lights: collectible · 0.60 × 0.14 × 0.70 m · why"
+          },
+          {
+            "at": "The toy box is",
+            "event": "toybox card lights: weapon-pickup prop · 1.26 × 0.76 × 0.75 m · why"
+          }
+        ],
+        "anchors": [
+          [
+            "bolt",
+            "Bolt, one point eight"
+          ],
+          [
+            "castle",
+            "The castle is"
+          ],
+          [
+            "windkey",
+            "The windkey is"
+          ],
+          [
+            "toybox",
+            "The toy box is"
+          ]
+        ],
+        "panel": {
+          "kind": "assets",
+          "title": "Three Props, Each With a Job"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "bolt": 5.48,
+          "castle": 7.21,
+          "windkey": 12.12,
+          "toybox": 16.45
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.38,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 21.4,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "BRIEF",
+      "role_note": "The A3 brief (3ef263b) committed before any building; what it fixes; its predicted failures.",
+      "narration_text": "The brief came first. Commit three e f two six three adds it before the first build commit. Tharun chose the three assets and the scale. Claude drafted the numbers, colours and failure cases, and Tharun accepted them unchanged. It fixes what the checks test later: size within one centimetre, the base at zero, triangle budgets, and which way the front faces. And it predicts seven ways this could go wrong.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B03.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "git log of the A3 commits, oldest first"
+          },
+          {
+            "at": "Commit three",
+            "event": "3ef263b highlighted, above bec93b5 (first build commit)"
+          },
+          {
+            "at": "Tharun chose",
+            "event": "authorship line from the brief header"
+          },
+          {
+            "at": "It fixes what",
+            "event": "A3.1 ground rules appear"
+          },
+          {
+            "at": "And it predicts",
+            "event": "A3.3 predicted failures F1–F7 appear"
+          }
+        ],
+        "anchors": [
+          [
+            "log",
+            "Commit three"
+          ],
+          [
+            "author",
+            "Tharun chose"
+          ],
+          [
+            "rules",
+            "It fixes what"
+          ],
+          [
+            "fails",
+            "And it predicts"
+          ]
+        ],
+        "panel": {
+          "kind": "brief",
+          "title": "The Brief Came First"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "log": 0.89,
+          "author": 5.06,
+          "rules": 11.31,
+          "fails": 18.16
+        }
+      },
+      "estimated_duration_s": 28,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.14,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 21.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "SETUP",
+      "role_note": "Setup frictions from FRICTIONAL.md (A3), with the student's own connected screenshot.",
+      "narration_text": "Setup took three fixes, all logged. The chapter's claude m c p add line failed: dash e takes several values, so it swallowed the server name. Install add-on failed until Blender had been opened once. Enabling the add-on needed a full Blender restart. Then this, Tharun's own screenshot: connected on port nine eight seven six, which Claude found bound to one two seven dot zero dot zero dot one only. Even so, the first get scene info call said, could not connect to Blender. Four minutes later, it worked.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B04.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshot 01 (MCP connected) at left; fix list at right"
+          },
+          {
+            "at": "The chapter's",
+            "event": "fix 1: claude mcp add -e swallowed the name"
+          },
+          {
+            "at": "Install add-on",
+            "event": "fix 2: install-addon needed Blender opened once"
+          },
+          {
+            "at": "Enabling the add-on",
+            "event": "fix 3: full restart"
+          },
+          {
+            "at": "Then this",
+            "event": "ring on \"Connected on port 9876\"; 127.0.0.1 only"
+          },
+          {
+            "at": "Even so",
+            "event": "first get_scene_info: \"Could not connect to Blender\"; worked 4 min later"
+          }
+        ],
+        "anchors": [
+          [
+            "f1",
+            "The chapter's"
+          ],
+          [
+            "f2",
+            "Install add-on"
+          ],
+          [
+            "f3",
+            "Enabling the add-on"
+          ],
+          [
+            "shot",
+            "Then this"
+          ],
+          [
+            "retry",
+            "Even so"
+          ]
+        ],
+        "panel": {
+          "kind": "setup",
+          "title": "Setup: Three Fixes, Then a Retry"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "f1": 1.7,
+          "f2": 8.35,
+          "f3": 11.35,
+          "shot": 14.01,
+          "retry": 23.0
+        }
+      },
+      "estimated_duration_s": 34,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 29.63,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 29.633333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "WINDOW",
+      "role_note": "The student's Learn-the-window screenshot: Scale 1.000 but 2 m dimensions -> A3-F1.",
+      "narration_text": "Tharun's own screenshot, from learning the window. The default cube reads scale one, but its dimensions are two metres on every side. Claude pointed that out, and it became predicted failure F one: wrong size by a factor of two. Scale one does not mean one metre.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B05.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshot 02"
+          },
+          {
+            "at": "reads scale one",
+            "event": "ring on Scale 1.000, zoomed"
+          },
+          {
+            "at": "but its dimensions",
+            "event": "ring moves to Dimensions 2 m"
+          },
+          {
+            "at": "Claude pointed",
+            "event": "A3-F1 card"
+          }
+        ],
+        "anchors": [
+          [
+            "scale",
+            "reads scale one"
+          ],
+          [
+            "dims",
+            "but its dimensions"
+          ],
+          [
+            "f1",
+            "Claude pointed"
+          ]
+        ],
+        "panel": {
+          "kind": "window",
+          "title": "Learning the Window: the 2 m Cube"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "scale": 2.85,
+          "dims": 3.79,
+          "f1": 6.62
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 14.78,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 14.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "PROMPT",
+      "role_note": "The real castle prompt the student pasted, verbatim, from the castle session transcript.",
+      "narration_text": "This is the real prompt Tharun pasted for the castle, word for word. It points Claude at the brief. It asks for get scene info and a proposal before any building. Then one execute blender code call per part, with a scene check after each. It ends with the look tool, the triangle count, a list of asset libraries not to touch, and one more request: say what you could not verify.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B06.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "the verbatim prompt as pasted (line breaks kept)"
+          },
+          {
+            "at": "It points Claude",
+            "event": "line: Read CHANGE-BRIEF.md first"
+          },
+          {
+            "at": "It asks",
+            "event": "lines: get_scene_info, propose the steps, do not build yet"
+          },
+          {
+            "at": "Then one",
+            "event": "lines: one execute_blender_code call per object, get_scene_info after each"
+          },
+          {
+            "at": "It ends",
+            "event": "lines: look tool, triangle count, banned libraries"
+          },
+          {
+            "at": "one more request",
+            "event": "line: Say what you could not verify"
+          }
+        ],
+        "anchors": [
+          [
+            "brief",
+            "It points Claude"
+          ],
+          [
+            "propose",
+            "It asks"
+          ],
+          [
+            "calls",
+            "Then one"
+          ],
+          [
+            "end",
+            "It ends"
+          ],
+          [
+            "verify",
+            "one more request"
+          ]
+        ],
+        "panel": {
+          "kind": "prompt",
+          "title": "The Prompt Tharun Pasted"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "brief": 3.19,
+          "propose": 4.81,
+          "calls": 8.03,
+          "end": 11.79,
+          "verify": 16.63
+        }
+      },
+      "estimated_duration_s": 27,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.35,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 19.366666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "MECHANISM",
+      "role_note": "Code: build_castle.py call 1, the keep — size=1.0 cube, scale, apply, flat pink.",
+      "narration_text": "What it built, one call per part, copied into build castle dot p y. Call one, the keep. Line forty-seven adds a cube of size one, not the default two, centred at height zero point seven, so its base sits on zero. Line fifty scales it to the brief's size, and line fifty-one applies that scale, so the object goes back to scale one. Line fifty-two gives it the faded aquarium pink.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B07.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "tools/blender/build_castle.py:47-52 at reading size"
+          },
+          {
+            "at": "Line forty-seven",
+            "event": "line 47 highlighted: size=1.0 cube, centred at z 0.70"
+          },
+          {
+            "at": "Line fifty scales",
+            "event": "line 50 highlighted: scale to 1.20 × 0.80 × 1.40"
+          },
+          {
+            "at": "line fifty-one",
+            "event": "line 51 highlighted: apply: the mesh carries the size, scale back to 1"
+          },
+          {
+            "at": "Line fifty-two",
+            "event": "line 52 highlighted: flat material castle_pink #D98BA0"
+          }
+        ],
+        "anchors": [
+          [
+            "47",
+            "Line forty-seven"
+          ],
+          [
+            "50",
+            "Line fifty scales"
+          ],
+          [
+            "51",
+            "line fifty-one"
+          ],
+          [
+            "52",
+            "Line fifty-two"
+          ]
+        ],
+        "panel": {
+          "kind": "blender_code",
+          "title": "Castle, Call 1: the Keep",
+          "path": "tools/blender/build_castle.py",
+          "start_line": 47,
+          "end_line": 52,
+          "code": "bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0.0, 0.0, 0.70))\nkeep = bpy.context.active_object\nkeep.name = \"keep\"\nkeep.scale = (1.20, 0.80, 1.40)\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)\nkeep.data.materials.append(flat_material(\"castle_pink\", \"#D98BA0\"))",
+          "notes": [
+            [
+              "Brief (A3.2)",
+              "keep: cube 1.20 × 0.80 × 1.40 m\ncolour #D98BA0"
+            ],
+            [
+              "Default cube",
+              "Blender's default cube is 2 m\n(screenshot 02 · A3-F1)"
+            ],
+            [
+              "Route",
+              "Blender MCP · execute_blender_code\ncall 1 of 8 (calls 0–7)"
+            ]
+          ],
+          "cues": [
+            [
+              47,
+              "size=1.0 cube, centred at z 0.70"
+            ],
+            [
+              50,
+              "scale to 1.20 × 0.80 × 1.40"
+            ],
+            [
+              51,
+              "apply: the mesh carries the size, scale back to 1"
+            ],
+            [
+              52,
+              "flat material castle_pink #D98BA0"
+            ]
+          ],
+          "caption": "Source file, verbatim · tools/blender/build_castle.py at 1d93dcb · the execute_blender_code bodies the MCP session ran in Tharun's live Blender, copied in order · not an editor recording"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "47": 4.85,
+          "50": 11.71,
+          "51": 14.28,
+          "52": 18.0
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 20.59,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 20.6,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "RESULT",
+      "role_note": "Result of B07: the MCP look tool's real four-view image from the student's live session.",
+      "narration_text": "And this is what the M C P's look tool returned from Tharun's live Blender session: four views of the finished castle. The pink keep, two twelve-sided towers with teal cone roofs, and the dark door on the front. The session reported one point eight by zero point eight two by two point three metres, and one hundred fifty-six triangles, under the budget of two hundred.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B08.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "evidence/blender/03-castle-mcp-look.png, labelled 'Blender MCP look tool, student's live session'"
+          },
+          {
+            "at": "The pink keep",
+            "event": "callout: keep (call 1)"
+          },
+          {
+            "at": "two twelve-sided",
+            "event": "callout: towers, 12 sides (calls 2–3); roofs (calls 4–5)"
+          },
+          {
+            "at": "and the dark door",
+            "event": "callout: door on the front (call 6)"
+          },
+          {
+            "at": "The session reported",
+            "event": "numbers: 1.80 × 0.82 × 2.30 m · 156 / 200 tris"
+          }
+        ],
+        "anchors": [
+          [
+            "keep",
+            "The pink keep"
+          ],
+          [
+            "towers",
+            "two twelve-sided"
+          ],
+          [
+            "door",
+            "and the dark door"
+          ],
+          [
+            "numbers",
+            "The session reported"
+          ]
+        ],
+        "panel": {
+          "kind": "look",
+          "title": "Result: What the Look Tool Saw"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "keep": 6.14,
+          "towers": 7.01,
+          "door": 9.06,
+          "numbers": 11.11
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.31,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 19.333333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "MECHANISM",
+      "role_note": "Code: build_castle.py call 7 — join, origin to the world origin (base centre), apply.",
+      "narration_text": "Call seven joins the six parts. Line one seventy-one joins them into one object, named castle. Lines one seventy-seven and one seventy-eight put the origin at the 3D cursor, the world origin, which is the centre of the underside. Line one eighty applies rotation and scale. That origin decides whether the castle floats, sinks or sits.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B09.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "tools/blender/build_castle.py:171-180 at reading size"
+          },
+          {
+            "at": "Line one seventy-one",
+            "event": "line 171 highlighted: join the six parts into one object"
+          },
+          {
+            "at": "Lines one seventy-seven",
+            "event": "line 177 highlighted: cursor at the world origin"
+          },
+          {
+            "at": "which is the centre",
+            "event": "line 178 highlighted: origin moved to the cursor"
+          },
+          {
+            "at": "Line one eighty",
+            "event": "line 180 highlighted: apply rotation and scale"
+          }
+        ],
+        "anchors": [
+          [
+            "171",
+            "Line one seventy-one"
+          ],
+          [
+            "177",
+            "Lines one seventy-seven"
+          ],
+          [
+            "178",
+            "which is the centre"
+          ],
+          [
+            "180",
+            "Line one eighty"
+          ]
+        ],
+        "panel": {
+          "kind": "blender_code",
+          "title": "Castle, Call 7: Join and Origin",
+          "path": "tools/blender/build_castle.py",
+          "start_line": 171,
+          "end_line": 180,
+          "code": "bpy.ops.object.join()\n\ncastle = bpy.context.active_object\ncastle.name = \"castle\"\ncastle.data.name = \"castle\"\n\nbpy.context.scene.cursor.location = (0.0, 0.0, 0.0)\nbpy.ops.object.origin_set(type='ORIGIN_CURSOR')\ncastle.location = (0.0, 0.0, 0.0)\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)",
+          "notes": [
+            [
+              "Brief (A3.1)",
+              "origin: centre of the underside,\nat world (0, 0, 0); lowest point Z = 0"
+            ],
+            [
+              "Predicted",
+              "A3-F3 floats or sinks\nA3-F4 unapplied scale/rotation"
+            ]
+          ],
+          "cues": [
+            [
+              171,
+              "join the six parts into one object"
+            ],
+            [
+              177,
+              "cursor at the world origin"
+            ],
+            [
+              178,
+              "origin moved to the cursor"
+            ],
+            [
+              180,
+              "apply rotation and scale"
+            ]
+          ],
+          "caption": "Source file, verbatim · tools/blender/build_castle.py at 1d93dcb · the execute_blender_code bodies the MCP session ran in Tharun's live Blender, copied in order · not an editor recording"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "171": 1.75,
+          "177": 5.17,
+          "178": 10.65,
+          "180": 13.04
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.16,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 19.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "RESULT",
+      "role_note": "Result of B09: the student's own screenshot of the MCP-built castle's sidebar (fd99467).",
+      "narration_text": "Tharun's own screenshot of the M C P-built castle, selected in his Blender. The Item tab: location zero, rotation zero, scale one, and dimensions one point eight by zero point eight two by two point three metres. The origin dot sits at the base. The statistics overlay was off in this shot, so the triangle count comes from the session, not from this picture.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B10.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshot 07 (castle sidebar)"
+          },
+          {
+            "at": "location zero",
+            "event": "ring on Location 0 / Rotation 0° / Scale 1.000"
+          },
+          {
+            "at": "and dimensions",
+            "event": "ring on Dimensions 1.8 × 0.82 × 2.3 m"
+          },
+          {
+            "at": "The origin dot",
+            "event": "ring on the origin at the base"
+          },
+          {
+            "at": "The statistics",
+            "event": "note: Statistics overlay off — no triangle count in this shot"
+          }
+        ],
+        "anchors": [
+          [
+            "xform",
+            "location zero"
+          ],
+          [
+            "dims",
+            "and dimensions"
+          ],
+          [
+            "origin",
+            "The origin dot"
+          ],
+          [
+            "stats",
+            "The statistics"
+          ]
+        ],
+        "panel": {
+          "kind": "castle_sidebar",
+          "title": "Result: the Castle in Tharun's Blender"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "xform": 4.76,
+          "dims": 6.65,
+          "origin": 11.39,
+          "stats": 13.6
+        }
+      },
+      "estimated_duration_s": 20,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 20.22,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 20.233333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "MECHANISM",
+      "role_note": "Code: build_windkey.py call 3 — a bow lobe rotated 90° about X, rotation applied before the join.",
+      "narration_text": "The key went through the M C P too, in a later session. Its trap is the bow. Lines ninety-eight and ninety-nine add each round lobe rotated ninety degrees about X, so its faces point forward and back. Line one oh two applies that rotation to the part, before the join, so it cannot leak into the whole key.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B11.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "tools/blender/build_windkey.py:98-103 at reading size"
+          },
+          {
+            "at": "Lines ninety-eight",
+            "event": "line 98 highlighted: 16-sided cylinder, r 0.15, depth 0.06"
+          },
+          {
+            "at": "rotated ninety degrees",
+            "event": "line 99 highlighted: rotation 90° about X: faces point ±Y"
+          },
+          {
+            "at": "Line one oh two",
+            "event": "line 102 highlighted: apply rotation to this part only"
+          }
+        ],
+        "anchors": [
+          [
+            "98",
+            "Lines ninety-eight"
+          ],
+          [
+            "99",
+            "rotated ninety degrees"
+          ],
+          [
+            "102",
+            "Line one oh two"
+          ]
+        ],
+        "panel": {
+          "kind": "blender_code",
+          "title": "Windkey, Call 3: a Bow Lobe",
+          "path": "tools/blender/build_windkey.py",
+          "start_line": 98,
+          "end_line": 103,
+          "code": "bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=0.15, depth=0.06, end_fill_type='NGON',\n                                    location=(-0.15, 0.0, 0.55), rotation=(math.radians(90), 0.0, 0.0))\nlobe = bpy.context.active_object\nlobe.name = \"lobe_L\"\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)\nlobe.data.materials.append(bpy.data.materials[\"key_brass\"])",
+          "notes": [
+            [
+              "Brief (A3.2)",
+              "lobes: cylinders r 0.15, depth 0.06,\n16 sides, rotated 90° about X"
+            ],
+            [
+              "Predicted",
+              "A3-F2: the lobe rotation leaks\ninto the whole object"
+            ],
+            [
+              "Route",
+              "Blender MCP, 2026-10-16 session\n(call 4 is the mirror, X = +0.15)"
+            ]
+          ],
+          "cues": [
+            [
+              98,
+              "16-sided cylinder, r 0.15, depth 0.06"
+            ],
+            [
+              99,
+              "rotation 90° about X: faces point ±Y"
+            ],
+            [
+              102,
+              "apply rotation to this part only"
+            ]
+          ],
+          "caption": "Source file, verbatim · tools/blender/build_windkey.py at 1d93dcb · MCP execute_blender_code body · not an editor recording"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "98": 4.82,
+          "99": 7.1,
+          "102": 10.51
+        }
+      },
+      "estimated_duration_s": 19,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.79,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 16.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "RESULT",
+      "role_note": "Result of B11: the student's own screenshot of the MCP-built windkey (0bc2b4d).",
+      "narration_text": "Tharun's own screenshot of the M C P-built key. Rotation zero, scale one, zero point six by zero point one four by zero point seven metres, and the statistics overlay at one hundred ninety-two triangles. Getting here, auto mode denied call zero, which clears the scene and saves over windkey dot blend. Tharun approved it himself. The numbers match the superseded script-route key exactly.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B12.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshot 06 (windkey sidebar, Material Preview)"
+          },
+          {
+            "at": "Rotation zero",
+            "event": "ring on Rotation 0° / Scale 1.000 / Dimensions"
+          },
+          {
+            "at": "and the statistics",
+            "event": "ring on Triangles 192 / 192"
+          },
+          {
+            "at": "auto mode denied",
+            "event": "card: auto mode denied call 0; Tharun approved it (FRICTIONAL)"
+          },
+          {
+            "at": "The numbers match",
+            "event": "card: script-route first key gave identical numbers"
+          }
+        ],
+        "anchors": [
+          [
+            "xform",
+            "Rotation zero"
+          ],
+          [
+            "tris",
+            "and the statistics"
+          ],
+          [
+            "denied",
+            "auto mode denied"
+          ],
+          [
+            "same",
+            "The numbers match"
+          ]
+        ],
+        "panel": {
+          "kind": "windkey_sidebar",
+          "title": "Result: the Key in Tharun's Blender"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "xform": 2.77,
+          "tris": 8.57,
+          "denied": 12.33,
+          "same": 18.81
+        }
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.85,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 21.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B12.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "MECHANISM",
+      "role_note": "Code: build_toybox.py (script route) — four boxes; line 12 is the navy band.",
+      "narration_text": "The toy box took the script route: headless Blender running build toybox dot p y, with helpers from common dot p y. Four boxes, each one call to box, with a size, a centre and a flat colour. Line twelve is the band: hash two three three nine five B, navy. Line seventeen saves toybox dot blend.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B13.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "tools/blender/build_toybox.py:9-17 at reading size"
+          },
+          {
+            "at": "Four boxes",
+            "event": "line 10 highlighted: body: red #B5302A"
+          },
+          {
+            "at": "Line twelve",
+            "event": "line 12 highlighted: band: navy #23395B"
+          },
+          {
+            "at": "Line seventeen",
+            "event": "line 17 highlighted: save assets/blender/toybox.blend"
+          }
+        ],
+        "anchors": [
+          [
+            "10",
+            "Four boxes"
+          ],
+          [
+            "12",
+            "Line twelve"
+          ],
+          [
+            "17",
+            "Line seventeen"
+          ]
+        ],
+        "panel": {
+          "kind": "blender_code",
+          "title": "Toy Box: the Script Route",
+          "path": "tools/blender/build_toybox.py",
+          "start_line": 9,
+          "end_line": 17,
+          "code": "empty_metric_scene()\nbody = box(\"body\", (1.20, 0.70, 0.65), (0, 0, 0.325), flat_material(\"toybox_red\", \"#B5302A\"))\nlid = box(\"lid\", (1.26, 0.76, 0.10), (0, 0, 0.70), flat_material(\"toybox_cream\", \"#E8DCC0\"))\nband = box(\"band\", (1.22, 0.72, 0.08), (0, 0, 0.34), flat_material(\"toybox_navy\", \"#23395B\"))\n# Latch on the -Y (front) face just under the lid: Y -0.38..-0.35, Z 0.53-0.65\nlatch = box(\"latch\", (0.12, 0.03, 0.12), (0, -0.365, 0.59), flat_material(\"toybox_brass\", \"#C9A23A\"))\n\njoin_at_origin(\"toybox\", [body, lid, band, latch])\nbpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(\"assets/blender/toybox.blend\"))",
+          "notes": [
+            [
+              "Route",
+              "headless: blender -b --factory-startup\n--python-exit-code 1 --python …"
+            ],
+            [
+              "box() in _common.py 26–33",
+              "cube size 1 → scale → apply\n→ one flat material"
+            ],
+            [
+              "Brief (A3.2)",
+              "band 1.22 × 0.72 × 0.08 m\nnavy #23395B"
+            ]
+          ],
+          "cues": [
+            [
+              10,
+              "body: red #B5302A"
+            ],
+            [
+              12,
+              "band: navy #23395B"
+            ],
+            [
+              17,
+              "save assets/blender/toybox.blend"
+            ]
+          ],
+          "caption": "Source file, verbatim · tools/blender/build_toybox.py at 1d93dcb · script route (no MCP) · not an editor recording"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "10": 6.71,
+          "12": 11.8,
+          "17": 15.94
+        }
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 18.15,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 18.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B13.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "RESULT",
+      "role_note": "Result of B13: the student's own screenshot of toybox.blend before the hand edit (navy band).",
+      "narration_text": "Here is that file, open in Tharun's Blender, his own screenshot from before the hand edit. Red body, cream lid, brass latch, and line twelve's navy band. Rotation zero and scale one in the properties. This view is Solid shading. Keep that in mind for the edit.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B14.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshot 04 (before)"
+          },
+          {
+            "at": "line twelve's navy",
+            "event": "ring on the navy band"
+          },
+          {
+            "at": "Rotation zero",
+            "event": "ring on Rotation 0° / Scale 1.000"
+          },
+          {
+            "at": "This view is",
+            "event": "ring on the viewport shading buttons (Solid)"
+          }
+        ],
+        "anchors": [
+          [
+            "band",
+            "line twelve's navy"
+          ],
+          [
+            "xform",
+            "Rotation zero"
+          ],
+          [
+            "solid",
+            "This view is"
+          ]
+        ],
+        "panel": {
+          "kind": "toybox_before",
+          "title": "Result: the Box in Tharun's Blender"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "band": 6.93,
+          "xform": 8.19,
+          "solid": 10.71
+        }
+      },
+      "estimated_duration_s": 15,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 14.78,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 14.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B14.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "HAND_EDIT",
+      "role_note": "The student's hand edit: before/after screenshots 04 and 05.",
+      "narration_text": "Then the hand edit, Tharun's own, in Blender's window. He switched the viewport to Material Preview, after first mistaking the X Y Z gizmo for the shading buttons. In the Material tab he picked slot toybox navy and set Base Color to hash two E seven D three two, green. The size stayed one point two six by zero point seven six by zero point seven five, scale one. He saved, Claude re-exported, and the Godot check now reads that green.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B15.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "student's own screenshots 04 (before) and 05 (after), side by side"
+          },
+          {
+            "at": "Material Preview",
+            "event": "ring on the shading buttons in 05; gizmo marked as the thing he first tried"
+          },
+          {
+            "at": "In the Material tab",
+            "event": "ring on slot toybox_navy and the green Base Color"
+          },
+          {
+            "at": "The size stayed",
+            "event": "ring on Dimensions 1.26 × 0.76 × 0.75 m, Scale 1.000"
+          },
+          {
+            "at": "the Godot check",
+            "event": "check line: surface 2 toybox_navy albedo=#2E7D32 (08f96cd)"
+          }
+        ],
+        "anchors": [
+          [
+            "shade",
+            "Material Preview"
+          ],
+          [
+            "mat",
+            "In the Material tab"
+          ],
+          [
+            "size",
+            "The size stayed"
+          ],
+          [
+            "check",
+            "the Godot check"
+          ]
+        ],
+        "panel": {
+          "kind": "hand_edit",
+          "title": "The Hand Edit: Navy to Green"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "shade": 3.81,
+          "mat": 7.92,
+          "size": 14.38,
+          "check": 21.43
+        }
+      },
+      "estimated_duration_s": 27,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 23.79,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 23.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B15.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "HAND_EDIT",
+      "role_note": "The student's own lesson (0bc2b4d), and two loose ends Claude noticed.",
+      "narration_text": "In Tharun's own words: Editing the hand taught me that Blender's interface relies on coordinating specific Properties tabs, color pickers, and viewport shading modes just to see surface changes take effect in real time. Two loose ends, which Claude noticed. The slot is still named toybox navy, though it is green. And build toybox dot p y still says navy on line twelve, so re-running the script would save navy back over the hand edit.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B16.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "the student's sentence, quoted and attributed (BLENDER-NOTES.md, 0bc2b4d)"
+          },
+          {
+            "at": "Two loose ends",
+            "event": "Claude's observations panel appears"
+          },
+          {
+            "at": "The slot is",
+            "event": "check line: surface 2 toybox_navy albedo=#2E7D32"
+          },
+          {
+            "at": "And build toybox",
+            "event": "build_toybox.py line 12 (#23395B) and line 17 (save)"
+          }
+        ],
+        "anchors": [
+          [
+            "loose",
+            "Two loose ends"
+          ],
+          [
+            "slot",
+            "The slot is"
+          ],
+          [
+            "script",
+            "And build toybox"
+          ]
+        ],
+        "panel": {
+          "kind": "lesson",
+          "title": "What the Edit Taught, and Left Behind"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "loose": 10.04,
+          "slot": 11.86,
+          "script": 15.21
+        }
+      },
+      "estimated_duration_s": 26,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.81,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 22.833333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B16.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "MECHANISM",
+      "role_note": "Code: prop_room.tscn — light, saved camera, the three instanced props and their x positions.",
+      "narration_text": "Into Godot. Each dot blend was exported as G L B with plus Y up, so Blender's Z-up arrives as Godot's Y-up. In prop room dot t s c n, line thirty-three is the saved camera, five and a half metres out. Line thirty-seven instances the castle, and line thirty-eight moves it to x minus two point two. The key, line forty, stays at the origin. Line forty-three puts the toy box at x two.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/prop_room/prop_room.tscn:33-43 at reading size"
+          },
+          {
+            "at": "line thirty-three",
+            "event": "line 33: Camera3D: saved camera at (0, 1.6, 5.5)"
+          },
+          {
+            "at": "Line thirty-seven",
+            "event": "line 37: castle.glb instanced"
+          },
+          {
+            "at": "line thirty-eight",
+            "event": "line 38: castle at x = −2.2"
+          },
+          {
+            "at": "The key, line forty",
+            "event": "line 40: windkey at the origin"
+          },
+          {
+            "at": "Line forty-three",
+            "event": "line 43: toybox at x = 2.0"
+          }
+        ],
+        "anchors": [
+          [
+            "33",
+            "line thirty-three"
+          ],
+          [
+            "37",
+            "Line thirty-seven"
+          ],
+          [
+            "38",
+            "line thirty-eight"
+          ],
+          [
+            "40",
+            "The key, line forty"
+          ],
+          [
+            "43",
+            "Line forty-three"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "The Prop Room",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://prop_room/prop_room.tscn  ·  lines 33–43  ·  revision 1d93dcb",
+            "source": "Godot editor reconstruction · godot/prop_room/prop_room.tscn lines 33–43 at 1d93dcb, verbatim",
+            "code": "[node name=\"Camera3D\" type=\"Camera3D\" parent=\".\"]\ntransform = Transform3D(1, 0, 0, 0, 0.992, -0.1262, 0, 0.1262, 0.992, 0, 1.6, 5.5)\ncurrent = true\n\n[node name=\"castle\" parent=\".\" instance=ExtResource(\"1_castle\")]\ntransform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 0)\n\n[node name=\"windkey\" parent=\".\" instance=ExtResource(\"2_windkey\")]\n\n[node name=\"toybox\" parent=\".\" instance=ExtResource(\"3_toybox\")]\ntransform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0, 0, 0)",
+            "startLine": 33,
+            "codeFontSize": 25,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "tools/blender/export_glb.py",
+                "value": "export_yup=True\n(Blender Z-up → Godot Y-up)"
+              },
+              {
+                "label": "Brief (A3.1)",
+                "value": "front: Blender −Y\n→ Godot +Z"
+              }
+            ],
+            "cues": [
+              {
+                "at": 8.42,
+                "line": 33,
+                "label": "Camera3D: saved camera at (0, 1.6, 5.5)"
+              },
+              {
+                "at": 11.91,
+                "line": 37,
+                "label": "castle.glb instanced"
+              },
+              {
+                "at": 13.65,
+                "line": 38,
+                "label": "castle at x = −2.2"
+              },
+              {
+                "at": 16.56,
+                "line": 40,
+                "label": "windkey at the origin"
+              },
+              {
+                "at": 18.89,
+                "line": 43,
+                "label": "toybox at x = 2.0"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 21.8
+          },
+          "rendered": {
+            "out": "media/B17.mp4",
+            "at": "2026-10-17T03:38:02.651152+00:00"
+          }
+        },
+        "cue_times": {
+          "33": 8.42,
+          "37": 11.91,
+          "38": 13.65,
+          "40": 16.56,
+          "43": 18.89
+        }
+      },
+      "estimated_duration_s": 26,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.8,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 21.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B17.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "RESULT",
+      "role_note": "Result of B17: real engine output — Godot Movie Maker 3840x2160 of the unchanged prop_room.tscn on an isolated copy of 1d93dcb; saved camera for 4 s, then a film script orbits that camera. Not the student's look check.",
+      "narration_text": "Real engine output, recorded with Godot's Movie Maker from an isolated copy. The scene file is unchanged. First the saved camera, then a film script swings that same camera around the room. Every base meets the floor and its own shadow. The door and the latch face the front. From behind, the castle is plain, and nothing has a hole.",
+      "shot": {
+        "type": "SCREEN",
+        "capture_kind": "godot-movie-maker engine capture (CAPTURE)",
+        "source": "godot-movie-maker",
+        "motion": "hold",
+        "capture_clip": "orbit",
+        "label": "REAL ENGINE · camera orbit added by a film script · not the look check",
+        "capture_window_s": [
+          0.0,
+          null
+        ],
+        "evidence_media": "media/B18.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "saved Camera3D view of the three props"
+          },
+          {
+            "at": "4.0 s",
+            "event": "the same camera orbits; bases and shadows on the floor; back of the castle"
+          }
+        ]
+      },
+      "qc": {
+        "contrast_regions": [
+          {
+            "label": "film-label-top",
+            "box": [
+              0.06,
+              0.06,
+              0.94,
+              0.105
+            ]
+          },
+          {
+            "label": "film-label-bottom",
+            "box": [
+              0.06,
+              0.895,
+              0.94,
+              0.94
+            ]
+          }
+        ],
+        "contrast_reason": "Real Godot 3D render (Movie Maker, 3840x2160) inset on the cream ground; the frame average is the scene's own dark-blue background and floor. The film's own text is the ink-on-cream label lines above and below the inset, so those regions are measured."
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.0,
+      "audio_file": "mp3/beat-B18.mp3",
+      "silence_pad_to_s": 21.0,
+      "voice_duration_s": 17.73,
+      "render_duration_s": 21.0,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B18.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "act": "MECHANISM",
+      "role_note": "Code: check_props3d.gd lines 83–90 — size vs brief, base, scale/rotation, upright, triangle budget.",
+      "narration_text": "The headless check, which Claude wrote. For each imported prop, lines eighty-three to eighty-five compare the bounding box with the brief, within one centimetre. Line eighty-six requires the base at y zero. Line eighty-seven requires scale one and rotation zero. Line ninety compares the triangles with the budget. And lines six and seven of the same file say what it does not show: whether the props look right.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/tests/check_props3d.gd:83-90 at reading size"
+          },
+          {
+            "at": "lines eighty-three",
+            "event": "line 84: size within TOL of the brief"
+          },
+          {
+            "at": "Line eighty-six",
+            "event": "line 86: base at y = 0 (±0.005 m)"
+          },
+          {
+            "at": "eighty-seven requires",
+            "event": "line 87: scale (1,1,1), rotation 0"
+          },
+          {
+            "at": "Line ninety",
+            "event": "line 90: triangles ≤ budget"
+          }
+        ],
+        "anchors": [
+          [
+            "84",
+            "lines eighty-three"
+          ],
+          [
+            "86",
+            "Line eighty-six"
+          ],
+          [
+            "87",
+            "eighty-seven requires"
+          ],
+          [
+            "90",
+            "Line ninety"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "The Headless Check",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://tests/check_props3d.gd  ·  lines 83–90  ·  revision 1d93dcb",
+            "source": "Godot editor reconstruction · godot/tests/check_props3d.gd lines 83–90 at 1d93dcb, verbatim",
+            "code": "\t\tvar diff: Vector3 = (box.size - (spec.size as Vector3)).abs()\n\t\tcheck(diff.x <= TOL and diff.y <= TOL and diff.z <= TOL,\n\t\t\t\"size %s matches brief %s within %.2f m\" % [box.size, spec.size, TOL])\n\t\tcheck(absf(box.position.y) <= 0.005, \"base at y=0 (min_y %.4f)\" % box.position.y)\n\t\tcheck(inst.scale.is_equal_approx(Vector3.ONE) and nodes_ok, \"scale (1,1,1) and rotation 0 on scene and mesh nodes\")\n\t\tif spec.tall_axis != \"\":\n\t\t\tcheck(box.size.y >= box.size.x and box.size.y >= box.size.z, \"tallest axis is Y (stands upright)\")\n\t\tcheck(tris <= spec.budget, \"triangles %d <= budget %d\" % [tris, spec.budget])",
+            "startLine": 83,
+            "codeFontSize": 25,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "TOL (line 10)",
+                "value": "0.01 m"
+              },
+              {
+                "label": "Header, lines 6–7",
+                "value": "does NOT show:\nwhether they look right"
+              }
+            ],
+            "cues": [
+              {
+                "at": 2.83,
+                "line": 84,
+                "label": "size within TOL of the brief"
+              },
+              {
+                "at": 7.21,
+                "line": 86,
+                "label": "base at y = 0 (±0.005 m)"
+              },
+              {
+                "at": 10.02,
+                "line": 87,
+                "label": "scale (1,1,1), rotation 0"
+              },
+              {
+                "at": 12.21,
+                "line": 90,
+                "label": "triangles ≤ budget"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 21.27
+          },
+          "rendered": {
+            "out": "media/B19.mp4",
+            "at": "2026-10-17T03:39:12.838387+00:00"
+          }
+        },
+        "cue_times": {
+          "84": 2.83,
+          "86": 7.21,
+          "87": 10.02,
+          "90": 12.21
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.27,
+      "audio_file": "mp3/beat-B19.mp3",
+      "render_duration_s": 21.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B19.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "act": "RESULT",
+      "role_note": "Result of B19: the headless output beside the brief, from an isolated copy of 1d93dcb today.",
+      "narration_text": "Run headless on an isolated copy of revision one d nine three d c b: RESULT, pass, zero failing, identical to the recorded output. Godot is Y-up, so its middle number is the height. Every size matches the brief, every base is at zero, and in the room the castle spans x minus three point one to minus one point three. And the toy box band reads hash two E seven D three two.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B20.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "table: brief vs headless AABB, min_y, tris, per prop"
+          },
+          {
+            "at": "RESULT, pass",
+            "event": "RESULT: PASS (0 failing)"
+          },
+          {
+            "at": "Godot is Y-up",
+            "event": "AABB column highlighted; Y = height"
+          },
+          {
+            "at": "in the room",
+            "event": "room placement lines highlighted"
+          },
+          {
+            "at": "toy box band",
+            "event": "albedo line toybox_navy #2E7D32"
+          }
+        ],
+        "anchors": [
+          [
+            "pass",
+            "RESULT, pass"
+          ],
+          [
+            "yup",
+            "Godot is Y-up"
+          ],
+          [
+            "room",
+            "in the room"
+          ],
+          [
+            "band",
+            "toy box band"
+          ]
+        ],
+        "panel": {
+          "kind": "headless",
+          "title": "Result: Headless Numbers Beside the Brief"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "pass": 3.99,
+          "yup": 6.57,
+          "room": 12.58,
+          "band": 17.74
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.18,
+      "audio_file": "mp3/beat-B20.mp3",
+      "render_duration_s": 21.2,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B20.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B21",
+      "act": "MECHANISM",
+      "role_note": "Code: check_props3d.gd lines 30–40 — the to_root() fix and the comment recording the false pass.",
+      "narration_text": "What Claude got wrong. The comment on lines thirty to thirty-three records it. Claude's first version of this check read global transform on props that were not yet inside the scene tree. Godot logged an error and returned the identity. Line thirty-four is the fix. To root builds the transform from local transforms, parent by parent, which works before the node is in the tree.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/tests/check_props3d.gd:30-40 at reading size"
+          },
+          {
+            "at": "The comment on",
+            "event": "line 31: the comment records the false pass"
+          },
+          {
+            "at": "Line thirty-four",
+            "event": "line 34: to_root(): the fix"
+          },
+          {
+            "at": "To root builds",
+            "event": "line 38: parent by parent, local transforms"
+          }
+        ],
+        "anchors": [
+          [
+            "31",
+            "The comment on"
+          ],
+          [
+            "34",
+            "Line thirty-four"
+          ],
+          [
+            "38",
+            "To root builds"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "What Claude Got Wrong: the Room Check",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://tests/check_props3d.gd  ·  lines 30–40  ·  revision 1d93dcb",
+            "source": "Godot editor reconstruction · godot/tests/check_props3d.gd lines 30–40 at 1d93dcb, verbatim",
+            "code": "# Transform of n relative to the scene root, built from local transforms so it\n# works before the node is inside the tree (global_transform does not: a first\n# version of this check used it, got the identity, and \"passed\" the room check\n# without testing placement at all).\nfunc to_root(n: Node) -> Transform3D:\n\tvar t := Transform3D.IDENTITY\n\twhile n != null and n != root:\n\t\tif n is Node3D:\n\t\t\tt = (n as Node3D).transform * t\n\t\tn = n.get_parent()\n\treturn t",
+            "startLine": 30,
+            "codeFontSize": 24,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "TEST-REPORT A3-8",
+                "value": "first version: false PASS\nfor the room check"
+              },
+              {
+                "label": "Used at line 46",
+                "value": "to_root(mi)\n* mi.get_aabb()"
+              }
+            ],
+            "cues": [
+              {
+                "at": 0.9,
+                "line": 31,
+                "label": "the comment records the false pass"
+              },
+              {
+                "at": 11.74,
+                "line": 34,
+                "label": "to_root(): the fix"
+              },
+              {
+                "at": 13.24,
+                "line": 38,
+                "label": "parent by parent, local transforms"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 19.56
+          },
+          "rendered": {
+            "out": "media/B21.mp4",
+            "at": "2026-10-17T03:40:04.045049+00:00"
+          }
+        },
+        "cue_times": {
+          "31": 0.9,
+          "34": 11.74,
+          "38": 13.24
+        }
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.56,
+      "audio_file": "mp3/beat-B21.mp3",
+      "render_duration_s": 19.566666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B21.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B22",
+      "act": "RESULT",
+      "role_note": "Result of B21: the bug re-created on a throwaway copy vs the fixed run; and a parse error exiting 0.",
+      "narration_text": "To show it, Claude re-created that bug on a throwaway copy, swapping line forty-six back to global transform. The engine errors appear, and still every room check passes, with the castle measured at x minus zero point nine to zero point nine, the origin, instead of minus three point one. It tested nothing. Second trap, on the right: a parse error prints no RESULT line, and Godot still exits zero. Read the RESULT line, not the exit code.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B22.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "left: re-created bug output (RE-CREATION FOR THIS FILM)"
+          },
+          {
+            "at": "The engine errors",
+            "event": "ERROR !is_inside_tree() lines highlighted"
+          },
+          {
+            "at": "with the castle",
+            "event": "castle x −0.90..0.90 vs fixed −3.10..−1.30"
+          },
+          {
+            "at": "Second trap",
+            "event": "right: parse error output, no RESULT line, exit 0"
+          }
+        ],
+        "anchors": [
+          [
+            "errors",
+            "The engine errors"
+          ],
+          [
+            "castle",
+            "with the castle"
+          ],
+          [
+            "parse",
+            "Second trap"
+          ]
+        ],
+        "panel": {
+          "kind": "repro",
+          "title": "Result: a Pass That Tested Nothing"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "errors": 4.99,
+          "castle": 7.93,
+          "parse": 15.28
+        }
+      },
+      "estimated_duration_s": 29,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.93,
+      "audio_file": "mp3/beat-B22.mp3",
+      "render_duration_s": 22.933333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B22.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B23",
+      "act": "WRONG",
+      "role_note": "Two more Claude mistakes from the record: the render script, and the unseen proposal.",
+      "narration_text": "Two more, from the record. The render script for the six views hit the same not-inside-the-tree mistake, so its first view used the wrong camera. It was fixed and re-rendered. And in the castle session, Claude's step-by-step proposal never appeared in the chat, yet Tharun replied, approved. The calls did follow the brief. But he approved a plan he had not seen.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B23.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "two cards with the source documents named"
+          },
+          {
+            "at": "The render script",
+            "event": "card 1: shot_prop_views.gd lines 21–23 (fix) + TEST-REPORT A3-7"
+          },
+          {
+            "at": "And in the castle",
+            "event": "card 2: Tharun's reply quoted from FRICTIONAL.md"
+          }
+        ],
+        "anchors": [
+          [
+            "render",
+            "The render script"
+          ],
+          [
+            "proposal",
+            "And in the castle"
+          ]
+        ],
+        "panel": {
+          "kind": "wrong",
+          "title": "Two More Mistakes"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "render": 1.17,
+          "proposal": 8.55
+        }
+      },
+      "estimated_duration_s": 21,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 18.28,
+      "audio_file": "mp3/beat-B23.mp3",
+      "render_duration_s": 18.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B23.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B24",
+      "act": "LOOK",
+      "role_note": "The student's human look check (no screenshot) beside Claude's six-angle renders and observations.",
+      "narration_text": "The look, which numbers cannot check. Tharun opened the prop room in the Godot editor, orbited the props, ran it with F six, and said: everything works fine. He took no screenshot. These six angles are Claude's renders, not his. Claude's own notes: the cream lid reads near-white under this light, and the key is small beside the castle. That matches the brief's sizes, but whether it reads at game size is untested.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B24.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "left: Tharun's check, quoted; right: Claude's six renders (contact sheet)"
+          },
+          {
+            "at": "He took no",
+            "event": "label: Claude-made renders, not the student's screenshots"
+          },
+          {
+            "at": "the cream lid",
+            "event": "ring on the near-white lid in the toybox close-up"
+          },
+          {
+            "at": "and the key is small",
+            "event": "ring on the key beside the castle in the front view"
+          }
+        ],
+        "anchors": [
+          [
+            "noshot",
+            "He took no"
+          ],
+          [
+            "lid",
+            "the cream lid"
+          ],
+          [
+            "key",
+            "and the key is small"
+          ]
+        ],
+        "panel": {
+          "kind": "look_check",
+          "title": "The Look: Tharun's Check, Claude's Renders"
+        },
+        "note": "Composite of real files and recorded output, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "noshot": 7.32,
+          "lid": 11.4,
+          "key": 13.58
+        }
+      },
+      "estimated_duration_s": 26,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.86,
+      "audio_file": "mp3/beat-B24.mp3",
+      "render_duration_s": 19.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B24.mp4",
+        "filled_by": "media",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B25",
+      "act": "VERDICT",
+      "role_note": "VERDICT — what was checked (numbers / look), what is uncertain, one next step; revision shown.",
+      "narration_text": "The verdict, at revision one d nine three d c b. Checked by numbers, headless: size, origin, scale, upright, the front at plus Z, triangles and colours, for all three props. Checked by eye: Tharun's look in the editor. Still uncertain: whether the style and lighting suit Tin Knockout, the near-white lid, and whether the key reads at game size. The prop room is not yet in the 2D game. One next step: a darker cream lid, then the check and the look again.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "verdict artifact lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "walker-tinknockout-tharun-m · Assignment 3",
+            "artifactHeading": "VERDICT · revision 1d93dcb",
+            "brandLabel": "WALKER · BLENDER 5.2.2 · GODOT 4.7.2",
+            "artifactLines": [
+              "CHECKED — numbers (headless, RESULT: PASS)",
+              "  size ±0.01 m · base y = 0 · scale 1, rotation 0",
+              "  upright · front at +Z · tris 156 / 192 / 48 · colours",
+              "CHECKED — the look (Tharun): \"everything works fine\"",
+              "UNCERTAIN",
+              "  style and lighting · cream lid reads near-white",
+              "  readability at game size · not yet in the 2D game",
+              "NEXT  a darker cream lid; re-run the check and the look"
+            ],
+            "durationSeconds": 22.25
+          },
+          "rendered": {
+            "out": "media/B25.mp4",
+            "at": "2026-10-17T03:40:57.131403+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.25,
+      "audio_file": "mp3/beat-B25.mp3",
+      "render_duration_s": 22.266666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B25.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B26",
+      "act": "YOUR_TURN",
+      "role_note": "YOUR TURN — a useful Walker prompt read aloud, one bounded change + prediction, human/AI credits (SOURCES.md \"Assignment 3\"), revision; Liam signs off before the locked outro.",
+      "narration_text": "Your turn. Here is a useful Walker prompt. Please use Walker to add one check to check props 3 d dot g d that compares every surface's albedo with the hex colours in the change brief, and tell me which surface you predict will fail before you run it. My prediction: the toy box band, because the brief still says navy and the hand edit made it green. Then a person decides: revise the brief, or revert the edit. Credits, plainly. Claude wrote all the Blender code, the Godot scene and check, and the docs. Tharun chose the assets and the scale, reviewed and accepted the brief, learned the window and took the screenshots, ran and approved the M C P sessions, made the hand edit, and did the look check. This voice is Kokoro text to speech. The source shown is revision one d nine three d c b. Liam, in for Bear.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the suggested prompt; prediction and credits land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "WALKER · YOUR TURN + CREDITS",
+            "segment": "one bounded check",
+            "command": "Please use Walker to add one check to check_props3d.gd that compares every surface's albedo with the hex colours in CHANGE-BRIEF.md A3.2, and tell me which surface you predict will fail before you run it.",
+            "runningText": "over to you…",
+            "output": [
+              "■ prediction, written first: the toy box band (brief: navy · .glb: green)",
+              "■ credits  ·  revision 1d93dcb",
+              "  CLAUDE  all Blender code · Godot scene + check · docs",
+              "  THARUN  assets + scale · accepted brief · window + screenshots",
+              "          ran/approved MCP sessions · hand edit · look check",
+              "  VOICE   Liam — Kokoro am_onyx, AI text-to-speech"
+            ],
+            "durationSeconds": 41.81
+          },
+          "rendered": {
+            "out": "media/B26.mp4",
+            "at": "2026-10-17T03:42:27.112859+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 55,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 41.81,
+      "audio_file": "mp3/beat-B26.mp3",
+      "render_duration_s": 41.833333333333336,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B26.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-17T00:16:36"
+      }
+    },
+    {
+      "beat_id": "B27",
+      "act": "OUTRO",
+      "kind": "outro_voice",
+      "role_note": "OUTRO-LOCK — exact title, @NikBearBrown, slug-seeded mascot. Spoken, never scored; 1.0 s silent tail.",
+      "narration_text": "Tin Knockout, Three Props in Blender. At Nik Bear Brown.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "locked title card"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Tin Knockout, Three Props in Blender",
+            "slug": "claude-liam-walker-tinknockout-tharun-m-a3-props",
+            "durationSeconds": 5.01
+          },
+          "rendered": {
+            "out": "media/B27.mp4",
+            "at": "2026-10-17T03:42:40.973105+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 5,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 5.01,
+      "audio_file": "mp3/beat-B27.mp3",
+      "outro_tail_s": 1.0,
+      "voice_duration_s": 4.01,
+      "render_duration_s": 5.033333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B27.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-10-17T00:16:36"
+      }
+    }
+  ]
+}

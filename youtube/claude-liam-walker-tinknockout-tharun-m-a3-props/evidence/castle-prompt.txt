@@ -1,0 +1,18 @@
+We are using Walker's Game brief → Build → Playtest → Inspect → Revise → Export
+workflow. Use the Blender MCP tools in my open Blender session. Read
+CHANGE-BRIEF.md first (the "Assignment 3" section at the bottom).
+Task: build only this asset: castle (ASSET 1), exactly as the brief specifies
+(size in metres, origin, materials, triangle budget, 12-sided cylinders/cones).
+Start from an empty scene with metric units; Blender is Z-up.
+First call get_scene_info and tell me what is in the scene, then propose the
+steps. Do not build yet.
+After I approve: one execute_blender_code call per object. After each, call
+get_scene_info with the location, size, rotation and scale fields and report
+them. At the end, join the parts into one object named "castle", set its origin
+to the base centre at (0,0,0), apply rotation and scale. Then show me the result
+with the look tool, and report the triangle count.
+Copy every execute_blender_code body, in order, into tools/blender/build_castle.py.
+Add *.blend1 to .gitignore.
+Do not use Poly Haven, Sketchfab, Poly Pizza, Hyper3D, Hunyuan3D or Tripo,
+and do not call generate_3d, search_assets or import_asset. Do not export
+yet. Say what you could not verify.

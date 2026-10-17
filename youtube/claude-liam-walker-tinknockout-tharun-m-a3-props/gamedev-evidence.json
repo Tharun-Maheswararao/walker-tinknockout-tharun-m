@@ -1,0 +1,614 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "game": {
+  "package": "walker-tinknockout-tharun-m",
+  "godot_folder": "godot",
+  "revision": "1d93dcb89ebd16f1d09d423b2787087bebcded5a",
+  "docs_revision": "fd99467",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "blender": "5.2.2 LTS"
+ },
+ "files": [
+  {
+   "path": "assets/props3d/castle.glb",
+   "sha256": "cc96cb9ab883878e8da3de6e5cb8fc275e80690cf590064490d41349714c4e15",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "assets/props3d/castle.glb.import",
+   "sha256": "06c914631504cd64abc4e7b5e35329759fe926c5e290f9fa3b7fdd06fe065fef",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "assets/props3d/toybox.glb",
+   "sha256": "d6ed12802c3a1b86501cfca91dcf19a35ba6d9dd4694955720bf3a1d3ebdee20",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "assets/props3d/toybox.glb.import",
+   "sha256": "3343dc4fc56aed79cfbac7324e5c4cd0f7d1c37e2488e1ea73db02290d86e1b8",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "assets/props3d/windkey.glb",
+   "sha256": "4959461cda93fa32eb9107a6be7da04c892649df9c01a5342ae211626b3062af",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "assets/props3d/windkey.glb.import",
+   "sha256": "a7c4da462c13631ff91ca4f047bb5a45716c27bb63b29c1d83d3d1144e847bd2",
+   "role": "A3 prop .glb export / its Godot import settings",
+   "component_ids": [
+    "props-glb"
+   ]
+  },
+  {
+   "path": "prop_room/prop_room.tscn",
+   "sha256": "b27859d270a99b221c446c616e8f941cfa8c21d1138ab657b9012e18ad403b35",
+   "role": "A3 saved 3D scene",
+   "component_ids": [
+    "prop-room"
+   ]
+  },
+  {
+   "path": "tests/check_props3d.gd",
+   "sha256": "9053e0409e24b2787873942f0d8fc71c18673068281035371a3d7f928f4de1a1",
+   "role": "A3 headless check script",
+   "component_ids": [
+    "check"
+   ]
+  },
+  {
+   "path": "tools/shot_prop_room.gd",
+   "sha256": "e64eeb709992df76d0afa452bad69686c26b6fe84c080a401a99f16691b06aca",
+   "role": "A3 render tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "render-tools"
+   ]
+  },
+  {
+   "path": "tools/shot_prop_views.gd",
+   "sha256": "a42fca43f13a313a6807cefa43164ab0aa9a23e8adcdf412160f2d8856e8e946",
+   "role": "A3 render tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "render-tools"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "props-glb",
+   "explanation": "The three exported props (castle, windkey, toybox) as binary glTF with +Y Up, and their Godot import settings (scene importer, root scale 1.0). Built in Blender from primitives: castle and windkey through the Blender MCP, toybox by the script route; the toybox band green is the student's hand edit (08f96cd).",
+   "beat_ids": [
+    "B17",
+    "B18",
+    "B20"
+   ],
+   "files": [
+    "assets/props3d/castle.glb",
+    "assets/props3d/castle.glb.import",
+    "assets/props3d/toybox.glb",
+    "assets/props3d/toybox.glb.import",
+    "assets/props3d/windkey.glb",
+    "assets/props3d/windkey.glb.import"
+   ]
+  },
+  {
+   "id": "prop-room",
+   "explanation": "prop_room.tscn: floor, one DirectionalLight3D, the saved Camera3D at (0, 1.6, 5.5) and the three instanced props at x = -2.2, 0 and 2.0.",
+   "beat_ids": [
+    "B17",
+    "B18"
+   ],
+   "files": [
+    "prop_room/prop_room.tscn"
+   ]
+  },
+  {
+   "id": "check",
+   "explanation": "tests/check_props3d.gd: headless check of size vs brief (±0.01 m), base at y = 0, scale/rotation, tallest axis, triangle budget, albedo and front side, plus placement in the room via to_root(); its first version falsely passed the room check (global_transform outside the tree).",
+   "beat_ids": [
+    "B19",
+    "B20",
+    "B21",
+    "B22"
+   ],
+   "files": [
+    "tests/check_props3d.gd"
+   ]
+  },
+  {
+   "id": "render-tools",
+   "explanation": "tools/shot_prop_room.gd and tools/shot_prop_views.gd: Claude-made engine renders of the prop room (evidence/godot/prop_room.png and the six views); the views script first hit the same not-inside-tree mistake.",
+   "beat_ids": [
+    "B02",
+    "B23",
+    "B24"
+   ],
+   "files": [
+    "tools/shot_prop_room.gd",
+    "tools/shot_prop_views.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B17",
+   "path": "prop_room/prop_room.tscn",
+   "start_line": 33,
+   "end_line": 43,
+   "text": "[node name=\"Camera3D\" type=\"Camera3D\" parent=\".\"]\ntransform = Transform3D(1, 0, 0, 0, 0.992, -0.1262, 0, 0.1262, 0.992, 0, 1.6, 5.5)\ncurrent = true\n\n[node name=\"castle\" parent=\".\" instance=ExtResource(\"1_castle\")]\ntransform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 0)\n\n[node name=\"windkey\" parent=\".\" instance=ExtResource(\"2_windkey\")]\n\n[node name=\"toybox\" parent=\".\" instance=ExtResource(\"3_toybox\")]\ntransform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0, 0, 0)"
+  },
+  {
+   "beat_id": "B19",
+   "path": "tests/check_props3d.gd",
+   "start_line": 83,
+   "end_line": 90,
+   "text": "\t\tvar diff: Vector3 = (box.size - (spec.size as Vector3)).abs()\n\t\tcheck(diff.x <= TOL and diff.y <= TOL and diff.z <= TOL,\n\t\t\t\"size %s matches brief %s within %.2f m\" % [box.size, spec.size, TOL])\n\t\tcheck(absf(box.position.y) <= 0.005, \"base at y=0 (min_y %.4f)\" % box.position.y)\n\t\tcheck(inst.scale.is_equal_approx(Vector3.ONE) and nodes_ok, \"scale (1,1,1) and rotation 0 on scene and mesh nodes\")\n\t\tif spec.tall_axis != \"\":\n\t\t\tcheck(box.size.y >= box.size.x and box.size.y >= box.size.z, \"tallest axis is Y (stands upright)\")\n\t\tcheck(tris <= spec.budget, \"triangles %d <= budget %d\" % [tris, spec.budget])"
+  },
+  {
+   "beat_id": "B21",
+   "path": "tests/check_props3d.gd",
+   "start_line": 30,
+   "end_line": 40,
+   "text": "# Transform of n relative to the scene root, built from local transforms so it\n# works before the node is inside the tree (global_transform does not: a first\n# version of this check used it, got the identity, and \"passed\" the room check\n# without testing placement at all).\nfunc to_root(n: Node) -> Transform3D:\n\tvar t := Transform3D.IDENTITY\n\twhile n != null and n != root:\n\t\tif n is Node3D:\n\t\t\tt = (n as Node3D).transform * t\n\t\tn = n.get_parent()\n\treturn t"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/env/bowl.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/env/bowl.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/anchors.json",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/music/waltz.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/music/waltz.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/cork.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/cork.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/cutlass.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/cutlass.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/key-bolt.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/key-bolt.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/key-rivet.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/key-rivet.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/popgun.png",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/props/popgun.png.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/bell.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/bell.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/empty.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/empty.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/jab.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/jab.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/pop.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/pop.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg.import",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "audio/music.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "audio/sfx.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "default_bus_layout.tres",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "fighter/cork.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "fighter/fighter.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "fighter/rivet_brain.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "game/controls.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "game/main.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "game/main.tscn",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "project.godot",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "tests/test_slice.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "tools/capture_film.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "tools/shots.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  },
+  {
+   "path": "ui/hud.gd",
+   "reason": "Assignment 2 slice file, byte-identical to revision 64c037a (git diff 64c037a 1d93dcb is empty for it) and explained in the Assignment 2 film; not part of the three A3 props, which are not yet connected to the 2D game."
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B17",
+   "result_beat": "B18",
+   "observation": "Movie Maker take of the unchanged prop_room.tscn (isolated copy of 1d93dcb): saved camera 0-4 s, then the same camera orbits; castle left at x -2.2, key at the origin, toy box right at x 2; every base meets the floor and its shadow; door and latch face the front; the back of the castle is plain.",
+   "media": {
+    "path": "media/B18.mp4",
+    "sha256": "941798807532b2f80fb68ce809031b705a4690fd68d11e22930cd184cda930e3"
+   }
+  },
+  {
+   "code_beat": "B19",
+   "result_beat": "B20",
+   "observation": "Recorded headless output of tests/check_props3d.gd on an isolated copy: RESULT: PASS (0 failing); AABB sizes equal the brief (Godot Y = height), min_y 0.0000, tris 156/192/48 under 200/250/100, room x ranges, band albedo #2E7D32; identical to evidence/check_props3d.txt.",
+   "media": {
+    "path": "media/B20.mp4",
+    "sha256": "ae9011fd01152908427add1e4a600030eecbdab7d5fbe4471758e504c172210d"
+   }
+  },
+  {
+   "code_beat": "B21",
+   "result_beat": "B22",
+   "observation": "Re-creation on a throwaway copy: with line 46 using mi.global_transform, Godot logs !is_inside_tree() and every room check still PASSes with the castle at x -0.90..0.90 (identity) instead of -3.10..-1.30; a parse error prints no RESULT line and exits 0.",
+   "media": {
+    "path": "media/B22.mp4",
+    "sha256": "109d3a61165b525aca6f8169bd93f822f3b09cb3be877deda8fb14d6690ebc91"
+   }
+  }
+ ],
+ "blender_code_result_pairs": [
+  {
+   "code_beat": "B07",
+   "result_beat": "B08",
+   "source": {
+    "path": "tools/blender/build_castle.py",
+    "start_line": 47,
+    "end_line": 52,
+    "sha256": "3ef13b2ba41c08fab1f0728334a2b38a685b4b86128a7c4ea41e9cffe83e92f9",
+    "text": "bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0.0, 0.0, 0.70))\nkeep = bpy.context.active_object\nkeep.name = \"keep\"\nkeep.scale = (1.20, 0.80, 1.40)\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)\nkeep.data.materials.append(flat_material(\"castle_pink\", \"#D98BA0\"))"
+   },
+   "observation": "The MCP look tool's four views from the student's live session (evidence/blender/03-castle-mcp-look.png): pink keep, two 12-sided towers, teal cone roofs, dark door on the front.",
+   "media": {
+    "path": "media/B08.mp4",
+    "sha256": "f27e7600206625398172272f66aa9bb521a6c3515801a4f2e38cfe81ac81e52d"
+   }
+  },
+  {
+   "code_beat": "B09",
+   "result_beat": "B10",
+   "source": {
+    "path": "tools/blender/build_castle.py",
+    "start_line": 171,
+    "end_line": 180,
+    "sha256": "3ef13b2ba41c08fab1f0728334a2b38a685b4b86128a7c4ea41e9cffe83e92f9",
+    "text": "bpy.ops.object.join()\n\ncastle = bpy.context.active_object\ncastle.name = \"castle\"\ncastle.data.name = \"castle\"\n\nbpy.context.scene.cursor.location = (0.0, 0.0, 0.0)\nbpy.ops.object.origin_set(type='ORIGIN_CURSOR')\ncastle.location = (0.0, 0.0, 0.0)\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)"
+   },
+   "observation": "Student's own screenshot 07: castle at location 0, rotation 0°, scale 1.000, 1.8 × 0.82 × 2.3 m, origin at the base.",
+   "media": {
+    "path": "media/B10.mp4",
+    "sha256": "922ac418454d58813db6893072c0d20234425a09a28649c72714ed257e7807a4"
+   }
+  },
+  {
+   "code_beat": "B11",
+   "result_beat": "B12",
+   "source": {
+    "path": "tools/blender/build_windkey.py",
+    "start_line": 98,
+    "end_line": 103,
+    "sha256": "5595190d42825bbacc8dbaef26813d3d7ccdc820890df05bf4a4f71a56e2c644",
+    "text": "bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=0.15, depth=0.06, end_fill_type='NGON',\n                                    location=(-0.15, 0.0, 0.55), rotation=(math.radians(90), 0.0, 0.0))\nlobe = bpy.context.active_object\nlobe.name = \"lobe_L\"\nbpy.ops.object.transform_apply(location=False, rotation=True, scale=True)\nlobe.data.materials.append(bpy.data.materials[\"key_brass\"])"
+   },
+   "observation": "Student's own screenshot 06: MCP-built windkey, rotation 0°, scale 1.000, 0.6 × 0.14 × 0.7 m, Triangles 192 / 192.",
+   "media": {
+    "path": "media/B12.mp4",
+    "sha256": "247471e8dc131d1d6595285c00ae7518d5ad19baa06e8bbe49bb066108b52015"
+   }
+  },
+  {
+   "code_beat": "B13",
+   "result_beat": "B14",
+   "source": {
+    "path": "tools/blender/build_toybox.py",
+    "start_line": 9,
+    "end_line": 17,
+    "sha256": "6bc58027bc2f6a7b8a743852c1abe5cc9fb885fedea308356dd9d2376d69333f",
+    "text": "empty_metric_scene()\nbody = box(\"body\", (1.20, 0.70, 0.65), (0, 0, 0.325), flat_material(\"toybox_red\", \"#B5302A\"))\nlid = box(\"lid\", (1.26, 0.76, 0.10), (0, 0, 0.70), flat_material(\"toybox_cream\", \"#E8DCC0\"))\nband = box(\"band\", (1.22, 0.72, 0.08), (0, 0, 0.34), flat_material(\"toybox_navy\", \"#23395B\"))\n# Latch on the -Y (front) face just under the lid: Y -0.38..-0.35, Z 0.53-0.65\nlatch = box(\"latch\", (0.12, 0.03, 0.12), (0, -0.365, 0.59), flat_material(\"toybox_brass\", \"#C9A23A\"))\n\njoin_at_origin(\"toybox\", [body, lid, band, latch])\nbpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(\"assets/blender/toybox.blend\"))"
+   },
+   "observation": "Student's own screenshot 04: script-route toybox.blend with the navy band from line 12, rotation 0°, scale 1.000, Solid view.",
+   "media": {
+    "path": "media/B14.mp4",
+    "sha256": "3207fa4dcf885b58e2b3da3a9ac561c8268e76413cb7fc954245f097917ca384"
+   }
+  }
+ ]
+}

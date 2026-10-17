@@ -6,8 +6,8 @@
 - **Student:** Tharun Maheswararao (maheswararao.t@northeastern.edu)
 - **Project name:** walker-tinknockout-tharun-m (Tin Knockout)
 - **GitHub repository URL:** https://github.com/Tharun-Maheswararao/walker-tinknockout-tharun-m
-- **Git tag and submitted commit SHA:** tag `a3`; the SHA is given in the Canvas copy of this note (a commit cannot contain its own hash).
-- **Game-source revision shown in the film:** no A3 film was made (see Known limitations).
+- **Git tag and submitted commit SHA:** tag `a3`; the SHA is given in the Canvas copy of this note (a commit cannot contain its own hash). The final commit only adds film documentation on top of the game source shown in the film; `git diff --stat 1d93dcb a3 -- godot assets tools` is empty.
+- **Game-source revision shown in the film:** `1d93dcb` (student screenshots and docs added after it in docs-only commits `0bc2b4d`, `fd99467`).
 - **Godot version, Blender version, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Blender 5.2.2 LTS · macOS 15.6 (Darwin 24.6.0), Apple M4
 - **The three assets and what each is for:**
   - `castle`: the sunken-castle ornament on the goldfish-bowl floor; the environment landmark behind the fighters. 1.80 × 0.82 × 2.30 m.
@@ -19,8 +19,8 @@
   - `godot --headless --path godot --import`: no errors.
   - `timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60`: `RESULT: PASS (0 failing)`. Size within ±0.01 m of the brief, base at y = 0, scale 1 and rotation 0, upright, front at +Z, triangles within budget, all three on the floor in `prop_room.tscn`. Output in `evidence/check_props3d.txt`.
   - Headless re-run of `tools/blender/build_castle.py` and inspection of each `.blend`: dimensions, origin, scale and colours match the brief.
-- **Final film URL and filename:** none; not made.
-- **Final film SHA-256:** n/a
+- **Final film URL and filename:** https://drive.google.com/file/d/1l_fboMP7sHmJDt0vd_IM93I63KSMIbgk/view?usp=sharing · `claude-liam-walker-tinknockout-tharun-m-a3-props.mp4` (4K 3840×2160, 9:28, Brutalist `godot-gamedev` walker workflow, Liam narration; reel docs in `youtube/claude-liam-walker-tinknockout-tharun-m-a3-props/`)
+- **Final film SHA-256:** `007d0d984c9a34eb36d3d741db9ebbe062b661158db73b57ffa9557b87630b5e`
 - **Summary of my changes:** an A3 brief committed before building; Blender MCP set up (with three setup fixes logged); castle and key built through the MCP, toy box by script route; my hand edit of the toy box band; three `.glb` files, a Godot prop room, and a headless check that Claude first wrote wrongly (false pass) and then fixed; interface notes and an A3 test report.
-- **Known limitations:** **No Brutalist film was made**, because the deadline arrived first. The cream lid reads near-white under the scene light (TEST-REPORT A3-7). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
+- **Known limitations:** Submitted one day late (to finish the film and my own hand edit and look check). The film's narration voice could not be checked by ear by the agent that built it; I watched it. The cream lid reads near-white under the scene light (TEST-REPORT A3-7). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
 - **Changed games since Assignment 2:** no.

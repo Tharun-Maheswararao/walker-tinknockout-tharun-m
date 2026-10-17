@@ -97,6 +97,8 @@ Expect `RESULT: PASS (0 failing)`. Read that line: Godot exits 0 even if the scr
 
 **Rebuild an asset:** `blender -b --factory-startup --python-exit-code 1 --python tools/blender/build_<asset>.py`, then `blender -b assets/blender/<asset>.blend --python-exit-code 1 --python tools/blender/export_glb.py -- godot/assets/props3d/<asset>.glb`.
 
-**Known limitations (A3):** the toy box used the script route, not the MCP. The cream lid reads near-white under the scene light. The prop room is not connected to the 2D game. The A3 film: see SUBMISSION.md.
+**Known limitations (A3):** the toy box used the script route, not the MCP. The cream lid reads near-white under the scene light. The prop room is not connected to the 2D game. 
+
+**A3 film:** [claude-liam-walker-tinknockout-tharun-m-a3-props.mp4](https://drive.google.com/file/d/1l_fboMP7sHmJDt0vd_IM93I63KSMIbgk/view?usp=sharing) · SHA-256 `007d0d984c9a34eb36d3d741db9ebbe062b661158db73b57ffa9557b87630b5e` · 4K, 9:28 · shows game source `1d93dcb`. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a3-props/` (the MP4 itself is not in GitHub).
 
 Docs for A3: CHANGE-BRIEF.md (bottom), BLENDER-NOTES.md, TEST-REPORT.md (bottom), FRICTIONAL.md (bottom), SOURCES.md (bottom).
