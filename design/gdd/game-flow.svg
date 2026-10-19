@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: game flow. Hand-written SVG (Claude), not a generated asset. -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E8C35A"/>
+    </marker>
+    <style>
+      .box{fill:#26324D;stroke:#C9962B;stroke-width:2}
+      .plan{fill:#1F2940;stroke:#8C9BB8;stroke-width:1.6;stroke-dasharray:6 4}
+      .hot{fill:#C8382E;stroke:#E8C35A;stroke-width:2.5}
+      .t{fill:#F2E6C4;font-size:15px;font-weight:700}
+      .s{fill:#A9B4C8;font-size:11px}
+      .l{fill:#E8C35A;font-size:11px;font-style:italic}
+      .ln{stroke:#E8C35A;stroke-width:2;fill:none;marker-end:url(#a)}
+      .pill{fill:#33405F;stroke:#8C9BB8;stroke-width:1.2;stroke-dasharray:4 3}
+      .pt{fill:#F2E6C4;font-size:12px;font-weight:600}
+    </style>
+  </defs>
+  <rect width="1000" height="640" fill="#1B2438"/>
+  <text x="30" y="34" fill="#E8C35A" font-size="18" font-weight="700" letter-spacing="2">TIN KNOCKOUT · GAME FLOW</text>
+
+  <!-- row A: boot, title, menu, modes -->
+  <rect class="plan" x="30" y="60" width="110" height="50" rx="8"/>
+  <text class="t" x="85" y="83" text-anchor="middle">Boot</text>
+  <text class="s" x="85" y="99" text-anchor="middle">splash, load save</text>
+
+  <rect class="box" x="175" y="60" width="175" height="50" rx="8"/>
+  <text class="t" x="262" y="83" text-anchor="middle">Title screen</text>
+  <text class="s" x="262" y="99" text-anchor="middle">"closing time", Enter</text>
+
+  <rect class="plan" x="390" y="60" width="150" height="50" rx="8"/>
+  <text class="t" x="465" y="83" text-anchor="middle">Main menu</text>
+  <text class="s" x="465" y="99" text-anchor="middle">pick a mode</text>
+
+  <rect x="565" y="55" width="415" height="60" rx="10" fill="#1F2940" stroke="#3A4766"/>
+  <rect class="pill" x="573" y="68" width="70" height="34" rx="17"/><text class="pt" x="608" y="90" text-anchor="middle">Story</text>
+  <rect class="pill" x="649" y="68" width="72" height="34" rx="17"/><text class="pt" x="685" y="90" text-anchor="middle">Versus</text>
+  <rect class="pill" x="727" y="68" width="92" height="34" rx="17"/><text class="pt" x="773" y="90" text-anchor="middle">Workbench</text>
+  <rect class="pill" x="825" y="68" width="72" height="34" rx="17"/><text class="pt" x="861" y="90" text-anchor="middle">Options</text>
+  <rect class="pill" x="903" y="68" width="69" height="34" rx="17"/><text class="pt" x="937" y="90" text-anchor="middle">Credits</text>
+
+  <path class="ln" d="M140,85 H173"/>
+  <path class="ln" d="M350,85 H388"/>
+  <path class="ln" d="M540,85 H563"/>
+
+  <!-- story / versus / workbench routes -->
+  <path class="ln" d="M608,102 V145 H105 V198"/>
+  <text class="l" x="250" y="139">Story: "The Midnight Circuit"</text>
+  <path class="ln" d="M685,102 V172 H490 V198"/>
+  <text class="l" x="545" y="166">Versus: pick fighters + arena</text>
+  <path class="ln" d="M790,102 V198"/>
+  <text class="l" x="782" y="152" text-anchor="end">practice dummy</text>
+
+  <!-- pause -->
+  <rect class="box" x="830" y="128" width="145" height="56" rx="8"/>
+  <text class="t" x="902" y="150" text-anchor="middle">Pause (Esc/P)</text>
+  <text class="s" x="902" y="166" text-anchor="middle">resume · restart bout</text>
+  <text class="s" x="902" y="179" text-anchor="middle">move list · quit to map</text>
+  <path d="M902,186 V198" stroke="#E8C35A" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- row B: the bout pipeline -->
+  <rect class="plan" x="30" y="200" width="150" height="60" rx="8"/>
+  <text class="t" x="105" y="226" text-anchor="middle">Night map</text>
+  <text class="s" x="105" y="243" text-anchor="middle">shop cross-section,</text>
+  <text class="s" x="105" y="255" text-anchor="middle">6 nights (Mon–Sat)</text>
+
+  <rect class="plan" x="215" y="200" width="150" height="60" rx="8"/>
+  <text class="t" x="290" y="226" text-anchor="middle">Story panel</text>
+  <text class="s" x="290" y="243" text-anchor="middle">2–3 still panels,</text>
+  <text class="s" x="290" y="255" text-anchor="middle">captions, no voice</text>
+
+  <rect class="plan" x="400" y="200" width="140" height="60" rx="8"/>
+  <text class="t" x="470" y="226" text-anchor="middle">VS card</text>
+  <text class="s" x="470" y="243" text-anchor="middle">names, medals,</text>
+  <text class="s" x="470" y="255" text-anchor="middle">opponent's tell</text>
+
+  <rect class="box" x="575" y="200" width="165" height="60" rx="8"/>
+  <text class="t" x="657" y="226" text-anchor="middle">Round intro</text>
+  <text class="s" x="657" y="243" text-anchor="middle">"ROUND n" + bell,</text>
+  <text class="s" x="657" y="255" text-anchor="middle">1.3 s, controls locked</text>
+
+  <rect class="hot" x="775" y="200" width="195" height="60" rx="8"/>
+  <text x="872" y="228" fill="#FFF6DA" font-size="20" font-weight="800" text-anchor="middle" letter-spacing="2">FIGHT</text>
+  <text x="872" y="248" fill="#FFE3A8" font-size="11" text-anchor="middle">60 s round on the shop clock</text>
+
+  <path class="ln" d="M180,230 H213"/>
+  <path class="ln" d="M365,230 H398"/>
+  <path class="ln" d="M540,230 H573"/>
+  <path class="ln" d="M740,230 H773"/>
+
+  <!-- row C: resolving the round -->
+  <path class="ln" d="M880,260 V393"/>
+  <rect class="box" x="790" y="395" width="180" height="52" rx="8"/>
+  <text class="t" x="880" y="417" text-anchor="middle">Round end</text>
+  <text class="s" x="880" y="434" text-anchor="middle">K.O., or clock chimes: more HP wins</text>
+
+  <polygon points="650,382 745,420 650,458 555,420" fill="#26324D" stroke="#C9962B" stroke-width="2"/>
+  <text class="t" x="650" y="417" text-anchor="middle" font-size="13">Bout over?</text>
+  <text class="s" x="650" y="432" text-anchor="middle">best of 3</text>
+  <path class="ln" d="M790,420 H747"/>
+  <path class="ln" d="M650,382 V262"/>
+  <text class="l" x="658" y="330">no: next round</text>
+
+  <polygon points="420,385 500,420 420,455 340,420" fill="#26324D" stroke="#C9962B" stroke-width="2"/>
+  <text class="t" x="420" y="425" text-anchor="middle" font-size="13">You won?</text>
+  <path class="ln" d="M555,420 H502"/>
+  <text class="l" x="528" y="412" text-anchor="middle">yes</text>
+
+  <rect class="plan" x="130" y="395" width="160" height="52" rx="8"/>
+  <text class="t" x="210" y="417" text-anchor="middle">Victory</text>
+  <text class="s" x="210" y="434" text-anchor="middle">medal + unlock</text>
+  <path class="ln" d="M340,420 H292"/>
+  <text class="l" x="316" y="412" text-anchor="middle">yes</text>
+  <path class="ln" d="M160,395 V262"/>
+  <text class="l" x="168" y="330">next night</text>
+
+  <rect class="plan" x="130" y="522" width="160" height="62" rx="8"/>
+  <text class="t" x="210" y="545" text-anchor="middle">Ending</text>
+  <text class="s" x="210" y="561" text-anchor="middle">dawn, window display</text>
+  <text class="s" x="210" y="575" text-anchor="middle">→ credits, Spring Steel mode</text>
+  <path class="ln" d="M210,447 V520"/>
+  <text class="l" x="218" y="490">after Night 6</text>
+
+  <rect class="plan" x="330" y="522" width="190" height="62" rx="8"/>
+  <text class="t" x="425" y="545" text-anchor="middle">"Wound down"</text>
+  <text class="s" x="425" y="561" text-anchor="middle">Rewind (retry bout, unlimited)</text>
+  <text class="s" x="425" y="575" text-anchor="middle">night map · quit</text>
+  <path class="ln" d="M420,455 V520"/>
+  <text class="l" x="428" y="492">no</text>
+  <!-- retry uses a connector (R) instead of a line, so no arrows cross -->
+  <path class="ln" d="M520,553 H548"/>
+  <circle cx="562" cy="553" r="13" fill="#1B2438" stroke="#E8C35A" stroke-width="2"/>
+  <text x="562" y="558" fill="#E8C35A" font-size="13" font-weight="800" text-anchor="middle">R</text>
+  <circle cx="440" cy="292" r="13" fill="#1B2438" stroke="#E8C35A" stroke-width="2"/>
+  <text x="440" y="297" fill="#E8C35A" font-size="13" font-weight="800" text-anchor="middle">R</text>
+  <path class="ln" d="M440,279 V262"/>
+  <text class="l" x="460" y="296">R = Rewind: retry the bout</text>
+
+  <!-- legend -->
+  <rect x="590" y="495" width="385" height="118" rx="10" fill="#1F2940" stroke="#3A4766"/>
+  <rect class="box" x="606" y="512" width="34" height="20" rx="4"/>
+  <text class="s" x="650" y="527" font-size="12" fill="#F2E6C4">built and playable in the Assignment 2 slice</text>
+  <rect class="plan" x="606" y="542" width="34" height="20" rx="4"/>
+  <text class="s" x="650" y="557" font-size="12" fill="#F2E6C4">planned for the full game</text>
+  <text class="s" x="606" y="584" font-size="11.5">The slice today: Title → Round intro → Fight → K.O.</text>
+  <text class="s" x="606" y="600" font-size="11.5">→ R / Enter = rematch. One round, no timer yet.</text>
+</svg>

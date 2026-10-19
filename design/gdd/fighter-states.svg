@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: the fighter state machine as built in godot/fighter/fighter.gd.
+       Hand-written SVG (Claude). -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E8C35A"/>
+    </marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#FF8A7A"/>
+    </marker>
+    <style>
+      .n{fill:#26324D;stroke:#C9962B;stroke-width:2}
+      .atk{fill:#3A2F22;stroke:#E8C35A;stroke-width:2}
+      .bad{fill:#3A2226;stroke:#FF8A7A;stroke-width:2}
+      .end{fill:#1F2940;stroke:#8C9BB8;stroke-width:2}
+      .t{fill:#F2E6C4;font-size:14px;font-weight:800;letter-spacing:1px}
+      .s{fill:#A9B4C8;font-size:10.5px}
+      .l{fill:#E8C35A;font-size:10.5px}
+      .lr{fill:#FF8A7A;font-size:10.5px}
+      .ln{stroke:#E8C35A;stroke-width:2;fill:none;marker-end:url(#a)}
+      .lr2{stroke:#FF8A7A;stroke-width:2;fill:none;marker-end:url(#r)}
+    </style>
+  </defs>
+  <rect width="1000" height="520" fill="#1B2438"/>
+  <text x="24" y="30" fill="#E8C35A" font-size="18" font-weight="700" letter-spacing="2">FIGHTER STATE MACHINE · 11 STATES, ONE POSE EACH</text>
+
+  <!-- attacks row -->
+  <rect class="atk" x="300" y="56" width="120" height="58" rx="8"/>
+  <text class="t" x="360" y="80" text-anchor="middle">JAB</text>
+  <text class="s" x="360" y="96" text-anchor="middle">−12 · 7 dmg</text>
+  <text class="s" x="360" y="109" text-anchor="middle">0.07 / 0.10 / 0.18 s</text>
+  <rect class="atk" x="440" y="56" width="120" height="58" rx="8"/>
+  <text class="t" x="500" y="80" text-anchor="middle">CUTLASS</text>
+  <text class="s" x="500" y="96" text-anchor="middle">−22 · 13 dmg</text>
+  <text class="s" x="500" y="109" text-anchor="middle">0.14 / 0.12 / 0.30 s</text>
+  <rect class="atk" x="580" y="56" width="120" height="58" rx="8"/>
+  <text class="t" x="640" y="80" text-anchor="middle">POP</text>
+  <text class="s" x="640" y="96" text-anchor="middle">−30 · 10 dmg cork</text>
+  <text class="s" x="640" y="109" text-anchor="middle">fires at 0.10 s</text>
+  <text class="s" x="500" y="134" text-anchor="middle" fill="#7F8BA3">startup / active / recovery</text>
+
+  <!-- neutral group -->
+  <rect x="330" y="196" width="340" height="96" rx="14" fill="none" stroke="#C9962B" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="344" y="214" fill="#C9962B" font-size="10.5" font-weight="700" letter-spacing="2">NEUTRAL</text>
+  <rect class="n" x="350" y="222" width="130" height="56" rx="8"/>
+  <text class="t" x="415" y="246" text-anchor="middle">IDLE</text>
+  <text class="s" x="415" y="263" text-anchor="middle">gloves up</text>
+  <rect class="n" x="520" y="222" width="130" height="56" rx="8"/>
+  <text class="t" x="585" y="246" text-anchor="middle">WALK</text>
+  <text class="s" x="585" y="263" text-anchor="middle">−3 wind/s · turns you</text>
+  <path d="M480,244 H518" stroke="#E8C35A" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M518,258 H482" stroke="#E8C35A" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- neutral to attacks and back -->
+  <path class="ln" d="M380,196 V116"/>
+  <path class="ln" d="M620,116 V196"/>
+  <text class="l" x="372" y="160" text-anchor="end">press, wind &gt; 0</text>
+  <text class="l" x="372" y="174" text-anchor="end">(cost paid now)</text>
+  <text class="l" x="628" y="160">recovery over</text>
+  <text class="l" x="628" y="174">(or EMPTY if wind = 0)</text>
+
+  <!-- block / rewind -->
+  <rect class="n" x="60" y="160" width="170" height="58" rx="8"/>
+  <text class="t" x="145" y="184" text-anchor="middle">BLOCK</text>
+  <text class="s" x="145" y="200" text-anchor="middle">front only · 20 % chip</text>
+  <text class="s" x="145" y="212" text-anchor="middle">hits from behind land</text>
+  <rect class="n" x="60" y="268" width="170" height="58" rx="8"/>
+  <text class="t" x="145" y="292" text-anchor="middle">REWIND</text>
+  <text class="s" x="145" y="308" text-anchor="middle">+10 per 90° of the key</text>
+  <text class="s" x="145" y="320" text-anchor="middle">locked, vulnerable</text>
+  <path class="ln" d="M330,222 L232,198"/><path class="ln" d="M232,212 L330,236"/>
+  <text class="l" x="280" y="196" text-anchor="middle">hold I</text>
+  <path class="ln" d="M330,266 L232,286"/><path class="ln" d="M232,302 L330,280"/>
+  <text class="l" x="280" y="318" text-anchor="middle">hold S</text>
+
+  <!-- hurt / empty -->
+  <rect class="bad" x="330" y="388" width="160" height="74" rx="8"/>
+  <text class="t" x="410" y="412" text-anchor="middle">HURT</text>
+  <text class="s" x="410" y="428" text-anchor="middle">0.32 s stun, or 0.80 s</text>
+  <text class="s" x="410" y="441" text-anchor="middle">knockdown + 1.5× dmg</text>
+  <text class="s" x="410" y="453" text-anchor="middle" fill="#FF8A7A">if hit in REWIND / EMPTY</text>
+  <rect class="bad" x="540" y="388" width="160" height="74" rx="8"/>
+  <text class="t" x="620" y="412" text-anchor="middle">EMPTY</text>
+  <text class="s" x="620" y="428" text-anchor="middle">wind hit 0: slumped,</text>
+  <text class="s" x="620" y="441" text-anchor="middle">can't walk, 1.6 s</text>
+  <path class="lr2" d="M600,292 V386"/>
+  <text class="lr" x="608" y="340">wind runs out</text>
+  <path class="ln" d="M440,386 V294"/>
+  <text class="l" x="448" y="348">stun over</text>
+  <path class="ln" d="M700,410 Q780,330 672,270"/>
+  <text class="l" x="742" y="340">1.6 s up</text>
+  <path class="lr2" d="M145,326 V420 H328"/>
+  <text class="lr" x="152" y="372">any hit, from any</text>
+  <text class="lr" x="152" y="386">active state</text>
+
+  <!-- end states -->
+  <rect class="end" x="800" y="180" width="170" height="58" rx="8"/>
+  <text class="t" x="885" y="204" text-anchor="middle">KO</text>
+  <text class="s" x="885" y="220" text-anchor="middle">hp = 0 · flat, X-eyes</text>
+  <text class="s" x="885" y="232" text-anchor="middle">no further hits</text>
+  <rect class="end" x="800" y="290" width="170" height="58" rx="8"/>
+  <text class="t" x="885" y="314" text-anchor="middle">WIN</text>
+  <text class="s" x="885" y="330" text-anchor="middle">opponent KO · glove up</text>
+  <path class="lr2" d="M672,222 L798,210"/>
+  <text class="lr" x="684" y="200">hp = 0, any state</text>
+  <path d="M885,238 V288" stroke="#8C9BB8" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+  <text class="s" x="893" y="268">the other fighter</text>
+  <text class="s" x="800" y="380" fill="#7F8BA3">KO and WIN are final</text>
+  <text class="s" x="800" y="394" fill="#7F8BA3">until the rematch resets.</text>
+  <text x="24" y="488" fill="#A9B4C8" font-size="11">State changes are edge-triggered signals (state_changed), so each change shows its pose and plays at most one sound.</text>
+  <text x="24" y="504" fill="#A9B4C8" font-size="11">HURT never chains back into EMPTY: in a film dry run that made an unescapable stun-lock, so it was removed.</text>
+</svg>

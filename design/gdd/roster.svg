@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 480" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: the fighter roster. Code-drawn concept sketches (Claude), not generated art.
+       Bolt and Rivet exist as generated sprites; the other five are planned. -->
+  <defs>
+    <style>
+      .card{fill:#1F2940;stroke:#3A4766;stroke-width:1.5}
+      .me{fill:#26324D;stroke:#C9962B;stroke-width:2.5}
+      .o{stroke:#1E1A16;stroke-width:2.5;stroke-linejoin:round}
+      .nm{fill:#F2E6C4;font-size:17px;font-weight:800}
+      .rl{fill:#E8C35A;font-size:11px;font-weight:700}
+      .d{fill:#A9B4C8;font-size:11px}
+      .st{fill:#7F8BA3;font-size:9.5px;font-weight:700;letter-spacing:1px}
+      .on{fill:#E8C35A}
+      .off{fill:#33405F}
+      .tag{font-size:9.5px;font-weight:800;letter-spacing:1px}
+    </style>
+  </defs>
+  <rect width="1120" height="480" fill="#1B2438"/>
+
+  <!-- card frames -->
+  <rect class="me"   x="5"   y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="165" y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="325" y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="485" y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="645" y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="805" y="10" width="150" height="460" rx="12"/>
+  <rect class="card" x="965" y="10" width="150" height="460" rx="12" stroke="#C8382E"/>
+  <line x1="15" y1="262" x2="145" y2="262" stroke="#3A4766"/>
+  <line x1="175" y1="262" x2="305" y2="262" stroke="#3A4766"/>
+  <line x1="335" y1="262" x2="465" y2="262" stroke="#3A4766"/>
+  <line x1="495" y1="262" x2="625" y2="262" stroke="#3A4766"/>
+  <line x1="655" y1="262" x2="785" y2="262" stroke="#3A4766"/>
+  <line x1="815" y1="262" x2="945" y2="262" stroke="#3A4766"/>
+  <line x1="975" y1="262" x2="1105" y2="262" stroke="#3A4766"/>
+
+  <!-- status tags -->
+  <rect x="15" y="20" width="52" height="16" rx="8" fill="#4FB39A"/><text class="tag" x="41" y="32" fill="#10261F" text-anchor="middle">BUILT</text>
+  <rect x="175" y="20" width="52" height="16" rx="8" fill="#4FB39A"/><text class="tag" x="201" y="32" fill="#10261F" text-anchor="middle">BUILT</text>
+  <rect x="335" y="20" width="62" height="16" rx="8" fill="#33405F"/><text class="tag" x="366" y="32" fill="#A9B4C8" text-anchor="middle">PLANNED</text>
+  <rect x="495" y="20" width="62" height="16" rx="8" fill="#33405F"/><text class="tag" x="526" y="32" fill="#A9B4C8" text-anchor="middle">PLANNED</text>
+  <rect x="655" y="20" width="62" height="16" rx="8" fill="#33405F"/><text class="tag" x="686" y="32" fill="#A9B4C8" text-anchor="middle">PLANNED</text>
+  <rect x="815" y="20" width="62" height="16" rx="8" fill="#33405F"/><text class="tag" x="846" y="32" fill="#A9B4C8" text-anchor="middle">PLANNED</text>
+  <rect x="975" y="20" width="44" height="16" rx="8" fill="#C8382E"/><text class="tag" x="997" y="32" fill="#FFF6DA" text-anchor="middle">BOSS</text>
+
+  <!-- 1. BOLT (card origin x=5) -->
+  <g transform="translate(14,0)">
+    <path class="o" d="M30,160 h10 v8 h-10 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="22" cy="152" rx="8" ry="9" fill="#E8C35A"/>
+    <ellipse class="o" cx="22" cy="176" rx="8" ry="9" fill="#E8C35A"/>
+    <rect class="o" x="44" y="236" width="22" height="13" rx="4" fill="#5B6770"/>
+    <rect class="o" x="70" y="236" width="22" height="13" rx="4" fill="#5B6770"/>
+    <rect class="o" x="49" y="208" width="12" height="30" fill="#D5D9DE"/>
+    <rect class="o" x="75" y="208" width="12" height="30" fill="#D5D9DE"/>
+    <rect class="o" x="38" y="146" width="58" height="66" rx="9" fill="#C8382E"/>
+    <circle cx="67" cy="168" r="3" fill="#E8C35A"/><circle cx="67" cy="190" r="3" fill="#E8C35A"/>
+    <path class="o" d="M88,160 L106,160" stroke-width="9" stroke="#C8382E" stroke-linecap="round"/>
+    <circle class="o" cx="110" cy="160" r="9" fill="#E8C35A"/>
+    <line class="o" x1="56" y1="88" x2="50" y2="60"/><circle class="o" cx="50" cy="56" r="5" fill="#C9962B"/>
+    <line class="o" x1="72" y1="86" x2="78" y2="52"/><circle class="o" cx="78" cy="48" r="6" fill="#C8382E"/>
+    <circle class="o" cx="67" cy="116" r="35" fill="#C9962B"/>
+    <circle class="o" cx="80" cy="116" r="17" fill="#F2E6C4" stroke-width="4"/>
+    <circle cx="75" cy="115" r="4.5" fill="#1E1A16"/><circle cx="86" cy="115" r="4.5" fill="#1E1A16"/>
+  </g>
+  <text class="nm" x="20" y="288">BOLT</text>
+  <text class="rl" x="20" y="306">YOU · tin diver</text>
+  <text class="d" x="20" y="328">Jab, cutlass, cork gun.</text>
+  <text class="d" x="20" y="344">Balanced. Spring: 100.</text>
+  <text class="d" x="20" y="360">Half price, a bit rusty.</text>
+
+  <!-- 2. RIVET (card origin x=165) -->
+  <g transform="translate(174,0)">
+    <path class="o" d="M30,160 h10 v8 h-10 z" fill="#D9A066"/>
+    <ellipse class="o" cx="22" cy="152" rx="8" ry="9" fill="#D9A066"/>
+    <ellipse class="o" cx="22" cy="176" rx="8" ry="9" fill="#D9A066"/>
+    <rect class="o" x="44" y="236" width="22" height="13" rx="4" fill="#4A4F55"/>
+    <rect class="o" x="70" y="236" width="22" height="13" rx="4" fill="#4A4F55"/>
+    <rect class="o" x="49" y="208" width="12" height="30" fill="#D5D9DE"/>
+    <rect class="o" x="75" y="208" width="12" height="30" fill="#D5D9DE"/>
+    <rect class="o" x="38" y="146" width="58" height="66" rx="9" fill="#3F8F7A"/>
+    <circle cx="67" cy="168" r="3" fill="#D9A066"/><circle cx="67" cy="190" r="3" fill="#D9A066"/>
+    <path class="o" d="M88,160 L106,160" stroke-width="9" stroke="#3F8F7A" stroke-linecap="round"/>
+    <circle class="o" cx="110" cy="160" r="9" fill="#4A4F55"/>
+    <line class="o" x1="56" y1="88" x2="50" y2="60"/><circle class="o" cx="50" cy="56" r="5" fill="#B5652F"/>
+    <line class="o" x1="72" y1="86" x2="78" y2="52"/><circle class="o" cx="78" cy="48" r="6" fill="#3F8F7A"/>
+    <circle class="o" cx="67" cy="116" r="35" fill="#B5652F"/>
+    <circle class="o" cx="80" cy="116" r="17" fill="#F2E6C4" stroke-width="4"/>
+    <circle cx="76" cy="113" r="4.5" fill="#1E1A16"/><circle cx="87" cy="113" r="4.5" fill="#1E1A16"/>
+    <path d="M72,106 l8,3 M92,106 l-7,3" stroke="#1E1A16" stroke-width="2.5"/>
+  </g>
+  <text class="nm" x="180" y="288">RIVET</text>
+  <text class="rl" x="180" y="306">RIVAL · Night 1</text>
+  <text class="d" x="180" y="328">Bolt's twin, repainted.</text>
+  <text class="d" x="180" y="344">Jab-jab-cutlass; backs</text>
+  <text class="d" x="180" y="360">off at 25 wind to rewind.</text>
+
+  <!-- 3. CLATTER the drummer (card origin x=325) -->
+  <g transform="translate(334,8)">
+    <path class="o" d="M26,150 h10 v8 h-10 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="18" cy="142" rx="7" ry="8" fill="#E8C35A"/>
+    <ellipse class="o" cx="18" cy="164" rx="7" ry="8" fill="#E8C35A"/>
+    <rect class="o" x="42" y="234" width="22" height="15" rx="3" fill="#1E1A16"/>
+    <rect class="o" x="68" y="234" width="22" height="15" rx="3" fill="#1E1A16"/>
+    <rect class="o" x="46" y="190" width="14" height="46" fill="#F2E6C4"/>
+    <rect class="o" x="72" y="190" width="14" height="46" fill="#F2E6C4"/>
+    <rect class="o" x="34" y="124" width="62" height="70" rx="7" fill="#2F4A8A"/>
+    <path d="M38,128 L92,190 M92,128 L38,190" stroke="#F2E6C4" stroke-width="6"/>
+    <circle class="o" cx="65" cy="106" r="19" fill="#F0C9A0"/>
+    <circle cx="72" cy="104" r="2.8" fill="#1E1A16"/><circle cx="80" cy="104" r="2.8" fill="#1E1A16"/>
+    <circle cx="80" cy="113" r="3.5" fill="#E86A6A"/>
+    <rect class="o" x="46" y="44" width="40" height="46" rx="3" fill="#C8382E"/>
+    <rect x="46" y="80" width="40" height="7" fill="#E8C35A"/>
+    <ellipse class="o" cx="66" cy="36" rx="7" ry="13" fill="#F2E6C4"/>
+    <rect class="o" x="84" y="150" width="40" height="46" rx="4" fill="#F2E6C4"/>
+    <rect x="84" y="150" width="40" height="8" fill="#C8382E" stroke="#1E1A16" stroke-width="2"/>
+    <rect x="84" y="188" width="40" height="8" fill="#C8382E" stroke="#1E1A16" stroke-width="2"/>
+    <polyline points="86,160 94,186 102,160 110,186 118,160 122,172" fill="none" stroke="#C9962B" stroke-width="2"/>
+    <line class="o" x1="96" y1="146" x2="118" y2="124" stroke-width="4"/><circle cx="119" cy="123" r="4" fill="#F2E6C4" stroke="#1E1A16" stroke-width="2"/>
+  </g>
+  <text class="nm" x="340" y="288">CLATTER</text>
+  <text class="rl" x="340" y="306">NIGHT 2 · drummer</text>
+  <text class="d" x="340" y="328">Drum blocks all front</text>
+  <text class="d" x="340" y="344">hits. Mallet hits hard.</text>
+  <text class="d" x="340" y="360">Slow to turn. Spring: 120.</text>
+
+  <!-- 4. HOPPER the clicker frog (card origin x=485) -->
+  <g transform="translate(494,0)">
+    <path class="o" d="M20,190 h10 v8 h-10 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="12" cy="182" rx="7" ry="8" fill="#E8C35A"/>
+    <ellipse class="o" cx="12" cy="204" rx="7" ry="8" fill="#E8C35A"/>
+    <ellipse class="o" cx="52" cy="244" rx="22" ry="6" fill="#3E7D3A"/>
+    <ellipse class="o" cx="40" cy="224" rx="24" ry="16" fill="#3E7D3A"/>
+    <ellipse class="o" cx="66" cy="204" rx="44" ry="32" fill="#4F9A4A"/>
+    <ellipse cx="84" cy="216" rx="22" ry="15" fill="#B9D77A"/>
+    <circle cx="50" cy="196" r="5" fill="#3E7D3A"/><circle cx="38" cy="210" r="4" fill="#3E7D3A"/><circle cx="60" cy="182" r="4" fill="#3E7D3A"/>
+    <line class="o" x1="94" y1="228" x2="100" y2="246" stroke-width="5"/>
+    <ellipse class="o" cx="104" cy="247" rx="10" ry="4" fill="#3E7D3A"/>
+    <circle class="o" cx="62" cy="172" r="11" fill="#4F9A4A"/>
+    <circle class="o" cx="84" cy="168" r="12" fill="#4F9A4A"/>
+    <circle cx="86" cy="167" r="7.5" fill="#F2E6C4"/><circle cx="89" cy="167" r="3.5" fill="#1E1A16"/>
+    <circle cx="64" cy="171" r="6.5" fill="#F2E6C4"/><circle cx="67" cy="171" r="3" fill="#1E1A16"/>
+    <path d="M78,194 Q96,200 110,190" stroke="#1E1A16" stroke-width="2.5" fill="none"/>
+    <path d="M110,192 Q122,194 128,186" stroke="#E86A6A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+  <text class="nm" x="500" y="288">HOPPER</text>
+  <text class="rl" x="500" y="306">NIGHT 3 · clicker frog</text>
+  <text class="d" x="500" y="328">Hops over corks. Long</text>
+  <text class="d" x="500" y="344">tongue lash, low damage.</text>
+  <text class="d" x="500" y="360">Fixed landing: punish it.</text>
+
+  <!-- 5. PIROUETTE the music-box ballerina (card origin x=645) -->
+  <g transform="translate(654,0)">
+    <path class="o" d="M36,160 h8 v6 h-8 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="30" cy="154" rx="6" ry="7" fill="#E8C35A"/>
+    <ellipse class="o" cx="30" cy="172" rx="6" ry="7" fill="#E8C35A"/>
+    <rect class="o" x="50" y="236" width="34" height="13" rx="3" fill="#C9962B"/>
+    <line class="o" x1="67" y1="236" x2="67" y2="190" stroke="#F0C9A0" stroke-width="6" stroke-linecap="round"/>
+    <path class="o" d="M66,196 L28,180" stroke="#F0C9A0" stroke-width="6" stroke-linecap="round"/>
+    <ellipse class="o" cx="67" cy="190" rx="44" ry="10" fill="#F29BB8"/>
+    <ellipse cx="67" cy="188" rx="34" ry="6" fill="#FBC3D5"/>
+    <rect class="o" x="58" y="146" width="18" height="42" rx="6" fill="#D9668C"/>
+    <path d="M60,150 Q36,110 62,94" stroke="#F0C9A0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M74,150 Q98,110 72,94" stroke="#F0C9A0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle class="o" cx="67" cy="128" r="14" fill="#F0C9A0"/>
+    <circle class="o" cx="60" cy="114" r="7" fill="#5A3A2E"/>
+    <circle cx="72" cy="127" r="2.5" fill="#1E1A16"/><circle cx="79" cy="127" r="2.5" fill="#1E1A16"/>
+    <path d="M100,120 a26,26 0 0 1 0,40" stroke="#E8C35A" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+    <path d="M34,120 a26,26 0 0 0 0,40" stroke="#E8C35A" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+  </g>
+  <text class="nm" x="660" y="288">PIROUETTE</text>
+  <text class="rl" x="660" y="306">NIGHT 4 · ballerina</text>
+  <text class="d" x="660" y="328">Multi-hit spins drain</text>
+  <text class="d" x="660" y="344">her small spring fast.</text>
+  <text class="d" x="660" y="360">Block, punish EMPTY.</text>
+
+  <!-- 6. SPUTTER the sparkler robot (card origin x=805) -->
+  <g transform="translate(814,0)">
+    <path class="o" d="M28,136 h10 v8 h-10 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="20" cy="128" rx="7" ry="8" fill="#E8C35A"/>
+    <ellipse class="o" cx="20" cy="150" rx="7" ry="8" fill="#E8C35A"/>
+    <rect class="o" x="38" y="222" width="62" height="26" rx="12" fill="#4A4F55"/>
+    <circle cx="52" cy="235" r="6" fill="#AEB8C4"/><circle cx="69" cy="235" r="6" fill="#AEB8C4"/><circle cx="86" cy="235" r="6" fill="#AEB8C4"/>
+    <rect class="o" x="48" y="182" width="16" height="42" fill="#AEB8C4"/>
+    <rect class="o" x="74" y="182" width="16" height="42" fill="#AEB8C4"/>
+    <rect class="o" x="38" y="106" width="62" height="80" rx="5" fill="#3D6FB5"/>
+    <rect class="o" x="50" y="120" width="34" height="32" fill="#1E1A16" stroke-width="2"/>
+    <polygon points="67,122 71,132 82,130 74,138 80,148 68,142 58,150 62,138 52,132 63,132" fill="#FFD54A"/>
+    <rect class="o" x="96" y="132" width="28" height="12" rx="2" fill="#AEB8C4"/>
+    <rect class="o" x="122" y="129" width="6" height="18" fill="#C8382E"/>
+    <rect class="o" x="46" y="62" width="46" height="42" rx="5" fill="#AEB8C4"/>
+    <rect x="62" y="74" width="26" height="12" rx="3" fill="#1E1A16"/>
+    <circle cx="69" cy="80" r="3.5" fill="#FFD54A"/><circle cx="81" cy="80" r="3.5" fill="#FFD54A"/>
+    <line class="o" x1="69" y1="62" x2="69" y2="42"/><circle class="o" cx="69" cy="38" r="5" fill="#C8382E"/>
+    <rect class="o" x="40" y="74" width="7" height="16" fill="#C8382E" stroke-width="2"/>
+  </g>
+  <text class="nm" x="820" y="288">SPUTTER</text>
+  <text class="rl" x="820" y="306">NIGHT 5 · tin robot</text>
+  <text class="d" x="820" y="328">Charged spark beam</text>
+  <text class="d" x="820" y="344">out-ranges corks. Chest</text>
+  <text class="d" x="820" y="360">sparks = the tell.</text>
+
+  <!-- 7. THE RINGMASTER (card origin x=965) -->
+  <g transform="translate(974,0)">
+    <path class="o" d="M28,124 h10 v8 h-10 z" fill="#E8C35A"/>
+    <ellipse class="o" cx="20" cy="116" rx="7" ry="8" fill="#E8C35A"/>
+    <ellipse class="o" cx="20" cy="138" rx="7" ry="8" fill="#E8C35A"/>
+    <rect class="o" x="46" y="236" width="20" height="13" rx="3" fill="#1E1A16"/>
+    <rect class="o" x="70" y="236" width="20" height="13" rx="3" fill="#1E1A16"/>
+    <rect class="o" x="50" y="170" width="13" height="68" fill="#F2E6C4"/>
+    <rect class="o" x="72" y="170" width="13" height="68" fill="#F2E6C4"/>
+    <path class="o" d="M42,146 L26,204 L50,176 z" fill="#8E1C24"/>
+    <rect class="o" x="40" y="100" width="54" height="76" rx="7" fill="#B3262E"/>
+    <path d="M62,102 L72,102 L67,132 z" fill="#F2E6C4"/>
+    <circle cx="80" cy="122" r="3" fill="#E8C35A"/><circle cx="80" cy="140" r="3" fill="#E8C35A"/><circle cx="80" cy="158" r="3" fill="#E8C35A"/>
+    <path class="o" d="M88,118 L108,124" stroke="#B3262E" stroke-width="9" stroke-linecap="round"/>
+    <line class="o" x1="112" y1="124" x2="118" y2="244" stroke="#E8C35A" stroke-width="6"/>
+    <rect class="o" x="116" y="230" width="10" height="6" fill="#E8C35A" stroke-width="1.5"/>
+    <rect class="o" x="116" y="238" width="7" height="6" fill="#E8C35A" stroke-width="1.5"/>
+    <circle class="o" cx="111" cy="114" r="11" fill="#E8C35A"/><circle cx="111" cy="114" r="4" fill="#1F2940"/>
+    <circle class="o" cx="111" cy="126" r="7" fill="#F0C9A0"/>
+    <circle class="o" cx="67" cy="82" r="18" fill="#F0C9A0"/>
+    <circle cx="76" cy="78" r="2.8" fill="#1E1A16"/>
+    <path d="M66,90 q8,6 14,-2 q6,8 14,0" stroke="#1E1A16" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect class="o" x="48" y="20" width="38" height="44" fill="#22202A"/>
+    <rect x="48" y="52" width="38" height="7" fill="#C8382E"/>
+    <rect class="o" x="38" y="62" width="58" height="7" rx="2" fill="#22202A"/>
+  </g>
+  <text class="nm" x="980" y="288">RINGMASTER</text>
+  <text class="rl" x="980" y="306">NIGHT 6 · boss</text>
+  <text class="d" x="980" y="328">Golden Key for a cane.</text>
+  <text class="d" x="980" y="344">Never runs down, until</text>
+  <text class="d" x="980" y="360">phase 3. Spring: 150.</text>
+
+  <!-- stats: POW / SPD / SPRING, 5 pips each. Pips: x = card+60 + i*16 -->
+  <g>
+    <text class="st" x="20" y="400">POW</text><text class="st" x="20" y="424">SPD</text><text class="st" x="20" y="448">SPRING</text>
+    <text class="st" x="180" y="400">POW</text><text class="st" x="180" y="424">SPD</text><text class="st" x="180" y="448">SPRING</text>
+    <text class="st" x="340" y="400">POW</text><text class="st" x="340" y="424">SPD</text><text class="st" x="340" y="448">SPRING</text>
+    <text class="st" x="500" y="400">POW</text><text class="st" x="500" y="424">SPD</text><text class="st" x="500" y="448">SPRING</text>
+    <text class="st" x="660" y="400">POW</text><text class="st" x="660" y="424">SPD</text><text class="st" x="660" y="448">SPRING</text>
+    <text class="st" x="820" y="400">POW</text><text class="st" x="820" y="424">SPD</text><text class="st" x="820" y="448">SPRING</text>
+    <text class="st" x="980" y="400">POW</text><text class="st" x="980" y="424">SPD</text><text class="st" x="980" y="448">SPRING</text>
+  </g>
+  <!-- pips are drawn by repeating one row pattern per card; values listed in GDD section 5 -->
+  <g id="pips">
+    <!-- Bolt 3/3/3 -->
+    <rect class="on" x="70" y="391" width="12" height="10" rx="2"/><rect class="on" x="86" y="391" width="12" height="10" rx="2"/><rect class="on" x="102" y="391" width="12" height="10" rx="2"/><rect class="off" x="118" y="391" width="12" height="10" rx="2"/><rect class="off" x="134" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="70" y="415" width="12" height="10" rx="2"/><rect class="on" x="86" y="415" width="12" height="10" rx="2"/><rect class="on" x="102" y="415" width="12" height="10" rx="2"/><rect class="off" x="118" y="415" width="12" height="10" rx="2"/><rect class="off" x="134" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="70" y="439" width="12" height="10" rx="2"/><rect class="on" x="86" y="439" width="12" height="10" rx="2"/><rect class="on" x="102" y="439" width="12" height="10" rx="2"/><rect class="off" x="118" y="439" width="12" height="10" rx="2"/><rect class="off" x="134" y="439" width="12" height="10" rx="2"/>
+    <!-- Rivet 3/3/3 -->
+    <rect class="on" x="230" y="391" width="12" height="10" rx="2"/><rect class="on" x="246" y="391" width="12" height="10" rx="2"/><rect class="on" x="262" y="391" width="12" height="10" rx="2"/><rect class="off" x="278" y="391" width="12" height="10" rx="2"/><rect class="off" x="294" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="230" y="415" width="12" height="10" rx="2"/><rect class="on" x="246" y="415" width="12" height="10" rx="2"/><rect class="on" x="262" y="415" width="12" height="10" rx="2"/><rect class="off" x="278" y="415" width="12" height="10" rx="2"/><rect class="off" x="294" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="230" y="439" width="12" height="10" rx="2"/><rect class="on" x="246" y="439" width="12" height="10" rx="2"/><rect class="on" x="262" y="439" width="12" height="10" rx="2"/><rect class="off" x="278" y="439" width="12" height="10" rx="2"/><rect class="off" x="294" y="439" width="12" height="10" rx="2"/>
+    <!-- Clatter 5/1/4 -->
+    <rect class="on" x="390" y="391" width="12" height="10" rx="2"/><rect class="on" x="406" y="391" width="12" height="10" rx="2"/><rect class="on" x="422" y="391" width="12" height="10" rx="2"/><rect class="on" x="438" y="391" width="12" height="10" rx="2"/><rect class="on" x="454" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="390" y="415" width="12" height="10" rx="2"/><rect class="off" x="406" y="415" width="12" height="10" rx="2"/><rect class="off" x="422" y="415" width="12" height="10" rx="2"/><rect class="off" x="438" y="415" width="12" height="10" rx="2"/><rect class="off" x="454" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="390" y="439" width="12" height="10" rx="2"/><rect class="on" x="406" y="439" width="12" height="10" rx="2"/><rect class="on" x="422" y="439" width="12" height="10" rx="2"/><rect class="on" x="438" y="439" width="12" height="10" rx="2"/><rect class="off" x="454" y="439" width="12" height="10" rx="2"/>
+    <!-- Hopper 2/4/3 -->
+    <rect class="on" x="550" y="391" width="12" height="10" rx="2"/><rect class="on" x="566" y="391" width="12" height="10" rx="2"/><rect class="off" x="582" y="391" width="12" height="10" rx="2"/><rect class="off" x="598" y="391" width="12" height="10" rx="2"/><rect class="off" x="614" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="550" y="415" width="12" height="10" rx="2"/><rect class="on" x="566" y="415" width="12" height="10" rx="2"/><rect class="on" x="582" y="415" width="12" height="10" rx="2"/><rect class="on" x="598" y="415" width="12" height="10" rx="2"/><rect class="off" x="614" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="550" y="439" width="12" height="10" rx="2"/><rect class="on" x="566" y="439" width="12" height="10" rx="2"/><rect class="on" x="582" y="439" width="12" height="10" rx="2"/><rect class="off" x="598" y="439" width="12" height="10" rx="2"/><rect class="off" x="614" y="439" width="12" height="10" rx="2"/>
+    <!-- Pirouette 2/5/2 -->
+    <rect class="on" x="710" y="391" width="12" height="10" rx="2"/><rect class="on" x="726" y="391" width="12" height="10" rx="2"/><rect class="off" x="742" y="391" width="12" height="10" rx="2"/><rect class="off" x="758" y="391" width="12" height="10" rx="2"/><rect class="off" x="774" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="710" y="415" width="12" height="10" rx="2"/><rect class="on" x="726" y="415" width="12" height="10" rx="2"/><rect class="on" x="742" y="415" width="12" height="10" rx="2"/><rect class="on" x="758" y="415" width="12" height="10" rx="2"/><rect class="on" x="774" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="710" y="439" width="12" height="10" rx="2"/><rect class="on" x="726" y="439" width="12" height="10" rx="2"/><rect class="off" x="742" y="439" width="12" height="10" rx="2"/><rect class="off" x="758" y="439" width="12" height="10" rx="2"/><rect class="off" x="774" y="439" width="12" height="10" rx="2"/>
+    <!-- Sputter 4/2/3 -->
+    <rect class="on" x="870" y="391" width="12" height="10" rx="2"/><rect class="on" x="886" y="391" width="12" height="10" rx="2"/><rect class="on" x="902" y="391" width="12" height="10" rx="2"/><rect class="on" x="918" y="391" width="12" height="10" rx="2"/><rect class="off" x="934" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="870" y="415" width="12" height="10" rx="2"/><rect class="on" x="886" y="415" width="12" height="10" rx="2"/><rect class="off" x="902" y="415" width="12" height="10" rx="2"/><rect class="off" x="918" y="415" width="12" height="10" rx="2"/><rect class="off" x="934" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="870" y="439" width="12" height="10" rx="2"/><rect class="on" x="886" y="439" width="12" height="10" rx="2"/><rect class="on" x="902" y="439" width="12" height="10" rx="2"/><rect class="off" x="918" y="439" width="12" height="10" rx="2"/><rect class="off" x="934" y="439" width="12" height="10" rx="2"/>
+    <!-- Ringmaster 4/3/5 -->
+    <rect class="on" x="1030" y="391" width="12" height="10" rx="2"/><rect class="on" x="1046" y="391" width="12" height="10" rx="2"/><rect class="on" x="1062" y="391" width="12" height="10" rx="2"/><rect class="on" x="1078" y="391" width="12" height="10" rx="2"/><rect class="off" x="1094" y="391" width="12" height="10" rx="2"/>
+    <rect class="on" x="1030" y="415" width="12" height="10" rx="2"/><rect class="on" x="1046" y="415" width="12" height="10" rx="2"/><rect class="on" x="1062" y="415" width="12" height="10" rx="2"/><rect class="off" x="1078" y="415" width="12" height="10" rx="2"/><rect class="off" x="1094" y="415" width="12" height="10" rx="2"/>
+    <rect class="on" x="1030" y="439" width="12" height="10" rx="2"/><rect class="on" x="1046" y="439" width="12" height="10" rx="2"/><rect class="on" x="1062" y="439" width="12" height="10" rx="2"/><rect class="on" x="1078" y="439" width="12" height="10" rx="2"/><rect class="on" x="1094" y="439" width="12" height="10" rx="2"/>
+  </g>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: the wind economy. Scale: 0..130 wind -> x 80..920 (6.4615 px per wind).
+       Built values are from godot/fighter/fighter.gd; overwind and hop are planned. Hand-written SVG (Claude). -->
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#4A2F5E"/>
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#B07CD8" stroke-width="4"/>
+    </pattern>
+    <style>
+      .t{fill:#F2E6C4;font-size:13px;font-weight:700}
+      .s{fill:#A9B4C8;font-size:12px}
+      .k{fill:#1B2438;font-size:11px;font-weight:700}
+      .tick{stroke:#F2E6C4;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1000" height="470" fill="#1B2438"/>
+  <text x="24" y="32" fill="#E8C35A" font-size="18" font-weight="700" letter-spacing="2">THE SPRING · ONE BAR PAYS FOR EVERYTHING</text>
+
+  <!-- threshold labels -->
+  <text class="t" x="80" y="78" text-anchor="middle" fill="#FF8A7A">EMPTY</text>
+  <text class="t" x="241" y="78" text-anchor="middle" fill="#FF8A7A">LOW 25</text>
+  <text class="t" x="726" y="78" text-anchor="middle">FULL 100</text>
+  <text class="t" x="920" y="78" text-anchor="middle" fill="#D2A8F0">SPROING 130</text>
+  <line class="tick" x1="80" y1="86" x2="80" y2="106"/>
+  <line class="tick" x1="241" y1="86" x2="241" y2="106"/>
+  <line class="tick" x1="726" y1="86" x2="726" y2="106"/>
+  <line class="tick" x1="920" y1="86" x2="920" y2="106"/>
+
+  <!-- the bar -->
+  <rect x="80" y="108" width="161.5" height="40" fill="#E0574B"/>
+  <rect x="241.5" y="108" width="484.7" height="40" fill="#E8C35A"/>
+  <rect x="726.2" y="108" width="193.8" height="40" fill="url(#hatch)"/>
+  <rect x="80" y="108" width="840" height="40" fill="none" stroke="#C9962B" stroke-width="3" rx="3"/>
+  <text x="160" y="133" class="k" text-anchor="middle">dial red · waltz slows</text>
+  <text x="484" y="133" class="k" text-anchor="middle">normal: spend freely, but every press costs</text>
+  <text x="823" y="133" fill="#F5E6FF" font-size="11" font-weight="700" text-anchor="middle">OVERWIND (planned)</text>
+
+  <!-- scale -->
+  <g class="s" text-anchor="middle">
+    <text x="80" y="168">0</text><text x="241" y="168">25</text><text x="403" y="168">50</text>
+    <text x="565" y="168">75</text><text x="726" y="168">100</text><text x="920" y="168">130</text>
+  </g>
+
+  <!-- what one full spring buys: segments drawn to the same scale -->
+  <text class="t" x="24" y="200">What one full spring (100 wind) buys</text>
+  <g>
+    <text class="s" x="72" y="226" text-anchor="end">jab</text>
+    <rect x="80" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="157.5" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="235" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="312.5" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="390" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="467.5" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="545" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="622.5" y="212" width="77.5" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <text class="s" x="740" y="226">8 jabs (12 each) = 56 damage</text>
+  </g>
+  <g>
+    <text class="s" x="72" y="258" text-anchor="end">cutlass</text>
+    <rect x="80" y="244" width="142.2" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="222.2" y="244" width="142.2" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="364.4" y="244" width="142.2" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="506.6" y="244" width="142.2" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <text class="s" x="740" y="258">4 cutlass swings (22) = 52 damage</text>
+  </g>
+  <g>
+    <text class="s" x="72" y="290" text-anchor="end">cork</text>
+    <rect x="80" y="276" width="193.8" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="273.8" y="276" width="193.8" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <rect x="467.6" y="276" width="193.8" height="20" fill="#E8C35A" stroke="#1B2438" stroke-width="2"/>
+    <text class="s" x="740" y="290">3 corks (30) = 30 damage, from range</text>
+  </g>
+  <g>
+    <text class="s" x="72" y="322" text-anchor="end">walk</text>
+    <rect x="80" y="308" width="646.2" height="20" fill="#8FA7C9" stroke="#1B2438" stroke-width="2"/>
+    <text class="k" x="403" y="322" text-anchor="middle">about 33 seconds of walking at 3 wind/s</text>
+  </g>
+  <line x1="726.2" y1="204" x2="726.2" y2="334" stroke="#F2E6C4" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- rewind -->
+  <text class="t" x="24" y="366">Rewind (hold S): one ratchet click per quarter-turn of the key</text>
+  <g fill="#4FB39A" stroke="#1B2438" stroke-width="2">
+    <rect x="80" y="378" width="64.6" height="20"/><rect x="144.6" y="378" width="64.6" height="20"/>
+    <rect x="209.2" y="378" width="64.6" height="20"/><rect x="273.8" y="378" width="64.6" height="20"/>
+    <rect x="338.4" y="378" width="64.6" height="20"/><rect x="403" y="378" width="64.6" height="20"/>
+    <rect x="467.6" y="378" width="64.6" height="20"/><rect x="532.2" y="378" width="64.6" height="20"/>
+    <rect x="596.8" y="378" width="64.6" height="20"/><rect x="661.4" y="378" width="64.8" height="20"/>
+  </g>
+  <text class="s" x="740" y="392">10 clicks, +10 each, 4 per second</text>
+  <text class="s" x="80" y="424">Each click is a sound you can count. A full refill takes 2.5 s; a cork crossing the bowl takes about 1.15 s.</text>
+  <text class="s" x="80" y="444">So you never refill all the way under fire: you wind 3–4 clicks, look up, and decide again.</text>
+</svg>

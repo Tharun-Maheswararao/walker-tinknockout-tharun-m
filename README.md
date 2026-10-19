@@ -51,6 +51,7 @@ python tools/edit/check_seam.py                                     # music loop
 
 | File | Contents |
 |---|---|
+| [GDD.md](GDD.md) ([PDF](GDD.pdf)) | game design document for the full game; figures in `design/gdd/`, PDF built by `tools/gdd/build_pdf.py` |
 | [CONCEPT.md](CONCEPT.md) | concept, core loop, pillars, art and audio direction |
 | [STORYBOARD.md](STORYBOARD.md) | 7 panels |
 | [CHARACTER-SHEET.md](CHARACTER-SHEET.md) | the character spec |

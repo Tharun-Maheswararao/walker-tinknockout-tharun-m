@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: the core loop. Hand-written SVG (Claude), not a generated asset. -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E8C35A"/>
+    </marker>
+    <style>
+      .n{fill:#26324D;stroke:#C9962B;stroke-width:2}
+      .t{fill:#F2E6C4;font-size:16px;font-weight:700}
+      .s{fill:#A9B4C8;font-size:12px}
+      .r{fill:#FF8A7A;font-size:12px;font-weight:600}
+      .arc{stroke:#E8C35A;stroke-width:3;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect width="900" height="460" fill="#1B2438"/>
+  <text x="24" y="32" fill="#E8C35A" font-size="18" font-weight="700" letter-spacing="2">CORE LOOP · ONE EXCHANGE (2–6 SECONDS)</text>
+
+  <!-- arcs, clockwise -->
+  <path class="arc" d="M560,92 Q700,110 735,170"/>
+  <path class="arc" d="M735,290 Q700,370 570,382"/>
+  <path class="arc" d="M330,382 Q190,370 160,292"/>
+  <path class="arc" d="M160,168 Q195,105 335,92"/>
+
+  <!-- nodes -->
+  <rect class="n" x="335" y="58" width="230" height="64" rx="10"/>
+  <text class="t" x="450" y="84" text-anchor="middle">1 · Close the distance</text>
+  <text class="s" x="450" y="104" text-anchor="middle">walk 110 px/s · drains 3 wind/s</text>
+
+  <rect class="n" x="640" y="176" width="240" height="108" rx="10"/>
+  <text class="t" x="760" y="202" text-anchor="middle">2 · Pick what you can afford</text>
+  <text class="s" x="760" y="224" text-anchor="middle">jab −12 · fast, short</text>
+  <text class="s" x="760" y="242" text-anchor="middle">cutlass −22 · more reach</text>
+  <text class="s" x="760" y="260" text-anchor="middle">cork gun −30 · across the arena</text>
+  <text class="s" x="760" y="276" text-anchor="middle" fill="#7F8BA3">(wind is paid on the press)</text>
+
+  <rect class="n" x="330" y="352" width="240" height="72" rx="10"/>
+  <text class="t" x="450" y="378" text-anchor="middle">3 · Land it, or whiff</text>
+  <text class="s" x="450" y="397" text-anchor="middle">hit: damage, spark, 0.07 s hitstop</text>
+  <text class="s" x="450" y="414" text-anchor="middle">miss or blocked: the wind is gone</text>
+
+  <rect class="n" x="20" y="176" width="240" height="108" rx="10"/>
+  <text class="t" x="140" y="202" text-anchor="middle">4 · Back off and rewind</text>
+  <text class="s" x="140" y="224" text-anchor="middle">hold S: crank the key</text>
+  <text class="s" x="140" y="242" text-anchor="middle">+10 wind per ratchet click</text>
+  <text class="s" x="140" y="260" text-anchor="middle">4 clicks/s · 0 → 100 in 2.5 s</text>
+  <text class="s" x="140" y="276" text-anchor="middle" fill="#7F8BA3">locked in place, guard down</text>
+
+  <!-- centre: the spring dial -->
+  <circle cx="450" cy="232" r="70" fill="#2B1F12" stroke="#C9962B" stroke-width="6"/>
+  <path d="M450,180 A52,52 0 1 1 401,250" fill="none" stroke="#E8C35A" stroke-width="10" stroke-linecap="round"/>
+  <path d="M401,250 A52,52 0 0 1 418,192" fill="none" stroke="#FF5A4A" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+  <line x1="450" y1="232" x2="407" y2="262" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="450" cy="232" r="6" fill="#F2E6C4"/>
+  <text x="450" y="322" fill="#E8C35A" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="3">SPRING</text>
+
+  <!-- risks -->
+  <text class="r" x="150" y="330" text-anchor="middle">Hit while rewinding:</text>
+  <text class="r" x="150" y="346" text-anchor="middle">1.5× damage + 0.8 s knockdown</text>
+  <text class="r" x="760" y="330" text-anchor="middle">Spend to 0 wind: EMPTY</text>
+  <text class="r" x="760" y="346" text-anchor="middle">can't walk, stalled 1.6 s</text>
+  <text class="s" x="450" y="448" text-anchor="middle" fill="#E8C35A">The question every exchange asks: "What can my spring afford, and is it safe to stop and wind?"</text>
+</svg>

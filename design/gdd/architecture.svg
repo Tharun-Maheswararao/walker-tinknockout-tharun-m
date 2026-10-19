@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Tin Knockout GDD figure: runtime architecture. Top half = what godot/ contains today; bottom = planned.
+       Hand-written SVG (Claude). -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E8C35A"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4FB39A"/>
+    </marker>
+    <style>
+      .b{fill:#26324D;stroke:#C9962B;stroke-width:2}
+      .p{fill:#1F2940;stroke:#8C9BB8;stroke-width:1.6;stroke-dasharray:6 4}
+      .t{fill:#F2E6C4;font-size:14px;font-weight:700}
+      .c{fill:#E8C35A;font-size:11px;font-family:Menlo, monospace}
+      .s{fill:#A9B4C8;font-size:11px}
+      .ln{stroke:#E8C35A;stroke-width:2;fill:none;marker-end:url(#a)}
+      .sg{stroke:#4FB39A;stroke-width:2;fill:none;marker-end:url(#g)}
+      .l{fill:#E8C35A;font-size:10.5px;font-style:italic}
+      .lg{fill:#7FD9BF;font-size:10.5px;font-style:italic}
+    </style>
+  </defs>
+  <rect width="1000" height="600" fill="#1B2438"/>
+  <text x="24" y="30" fill="#E8C35A" font-size="18" font-weight="700" letter-spacing="2">RUNTIME ARCHITECTURE · GODOT 4.7.2 · GDSCRIPT</text>
+
+  <!-- input side -->
+  <rect class="b" x="24" y="56" width="240" height="70" rx="8"/>
+  <text class="t" x="36" y="78">Controls (autoload)</text>
+  <text class="c" x="36" y="95">game/controls.gd</text>
+  <text class="s" x="36" y="112">keyboard + gamepad actions, in code</text>
+
+  <rect class="b" x="24" y="160" width="240" height="84" rx="8"/>
+  <text class="t" x="36" y="182">RivetBrain (pattern AI)</text>
+  <text class="c" x="36" y="199">fighter/rivet_brain.gd</text>
+  <text class="s" x="36" y="216">distance + wind rules, no randomness,</text>
+  <text class="s" x="36" y="231">so tests replay identically</text>
+
+  <rect class="b" x="24" y="278" width="240" height="96" rx="8"/>
+  <text class="t" x="36" y="300">Assets (godot/assets)</text>
+  <text class="s" x="36" y="318">fighters/: 11 poses × 2 skins, stored 3×</text>
+  <text class="s" x="36" y="333">+ anchors.json (feet, hands, key)</text>
+  <text class="s" x="36" y="348">env/ props/ sfx/ music/ (.png, .ogg)</text>
+  <text class="s" x="36" y="363">props3d/: castle, windkey, toybox .glb</text>
+
+  <!-- core -->
+  <rect class="b" x="330" y="56" width="330" height="108" rx="8" stroke-width="2.5"/>
+  <text class="t" x="344" y="78">Main (round state machine)</text>
+  <text class="c" x="344" y="95">game/main.gd · main.tscn</text>
+  <text class="s" x="344" y="113">TITLE → INTRO (1.3 s) → FIGHT → KO → rematch</text>
+  <text class="s" x="344" y="129">reads input into an intent dict, steps fighters,</text>
+  <text class="s" x="344" y="144">keeps bodies 44 px apart, spawns corks,</text>
+  <text class="s" x="344" y="159">camera shake / roll, hit sparks, F1 hitboxes</text>
+
+  <rect class="b" x="330" y="208" width="330" height="128" rx="8" stroke-width="2.5"/>
+  <text class="t" x="344" y="230">Fighter × 2 (Bolt, Rivet)</text>
+  <text class="c" x="344" y="247">fighter/fighter.gd</text>
+  <text class="s" x="344" y="265">11-state machine; one tuning table (costs,</text>
+  <text class="s" x="344" y="280">frame timings, damage, hitboxes)</text>
+  <text class="s" x="344" y="295">hurtbox 50×106 at the feet; Rect2 overlap,</text>
+  <text class="s" x="344" y="310">one hit per swing; human and AI use the</text>
+  <text class="s" x="344" y="325">same intent path</text>
+
+  <rect class="b" x="330" y="372" width="150" height="56" rx="8"/>
+  <text class="t" x="344" y="394">Cork</text>
+  <text class="s" x="344" y="412">320 px/s, 2 s life</text>
+
+  <!-- listeners -->
+  <rect class="b" x="736" y="56" width="240" height="72" rx="8"/>
+  <text class="t" x="748" y="78">SFX listener</text>
+  <text class="c" x="748" y="95">audio/sfx.gd · bus "SFX"</text>
+  <text class="s" x="748" y="112">6 sounds, exactly one per event</text>
+
+  <rect class="b" x="736" y="150" width="240" height="96" rx="8"/>
+  <text class="t" x="748" y="172">Music</text>
+  <text class="c" x="748" y="189">audio/music.gd · bus "Music"</text>
+  <text class="s" x="748" y="206">waltz loop; pitch 0.85 below 25 wind;</text>
+  <text class="s" x="748" y="221">low-pass −10 dB on pause;</text>
+  <text class="s" x="748" y="236">stops dead on K.O.</text>
+
+  <rect class="b" x="736" y="268" width="240" height="80" rx="8"/>
+  <text class="t" x="748" y="290">HUD (CanvasLayer 10)</text>
+  <text class="c" x="748" y="307">ui/hud.gd</text>
+  <text class="s" x="748" y="324">health bars, spring dials, round text;</text>
+  <text class="s" x="748" y="339">immune to camera shake</text>
+
+  <!-- arrows -->
+  <path class="ln" d="M264,91 H328"/><text class="l" x="270" y="84">player intent</text>
+  <path class="ln" d="M264,200 H300 V260 H328"/><text class="l" x="270" y="193">Rivet's intent</text>
+  <path class="ln" d="M495,164 V206"/><text class="l" x="502" y="190">step(dt) at 60 Hz</text>
+  <path class="ln" d="M405,336 V370"/><text class="l" x="412" y="356">spawn</text>
+  <path class="ln" d="M264,326 H300 V300 H328"/>
+  <path class="sg" d="M660,240 H700 V92 H734"/>
+  <path class="sg" d="M700,198 H734"/>
+  <path class="sg" d="M660,300 H734"/>
+  <path class="sg" d="M480,400 H710 V112 H734"/>
+  <text class="lg" x="500" y="436" font-weight="700">Signals: gameplay never calls audio or UI, they listen.</text>
+  <text class="lg" x="500" y="452">state_changed · hit_landed · projectile_fired · rewind_tick · wind_changed · struck</text>
+
+  <!-- planned layer -->
+  <line x1="24" y1="476" x2="976" y2="476" stroke="#3A4766" stroke-dasharray="3 4"/>
+  <text x="24" y="497" fill="#8C9BB8" font-size="12" font-weight="700" letter-spacing="2">PLANNED FOR THE FULL GAME</text>
+  <rect class="p" x="24" y="508" width="178" height="74" rx="8"/>
+  <text class="t" x="36" y="530" font-size="13">FighterData .tres</text>
+  <text class="s" x="36" y="547">per-fighter attack table,</text>
+  <text class="s" x="36" y="562">palette, anchors, max wind</text>
+  <rect class="p" x="216" y="508" width="178" height="74" rx="8"/>
+  <text class="t" x="228" y="530" font-size="13">Arena scenes</text>
+  <text class="s" x="228" y="547">parallax layers, hazard</text>
+  <text class="s" x="228" y="562">nodes, ToyBox spawner</text>
+  <rect class="p" x="408" y="508" width="178" height="74" rx="8"/>
+  <text class="t" x="420" y="530" font-size="13">Brain interface</text>
+  <text class="s" x="420" y="547">one pattern brain per</text>
+  <text class="s" x="420" y="562">opponent + difficulty</text>
+  <rect class="p" x="600" y="508" width="178" height="74" rx="8"/>
+  <text class="t" x="612" y="530" font-size="13">Story + nights</text>
+  <text class="s" x="612" y="547">nights.json, panel scenes,</text>
+  <text class="s" x="612" y="562">night map</text>
+  <rect class="p" x="792" y="508" width="184" height="74" rx="8"/>
+  <text class="t" x="804" y="530" font-size="13">Save + Versus</text>
+  <text class="s" x="804" y="547">user://save.json (medals),</text>
+  <text class="s" x="804" y="562">P2 input, rebinding</text>
+</svg>
