@@ -585,6 +585,3 @@ A steady 60 fps on an integrated GPU at 1280×720, with all six arenas under 150
 | **Readability** | Low-contrast fighters on busy backgrounds (Bolt's helmet vs the pink castle is 1.02:1) | Measure contrast before generating; add a rim light; move scenery out of the fighters' height band |
 | **Licences** | SDXL-Turbo, MusicGen and AudioLDM 2 allow non-commercial use only | Fine for coursework. Any public release would need new art and audio from permissively licensed tools or made by hand. |
 
----
-
-*Sources and credits for every existing asset are in [SOURCES.md](SOURCES.md) and [ASSET-LOG.md](ASSET-LOG.md). This GDD was drafted with Claude Code (Opus 5.5) from my existing design documents and the game's code. The full-game additions (the story, the five new fighters, Nights 2–6, the pickups, Hop, Overwind and the specials) are proposals for me to review and playtest before I build them.*
