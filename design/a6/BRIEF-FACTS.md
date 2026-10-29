@@ -13,14 +13,17 @@
 - **Renderer switched from GL Compatibility to Forward+ on 2026-10-29, before the brief** (your decision; Claude made the edit).
   - Reason: Godot's docs say the Visual Profiler is not supported with Compatibility on macOS, so the GPU price was impossible on this Mac.
   - Evidence: `evidence/a6/renderer-switch/`. The 2D game's still frames are identical under both renderers (max difference 1/255). The A3 3D prop room renders darker under Forward+.
+- **macOS driver set to Vulkan on 2026-10-29** (your decision; Claude made the edit).
+  - Reason: under Forward+ on Metal, your Visual Profiler showed GPU 0.0 ms on every row, and Claude's probe read 0 ms too. Under Vulkan the probe reads about 0.55 ms per frame.
+  - Frames are pixel-identical between Metal and Vulkan. Evidence: `evidence/a6/renderer-switch/gpu-driver.txt`.
 
 ## 2. Engine and project
 
 | Fact | Where |
 |---|---|
 | Godot 4.7.2.stable.official.ed1daf0bf, at `/opt/homebrew/bin/godot` | `godot --version` |
-| Renderer `forward_plus` (mobile override `mobile`); `config/features` says "Forward Plus" | `godot/project.godot:15, 31-32` |
-| Driver on this Mac: Metal, adapter "Apple M4 (Apple9)" | startup line of a windowed run (`evidence/a6/renderer-switch/compare.txt`) |
+| Renderer Forward+: `config/features` says "Forward Plus". The editor drops `rendering_method="forward_plus"` because it is the default. | `godot/project.godot:15` |
+| Driver on macOS: Vulkan (MoltenVK), adapter "Apple M4" | `godot/project.godot:32` (`rendering_device/driver.macos="vulkan"`); `evidence/a6/renderer-switch/gpu-driver.txt` |
 | Vsync: enabled (default mode 1; the project does not override it) | ProjectSettings default |
 | Viewport 640×360, window 1280×720 (2×), stretch `canvas_items` | `godot/project.godot:23-27` |
 | Camera2D at (320, 180), zoom 1 | `godot/game/main.gd:39-41` |
@@ -100,7 +103,8 @@ The project now runs Forward+, so these Compatibility limits no longer apply. Th
 - **Particle trails** and **particle SDF collision** are "Not supported" in Compatibility. They are supported in Forward+. Source: the [renderer comparison](https://docs.godotengine.org/en/stable/tutorials/rendering/renderers.html).
 - **`emit_particle()`** is only supported on Forward+ and Mobile ([GPUParticles2D](https://docs.godotengine.org/en/stable/classes/class_gpuparticles2d.html)), so it is now available.
 - **Visual Profiler:** "not supported when using the Compatibility renderer on macOS" ([debugger panel docs](https://docs.godotengine.org/en/stable/tutorials/scripting/debug/debugger_panel.html)). The same page says it otherwise works with any renderer.
-  - **Not yet confirmed on this Mac.** Open the Visual Profiler in the editor once, before you commit the brief's GPU predictions, and check that it shows a GPU column.
+  - On this Mac, Forward+ on **Metal** gives a GPU column of all zeros. Forward+ on **Vulkan** gives real GPU times, but so far only through Claude's probe.
+  - **Still to confirm:** open the Visual Profiler in the editor and check that the GPU column now has non-zero values.
 - Turbulence and sub-emitters: no renderer restriction found in the docs. Confirm them on screen like every other feature.
 
 ## 7. Instruments and environment
@@ -116,7 +120,7 @@ The project now runs Forward+, so these Compatibility limits no longer apply. Th
 | `test_slice.gd` | realtime (A2 ran it without `--fixed-fps`) | 25 checks, 0 failed, exit 0 | 25 checks, 0 failed, exit 0 | `logs/test_slice_realtime.log` |
 | `check_props3d.gd` | 60 | 23 PASS, 0 FAIL, exit 0 | 23 PASS, 0 FAIL, exit 0 | `logs/check_props3d_60fps.log` |
 
-- The logs on disk are from the Forward+ run. The wrapper overwrote the Compatibility logs, which used the same names.
+- The logs on disk are from the Forward+ run. The counts were the same again after the switch to Vulkan. The wrapper overwrote the Compatibility logs, which used the same names.
 - Headless runs use the dummy renderer either way, so identical counts are expected and say nothing about the look.
 - No log contains `SCRIPT ERROR` or `SHADER ERROR`. Both end with Godot's usual "leaked at exit" warnings.
 

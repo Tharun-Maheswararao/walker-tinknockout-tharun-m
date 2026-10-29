@@ -1,0 +1,15 @@
+GPU timing by driver, 2026-10-29, by Claude (scratch script gpu_probe.gd, windowed).
+Why: the user's Visual Profiler (Forward+, Metal driver) showed GPU 0.0 ms on every row.
+The probe loads game/main.tscn, enables viewport render-time measurement (GPU
+timestamps), and averages frames 60-179.
+
+run                                         driver   mean cpu    mean gpu    max gpu
+--rendering-driver metal                    metal    0.118 ms    0.0 ms      0.0 ms
+--rendering-driver vulkan (MoltenVK)        vulkan   0.115 ms    0.551 ms    0.9 ms
+default, after driver.macos="vulkan"        vulkan   0.120 ms    0.546 ms    0.792 ms
+
+Look: snap_compare.gd stills (title, intro, idle fight, A3 prop room) are
+pixel-identical between Metal and Vulkan (max difference 0/255 in all four).
+Baseline after the change: test_slice.gd realtime 25/25, check_props3d.gd 60fps 23/23.
+Reading: on this Mac (Apple M4, Godot 4.7.2) the Metal driver reports no GPU
+time; Vulkan does. The Visual Profiler itself still has to be re-checked in the editor.
