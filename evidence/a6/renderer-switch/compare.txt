@@ -1,0 +1,15 @@
+Renderer switch check, 2026-10-29, by Claude (scratch script snap_compare.gd, windowed, --fixed-fps 60).
+Same scenes captured twice on this Mac (Apple M4, macOS 15.6, Godot 4.7.2):
+  left  = --rendering-method gl_compatibility  (opengl3)
+  right = --rendering-method forward_plus      (metal, "Apple M4 (Apple9)")
+Images are 1280x720 each; sbs_*.png puts them side by side.
+
+scene          mean|diff|  max  pixels >8/255  pixels >32/255
+1_title           0.24       1      0.00 %         0.00 %
+2_intro           0.13       1      0.00 %         0.00 %
+3_fight_idle      0.13       1      0.00 %         0.00 %
+4_prop_room       8.87      69     23.03 %        21.67 %
+
+Reading: the 2D game renders the same under both renderers (max difference 1/255).
+The A3 3D prop room does not: under Forward+ the castle, key, toybox lid and floor are darker and less saturated.
+Not checked: the game in motion, hits, pause and K.O. screens; this is a still-frame comparison only.

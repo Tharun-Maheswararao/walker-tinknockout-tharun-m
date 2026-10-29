@@ -5,7 +5,7 @@ Tin wind-up toys box in a glass bowl in a toy shop after closing. You play **Bol
 This repository is the **CSYE 7270 Assignment 2 asset slice**: generated art, sound effects and music, proven together in one small playable Godot scene.
 
 - **Started from:** an empty Godot 4.7 project. Patterns (viewport, input-driven tests, capture contract) come from my Assignment 1, [walker-jumpman-tharun-m @ bb63748](https://github.com/Tharun-Maheswararao/walker-jumpman-tharun-m), which extends [nikbearbrown/walker-jumpman @ 9387542](https://github.com/nikbearbrown/walker-jumpman). No game code was reused. See [SOURCES.md](SOURCES.md).
-- **Engine:** Godot 4.7.2.stable (GL Compatibility). Tested on macOS 15.6, Apple M4.
+- **Engine:** Godot 4.7.2.stable, Forward+ (Metal) from Assignment 6 on; Assignments 2 and 3 used GL Compatibility. Tested on macOS 15.6, Apple M4.
 
 ## Run
 
