@@ -5,7 +5,7 @@ Tin wind-up toys box in a glass bowl in a toy shop after closing. You play **Bol
 This repository is the **CSYE 7270 Assignment 2 asset slice**: generated art, sound effects and music, proven together in one small playable Godot scene.
 
 - **Started from:** an empty Godot 4.7 project. Patterns (viewport, input-driven tests, capture contract) come from my Assignment 1, [walker-jumpman-tharun-m @ bb63748](https://github.com/Tharun-Maheswararao/walker-jumpman-tharun-m), which extends [nikbearbrown/walker-jumpman @ 9387542](https://github.com/nikbearbrown/walker-jumpman). No game code was reused. See [SOURCES.md](SOURCES.md).
-- **Engine:** Godot 4.7.2.stable, Forward+ on Vulkan (MoltenVK on macOS) from Assignment 6 on; Assignments 2 and 3 used GL Compatibility. Tested on macOS 15.6, Apple M4.
+- **Engine:** Godot 4.7.2.stable, Forward+ on Vulkan (MoltenVK on macOS) from Assignment 5 on; Assignments 2 and 3 used GL Compatibility. Tested on macOS 15.6, Apple M4.
 
 ## Run
 
@@ -103,3 +103,62 @@ Expect `RESULT: PASS (0 failing)`. Read that line: Godot exits 0 even if the scr
 **A3 film:** [claude-liam-walker-tinknockout-tharun-m-a3-props.mp4](https://drive.google.com/file/d/1l_fboMP7sHmJDt0vd_IM93I63KSMIbgk/view?usp=sharing) · SHA-256 `007d0d984c9a34eb36d3d741db9ebbe062b661158db73b57ffa9557b87630b5e` · 4K, 9:28 · shows game source `1d93dcb`. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a3-props/` (the MP4 itself is not in GitHub).
 
 Docs for A3: CHANGE-BRIEF.md (bottom), BLENDER-NOTES.md, TEST-REPORT.md (bottom), FRICTIONAL.md (bottom), SOURCES.md (bottom).
+
+---
+
+## Assignment 5 — shaders, materials and the shading language (tag `a5`)
+
+**Added:**
+- **REWIND tint, a shader from code:** `godot/shaders/rewind_tint.gdshader`, hand-written. Each fighter's body sprite fades toward blue while that fighter rewinds its spring (the vulnerable state): 0.15 s in, 0.30 s out, using one ShaderMaterial per fighter. The driver is `godot/fighter/rewind_tint_driver.gd`.
+- **Painted-tin textured shader:** `godot/shaders/painted_tin.gdshader`, hand-written, with Poly Haven "Metal Plate" (CC0) colour, normal and roughness textures. Two materials, `toybox_fresh` and `toybox_worn`, sit on two toy boxes in `prop_room.tscn`.
+- **Hint experiment:** `godot/shaders/hint_experiment.gdshader`, hand-written, in `godot/hint_experiment/hint_experiment.tscn`. It reads the same 3×1 grey PNG as colour and as data.
+- **Generated shader:** `godot/shaders/standard_generated.gdshader`, converted from a StandardMaterial3D and annotated. Nothing in the game uses it.
+- **F9:** a debug-build in-engine capture key (`godot/game/debug_capture.gd`).
+
+**Run the tests** from the repo root, always through the handout's wrapper (`timeout` is from Homebrew coreutils). Run `godot --headless --path godot --import` once after cloning, then:
+```bash
+./scripts/run-test.sh test_slice.gd 60
+```
+```bash
+./scripts/run-test.sh check_props3d.gd 60
+```
+```bash
+./scripts/run-test.sh test_rewind_tint.gd 30
+```
+```bash
+./scripts/run-test.sh test_rewind_tint.gd 60
+```
+```bash
+./scripts/run-test.sh test_rewind_tint.gd 144
+```
+```bash
+./scripts/run-test.sh test_materials.gd 60
+```
+
+Expected results:
+- `test_slice`: 25 checks, 0 failed;
+- `check_props3d`: RESULT PASS;
+- `test_rewind_tint`: 50 checks, 0 failed at each rate;
+- `test_materials`: 55 checks, 0 failed.
+
+**See it:**
+- The tint: `godot --path godot`, then press Enter and hold **S**.
+- The hint quads: open `res://hint_experiment/hint_experiment.tscn` in the editor and press F6.
+- The toy boxes: open `res://prop_room/prop_room.tscn` and press F6.
+
+**Docs for A5:**
+- CLAUDE.md (agent context; imports CHANGE-BRIEF.md);
+- CHANGE-BRIEF.md ("Assignment 5");
+- godot/MATERIALS.md (the audit);
+- LANGUAGE-NOTES.md;
+- TEST-REPORT.md ("Assignment 5");
+- FRICTIONAL.md;
+- SOURCES.md;
+- evidence/a5/ (headless facts, session transcripts, mutations, captures).
+
+**Known limitations (A5):**
+- `painted_tin` writes no METALLIC, so worn bare metal is shaded as a non-metal (MATERIALS.md M5).
+- Bolt's tint starts up to one physics tick (1/60 s) after the key press at high frame rates.
+- The `claude -p` sessions hit the account's spend limit, so the later agent work ran in the interactive session (SOURCES.md).
+- **No A5 film was made.**
+

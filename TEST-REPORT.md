@@ -213,3 +213,170 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 | F5 too detailed | Did not happen. Segment counts are as specified, and all three are under budget. |
 | F6 colour lost | Not lost: Godot albedo hex values equal the Blender values (e.g. castle `#D98BA0`, `#3E8E86`, `#3A2A20`; band `#2E7D32` after my edit). But the cream lid *reads* near-white under the sun light (A3-7), so a colour can survive export and still not look right. |
 | F7 MCP breaks | Partly. Setup needed three fixes (FRICTIONAL.md). The first `get_scene_info` returned `Could not connect to Blender`; it worked 4 minutes later. Then the MCP built the castle and, on 2026-10-16, the key (after the auto-mode safety check blocked a scene-clearing call and I approved it). The toy box stayed script-route. |
+
+---
+
+# Assignment 5 — shaders, materials and the Godot shading language
+
+*Drafted by Claude from the committed logs and captures. Every row says who checked it. Rows marked **Tharun's check** are human checks: Tharun's own words, which Claude does not write.*
+
+- **Source revision:** the game source is as of `2e6946d` (the F9 capture key). Later commits add only evidence and docs; the final `a5` SHA goes in SUBMISSION.md.
+- **Engine:** Godot 4.7.2.stable.official.ed1daf0bf.
+- **Renderer:** Forward+ on Vulkan (MoltenVK) (`godot/project.godot:15, 31`).
+- **Machine:** macOS 15.6, Apple M4.
+- **Tests:** all run through `scripts/run-test.sh`, the handout's exact wrapper (`23a0363`).
+
+## A5-1. Baseline (before and after)
+
+| Suite | Before A5 (`23a0363`, 60 fps) | After A5 (60 fps) |
+|---|---|---|
+| `test_slice.gd` | 25 checks, 0 failed | 25 checks, 0 failed |
+| `check_props3d.gd` | 23 PASS, RESULT PASS | RESULT PASS (0 failing). It now prints `albedo=#000000` for `toybox_fresh` (finding M9). |
+
+## A5-2. Shaders parse
+
+| Shader | Author | Evidence |
+|---|---|---|
+| `rewind_tint.gdshader` | Tharun (colour line suggested by Claude, recorded) | `6ffb7ce`. Import with no SHADER ERROR; uniform list `rewind_amount` (3), `tint_color` (20), `tint_strength` (3); asserted by `test_rewind_tint.gd`. |
+| `painted_tin.gdshader` | Tharun (structure and skeleton suggested by Claude, recorded) | `72c4bc1`. Spatial; 3 samplers and 5 uniforms in groups paint and metal; asserted by `test_materials.gd`. |
+| `hint_experiment.gdshader` | Tharun | `fab8a41`. Spatial, unshaded; 2 samplers and 1 bool; asserted by `test_materials.gd`. |
+| `standard_generated.gdshader` | Godot editor (converted by Tharun) | `c65be67`. Imports with no SHADER ERROR. |
+
+**Mutations** (Tharun edited, Claude ran the test; `evidence/a5/mutations/`):
+
+| Mutation | Test | Result |
+|---|---|---|
+| m1: semicolon deleted (`rewind_tint` line 3) | `test_rewind_tint.gd 60` | SHADER ERROR "Expected a ';'"; uniform list `[]`; 5 of 50 failed; **exit 1** |
+| m2: `rewind_amount` → `rewind_amt` in the shader only (lines 3 and 8) | `test_rewind_tint.gd 60` | No SHADER ERROR; 2 of 50 failed (uniform type and source checks); **exit 2** (the exit code is the failure count, as in `test_slice.gd`; non-zero = fail) |
+| m2, first attempt (line 8 only) | same | A parse failure ("Unknown identifier 'rewind_amt'"), not the intended rename. Kept as an attempt. |
+| m3: `source_color` deleted from `metal_albedo` (`painted_tin` line 3) | `test_materials.gd 60` | No SHADER ERROR; 1 of 55 failed ("colour sampler metal_albedo has source_color"); **exit 1** |
+
+**What the mutations showed:** in m1 and m2, 45 and 48 driver checks still passed. A material readback proves nothing about the shader; only the uniform-list and source-text assertions catch these.
+
+## A5-3. Driver: sampled every frame at 30, 60 and 144 fps through real input
+
+`test_rewind_tint.gd` (agent, `3196f5c`; two test bugs fixed by Claude in `7115992`) gives **50 checks, 0 failed** at each of 30, 60 and 144.
+- **Input:** rewind is held with `Input.action_press`, and pause is a parsed input event.
+- **Rivet:** acts only through `brain.think`.
+- **Sampling:** at `process_priority` 1000.
+
+| Rule | 30 fps | 60 fps | 144 fps | Tolerance |
+|---|---|---|---|---|
+| R2 fade-in 0→1 (0.15 s) | 0.1667 s | pass | 0.1528 s | ± one frame |
+| R2 fade-out 1→0 (0.30 s) | 0.3000 s | pass | 0.3056 s | ± one frame |
+| R3 retrigger, extend (from v, (1−v)×0.15 s) | 0.1333 s vs 0.1000 (at the edge of one 1/30 s frame) | pass | 0.0833 s vs 0.0833 | ± one frame |
+| R5 release mid fade-in (v×0.30 s) | 0.2667 vs 0.2667 | pass | 0.1736 vs 0.1667 | ± one frame |
+| R5 hit mid fade-in (REWIND → HURT) | 0.2667 vs 0.2667 | pass | 0.2014 vs 0.1944 | ± one frame |
+| R4a `time_scale` 0.5 (game time 0.15 s, real time 0.30 s) | 9 frames = 0.300 s | 18 frames | 44 frames = 0.306 s | ± one frame |
+| R4b tree pause / R4c game pause: value held, resumes from the same value | pass | pass | pass | exact |
+| R6 Rivet's value stays 0 while Bolt rewinds, and the reverse | pass | pass | pass | exact |
+| Fade start delay after the press (reported, not asserted) | 0.067 s | 0.033 s | 0.021 s | — |
+
+**Why the start delay exists:** REWIND changes on the 60 Hz physics tick (`evidence/a5/headless-facts.txt:12, 23`), so at 144 fps the fade starts up to 1/60 s after the key press. R2 times the fade itself.
+
+## A5-4. Controlled values: HUMAN CHECK
+
+**Evidence (Claude).** Scripted-input windowed run (`tools/a5_capture_run.gd`: confirm, hold rewind, F9):
+- in-engine captures `evidence/a5/captures/bolt_rewind_amount_*.png` (1280×720 = 2× game space);
+- pixel samples in `evidence/a5/captures/pixel-samples.txt`.
+
+| `rewind_amount` | A (chest): predicted → captured | B (helmet): predicted → captured |
+|---|---|---|
+| 0.0 | (217, 87, 64) → (217, 87, 64) | (251, 188, 34) → (251, 188, 34) |
+| 0.5 | (185, 105, 112) → (185, 105, 112) | (211, 181, 89) → (211, 181, 89) |
+| 1.0 | (154, 124, 160) → (153, 123, 159) | (171, 174, 145) → (171, 174, 144) |
+| 2.0 (set from code) | → (90, 160, 255) | → (90, 160, 255) |
+
+**Differences:** at 1.0 the only differences are −1, in exactly the five channels whose predicted value was x.5 before rounding (CHANGE-BRIEF A5.3 note).
+
+**`hint_range`:** at 2.0 both pixels are the pure tint, so the shader received 2.0 × 0.5 = 1.0. **`hint_range(0.0, 1.0)` does not clamp a value set from code.** That matches the prediction in A5.7 Q7. A material readback alone could not show this (`headless-facts.txt:9`).
+
+**OS screenshot vs capture** (`evidence/a5/captures/os-screenshot/comparison.txt`):
+- The OS screenshot is full-screen Retina (4.725×) and tagged with the "Display" ICC profile.
+- Averaged static-background patches differ from the capture by up to (−8, +2, −1), shifted most in red.
+- So the capture is the one trusted for predictions.
+
+**Tharun's check:** TODO-YOU. In your words: do the captures match your predictions, why the five −1s, which you trust (capture or OS screenshot) and why.
+
+## A5-5. In play: HUMAN CHECK
+
+**Evidence:** OS screenshot during play (`os_screenshot_rewinding.png`) shows Bolt and Rivet both rewinding and both tinted blue.
+**Tharun's playtest:** TODO-YOU.
+
+## A5-6. Hint experiment: HUMAN CHECK
+
+**Evidence (Claude):** `evidence/a5/captures/hint_quads.png` (windowed, Forward+). Band centres sampled in `hint-samples.txt`.
+
+| Band (file) | Quad S (`source_color`): predicted → measured | Quad D (data): predicted → measured |
+|---|---|---|
+| 64 | 64 → 64 | 137 → 137 |
+| 128 | 128 → 128 | 188 → 188 |
+| 192 | 192 → 192 | 225 → 225 |
+
+**Tharun's check:** TODO-YOU. What you see in the capture, and your explanation.
+
+## A5-7. Interface sweep: HUMAN CHECK
+
+**Evidence (Claude):** `evidence/a5/captures/toybox/sweep_contact_sheet.png`.
+- Each `painted_tin` uniform is set at runtime on the fresh material only, to its minimum, the shader default and its maximum; nothing is saved.
+- The worn box stays unchanged in every row.
+- Lighting: the prop room as A3 left it (Sun energy 1.0 with shadows, ambient 0.6, Linear tonemap; SSAO, SSIL, SDFGI, glow and fog off).
+
+**Tharun's check:** TODO-YOU. For each uniform: what changed, and any setting that breaks the look (see M5 on METALLIC).
+
+## A5-8. One shader, two materials: HUMAN CHECK
+
+**Evidence (Claude, measured)** from `evidence/a5/captures/toybox/edit_checks/README.txt`:
+- **Side by side:** `toyboxes_side_by_side.png`.
+- **Shader edit** (Tharun: `uv_scale` default 2.5 → 6.0): both boxes changed (fresh 88 px, worn 1622 px; castle 0).
+- **Material edit** (Tharun: worn `wear_amount` 0.55 → 0.2): only the worn box changed (6698 px; the fresh box unchanged except the worn box's edge at x 885–888).
+- Both edits were restored.
+
+**Tharun's check:** TODO-YOU.
+
+## A5-9. Material wiring and texture data
+
+- `test_materials.gd 60`: **55 checks, 0 failed**. After deleting `godot/.godot` and reimporting, still **55/55** (`97be9e1`, `logs/test_materials_60fps_fresh_cache.log`).
+- m3 (`source_color` removed) makes it exit 1 (A5-2).
+- **Curl ratio** (stride 4; calibration `logs/calibrate_normal_map_60fps.log`):
+  - `nor_gl` (bound): GL 0.0658, DX 1.9342;
+  - `nor_dx`: GL 1.9342, DX 0.0658.
+  - The sign convention is not reversed; the threshold is < 0.5.
+- **Import settings:** the editor rewrote no `.import` file. `git status` after Tharun's first editor session (the StandardMaterial3D conversion) showed only the new shader. The fresh-cache reimport rewrote nothing either.
+- **Audit:** `godot/MATERIALS.md` (agent `cc28ecd`; Tharun's review and correction `b5f35c2`).
+
+## A5-10. Agent mistakes caught
+
+| Mistake | Who caught it, and how |
+|---|---|
+| The CLAUDE.md draft cited `README.md:8` for the engine. That README line says Forward+ applies "from Assignment 6 on", which is stale. It also left the engine version unconfirmed. | Claude's reference check; Tharun's review (`e5d77af`). |
+| The driver test read `--fixed-fps` from `OS.get_cmdline_args()`, which the engine consumes, so the period was always 1/60. | The 30 and 144 fps runs failed. Fixed in `7115992`. |
+| The test's R4c lookup returned −1 at 30 fps, and `samples[-1]` silently read the last sample. | The 30 fps failure; fixed in `7115992` (now asserts that the sample was found). |
+| Claude's first fix for the period used `root.get_process_delta_time()` too early (it read 1/24 at 30 fps). | A rerun still failed; fixed in the same commit. |
+| MATERIALS.md cited `prop_room.tscn:30-32` for the Sun's energy, but that is the engine default and is not in the file. | Tharun's review (`b5f35c2`); Claude spotted it while recording the review. |
+| The headless ResourceSaver wrote `= null` for unset uniforms. | Claude's inspection of the `.tres` (`ceaece8`, finding M4). |
+
+## A5-11. Inspect → revise cycles
+
+1. The test failed at 30 and 144 fps. Inspecting the log showed "(60 fps)" printed at every rate, so the bug was in the test, not the driver. The period was then measured from the delta: the first attempt was wrong, the second right (`7115992`).
+2. The second mutation's first attempt failed for the wrong reason, a parse error instead of a rename. Inspecting the SHADER ERROR line ("Unknown identifier") showed line 3 was unchanged. Tharun renamed both lines, and it then failed the uniform-list check as intended.
+
+## A5-12. Predicted failures (CHANGE-BRIEF A5.6): outcomes
+
+| # | Outcome |
+|---|---|
+| A5-F1: Bolt and Rivet sharing one material | Did not happen. R6 assertions pass at all three rates: separate material objects, and Rivet stays 0 while Bolt rewinds and the reverse. The OS screenshot shows both tinted independently. |
+| A5-F2: the duration depends on frame rate | Did not happen. The driver uses `delta`; durations are within one frame at 30, 60 and 144. |
+| A5-F3: retrigger restarts from 0 | Did not happen. R3 "no frame-to-frame drop" passes at all three rates. |
+
+## A5-13. What no headless run shows
+
+Nothing headless says how anything looks (`evidence/a5/headless-facts.txt:3`). The look checks are A5-4 to A5-8, from windowed captures and Tharun's own eyes.
+
+## A5-14. Limitations
+
+- `claude -p` hit the account's spend limit mid-session (until 2026-12-01). The audit, test fixes and captures therefore ran in the interactive desktop session; see SOURCES.md.
+- The captures are scripted-input runs, labelled as such. Tharun's playtest is the unscripted check.
+- `painted_tin` writes no `METALLIC` (M5), so the worn bare metal is shaded as a non-metal.
+- A dummy-renderer teardown ERROR appears in headless logs that free a ShaderMaterial mesh (M1). It prints after the result line, and the wrapper ignores it.
+- No film was made for A5 (see SUBMISSION.md).

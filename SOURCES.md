@@ -91,6 +91,31 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 - **`painted_tin.gdshader` structure:** Claude suggested the file and sampler names, the order of parts, and a `fragment()` skeleton with blanks: the variable names `uv`, `metal`, `rough` and `wear`, and which built-in each line writes. I typed the whole file and filled every blank myself, including the wear edge `1.0 - wear_amount`, on 2026-11-01. The uniform lines come from my brief's A5.5 table.
 - **Driver implement prompt:** `prompts/a5/prompt-2-implement.txt` was drafted by Claude Code (Opus 5.5) after I read the agent's plan in `evidence/a5/session-2-plan.jsonl`. I approved it unchanged on 2026-11-01.
 
-**Who did what (A5, so far):**
-- **Me:** accepted Claude's proposed design decisions and material plan; typed the colour line; computed the pixel predictions by hand on paper.
-- **Claude:** proposed the design decisions and material plan; measured the texels and wrote `design/a5/BRIEF-FACTS.md`; downloaded the textures, set their import settings and wrote the credits file; laid out the A5 brief.
+**Tools (A5):**
+- Godot 4.7.2.stable.official.ed1daf0bf (Forward+, Vulkan/MoltenVK), macOS 15.6, Apple M4.
+- Claude Code (Claude Opus 5.5): the interactive desktop session, plus `claude -p` 2.1.308 (bundled with the desktop app) for sessions 1 and 2.
+- The `claude -p` route hit the account's individual spend limit partway through session 2's implement run (overage rejected until 2026-12-01; `evidence/a5/session-2-implement.jsonl`). After that, the agent work ran in the interactive desktop session:
+  - the first run of the tests;
+  - two test-bug fixes;
+  - the materials audit (`prompts/a5/prompt-3-audit.txt`);
+  - the captures.
+  Every such commit says so.
+- Python 3 with Pillow, used for texel and pixel measurements.
+
+**Who did what (A5):**
+- **Me (Tharun):**
+  - **Brief:** accepted Claude's proposed design decisions and material plan; computed the 18 pixel predictions by hand on paper, plus the contrast ratios and the six hint-experiment predictions; wrote the failure cases and short answers, accepting Claude's corrections to the F1–F3 check references and one phrase in short answer 4.
+  - **Shaders:** typed all three, `rewind_tint`, `painted_tin` and `hint_experiment`, using the recorded suggestions above.
+  - **Mutations:** ran all three, and restored the shaders each time.
+  - **CLAUDE.md review:** chose Claude's four proposed edits.
+  - **Audit review:** reviewed MATERIALS.md (enums, formats, three numbers traced; kept M5 open).
+  - **Editor and checks:** converted the StandardMaterial3D in the editor; made the shader edit and the material edit for the one-shader-two-materials check; took the OS screenshot; playtested.
+  - Annotations, LANGUAGE-NOTES, FRICTIONAL entries and the human-check verdicts: see those files.
+- **Claude:**
+  - **Brief support:** proposed the design decisions and material plan; measured the texels and the background, and wrote `design/a5/BRIEF-FACTS.md`; laid out the brief.
+  - **Textures:** downloaded them, set their import settings and wrote the credits file.
+  - **Agent sessions:** ran sessions 1 and 2 (CLAUDE.md draft; driver and test). Drafted the implement prompt, which I approved.
+  - **Test fixes and checks:** fixed two test bugs; wrote the curl-check calibration, the headless probes, the hint PNG writer, the material and hint-scene builders, and the Use External wiring.
+  - **Audit:** ran it (MATERIALS.md, `test_materials.gd`).
+  - **Captures:** wrote the F9 capture key and the capture tools; made and measured every capture.
+  - **Docs:** drafted TEST-REPORT, README and SUBMISSION.

@@ -1,26 +1,26 @@
-# SUBMISSION — Assignment 3
+# SUBMISSION — Assignment 5
 
-*(The Assignment 2 submission note is preserved at tag `a2`, commit `9788922`.)*
+*(The Assignment 3 submission note is preserved at tag `a3`; Assignment 2's at tag `a2`.)*
 
-- **Assignment:** Assignment 3 - Your First 3D Game Assets with Claude, the Blender MCP, and Blender
+- **Assignment:** Assignment 5 - Shaders, Materials, and the Godot Shading Language
 - **Student:** Tharun Maheswararao (maheswararao.t@northeastern.edu)
 - **Project name:** walker-tinknockout-tharun-m (Tin Knockout)
 - **GitHub repository URL:** https://github.com/Tharun-Maheswararao/walker-tinknockout-tharun-m
-- **Git tag and submitted commit SHA:** tag `a3`; the SHA is given in the Canvas copy of this note (a commit cannot contain its own hash). The final commit only adds film documentation on top of the game source shown in the film; `git diff --stat 1d93dcb a3 -- godot assets tools` is empty.
-- **Game-source revision shown in the film:** `1d93dcb` (student screenshots and docs added after it in docs-only commits `0bc2b4d`, `fd99467`).
-- **Godot version, Blender version, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Blender 5.2.2 LTS · macOS 15.6 (Darwin 24.6.0), Apple M4
-- **The three assets and what each is for:**
-  - `castle`: the sunken-castle ornament on the goldfish-bowl floor; the environment landmark behind the fighters. 1.80 × 0.82 × 2.30 m.
-  - `windkey`: a spare brass winding key; a collectible that would refill Bolt's spring. 0.60 × 0.14 × 0.70 m.
-  - `toybox`: the tin toy box that future weapon pickups come out of; a prop. 1.26 × 0.76 × 0.75 m.
-- **MCP project and version, or "script route":** MCP for Blender (`mcp-for-blender` 2.1.9, Blender add-on 1.8) for **castle** and **windkey**. **Script route** (headless Blender) for **toybox**.
-- **My hand edit in Blender:** recoloured the toy box band from navy `#23395B` to green `#2E7D32` in the Material tab (Base Color) in Material Preview; size and scale unchanged; re-exported (before/after screenshots in `evidence/blender/`).
-- **Checks run (command and result):**
-  - `godot --headless --path godot --import`: no errors.
-  - `timeout 120 godot --headless --path godot --script res://tests/check_props3d.gd --fixed-fps 60`: `RESULT: PASS (0 failing)`. Size within ±0.01 m of the brief, base at y = 0, scale 1 and rotation 0, upright, front at +Z, triangles within budget, all three on the floor in `prop_room.tscn`. Output in `evidence/check_props3d.txt`.
-  - Headless re-run of `tools/blender/build_castle.py` and inspection of each `.blend`: dimensions, origin, scale and colours match the brief.
-- **Final film URL and filename:** https://drive.google.com/file/d/1l_fboMP7sHmJDt0vd_IM93I63KSMIbgk/view?usp=sharing · `claude-liam-walker-tinknockout-tharun-m-a3-props.mp4` (4K 3840×2160, 9:28, Brutalist `godot-gamedev` walker workflow, Liam narration; reel docs in `youtube/claude-liam-walker-tinknockout-tharun-m-a3-props/`)
-- **Final film SHA-256:** `007d0d984c9a34eb36d3d741db9ebbe062b661158db73b57ffa9557b87630b5e`
-- **Summary of my changes:** an A3 brief committed before building; Blender MCP set up (with three setup fixes logged); castle and key built through the MCP, toy box by script route; my hand edit of the toy box band; three `.glb` files, a Godot prop room, and a headless check that Claude first wrote wrongly (false pass) and then fixed; interface notes and an A3 test report.
-- **Known limitations:** Submitted one day late (to finish the film and my own hand edit and look check). The film's narration voice could not be checked by ear by the agent that built it; I watched it. The cream lid reads near-white under the scene light (TEST-REPORT A3-7). The prop room is not connected to the 2D game. Godot exits 0 even when a check script fails to parse, so the RESULT line is the evidence.
+- **Git tag and submitted commit SHA:** tag `a5`. The SHA is given in the Canvas copy of this note, because a commit cannot contain its own hash.
+- **Game-source revision shown in the film:** no film was made for A5 (see Known limitations). Game source as of `2e6946d`.
+- **Godot version, renderer, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Forward+ on Vulkan (MoltenVK) · macOS 15.6 (Darwin 24.6.0), Apple M4
+- **Game state the shader from code communicates:** REWIND, the fighter cranking its spring and open to a 1.5× knockdown hit. Each fighter's body sprite fades toward blue (90, 160, 255) at half strength while it rewinds: 0.15 s in, 0.30 s out, extending on retrigger and freezing on pause. The shader is `godot/shaders/rewind_tint.gdshader`, driven by `godot/fighter/rewind_tint_driver.gd`.
+- **3D object and scene given the textured shader:** the toy box in `godot/prop_room/prop_room.tscn`, using `godot/shaders/painted_tin.gdshader`. `toybox_fresh.tres` is applied through the glb's Use External; a second toy box carries `toybox_worn.tres` as a surface override.
+- **Texture sources and licences:**
+  - Poly Haven "Metal Plate" (https://polyhaven.com/a/metal_plate) by Rob Tuytel, CC0, 1k PNG. The `_nor_gl` map is used; `_nor_dx` is for calibration only (`godot/assets/textures/metal_plate/ATTRIBUTION.md`).
+  - The 3×1 grey hint texture is written by code (`godot/tools/write_hint_png.gd`).
+- **Final film URL and filename:** none; no A5 film was made.
+- **Final film SHA-256:** none.
+- **Summary of my work:** TODO-YOU, in your own words: what you specified, wrote, checked, changed or rejected. Base it on SOURCES.md "Who did what (A5)".
+- **Known limitations:**
+  - No A5 film (8 points of the explainer criterion), for lack of time.
+  - The `claude -p` agent route hit the account's individual spend limit mid-session (until 2026-12-01). The audit, two test-bug fixes and the captures were therefore done in the interactive Claude Code desktop session, with every commit labelled.
+  - `painted_tin` writes no METALLIC (MATERIALS.md M5).
+  - The fade can start up to 1/60 s after the key press at high frame rates; the fade duration itself is to spec.
+  - The captures are scripted-input runs; my playtest is the unscripted check.
 - **Changed games since Assignment 2:** no.
