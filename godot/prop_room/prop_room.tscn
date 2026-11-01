@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/props3d/castle.glb" id="1_castle"]
 [ext_resource type="PackedScene" path="res://assets/props3d/windkey.glb" id="2_windkey"]
 [ext_resource type="PackedScene" path="res://assets/props3d/toybox.glb" id="3_toybox"]
+[ext_resource type="Material" path="res://prop_room/materials/toybox_worn.tres" id="4_worn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
 size = Vector2(8, 6)
@@ -41,3 +42,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 0)
 
 [node name="toybox" parent="." instance=ExtResource("3_toybox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0, 0, 0)
+
+[node name="toybox_worn" parent="." instance=ExtResource("3_toybox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35, 0, 0)
+
+[node name="toybox" parent="toybox_worn" index="0"]
+surface_material_override/0 = ExtResource("4_worn")
+
+[editable path="toybox_worn"]
