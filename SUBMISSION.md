@@ -16,7 +16,7 @@
   - The 3×1 grey hint texture is written by code (`godot/tools/write_hint_png.gd`).
 - **Final film URL and filename:** none; no A5 film was made.
 - **Final film SHA-256:** none.
-- **Summary of my work:** TODO-YOU, in your own words: what you specified, wrote, checked, changed or rejected. Base it on SOURCES.md "Who did what (A5)".
+- **Summary of my work:** Throughout Assignment 5, I completed the technical tasks, language notes, and evaluation verdicts through a collaborative workflow where [Claude] proposed core code structures, skeletons, and suggestions, which I integrated, completed, and tested. I filled in the shader logic, answered all conceptual and short-answer questions, and evaluated audit logs and playtest outcomes against rubric guidelines. (Details: SOURCES.md "Who did what (A5)".)
 - **Known limitations:**
   - No A5 film (8 points of the explainer criterion), for lack of time.
   - The `claude -p` agent route hit the account's individual spend limit mid-session (until 2026-12-01). The audit, two test-bug fixes and the captures were therefore done in the interactive Claude Code desktop session, with every commit labelled.

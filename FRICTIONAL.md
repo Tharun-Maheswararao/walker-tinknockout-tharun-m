@@ -146,3 +146,78 @@ The Claude app was closed overnight for longer than either of us realised. Work 
 - The first film agent was stopped (it showed the old source). The second, built from `1d93dcb`, was cut off by a network error (`ENOTFOUND`) and then sat idle from 19:34 to 23:33 until Claude noticed and restarted it. It rendered the 4K master at 00:15, and all gates passed (godot-gamedev --check, GATE T, GATE V). During its own review it fixed clipped code views and a 720p orbit capture.
 - I confirmed the narration's "he" is right for me, asked what "Merhaba" was (Brutalist's rotating world-language hello; Turkish), watched the film, and uploaded it to Google Drive. Claude checked that the link opens without signing in. SHA-256 `007d0d984c9a34eb36d3d741db9ebbe062b661158db73b57ffa9557b87630b5e`.
 - **Human / Claude:** Claude (a film agent) wrote the beat sheet, script and visuals; Liam's voice is Kokoro TTS. I approved the film after watching it.
+
+---
+
+# Assignment 5 — shaders and materials (2026-11-01)
+
+*Written at the end of the day, not as the work happened. Claude organised the facts below from the commit log, the session transcripts and the logs, citing each commit. Every "In my words" line is mine. Claude did not write them.*
+
+## ~10:20 — starting late, with the wrapper and the brief
+
+- **What happened:**
+  - **Due date:** I thought A5 was due tonight. My earlier copy of the handout said "Due Thursday" (2026-10-29), and Claude asked me to check Canvas.
+  - **Wrapper:** Claude swapped in the handout's exact `run-test.sh` (`23a0363`). Baseline at 60 fps: test_slice 25/0, check_props3d 23/0.
+  - **Brief, Claude's part:** proposed the design decisions (REWIND, blue tint, 0.15 s / 0.30 s, extend, freeze on pause, one material per fighter) and the material plan. I accepted them all.
+  - **Colour line:** I got stuck on it and asked Claude for a suggestion. I typed it and recorded it as Claude's (SOURCES.md).
+  - **Predictions, mine:** the 18 pixel predictions by hand on paper (photo `design/a5/predictions-pixelA-0.5-handwritten.jpg`), the contrast ratios, the six hint-experiment values, the failure cases and the short answers.
+  - **Corrections:** Claude pointed out that my F1–F3 checks cited the wrong rules, and corrected one phrase in short answer 4. I accepted both (`24e4d1d`).
+- **In my words (expected / hard / learned):** Nothing major surprised me here, but it emphasized the importance of aligning every technical claim with explicit test evidence early on.
+
+## ~11:40 — CLAUDE.md through `claude -p`
+
+- **What happened:**
+  - **Logging in:** the `claude` CLI wasn't on my PATH. Claude found the copy bundled with the desktop app, and I logged it in.
+  - **Session 1:** 15 of 40 turns, one permission denial (python3); it wrote only CLAUDE.md. Committed unedited (`da75c35`).
+  - **My review:** I chose Claude's four proposed edits (`e5d77af`). They add a "Headless facts" block measured on this machine (`evidence/a5/headless-facts.txt`), confirm the engine version, add a wrapper rule, and keep the file under 120 lines.
+  - **Two surprises:** a headless run still *reports* vulkan/forward_plus, and `set_shader_parameter(2.0)` reads back 2.0 whatever the hint.
+- **In my words:** Setting up the environment configuration helped keep the assistant aligned with course expectations. Managing context took some care, but having explicit guidelines saved time on iterative corrections.
+
+## ~11:50 — writing `rewind_tint.gdshader`
+
+- **What happened:** I typed the shader from my A5.2 table and colour line. The first time, I pasted it into the chat but hadn't saved the file. It parsed with no SHADER ERROR on the first save (`6ffb7ce`).
+- **In my words:** Writing the 2D rewind shader went smoothly once initialized, parsing on the first save without syntax errors. The main collaborative step involved integrating the colour-mixing logic and uniform definitions based on [Claude's] initial suggestions.
+
+## ~12:00 — the driver session, and the spend limit
+
+- **What happened:**
+  - **Plan:** the session read my shader ("matches the spec character for character") and proposed a 13-assertion test. I approved Claude's draft of the implement prompt.
+  - **Spend limit:** the implement run stopped after 11 turns: "You've hit your individual spend limit". It had written the driver, 4 lines in `main.gd` and the test, but never ran a test (`3196f5c`).
+  - **First run (Claude):** 50/50 at 60 fps, but 2 failures at 30 and 1 at 144.
+  - **Two test bugs:** the test read `--fixed-fps` from the command line, which the engine consumes, and a `find()` returned −1, which read the last sample by accident. Claude's first fix for the frame period was also wrong (it read 1/24 at 30 fps). The second fix worked: 50/50 at 30, 60 and 144 (`7115992`).
+- **In my words:** Hitting account spend limits blocked automated CLI runs and required shifting to an interactive desktop session. While the agent ran the test suites and audit scripts, I reviewed the resulting logs and verified the output data against course requirements.
+
+## ~16:45 — mutations
+
+- **What happened:**
+  - **m1:** deleting a semicolon gave a SHADER ERROR and exit 1.
+  - **m2:** my first try renamed only line 8, which made a *parse* error ("Unknown identifier"), not the rename the handout wants. Renaming lines 3 and 8 gave 2 of 50 failed and exit 2.
+  - **Readbacks:** in both mutations the other driver checks still passed. Only the uniform-list check caught the change.
+  - **m3** (later): deleting `source_color` gave 1 of 55 failed and exit 1 (`e23498b`, `97be9e1`).
+- **In my words:** Managing mutations involved minor adjustments, such as correcting an initial parse error on an early shader line edit, which was resolved by reverting or refining the code.
+
+## ~16:55–17:10 — the textured shader, the hint shader and the audit
+
+- **What happened:**
+  - **`painted_tin`:** I typed it part by part, using Claude's skeleton with blanks (recorded in SOURCES). The first save held only `fragment()`; I added Parts 1–3 and it parsed (`72c4bc1`).
+  - **`hint_experiment`:** I typed it from the handout spec (`fab8a41`).
+  - **Claude's part:** built the materials, the Use External wiring, the second toy box and the hint scene (`ceaece8`, `8b8bdb8`). It also ran the audit in the desktop session, since the CLI was blocked (`cc28ecd`, 55/55).
+  - **Fresh cache:** still 55/55.
+  - **My audit review** (`b5f35c2`): I checked the enums, the formats and three numbers. Claude noticed that the Sun-energy citation I had checked pointed at a scene line that doesn't contain it, and I approved the fix.
+- **In my words:** Implementing painted_tin and hint_experiment while reviewing the agent's audit findings bridged theory and practice nicely. Checking texture compression enums and sRGB decoding helped demystify how Godot handles raw data versus color assets.
+
+## ~17:35–18:05 — the editor, the captures and the human checks
+
+- **What happened:**
+  - **Step 4:** I converted a StandardMaterial3D in the editor and saved the generated shader (`c65be67`). The editor rewrote no `.import` file.
+  - **Annotations:** my first annotated copy changed `vec3 uv2_offset` to `vec2`. Claude caught it, so I added comments in place instead (`e4c188f`).
+  - **Captures:** pixels A and B matched my predictions exactly at 0 and 0.5, and were −1 only in the five x.5 channels at 1.0. At 2.0 both became the pure tint, so `hint_range` doesn't clamp. The hint quads matched all six predictions (`2e6946d`).
+  - **Edit checks:** the shader edit changed both boxes; the material edit changed only the worn one. My OS screenshot read up to 8 levels lower in red than the capture (`b2b8780`).
+  - **Sweep verdicts:** my first draft didn't match the contact sheet in four rows. I rewrote it from the images (`b771e96`).
+  - **LANGUAGE-NOTES:** Claude's reference check found TEXTURE cited where it isn't used, the wrong file cited for the 2.0 test, and no line reference in Q8. I revised all three (`93aedd9`).
+- **In my words:** Running headless verification scripts highlighted the sharp boundary between headless data and actual human visual checks. It reinforced why automated tests can't replace a real playtest or contact sheet sweep.
+
+## Not done
+
+- No A5 film.
+- **In my words (why, and what I'd do differently):** TODO-YOU
