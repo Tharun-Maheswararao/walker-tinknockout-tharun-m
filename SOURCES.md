@@ -88,6 +88,7 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 
 **Agent suggestions I adopted (typed in by me):**
 - **Colour line:** `COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);`, suggested by Claude Code (Opus 5.5) on 2026-11-01 after I asked. It is in CHANGE-BRIEF A5.2 and will be the colour line of `godot/shaders/rewind_tint.gdshader`.
+- **`painted_tin.gdshader` structure:** Claude suggested the file and sampler names, the order of parts, and a `fragment()` skeleton with blanks: the variable names `uv`, `metal`, `rough` and `wear`, and which built-in each line writes. I typed the whole file and filled every blank myself, including the wear edge `1.0 - wear_amount`, on 2026-11-01. The uniform lines come from my brief's A5.5 table.
 - **Driver implement prompt:** `prompts/a5/prompt-2-implement.txt` was drafted by Claude Code (Opus 5.5) after I read the agent's plan in `evidence/a5/session-2-plan.jsonl`. I approved it unchanged on 2026-11-01.
 
 **Who did what (A5, so far):**

@@ -349,4 +349,4 @@ The other uniforms stay at their defaults. Why: the same tin toy box before and 
 
 ## A5 revisions
 
-*(none yet)*
+- **2026-11-01: shader file names.** Version 1 named only `godot/shaders/rewind_tint.gdshader`. The textured shader is `godot/shaders/painted_tin.gdshader`. The hint-experiment shader will be `godot/shaders/hint_experiment.gdshader`. Its sampler names are `metal_albedo` (colour), `metal_normal` (normal) and `metal_rough` (roughness and wear mask). Claude suggested these names and I used them.
