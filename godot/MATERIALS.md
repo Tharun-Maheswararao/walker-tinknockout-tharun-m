@@ -39,7 +39,7 @@ The uniform list reports all five samplers only as type 24 with hint_string `Tex
 
 | Scene | Setting | Value | Evidence |
 |---|---|---|---|
-| prop_room | Sun (DirectionalLight3D) | energy 1.00, shadows on | `prop_room.tscn:30-32`; printed by the test |
+| prop_room | Sun (DirectionalLight3D) | energy 1.00 (the engine default; there is no `light_energy` line in the file), shadows on | energy: printed by the test (`prop_room env:` line); shadows: `prop_room.tscn:32` |
 | prop_room | Background | custom colour (0.12, 0.15, 0.22) | `prop_room.tscn:15-16` |
 | prop_room | Ambient light | colour (0.45, 0.5, 0.6), energy 0.6 | `prop_room.tscn:17-19` |
 | prop_room | Tonemap and exposure | 0 = `TONE_MAPPER_LINEAR`, exposure 1.00. Engine defaults, not written in the file. | printed by the test |
@@ -90,3 +90,17 @@ A headless run draws nothing (`evidence/a5/headless-facts.txt`). This audit ther
 - whether the normal map's dents face the right way under the Sun.
 
 Each of those is a human check in TEST-REPORT ("Use It").
+
+## 8. Review (Tharun, 2026-11-01)
+
+Tharun reviewed the agent's audit as committed in `cc28ecd`. In Tharun's words:
+
+> **Enums:** OK. All six texture rows have their compress/mode and compress/normal_map integer enums correctly labeled matching Godot's binary definitions (0 Lossless, 2 VRAM Compressed; 1 Enable, 2 Disabled).
+>
+> **Formats:** OK. The imported formats (17 for DXT1, 21 for RGTC_RG, 4 for RGB8) match the table claims and Godot's get_image().get_format() output.
+>
+> **Checked numbers:** Checked Sun energy (1.00 from prop_room.tscn:30-32 and test log), Ambient energy (0.6 from prop_room.tscn:17-19), and Curl ratio (0.0658 from logs/calibrate_normal_map_60fps.log). All checked numbers are fully sourced.
+>
+> **Findings:** Agree with M1–M4 and M6–M10. For M5, agree to keep it as an open look question since leaving METALLIC unset on painted_tin is a judgement call that needs a visual check.
+
+**Correction made in this review.** The Sun's energy (1.00) is not in `prop_room.tscn:30-32`, because the engine default is not written to the file. Its only source is the test log. Section 3's Sun row now cites the test log for the energy and `prop_room.tscn:32` for shadows. Claude spotted this while recording the review, and Tharun approved the fix. No other number was removed; every other checked value has a source.
