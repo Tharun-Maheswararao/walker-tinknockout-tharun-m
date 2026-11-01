@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+metal_plate_nor_gl_1k.png: 1024x1024 format 4
+  curl_ratio(gl file, directx=false, stride 4) = 0.0658
+  curl_ratio(gl file, directx=true, stride 4) = 1.9342
+metal_plate_nor_dx_1k.png: 1024x1024 format 4
+  curl_ratio(dx file, directx=false, stride 4) = 1.9342
+  curl_ratio(dx file, directx=true, stride 4) = 0.0658
+PASS  GL file reads lower under the GL convention (0.0658) than under DX (1.9342)
+PASS  DX file reads lower under the DX convention (0.0658) than under GL (1.9342)
+
+0 failed

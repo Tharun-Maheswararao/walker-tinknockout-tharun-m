@@ -55,7 +55,7 @@ PASS  R6 Rivet released: Rivet's value returns to 0.0
 PASS  R6 Bolt's value stayed 0.0 throughout Rivet's rewind
 
 50 checks, 0 failed
-WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
 ERROR: 4 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)

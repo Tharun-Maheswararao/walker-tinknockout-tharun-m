@@ -1,0 +1,16 @@
+diff --git a/godot/shaders/rewind_tint.gdshader b/godot/shaders/rewind_tint.gdshader
+index 84d4196..e41808d 100644
+--- a/godot/shaders/rewind_tint.gdshader
++++ b/godot/shaders/rewind_tint.gdshader
+@@ -1,9 +1,9 @@
+ shader_type canvas_item;
+ 
+-uniform float rewind_amount : hint_range(0.0, 1.0) = 0.0;
++uniform float rewind_amt : hint_range(0.0, 1.0) = 0.0;
+ uniform vec4 tint_color : source_color = vec4(0.353, 0.627, 1.0, 1.0);
+ uniform float tint_strength : hint_range(0.0, 1.0) = 0.5;
+ 
+ void fragment() {
+-	COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);
++	COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amt * tint_strength);
+ }
