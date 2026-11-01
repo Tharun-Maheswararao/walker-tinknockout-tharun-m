@@ -1,0 +1,8 @@
+# OS screenshot vs in-engine capture, static background only (no fighter, no HUD in these patches)
+# OS: evidence/a5/captures/os-screenshot/os_screenshot_rewinding.png (3024x1890 full screen, Retina, embedded ICC profile "Display", game area rows 95..1795 = 4.725x)
+# Capture: evidence/a5/captures/bolt_rewind_amount_0.0.png (1280x720 = 2x, from get_viewport().get_texture().get_image())
+patch (game px) | capture mean RGB | OS screenshot mean RGB | OS - capture
+(290-310, 100-120) | (69, 60, 92) | (68, 61, 90) | (-1, 1, -2)
+(550-570, 160-180) | (117, 67, 100) | (110, 69, 98) | (-7, 2, -2)
+(70-90, 290-310) | (179, 123, 144) | (171, 125, 143) | (-8, 2, -1)
+(20-40, 80-100) | (91, 81, 95) | (90, 81, 97) | (-1, 0, 2)
