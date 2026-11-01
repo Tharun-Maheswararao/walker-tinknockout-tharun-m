@@ -79,3 +79,16 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 **Who did what (A3):**
 - **Me:** chose the three assets (dropped the cork) and character scale; reviewed and accepted the brief; installed/approved tools; did the "Learn the window" session and screenshots; ran the MCP build session for the castle and saved `castle.blend`. Made the hand edit (toy box band → `#2E7D32`) and the Godot look check; approved the MCP calls, including the windkey's scene-clearing call 0 that auto mode had blocked.
 - **Claude:** drafted CHANGE-BRIEF A3 (numbers, colours, failure cases), BLENDER-NOTES descriptions, and the "What I noticed" sentences from options I picked. Wrote all Blender code: castle and windkey via MCP in a separate session; toybox (and the first windkey) by script route. Wrote the export script, `prop_room.tscn`, `tests/check_props3d.gd` and `tools/shot_prop_room.gd`, and this session's docs. Found and fixed its own false-passing check.
+
+---
+
+## Assignment 5 — shaders and materials (in progress)
+
+**Textures:** Poly Haven "Metal Plate" (https://polyhaven.com/a/metal_plate) by Rob Tuytel, CC0, four 1k PNGs downloaded 2026-11-01. The normal map used is `_nor_gl` (OpenGL); `_nor_dx` is kept only to calibrate the curl check. Full provenance and checksums: `godot/assets/textures/metal_plate/ATTRIBUTION.md`.
+
+**Agent suggestions I adopted (typed in by me):**
+- **Colour line:** `COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);`, suggested by Claude Code (Opus 5.5) on 2026-11-01 after I asked. It is in CHANGE-BRIEF A5.2 and will be the colour line of `godot/shaders/rewind_tint.gdshader`.
+
+**Who did what (A5, so far):**
+- **Me:** accepted Claude's proposed design decisions and material plan; typed the colour line; computed the pixel predictions by hand on paper.
+- **Claude:** proposed the design decisions and material plan; measured the texels and wrote `design/a5/BRIEF-FACTS.md`; downloaded the textures, set their import settings and wrote the credits file; laid out the A5 brief.
