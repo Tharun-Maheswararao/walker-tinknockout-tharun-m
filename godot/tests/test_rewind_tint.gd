@@ -136,15 +136,16 @@ func all_equal(a: int, b: int, key: String, value: float) -> bool:
 	return true
 
 func run() -> void:
-	var args := OS.get_cmdline_args()
-	var k := args.find("--fixed-fps")
-	if k >= 0 and k + 1 < args.size():
-		period = 1.0 / float(args[k + 1])
-	print("frame period %.6f s (%d fps)" % [period, roundi(1.0 / period)])
 	sampler = Sampler.new()
 	root.add_child(sampler)
 	await test_shader_contract()
 	await test_materials_and_rest()
+	# The engine consumes --fixed-fps, so it never appears in OS.get_cmdline_args()
+	# (first run printed "60 fps" at 30 and 144). Measure the period from the
+	# sampler's delta once the game runs, at time_scale 1.0; the startup frames'
+	# delta is not the fixed period (root.get_process_delta_time() read 1/24 at 30).
+	period = sampler.samples[-1].dt
+	print("frame period %.6f s (%d fps), measured from the sampler's delta" % [period, roundi(1.0 / period)])
 	await test_fade_in_and_out()
 	await test_retrigger_extends()
 	await test_release_mid_fade_in()
@@ -364,10 +365,13 @@ func test_game_pause() -> void:
 	ok(v < 1.0 and all_equal(a, b, "b", v), "R4c main.paused: value held at %.4f for %d frames" % [v, b - a])
 	await press_event("pause")
 	ok(not main.paused, "R4c second pause event cleared main.paused")
+	# At 30 fps the unpaused sample did not exist yet; find() returned -1 and
+	# samples[-1] silently read the LAST sample (first run). Wait for it first.
+	await until(func(s): return not s.gp)
 	var u := find(b, func(s): return not s.gp)
 	await until(func(s): return s.b == 1.0)
-	var step: float = sampler.samples[u].b - v
-	ok(step >= 0.0 and step <= sampler.samples[u].dt / FADE_IN + EPS, "R4c unpaused: resumes from %.4f (first step +%.4f)" % [v, step])
+	var step: float = sampler.samples[u].b - v if u >= 0 else -1.0
+	ok(u >= 0 and step >= 0.0 and step <= sampler.samples[u].dt / FADE_IN + EPS, "R4c unpaused: resumes from %.4f (first step +%.4f)" % [v, step])
 	Input.action_release("rewind")
 	await until(func(s): return s.b == 0.0)
 
