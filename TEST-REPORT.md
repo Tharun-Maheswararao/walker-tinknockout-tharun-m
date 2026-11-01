@@ -296,12 +296,18 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 - Averaged static-background patches differ from the capture by up to (−8, +2, −1), shifted most in red.
 - So the capture is the one trusted for predictions.
 
-**Tharun's check:** TODO-YOU. In your words: do the captures match your predictions, why the five −1s, which you trust (capture or OS screenshot) and why.
+**Tharun's check (in Tharun's words):** The predictions match the actual pixel values closely. The small off-by-1 difference at rewind_amount = 1.0 is caused by floating-point rounding when mixing color channels. I trust programmatic image capture over OS screenshots because OS grabs include display color profiles, OS compositing, and potential downscaling, whereas direct buffer captures give the exact raw pixel data.
 
 ## A5-5. In play: HUMAN CHECK
 
 **Evidence:** OS screenshot during play (`os_screenshot_rewinding.png`) shows Bolt and Rivet both rewinding and both tinted blue.
-**Tharun's playtest:** TODO-YOU.
+**Tharun's playtest (2026-11-01, windowed run, `godot --path godot`), in Tharun's words:**
+- **Scope:** About 6 minutes, 4 rounds, rewound about 20 times including taps, quick holds, and getting hit.
+- **Visual read:** The blue tint reads clearly as an "open, punish now" window on both Bolt and Rivet, making the rewind state immediately distinct during combat.
+- **Fade timing:** The fade feels well-tuned and responsive, snapping on quickly to register the action, then easing off at a slower, more readable pace.
+- **Exclusions:** The key and weapon correctly remain entirely untinted, keeping props distinct from the character color shifts.
+- **Pause check (R4c):** The playtest run paused with P. *(Whether the tint visibly froze is not stated; R4c's hold is covered by the headless test, A5-3.)*
+- **Gameplay side-effects:** No unintended changes occurred; movement speed, hit detection, and game timing remained completely consistent throughout long holds, quick taps, hits, and pauses (P).
 
 ## A5-6. Hint experiment: HUMAN CHECK
 
@@ -313,7 +319,7 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 | 128 | 128 → 128 | 188 → 188 |
 | 192 | 192 → 192 | 225 → 225 |
 
-**Tharun's check:** TODO-YOU. What you see in the capture, and your explanation.
+**Tharun's check (in Tharun's words):** The top quad (Quad_S) keeps the values 64, 128, and 192 completely unchanged because the sRGB texture decode and the output screen encode cancel each other out. The bottom quad (Quad_D) appears lighter because the raw data is treated as linear values and encoded once on output, brightening the midtones.
 
 ## A5-7. Interface sweep: HUMAN CHECK
 
@@ -322,7 +328,12 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 - The worn box stays unchanged in every row.
 - Lighting: the prop room as A3 left it (Sun energy 1.0 with shadows, ambient 0.6, Linear tonemap; SSAO, SSIL, SDFGI, glow and fog off).
 
-**Tharun's check:** TODO-YOU. For each uniform: what changed, and any setting that breaks the look (see M5 on METALLIC).
+**Tharun's check (in Tharun's words; revised after comparing the first draft with the contact sheet):**
+- `paint_color`: Sweeps from black (min) to bright red (default) to pure white (max), changing overall brightness and tint rather than shifting through a range of red hues.
+- `paint_roughness`: No noticeable visual difference between min, default, and max at this camera distance (connecting to finding M5, as the lack of metallic variation makes roughness changes subtle).
+- `wear_amount`: Cleanly reveals the underlying metal through the worn paint mask, with max showing the entire box covered in dark bare metal.
+- `normal_depth`: Controls the intensity of the surface dents; max increases the depth and contrast of the indentations cleanly without causing normal stretching on UV seams.
+- `uv_scale`: At min (0.5), the texture pattern creates large, smeared dents that break the realistic scale; at max (8.0), the pattern becomes very fine and almost disappears into a smooth surface.
 
 ## A5-8. One shader, two materials: HUMAN CHECK
 
@@ -332,7 +343,7 @@ The first run of this render script hit the same `Node not inside tree` mistake 
 - **Material edit** (Tharun: worn `wear_amount` 0.55 → 0.2): only the worn box changed (6698 px; the fresh box unchanged except the worn box's edge at x 885–888).
 - Both edits were restored.
 
-**Tharun's check:** TODO-YOU.
+**Tharun's check (in Tharun's words):** Editing the parameter directly in the .gdshader file updated both toy boxes simultaneously because they share the same shader definition, whereas editing a value in a specific .tres material file only updated that individual toy box instance, confirming parameter inheritance and instance separation work correctly.
 
 ## A5-9. Material wiring and texture data
 
