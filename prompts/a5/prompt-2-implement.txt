@@ -1,0 +1,10 @@
+Read CLAUDE.md first. I read your plan and approve Step 1 and Step 2 as
+written. Report the 144 fps fade start delay as a number; do not assert
+it, because R2 times the fade, not its start. Implement Step 1 and show
+the diff, then Step 2 and show the diff. Then run
+./scripts/run-test.sh test_slice.gd 60, ./scripts/run-test.sh
+check_props3d.gd 60, and ./scripts/run-test.sh test_rewind_tint.gd at
+30, 60 and 144, and show the real output, including any SHADER ERROR
+lines. The rules from my first prompt still apply: do not edit any
+.gdshader file, do not edit the existing tests or their expectations,
+do not call the update function directly, and do not commit.

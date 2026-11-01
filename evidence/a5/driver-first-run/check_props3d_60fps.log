@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+== castle  (res://assets/props3d/castle.glb)
+  PASS  imports
+  node castle scale=(1.0, 1.0, 1.0) rotation_deg=(0.0, 0.0, 0.0)
+  surface 0 castle_pink albedo=#D98BA0 tris=100 centre_z=0.000
+  surface 1 castle_teal albedo=#3E8E86 tris=44 centre_z=0.000
+  surface 2 castle_door_brown albedo=#3A2A20 tris=12 centre_z=0.400
+  PASS  castle_door_brown is on the +Z (front) side
+  aabb size=(1.8, 2.3, 0.82)  min_y=0.0000
+  PASS  size (1.8, 2.3, 0.82) matches brief (1.8, 2.3, 0.82) within 0.01 m
+  PASS  base at y=0 (min_y 0.0000)
+  PASS  scale (1,1,1) and rotation 0 on scene and mesh nodes
+  PASS  tallest axis is Y (stands upright)
+  PASS  triangles 156 <= budget 200
+
+== windkey  (res://assets/props3d/windkey.glb)
+  PASS  imports
+  node windkey scale=(1.0, 1.0, 1.0) rotation_deg=(0.0, 0.0, 0.0)
+  surface 0 key_brass albedo=#C9A23A tris=148 centre_z=0.000
+  surface 1 key_brass_dark albedo=#8C6A1E tris=44 centre_z=0.000
+  aabb size=(0.6, 0.7, 0.14)  min_y=0.0000
+  PASS  size (0.6, 0.7, 0.14) matches brief (0.6, 0.7, 0.14) within 0.01 m
+  PASS  base at y=0 (min_y 0.0000)
+  PASS  scale (1,1,1) and rotation 0 on scene and mesh nodes
+  PASS  tallest axis is Y (stands upright)
+  PASS  triangles 192 <= budget 250
+
+== toybox  (res://assets/props3d/toybox.glb)
+  PASS  imports
+  node toybox scale=(1.0, 1.0, 1.0) rotation_deg=(0.0, 0.0, 0.0)
+  surface 0 toybox_red albedo=#B5302A tris=12 centre_z=0.000
+  surface 1 toybox_cream albedo=#E8DCC0 tris=12 centre_z=0.000
+  surface 2 toybox_navy albedo=#2E7D32 tris=12 centre_z=0.000
+  surface 3 toybox_brass albedo=#C9A23A tris=12 centre_z=0.365
+  PASS  toybox_brass is on the +Z (front) side
+  aabb size=(1.26, 0.75, 0.76)  min_y=0.0000
+  PASS  size (1.26, 0.75, 0.76) matches brief (1.26, 0.75, 0.76) within 0.01 m
+  PASS  base at y=0 (min_y 0.0000)
+  PASS  scale (1,1,1) and rotation 0 on scene and mesh nodes
+  PASS  triangles 48 <= budget 100
+
+== prop_room.tscn
+  PASS  castle sits on the floor in the room (world min_y 0.0000, world x -3.10..-1.30)
+  PASS  windkey sits on the floor in the room (world min_y 0.0000, world x -0.30..0.30)
+  PASS  toybox sits on the floor in the room (world min_y 0.0000, world x 1.37..2.63)
+  PASS  room has floor, one light, camera
+
+RESULT: PASS (0 failing)

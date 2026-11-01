@@ -58,6 +58,10 @@ func _ready() -> void:
 		f.spawn_cork = _spawn_cork
 		add_child(f)
 		f.hit_landed.connect(_on_hit)
+		var tint := preload("res://fighter/rewind_tint_driver.gd").new()
+		tint.fighter = f
+		tint.game = self
+		add_child(tint)
 	bolt.opponent = rivet
 	rivet.opponent = bolt
 	brain = preload("res://fighter/rivet_brain.gd").new()
