@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS  F2 jab: 8 presses in range -> 8 hits (got 8)
+PASS  F2 jab: one SFX-JAB per hit (sfx 8, hits 8)
+PASS  held J for 1.5 s -> exactly 1 jab sound (got 1)
+PASS  F2 cutlass: 5 swings in range -> 5 hits (got 5)
+PASS  F2 cutlass: one SFX-CUTLASS per hit (sfx 5)
+PASS  pop-gun held 1 s -> 1 shot, 1 SFX-POP (got 1)
+PASS  cork travelled and hit Rivet (hp 90.0)
+PASS  F5 rewind 2 s from 40 wind -> 6 clicks (one per 10 wind), not one per frame (got 6)
+PASS  F5 no clicks once the spring is full (got 6)
+PASS  wind refilled to 100 (got 100.0)
+PASS  jab with 8 wind -> EMPTY state (state 8)
+PASS  SFX-EMPTY once on entering EMPTY, not repeated while stalled (got 1)
+PASS  bell once at round start (got 1)
+PASS  music loop playing during the fight (stream loaded, loop on)
+PASS  jab at 5 hp -> KO round state
+PASS  bell once more at KO (got 2)
+PASS  music stopped on KO
+PASS  no repeated KO bell while KO screen stays up (got 2)
+PASS  spring < 25% -> music slowed (pitch 0.85)
+PASS  pause -> Music bus low-pass on
+PASS  pause -> fighters frozen
+PASS  unpause -> low-pass off
+PASS  walking left flips Bolt's sprite (runtime flip)
+PASS  walking right faces right again
+      unmuted end state [62.5, 83.0, 30.7, 23.0, 191.69, 287.03, 2]
+      muted   end state [62.5, 83.0, 30.7, 23.0, 191.69, 287.03, 2]
+PASS  sound never decides state: muted run == unmuted run
+
+25 checks, 0 failed
+WARNING: 50 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 10 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
