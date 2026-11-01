@@ -62,6 +62,10 @@ func _ready() -> void:
 		tint.fighter = f
 		tint.game = self
 		add_child(tint)
+	if OS.is_debug_build():   # A5 Use It: F9 in-engine captures (game/debug_capture.gd)
+		var cap := preload("res://game/debug_capture.gd").new()
+		cap.game = self
+		add_child(cap)
 	bolt.opponent = rivet
 	rivet.opponent = bolt
 	brain = preload("res://fighter/rivet_brain.gd").new()

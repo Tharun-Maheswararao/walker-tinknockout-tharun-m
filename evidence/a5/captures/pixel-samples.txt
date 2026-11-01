@@ -1,0 +1,13 @@
+# Pixel samples from the in-engine captures (evidence/a5/captures/bolt_rewind_amount_*.png)
+# Sampled by Claude with PIL on 2026-11-01. Capture size 1280x720 = 2x the 640x360 game space.
+# Run: godot --path godot --script res://tools/a5_capture_run.gd (windowed, Vulkan Forward+, SCRIPTED INPUT: confirm, hold rewind, F9).
+# Predictions: CHANGE-BRIEF A5.3 (Tharun, by hand).
+value | pixel | capture px | captured RGB | 3x3 spread | predicted | captured - predicted
+0.0 | A | (407,477) | (217, 87, 64) | 3 | (217, 87, 64) | (0, 0, 0)
+0.0 | B | (427,396) | (251, 188, 34) | 2 | (251, 188, 34) | (0, 0, 0)
+0.5 | A | (407,477) | (185, 105, 112) | 2 | (185, 105, 112) | (0, 0, 0)
+0.5 | B | (427,396) | (211, 181, 89) | 2 | (211, 181, 89) | (0, 0, 0)
+1.0 | A | (407,477) | (153, 123, 159) | 1 | (154, 124, 160) | (-1, -1, -1)
+1.0 | B | (427,396) | (171, 174, 144) | 1 | (171, 174, 145) | (0, 0, -1)
+2.0 | A | (407,477) | (90, 160, 255) | 0 | - | -
+2.0 | B | (427,396) | (90, 160, 255) | 0 | - | -
