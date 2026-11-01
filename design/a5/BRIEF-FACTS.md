@@ -63,6 +63,13 @@ The texels were measured with PIL from `rewind.png`. All four are fully opaque o
 - **Unconfirmed:** that `get_viewport().get_texture().get_image()` returns 1280×720 under `canvas_items` stretch. Check the first capture's size.
 - Marked image: `design/a5/bolt_rewind_marked.png`.
 
+**Background beside Bolt's chest** (measured 2026-11-01). Source: `assets/env/bowl.png`, resized to 640×360 as `main.gd:47` draws it, counting only pixels the rewind pose does not cover:
+
+| Patch (game px) | What it is | Mean RGB | Std dev |
+|---|---|---|---|
+| right of the chest, x 238–247, y 232–245 (140 px) | the pink castle | (215, 89, 123) | (9, 23, 12) |
+| left of the chest, x 166–175, y 240–253 (133 px) | dark water | (68, 60, 92) | (26, 15, 12) |
+
 ## 3D scene for the textured shader (from A3)
 
 - `godot/prop_room/prop_room.tscn` contains WorldEnvironment, a Floor plane with StandardMaterial3D, Sun (DirectionalLight3D with shadows), Camera3D at (0, 1.6, 5.5), and `castle.glb`, `windkey.glb` and `toybox.glb`.

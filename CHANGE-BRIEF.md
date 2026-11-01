@@ -160,3 +160,193 @@ At least one change made by me with the mouse in Blender, recorded in FRICTIONAL
 ## A3 revisions
 
 *(none yet)*
+
+---
+
+# Assignment 5 — a state tint from code, and a textured tin material
+
+*Version 1 · 2026-11-01 · committed before either shader exists and before the first agent prompt. The A2 and A3 briefs above are unchanged. Later changes go under "A5 revisions" below, dated, and never rewrite this version.*
+
+> **Authorship:**
+> - **Layout and facts:** Claude laid out these headings from the Assignment 5 handout and filled in the file:line facts from `design/a5/BRIEF-FACTS.md`.
+> - **Design decisions:** Claude proposed them on 2026-11-01 and I accepted them all unchanged. They cover the state, tint colour, strength, fade times, rules R1–R6, uniform names, hints and defaults, boundaries, the textured object, the two materials, and the material plan in A5.5 (texture choice, import settings, uniforms, material values, lighting).
+> - **Colour line:** I was stuck, so I asked Claude for a suggestion. Claude suggested `COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);` on 2026-11-01. I typed it in myself and can explain each part: the swizzle keeps alpha, `mix` blends from the sprite's colour to the tint, and the product makes the amount 0 at rest and 0.5 at full.
+> - **Mine:** every predicted number and its working (by hand, on paper), the hint-experiment predictions, the failure cases and the short answers.
+> - **Review corrections I accepted from Claude:**
+>   - the check references in F1–F3 (R3 → R6, "performance throttle" → the R2 test at 30/60/144, R5 → R3);
+>   - "unshaded white" → "white … still lit by the scene" in short answer 4.
+
+## A5.1 The state
+
+| | |
+|---|---|
+| **State** | REWIND |
+| **What the effect communicates** | "This fighter is cranking its key and is open." A blue tint fades in while a fighter rewinds and fades out after it stops. |
+| **Why the player needs it** | REWIND is the vulnerable window: a hit there does 1.5× damage and causes a knockdown (`fighter.gd:228-230`). The player must see **Rivet** rewinding to punish it, and must notice their own rewind as a risk. Today the only cue is the key pose. |
+| **Script and variable** | `godot/fighter/fighter.gd`: `var state` (line 50) equals `S.REWIND` (enum, line 19). Entered at line 159; left at line 204 (key released), line 232 (hit, to HURT) and line 236 (KO). |
+| **Object shaded** | Each fighter's body `sprite: Sprite2D` (`fighter.gd:64, 72`). The key and weapon sprites are separate nodes and are not shaded. |
+
+## A5.2 Effect specification
+
+**Shader:** `godot/shaders/rewind_tint.gdshader` · `shader_type canvas_item;` · render_mode: none. It sits on one ShaderMaterial per fighter, on each fighter's body `sprite`.
+
+**Uniforms.** No sampler uniforms; the sprite's own texture arrives in `COLOR`.
+
+| Name | Type | Hint | Default | Set by |
+|---|---|---|---|---|
+| `rewind_amount` | float | `hint_range(0.0, 1.0)` | `0.0` | the driver, every frame, from `fighter.state == S.REWIND` (0 = no tint, 1 = full) |
+| `tint_color` | vec4 | `source_color` | `vec4(0.353, 0.627, 1.0, 1.0)`, i.e. RGB (90, 160, 255) | the material (Inspector), not changed at runtime |
+| `tint_strength` | float | `hint_range(0.0, 1.0)` | `0.5` | the material (Inspector), not changed at runtime |
+
+**Colour line,** the one line inside `fragment()` that changes the colour:
+
+```glsl
+COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);
+```
+
+**Rules**
+
+| # | Rule | My value | Evidence: headless test or my eyes, and how |
+|---|---|---|---|
+| R1 | Uniform value when the state begins, and when it ends | When REWIND begins, `rewind_amount` starts rising from its current value (0.0 from rest) to 1.0. When REWIND ends, it falls from its current value to 0.0. Outside REWIND, at rest, it is exactly 0.0. | Headless test: hold `rewind` through the real input path, sample every frame. |
+| R2 | How long each change takes in seconds (± one frame period); the same game time at 30, 60 and 144 fps | Linear ramps: **fade-in 0.15 s** (0 → 1, rate 1/0.15 per s) and **fade-out 0.30 s** (1 → 0, rate 1/0.30 per s). Tolerance is one frame period (1/30, 1/60, 1/144 s), with the same game-time duration at 30, 60 and 144 fps. | Headless test at `--fixed-fps` 30, 60 and 144 through the wrapper: game time from the first frame the value moves to the first frame it reaches 1.0 (in) or 0.0 (out). |
+| R3 | The state begins again mid-transition: restart, extend or ignore | **Extend:** if REWIND begins again during the fade-out, the value rises from where it is at the fade-in rate. It never drops on re-entry, and it reaches 1.0 after (1 − v) × 0.15 s. | Headless test: release, re-press mid-fade-out, assert no frame-to-frame drop and the time to 1.0. |
+| R4a | `Engine.time_scale`: is the duration in scaled or unscaled time? | **Scaled** game time (the frame `delta`), the same clock as the simulation. At `time_scale` 0.5 the fade-in takes 0.30 s of real time and 0.15 s of game time. | Headless test with `Engine.time_scale = 0.5`. |
+| R4b | While the tree is paused (the game never does this, `main.gd:38`, but say what happens) | **Freeze:** the value holds while `get_tree().paused` is true and resumes from the same value after. | Headless test: pause the tree mid-fade, assert the value is unchanged over several frames. |
+| R4c | While the game's own pause flag is set (`main.paused`, `main.gd:115-117, 134`) | **Freeze:** the value holds while `main.paused` is true, because the state itself is frozen then. It resumes from the same value after unpause. | Headless test: press `pause` (P) mid-fade through real input, assert the value is unchanged. |
+| R5 | The state ends before a transition finishes (for example, a hit during the fade-in, `fighter.gd:232`) | **Fade out from the current value**, no snap: from value v the fade-out takes v × 0.30 s. | Headless test: release (or get hit) mid-fade-in, assert the value falls from where it was. |
+| R6 | Bolt and Rivet: how each gets its own value | **One ShaderMaterial per fighter**, both using the same shader. Rivet's REWIND never changes Bolt's `rewind_amount`, and vice versa. | Headless test: each sprite's material is a different object with the same shader; Bolt rewinds while Rivet's value stays 0.0. Eyes: in play. |
+| Look | The tint is visible on both fighters, the pose details still read, and the key and weapon are untinted | as specified above | **My eyes:** captures at the controlled values (A5.3) and play (Use It). No headless run can judge this. |
+
+**Boundaries.** The handout's list, applied to these files:
+- Unchanged:
+  - collision and hurtboxes (`fighter.gd:112-125`);
+  - movement;
+  - input (`game/controls.gd`);
+  - the state machine and its timings (`fighter.gd:128-255`);
+  - the expectations in `tests/test_slice.gd` and `tests/check_props3d.gd`;
+  - every object other than the two fighter body sprites.
+- The driver may read `fighter.state`; it never writes game state.
+
+## A5.3 Controlled inputs and predicted values
+
+**Lighting:** the shader is canvas_item, there are no 2D lights, and `rendering/viewport/hdr_2d` is off (not set in `project.godot`). Because there are no 2D lights in the arena and HDR 2D is turned off, the colour line works directly on the original raw pixel colour values from the PNG file, so my predictions apply `mix` to those numbers with no other step in between.
+
+**Pixels.** Measured texels from `design/a5/BRIEF-FACTS.md`. Both are opaque, and the capture position assumes Bolt at his start position (x 200, facing right) in a 1280×720 capture:
+
+The three controlled values are `rewind_amount` = 0.0, 0.5 and 1.0, with `tint_strength` 0.5 and `tint_color` (90, 160, 255), so the mix amount t = `rewind_amount` × 0.5 = 0, 0.25 and 0.5.
+
+| Pixel | Input RGB | Capture px | `rewind_amount` 0.0 (t = 0) | `rewind_amount` 0.5 (t = 0.25) | `rewind_amount` 1.0 (t = 0.5) |
+|---|---|---|---|---|---|
+| A: Bolt's chest, texel (251, 275) | (217, 87, 64) | (407, 477) | (217, 87, 64) | (185, 105, 112) | (154, 124, 160) |
+| B: Bolt's helmet dome, texel (281, 153) | (251, 188, 34) | (427, 396) | (251, 188, 34) | (211, 181, 89) | (171, 174, 145) |
+
+**Working, by hand (2026-11-01), on paper, photographed in `design/a5/predictions-pixelA-0.5-handwritten.jpg`.** Each channel is `c × (1 − t) + tint × t`. Pixel A at `rewind_amount` 0.5 (t = 0.25):
+- R = 217 × 0.75 + 90 × 0.25 = 162.75 + 22.5 = 185.25 ≈ **185**
+- G = 87 × 0.75 + 160 × 0.25 = 65.25 + 40 = 105.25 ≈ **105**
+- B = 64 × 0.75 + 255 × 0.25 = 48 + 63.75 = 111.75 ≈ **112**
+
+*Note (Claude, from checking my arithmetic):* five results at t = 0.5 land exactly on .5 before rounding (A: 153.5, 123.5, 159.5; B: 170.5, 144.5). I rounded them up, so the capture may read one step lower in those channels.
+
+**Contrast against the background** (WCAG relative-luminance ratio, computed 2026-11-01). Pixel A is compared with the background just right of Bolt's chest at his start position: the pink castle, mean RGB (215, 89, 123), measured by Claude (`design/a5/BRIEF-FACTS.md`).
+
+| Pair | Ratio |
+|---|---|
+| Chest at `rewind_amount` 0, (217, 87, 64), vs castle | **1.04 : 1** |
+| Chest at `rewind_amount` 1, (154, 124, 160), vs castle | **1.03 : 1** |
+
+Worked example, the chest at `rewind_amount` 0:
+1. Normalise each channel: R = 217/255 ≈ 0.8510, G = 87/255 ≈ 0.3412, B = 64/255 ≈ 0.2510.
+2. Linearise (every c > 0.04045, so use ((c + 0.055)/1.055)^2.4): R_lin ≈ 0.6939, G_lin ≈ 0.0953, B_lin ≈ 0.0513.
+3. Luminance: L = 0.2126 × 0.6939 + 0.7152 × 0.0953 + 0.0722 × 0.0513 = 0.1475 + 0.0682 + 0.0037 = **0.2194**.
+
+*Note (Claude, from re-checking the arithmetic):*
+- Both ratios are correct. The castle's luminance is 0.2302 and the tinted chest's is 0.2382.
+- The chest is slightly darker than the castle at 0 and slightly lighter at 1. Somewhere in between, the two have the same luminance, a 1.00 : 1 ratio.
+- Against the castle, the tint is therefore a hue cue (red toward violet-blue), not a brightness cue.
+
+## A5.4 Hint experiment predictions
+
+**Setup:** a 3×1 PNG with texels 64, 128 and 192 on two unshaded quads. Quad S samples with `source_color, filter_nearest`; quad D with `filter_nearest` only. Linear tonemap at exposure 1.0, with glow, fog and adjustments off. Forward+ (`project.godot:15`).
+
+| Band (file value) | Quad S displays | Quad D displays |
+|---|---|---|
+| 64 | 64 | 137 |
+| 128 | 128 | 188 |
+| 192 | 192 | 225 |
+
+**Working, using the handout's encode(x)**, band 64 on quad D: v = 64/255 = 0.250980 → v^0.41667 = 0.562144 → × 1.055 = 0.593062 → − 0.055 = 0.538062 → × 255 = 137.205906 ≈ **137**. Bands 128 and 192 use the same steps.
+
+**Which quad shows the file's values unchanged, and why:** Quad S shows 64, 128, and 192 unchanged because the texture sampler decodes the sRGB input values into linear space (decode(x)) upon reading, and the output screen stage applies the exact inverse function (encode(x)) upon display, cancelling out both transformations.
+
+## A5.5 Material plan
+
+**Object(s) and scene:** the toy box in `godot/prop_room/prop_room.tscn` ("fresh from the shop"), and a second toy-box instance beside it ("a hundred rounds later"). Two copies of the same mesh, so any difference between them comes from the material, not the shape. The shader replaces the toy box's red body material, slot `toybox_red` (the glb's material names are `toybox_red`, `toybox_cream`, `toybox_navy` and `toybox_brass`, read from `godot/assets/props3d/toybox.glb`'s JSON chunk).
+
+**Lighting I will judge under:** the prop room exactly as A3 left it (`prop_room.tscn`):
+- Sun DirectionalLight3D, energy 1.0, shadows on;
+- WorldEnvironment: custom background colour, ambient (0.45, 0.5, 0.6) at energy 0.6, default (Linear) tonemap.
+
+SSAO, SSIL, SSR, SDFGI, glow and fog are off, because the Environment never enables them. I compare captures only under this setup, from the scene's Camera3D at (0, 1.6, 5.5).
+
+**Textures.** All four come from Poly Haven "Metal Plate" (https://polyhaven.com/a/metal_plate) by Rob Tuytel, CC0, 1k PNG, 16-bit. Credits and checksums are in `godot/assets/textures/metal_plate/ATTRIBUTION.md`.
+
+| Role | File | What its numbers mean | Sampled as | compress/mode | compress/normal_map | mipmaps/generate |
+|---|---|---|---|---|---|---|
+| Colour: bare metal under the paint | `metal_plate_diff_1k.png` | sRGB-encoded colour of the bare plate | colour, `source_color` | 2 (VRAM Compressed) | 2 (Disabled) | true |
+| Data: normal map | `metal_plate_nor_gl_1k.png` | tangent-space surface direction, x/y/z remapped to 0–1, OpenGL (Y+) green | data, `hint_normal` | 2 (VRAM Compressed) | 1 (Enable) | true |
+| Data: roughness, also the wear mask | `metal_plate_rough_1k.png` | 0 = mirror-smooth, 1 = fully rough; the same values decide where the paint wears through first | data, no `source_color` | 2 (VRAM Compressed) | 2 (Disabled) | true |
+| Calibration only | `metal_plate_nor_dx_1k.png` | the same normals with DirectX (Y−) green | not bound to any material | 2 (VRAM Compressed) | 1 (Enable) | true |
+
+I also set two more import settings on all four files so the editor has nothing to change later:
+- `roughness/mode=1` (Disabled);
+- `detect_3d/compress_to=0` (Disabled).
+
+Both labels were read from the Godot 4.7.2 binary.
+
+Import values, read from the Godot 4.7.2 binary's property hints:
+- `compress/mode`: 0 Lossless, 1 Lossy, 2 VRAM Compressed, 3 VRAM Uncompressed, 4 Basis Universal
+- `compress/normal_map`: 0 Detect, 1 Enable, 2 Disabled
+- `mipmaps/generate`: true or false
+
+**Uniforms.** At least four non-texture uniforms, in at least two `group_uniforms` groups:
+
+| Name | Type | Hint and range | Default | Group | What I expect to change on screen across the range |
+|---|---|---|---|---|---|
+| `paint_color` | vec4 | `source_color` | `#B5302A` (A3's toy-box red) | paint | The hue of the painted areas; bare-metal areas do not change. |
+| `paint_roughness` | float | `hint_range(0.0, 1.0)` | 0.35 | paint | At 0, a small sharp highlight from the Sun on the painted areas; at 1, a broad dull sheen. |
+| `wear_amount` | float | `hint_range(0.0, 1.0)` | 0.1 | metal | At 0, all paint; rising, bare metal (from the colour texture) shows through where the roughness map is roughest first; at 1, all bare metal. |
+| `normal_depth` | float | `hint_range(0.0, 2.0)` | 1.0 | metal | At 0, flat with no dents or scratches; at 2, dents exaggerated. |
+| `uv_scale` | float | `hint_range(0.5, 8.0)` | 2.5 | metal | The tile size. The plate is 0.5 m and the box 1.26 m wide, so 2.5 is about life size; at 8 the pattern repeats visibly. |
+
+Samplers: the colour, normal and roughness textures above, each with repeat and linear mipmap filtering. The `_nor_dx` file is not a sampler.
+
+**Two materials:** `godot/prop_room/materials/toybox_fresh.tres` and `godot/prop_room/materials/toybox_worn.tres`, both using the same shader. They share the textures and `paint_color`. Two values differ:
+- **fresh:** `wear_amount` 0.05, `paint_roughness` 0.30;
+- **worn:** `wear_amount` 0.55, `paint_roughness` 0.70.
+
+The other uniforms stay at their defaults. Why: the same tin toy box before and after a career of fights, which is the game's story in one object.
+
+**Where they attach:** `toybox_fresh.tres` goes behind `toybox.glb`'s per-material "Use External" setting in Advanced Import, because the A3 glbs embed their materials (`CHANGE-BRIEF.md` A3.1). "Use External" binds one material per glb slot for every instance. So the second instance takes `toybox_worn.tres` as a surface material override saved in `prop_room.tscn`, which a reimport also keeps.
+
+## A5.6 Predicted failure cases
+
+| # | Prediction | The check that catches it |
+|---|---|---|
+| A5-F1 | If Bolt and Rivet accidentally shared a single material instance, Bolt tinting blue during the rewind effect would simultaneously force Rivet to turn blue as well. | The R6 headless test, plus a look check in play. |
+| A5-F2 | If the rewind duration logic relied on unscaled delta frames instead of delta time, the rewind effect would speed up or slow down depending on the frame rate. | The R2 test at `--fixed-fps` 30, 60 and 144. |
+| A5-F3 | Since the rule is set to extend, if the code incorrectly restarted the rewind timer back to 0 whenever triggered again mid-animation, the rewind effect would abruptly snap and loop from the beginning instead of blending forward. | The R3 retrigger test. |
+
+## A5.7 Short answers
+
+1. **Which renderer does project.godot name, and what does it rule out?** The project uses the Forward Plus (Forward+) renderer (`project.godot:15`, `config/features`; there is no `rendering_method` line). It provides full support for complex lighting and modern shader features without the feature limitations of Mobile or Compatibility modes. However, it rules out running the game on older hardware, web exports (HTML5/WebGL), and low-end mobile devices.
+2. **What colour arrives in your fragment function before you change it, and what would the tempting alternative give you?** The COLOR variable in fragment() arrives with the original texture pixel multiplied by the node's modulate colour property. The tempting alternative is sampling the raw texture directly using texture(TEXTURE, UV).
+3. **canvas_item: what would `texture(TEXTURE, UV)` give you instead of `COLOR`?** Sampling texture(TEXTURE, UV) directly skips node-level tinting (modulate / self_modulate) as well as vertex colours. You wouldn't notice a difference in this game today, since modulate is white, but using texture(TEXTURE, UV) would break any future adjustments to the node's modulate colour.
+4. **spatial: what does `ALBEDO` hold if you never write it, and what does `COLOR` hold?** In spatial shaders, if ALBEDO is never written to, it defaults to white, vec3(1.0, 1.0, 1.0), and is still lit by the scene. The COLOR built-in holds the mesh's vertex colours, which evaluate to solid white vec4(1.0, 1.0, 1.0, 1.0) for my .glb models since they contain no vertex colour data.
+5. **How long would a frame-counting version of your effect last at 30, 60 and 144 fps?** If the effect is programmed by counting 9 frames (tuned for 60 fps / 0.15 s), those 9 frames last 0.30 s at 30 fps (running twice as slow) and 0.0625 s at 144 fps (running more than twice as fast). Similarly, a 0.30 s fade-out (18 frames at 60 fps) would take 0.60 s at 30 fps and 0.125 s at 144 fps.
+6. **Which resource holds your uniform's default, which holds its current value, and what happens if two objects share the material?** The default parameter value lives in the .gdshader file, while set_shader_parameter() stores the runtime value on the specific ShaderMaterial instance. If two sprites shared a single material, updating the parameter during Bolt's rewind would cause Rivet to mistakenly display the same blue tint simultaneously.
+7. **Does `hint_range` clamp a value your driver sets from code?** My prediction: hint_range only constrains the UI slider in the Inspector. It does not clamp values passed programmatically via code, so calling set_shader_parameter() with 2.0 will send 2.0 directly to the shader without being clamped by the range. (Checked in Use It.)
+
+## A5 revisions
+
+*(none yet)*
