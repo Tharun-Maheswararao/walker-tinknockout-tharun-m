@@ -1,8 +1,10 @@
-# Output of evidence/a5/probe_headless.gd, run by Claude on 2026-11-01 11:43 EST, Godot 4.7.2.stable.official.ed1daf0bf
+# Output of evidence/a5/probe_headless.gd, run by Claude on 2026-11-01 11:46 EST, Godot 4.7.2.stable.official.ed1daf0bf
 === godot --headless --path godot --script evidence/a5/probe_headless.gd --fixed-fps 30
 driver=vulkan method=forward_plus
 uniform list: ["amt type=3 hint=1 hint_string=0.0,1.0,0.0010000000475", "tint type=20 hint=0 hint_string="]
 RS default amt=<null> tint=<null>
+SHADER ERROR: Expected a ';'.
+broken shader (missing semicolon) uniform list: []
 material get before set: <null>
 set 2.0 (hint_range 0..1) -> readback 2.0
 undeclared name -> readback 0.7
@@ -12,6 +14,8 @@ fixed-fps run: frames=288 physics ticks=577 game time=9.6250 last delta=0.033333
 driver=vulkan method=forward_plus
 uniform list: ["amt type=3 hint=1 hint_string=0.0,1.0,0.0010000000475", "tint type=20 hint=0 hint_string="]
 RS default amt=<null> tint=<null>
+SHADER ERROR: Expected a ';'.
+broken shader (missing semicolon) uniform list: []
 material get before set: <null>
 set 2.0 (hint_range 0..1) -> readback 2.0
 undeclared name -> readback 0.7

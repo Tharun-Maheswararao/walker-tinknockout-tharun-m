@@ -9,6 +9,9 @@ func _initialize() -> void:
 	var ul := sh.get_shader_uniform_list()
 	print("uniform list: ", ul.map(func(u): return "%s type=%d hint=%d hint_string=%s" % [u.name, u.type, u.hint, u.hint_string]))
 	print("RS default amt=", RenderingServer.shader_get_parameter_default(sh.get_rid(), "amt"), " tint=", RenderingServer.shader_get_parameter_default(sh.get_rid(), "tint"))
+	var broken := Shader.new()
+	broken.code = "shader_type canvas_item;\nuniform float amt : hint_range(0.0, 1.0) = 0.25\nvoid fragment() { }"
+	print("broken shader (missing semicolon) uniform list: ", broken.get_shader_uniform_list())
 	var m := ShaderMaterial.new()
 	m.shader = sh
 	print("material get before set: ", m.get_shader_parameter("amt"))
