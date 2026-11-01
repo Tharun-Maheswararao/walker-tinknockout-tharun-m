@@ -2,8 +2,7 @@
 
 ## Project context
 
-- **Engine:** Godot 4.7 (`godot/project.godot:15`, `config/features` "4.7");
-  the exact build is 4.7.2.stable (`README.md:8`).
+- **Engine:** Godot 4.7.2.stable.official.ed1daf0bf (`godot --version`, `evidence/a5/headless-facts.txt:1`); `config/features` "4.7" (`godot/project.godot:15`).
 - **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"; there is no
   `rendering_method` line). macOS driver is Vulkan (`godot/project.godot:31`).
   `rendering/viewport/hdr_2d` is not set, so it is off (`godot/project.godot:29-32`).
@@ -65,6 +64,14 @@
   Tests drive input through the real input path (`Input.action_press`,
   `Input.parse_input_event`, `godot/tests/test_slice.gd:5-7, 32-45`).
 
+## Headless facts (measured on this Mac: `evidence/a5/headless-facts.txt`)
+
+- A headless run draws nothing, yet still reports `vulkan` / `forward_plus` (line 3); no headless test can judge a colour.
+- A shader that fails to parse prints `SHADER ERROR` and returns an empty `get_shader_uniform_list()` (lines 6-7). Listed types: float = 3, `vec4 : source_color` = 20 (line 4).
+- Defaults are not reported (`shader_get_parameter_default` is null, line 5): read them from the `.gdshader` text.
+- `set_shader_parameter` raises no error for an undeclared name and reads back whatever was set, even 2.0 on `hint_range(0, 1)` (lines 9-10): a readback proves nothing about the shader.
+- Physics runs at 60 ticks per game second under any `--fixed-fps` (lines 12, 23). REWIND starts and stops in physics, so at 144 fps a `_process` driver sees it up to 1/60 s late.
+
 ## Current change
 
 @CHANGE-BRIEF.md
@@ -74,33 +81,23 @@
 - Files in `godot/shaders/` are hand-written by the human and are never edited
   by an agent. Do not create, edit, rename, reformat or "fix" them, even to make
   a test pass; report the problem instead.
+- `scripts/run-test.sh` is the handout's wrapper; agents never edit it (`git diff scripts/run-test.sh` is checked after every session).
 
 ## Out of scope
 
 This change adds a REWIND tint driven from code and a textured toy-box material.
 It must not touch:
 
-- Gameplay: the fighter state machine, its timings and transitions, movement,
-  wind/health numbers, hit and hurt boxes (`fighter.gd:25-45, 112-255`).
+- Gameplay: the fighter state machine, its timings and transitions, movement, wind/health numbers, hit and hurt boxes (`fighter.gd:25-45, 112-255`).
 - Input: `godot/game/controls.gd` and how `main.gd` reads it.
-- Round flow, pause and mute logic in `main.gd`, beyond attaching materials or
-  a driver. The driver only reads `fighter.state`; it never writes game state.
-- Audio (`godot/audio/`), music behaviour, HUD (`godot/ui/`), camera shake/roll,
-  sparks.
-- Any sprite other than the two fighter body sprites: not the key, weapon, cork,
-  background or HUD.
-- A single material shared by both fighters: each body sprite gets its own
-  ShaderMaterial (R6).
-- Existing test expectations in `godot/tests/test_slice.gd` and
-  `godot/tests/check_props3d.gd`. New tests may be added; old ones are not
-  loosened.
-- The A3 props: the `.glb` geometry, the `.blend` sources, castle and windkey,
-  the toy box's cream/navy/brass slots, and the prop room's floor, Sun,
-  WorldEnvironment and camera.
-- `project.godot` settings (renderer, HDR 2D, viewport, autoloads) and the
-  texture import settings, which are already set.
-- The `metal_plate_nor_dx_1k.png` file is calibration only and is not bound to
-  any material.
+- Round flow, pause and mute logic in `main.gd`, beyond attaching materials or a driver. The driver only reads `fighter.state`; it never writes game state.
+- Audio (`godot/audio/`), music behaviour, HUD (`godot/ui/`), camera shake/roll, sparks.
+- Any sprite other than the two fighter body sprites: not the key, weapon, cork, background or HUD.
+- A single material shared by both fighters: each body sprite gets its own ShaderMaterial (R6).
+- Existing test expectations in `godot/tests/test_slice.gd` and `godot/tests/check_props3d.gd`. New tests may be added; old ones are not loosened.
+- The A3 props: the `.glb` geometry, the `.blend` sources, castle and windkey, the toy box's cream/navy/brass slots, and the prop room's floor, Sun, WorldEnvironment and camera.
+- `project.godot` settings (renderer, HDR 2D, viewport, autoloads) and the texture import settings, which are already set.
+- The `metal_plate_nor_dx_1k.png` file is calibration only and is not bound to any material.
 
 ## Unconfirmed
 
@@ -110,8 +107,6 @@ It must not touch:
 - Where the tint driver will live (a new script, `main.gd`, or `fighter.gd`) is
   not decided in any file I read.
 - No A5 test file exists yet in `godot/tests/`; its name is unknown.
-- The engine version on this machine: I did not run `godot --version`; 4.7.2 is
-  from `README.md:8` only.
 - `check_props3d.gd:78` prints `albedo_color` only for `BaseMaterial3D`; with a
   ShaderMaterial on `toybox_red` it will print `#000000` for that surface. It
   does not assert on colour, so it should still pass, but I have not run it.
