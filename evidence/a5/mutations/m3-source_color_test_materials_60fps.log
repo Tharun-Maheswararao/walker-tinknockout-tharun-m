@@ -1,0 +1,73 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+      painted_tin uniforms: { "metal_albedo": 24, "metal_normal": 24, "metal_rough": 24, "paint_color": 20, "paint_roughness": 3, "wear_amount": 3, "normal_depth": 3, "uv_scale": 3 }
+PASS  painted_tin parses: 8 uniforms listed (3 samplers + 5 values), got 8
+PASS  painted_tin: metal_albedo is a sampler (type 24)
+PASS  painted_tin: metal_normal is a sampler (type 24)
+PASS  painted_tin: metal_rough is a sampler (type 24)
+PASS  painted_tin: paint_color is vec4 : source_color (type 20)
+PASS  painted_tin: paint_roughness is a float
+PASS  painted_tin: wear_amount is a float
+PASS  painted_tin: normal_depth is a float
+PASS  painted_tin: uv_scale is a float
+PASS  painted_tin: group_uniforms paint and metal in the source
+      hint_experiment uniforms: { "grey_as_colour": 24, "grey_as_data": 24, "use_colour_sampler": 1 }
+PASS  hint_experiment parses: grey_as_colour, grey_as_data (samplers), use_colour_sampler (bool)
+PASS  hint_experiment: render_mode unshaded in the source
+      hints as written: metal_albedo ["filter_linear_mipmap", "repeat_enable"] | metal_normal ["hint_normal", "filter_linear_mipmap", "repeat_enable"] | metal_rough ["filter_linear_mipmap", "repeat_enable"]
+FAIL  colour sampler metal_albedo has source_color (sampled as colour)
+PASS  normal sampler metal_normal has hint_normal, no source_color
+PASS  data sampler metal_rough has neither source_color nor hint_normal (read as stored)
+      hints as written: grey_as_colour ["source_color", "filter_nearest"] | grey_as_data ["filter_nearest"]
+PASS  grey_as_colour: source_color, filter_nearest
+PASS  grey_as_data: filter_nearest only, no source_color
+PASS  toybox_fresh and toybox_worn both use res://shaders/painted_tin.gdshader
+PASS  toybox_fresh.tres binds metal_albedo -> res://assets/textures/metal_plate/metal_plate_diff_1k.png
+PASS  toybox_fresh.tres binds metal_normal -> res://assets/textures/metal_plate/metal_plate_nor_gl_1k.png (the GL map)
+PASS  toybox_fresh.tres binds metal_rough -> res://assets/textures/metal_plate/metal_plate_rough_1k.png
+PASS  toybox_fresh.tres leaves paint_color, normal_depth, uv_scale unset (shader defaults apply)
+PASS  toybox_worn.tres binds metal_albedo -> res://assets/textures/metal_plate/metal_plate_diff_1k.png
+PASS  toybox_worn.tres binds metal_normal -> res://assets/textures/metal_plate/metal_plate_nor_gl_1k.png (the GL map)
+PASS  toybox_worn.tres binds metal_rough -> res://assets/textures/metal_plate/metal_plate_rough_1k.png
+PASS  toybox_worn.tres leaves paint_color, normal_depth, uv_scale unset (shader defaults apply)
+PASS  toybox_fresh: wear_amount 0.05, paint_roughness 0.30
+PASS  toybox_worn: wear_amount 0.55, paint_roughness 0.70
+PASS  two distinct material resources
+PASS  both hint materials use res://shaders/hint_experiment.gdshader
+PASS  hint_source_color.tres binds the same PNG to both samplers
+PASS  hint_data.tres binds the same PNG to both samplers
+PASS  hint_source_color: use_colour_sampler = true
+PASS  hint_data: use_colour_sampler = false
+      metal_plate_diff_1k.png imported as Image format 17 (DXT1), 1024x1024, mipmaps true
+PASS  metal_plate_diff_1k.png import: compress/mode, normal_map, mipmaps = [2, 2, true] (want [2, 2, true])
+PASS  metal_plate_diff_1k.png import: detect_3d/compress_to = 0 (Disabled)
+      metal_plate_nor_gl_1k.png imported as Image format 21 (RGTC_RG), 1024x1024, mipmaps true
+PASS  metal_plate_nor_gl_1k.png import: compress/mode, normal_map, mipmaps = [2, 1, true] (want [2, 1, true])
+PASS  metal_plate_nor_gl_1k.png import: detect_3d/compress_to = 0 (Disabled)
+      metal_plate_rough_1k.png imported as Image format 17 (DXT1), 1024x1024, mipmaps true
+PASS  metal_plate_rough_1k.png import: compress/mode, normal_map, mipmaps = [2, 2, true] (want [2, 2, true])
+PASS  metal_plate_rough_1k.png import: detect_3d/compress_to = 0 (Disabled)
+      metal_plate_nor_dx_1k.png imported as Image format 21 (RGTC_RG), 1024x1024, mipmaps true
+PASS  metal_plate_nor_dx_1k.png import: compress/mode, normal_map, mipmaps = [2, 1, true] (want [2, 1, true])
+PASS  metal_plate_nor_dx_1k.png import: detect_3d/compress_to = 0 (Disabled)
+      hint_greys_3x1.png imported as Image format 4 (RGB8), 3x1, mipmaps false
+PASS  hint_greys_3x1.png import: compress/mode, normal_map, mipmaps = [0, 2, false] (want [0, 2, false])
+PASS  hint_greys_3x1.png import: detect_3d/compress_to = 0 (Disabled)
+PASS  toybox.glb.import: toybox_red -> Use External res://prop_room/materials/toybox_fresh.tres
+PASS  toybox.glb.import: meshes/ensure_tangents = true (the normal map needs tangents)
+PASS  prop_room: toybox surface 0 = toybox_fresh (through Use External)
+PASS  prop_room: toybox_worn surface 0 = toybox_worn (surface override)
+PASS  prop_room: both boxes keep the same cream lid material (slot 1 untouched)
+      prop_room env: tonemap 0, exposure 1.00, ssao false, ssil false, sdfgi false, glow false, fog false; Sun energy 1.00, shadows true
+PASS  prop_room: SSAO, SSIL, SDFGI, glow and fog off (CHANGE-BRIEF A5.5 lighting)
+PASS  hint scene: Linear tonemap (0) at exposure 1.0
+PASS  hint scene: glow, fog, volumetric fog and adjustments off
+PASS  hint scene: Quad_S uses hint_source_color.tres
+PASS  hint scene: Quad_D uses hint_data.tres
+      curl_ratio nor_gl: GL convention 0.0658, DX convention 1.9342
+PASS  bound normal map is a real surface in the GL convention Godot expects (0.0658 < 0.5; DX 1.9342)
+      curl_ratio nor_dx: GL convention 1.9342, DX convention 0.0658
+
+55 checks, 1 failed
+ERROR: Parameter "material" is null.
+   at: material_get_instance_shader_parameters (servers/rendering/dummy/storage/material_storage.cpp:264)

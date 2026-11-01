@@ -1,0 +1,12 @@
+diff --git a/godot/shaders/painted_tin.gdshader b/godot/shaders/painted_tin.gdshader
+index 3e3affc..9684134 100644
+--- a/godot/shaders/painted_tin.gdshader
++++ b/godot/shaders/painted_tin.gdshader
+@@ -1,6 +1,6 @@
+ shader_type spatial;
+ 
+-uniform sampler2D metal_albedo : source_color, filter_linear_mipmap, repeat_enable;
++uniform sampler2D metal_albedo : filter_linear_mipmap, repeat_enable;
+ uniform sampler2D metal_normal : hint_normal, filter_linear_mipmap, repeat_enable;
+ uniform sampler2D metal_rough : filter_linear_mipmap, repeat_enable;
+ 
