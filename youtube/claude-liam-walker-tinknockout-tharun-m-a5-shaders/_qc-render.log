@@ -1,0 +1,11 @@
+Sun Nov  1 18:56:50 EST 2026
+[remotion] B00: filled already (skip)
+[remotion] B01: filled already (skip)
+[remotion] B03: ok: GodotDevWorkbench -> media/B03.mp4
+[remotion] B16: ok: ClaudeVerdictArtifact -> media/B16.mp4
+[remotion] B17: ok: ClaudeComposerAsk -> media/B17.mp4
+[remotion] B18: ok: ClaudeTitleOutro -> media/B18.mp4
+[remotion] stamped provenance in beat_sheet.json + updated consumers.json
+[remotion] done — run `bash scripts/run.sh <REEL>` to compile the cut
+Sun Nov  1 19:00:41 EST 2026
+ALLDONE

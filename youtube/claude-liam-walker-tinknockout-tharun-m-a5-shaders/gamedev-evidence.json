@@ -1,0 +1,930 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "game": {
+  "package": "walker-tinknockout-tharun-m",
+  "godot_folder": "godot",
+  "revision": "2e6946dce3a96999204e4eaa71fb015f4779ed47",
+  "docs_revision": "93aedd9",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Forward+ (Vulkan/MoltenVK)"
+ },
+ "files": [
+  {
+   "path": "MATERIALS.md",
+   "sha256": "0b41a642797860e2cf550f6f078f13cf20a4d780dc44bf9c9811c3ad185d3b63",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/props3d/toybox.glb.import",
+   "sha256": "af7cf57cfa00d6bf927dc9ecb45b49e73572fa12da0a23dc52404919fb0df63e",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png",
+   "sha256": "deb9df2a9689dd2297f2d37a3fa2759104f49dbb2eb3e33c00e1fa6292060ca6",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png.import",
+   "sha256": "0733d831e0aaea65db461d4eb1c86a49f6f8b8f36efff182c0c83405a68f4b44",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/ATTRIBUTION.md",
+   "sha256": "8d02b602303e2696773f48ffd37266c6822aff1e0b7279e68699139d5f199c95",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png",
+   "sha256": "00401b4ce56f0ffa8b2c1e10366fa36a7a9b839199b3abac2678790a9883c2e9",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png.import",
+   "sha256": "d01fe9a11372fe76e20ae9bfa369d92a36a1a0204eca69f1f93f2bdd8e215f8e",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png",
+   "sha256": "2585efa45e5c2794150082b05fd177d25c67aadd18411fd06648705f1536bb43",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png.import",
+   "sha256": "27e23997ffda1742ce7e268b7fc22b3df333c7d234b1bbd0c2dcea3ac50632ac",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png",
+   "sha256": "d858021ebc0a2a01ec13e574bc47ed58795e129904cda2868b3fb2dfd02d6741",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png.import",
+   "sha256": "af4b664f4e8d0885fb8d0f2a5a8e5ee9dce7d16598c6bbc7501c0626fa8391a4",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png",
+   "sha256": "aa6e4947c33559a7012e275d1600bfa6e00c2824271726a94de69f1a7b7fed2e",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png.import",
+   "sha256": "ec0b1728b83c5dbd8ff0e82f2d09eec898cffeac5c20d9730ca94a323835c97c",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "fighter/rewind_tint_driver.gd",
+   "sha256": "1856bd67e73a11dbc6f912e84b4cd6e7fdc420d1bb6de54345e7d39139c1eeda",
+   "role": "A5 REWIND tint shader / driver / attachment",
+   "component_ids": [
+    "rewind-tint"
+   ]
+  },
+  {
+   "path": "game/debug_capture.gd",
+   "sha256": "79f763ee48b1cf76651244dc2c611089ca949ed78a78297da1eb1c2e31d2feb3",
+   "role": "A5 REWIND tint shader / driver / attachment",
+   "component_ids": [
+    "rewind-tint"
+   ]
+  },
+  {
+   "path": "game/main.gd",
+   "sha256": "0a93b9bbe9e6270027aad67e1d0a71ded0ab415d9b28c115004033317e2dc5b8",
+   "role": "A5 REWIND tint shader / driver / attachment",
+   "component_ids": [
+    "rewind-tint"
+   ]
+  },
+  {
+   "path": "hint_experiment/hint_data.tres",
+   "sha256": "6187467ebb8dfdbd6ff3f417a7d0c29a376fcf0cd9d56f793de20ee729830870",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "hint_experiment/hint_experiment.tscn",
+   "sha256": "e0e5c00bf324438cfaff186c259a3aac683b10bc90d967cfc11ae9cea556ce7c",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "hint_experiment/hint_source_color.tres",
+   "sha256": "c4a58bbaaac11600b0f156dc7fe7aa9adfe7c27f0083264c6bec5af637e821f8",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "project.godot",
+   "sha256": "717444b1c62793c32117a1b02014956e11bf84c2bf526535a286736000ae2c01",
+   "role": "project settings",
+   "component_ids": [
+    "project"
+   ]
+  },
+  {
+   "path": "prop_room/materials/toybox_fresh.tres",
+   "sha256": "6c2f4fc8a22713842a539fb8552fc4d0a57cf5493bd82f172064a28543bad940",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "prop_room/materials/toybox_worn.tres",
+   "sha256": "fb5563e28e04d5d6abdf1ca8839b8e40b0df4b0b76100fc22297c0deb4844cd5",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "prop_room/prop_room.tscn",
+   "sha256": "49847b4bda07cc02560f88f4eff4aaa837310953d4b2385794145aa94495d157",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "shaders/hint_experiment.gdshader",
+   "sha256": "6d6e05caad1e52389ee87b63be7472c0fd89e228a7860737f4a8debc9f3370ea",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "shaders/painted_tin.gdshader",
+   "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+   "role": "A5 textured shader, materials, textures and wiring",
+   "component_ids": [
+    "painted-tin"
+   ]
+  },
+  {
+   "path": "shaders/rewind_tint.gdshader",
+   "sha256": "5523727f552d25b7d070d879b3fe116cd16978baebd844624c550d1847dbf6ec",
+   "role": "A5 REWIND tint shader / driver / attachment",
+   "component_ids": [
+    "rewind-tint"
+   ]
+  },
+  {
+   "path": "shaders/standard_generated.gdshader",
+   "sha256": "7935fff8a8e1513a0ae0aaa2398d5185ecbfecfced5b0b756d9a7ffa951b1b19",
+   "role": "A5 hint experiment / generated shader",
+   "component_ids": [
+    "language"
+   ]
+  },
+  {
+   "path": "tests/calibrate_normal_map.gd",
+   "sha256": "60e3ca1b7d6ddbbe31e7978c1ce73d5105f9230501840f19be66c22ca400b580",
+   "role": "A5 headless tests",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/normal_map_check.gd",
+   "sha256": "f3ab4f27cc3b075ec9f06016c3d18915be8f29a1ef4a6111cf326d6314c84a13",
+   "role": "A5 headless tests",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_materials.gd",
+   "sha256": "0fd877e49797a1ff9275ae26a08ea27cfb1044af046596fd4d0f7ebb81d83393",
+   "role": "A5 headless tests",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_rewind_tint.gd",
+   "sha256": "037ec69ad59acd4c07a5ccf6d19b7ce20f9073c57a3249b51665643360d18c0c",
+   "role": "A5 headless tests",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tools/a5_capture_hint.gd",
+   "sha256": "e1faa3dbefdcb5965b4b8bac9129ef1fe3e4ec9faef920620e0e76646b8acf9f",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/a5_capture_run.gd",
+   "sha256": "860b499c9ada703a23774054f35e87f1e88d816b0796b0e0bcfda6ce2a03f044",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/a5_capture_side_by_side.gd",
+   "sha256": "dd8ba8f8b024e84052471daa7f8619ac7c30ba23ad8a81c454163edc7149a431",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/a5_capture_toybox.gd",
+   "sha256": "4738913ffc4dd50b3925035b688a4b24eabe6ee42b2085ffeeff5c6c976b8834",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/make_hint_scene.gd",
+   "sha256": "ddb3e46b8f7783f738b0628164c77ca79ec290e110c05c89c30590d5ac0b77be",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/make_toybox_materials.gd",
+   "sha256": "a3f33cd9eabd318b67aaffa833c3386a71a757ab7e8c7a91b5ac3ab67cbd1da6",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  },
+  {
+   "path": "tools/write_hint_png.gd",
+   "sha256": "f78a974a0574c92d4402c15c20bc0fc35a3f682fec20a4466e7b807511f31106",
+   "role": "A5 capture / builder tool (evidence, not loaded by the game)",
+   "component_ids": [
+    "capture-tools"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "rewind-tint",
+   "explanation": "REWIND tint: rewind_tint.gdshader (canvas_item; colour line suggested by Claude, typed by Tharun) on one ShaderMaterial per fighter, fed by rewind_tint_driver.gd (Claude, agent session) from fighter.state with move_toward x delta; attached in main.gd; F9 debug captures in debug_capture.gd.",
+   "beat_ids": [
+    "B03",
+    "B04",
+    "B05",
+    "B06"
+   ],
+   "files": [
+    "fighter/rewind_tint_driver.gd",
+    "game/debug_capture.gd",
+    "game/main.gd",
+    "shaders/rewind_tint.gdshader"
+   ]
+  },
+  {
+   "id": "painted-tin",
+   "explanation": "painted_tin.gdshader (spatial; skeleton suggested by Claude, typed and filled by Tharun) with three Poly Haven Metal Plate samplers (colour, normal, roughness as wear mask); two materials toybox_fresh / toybox_worn; Use External wiring in toybox.glb.import and the second toy box in prop_room.tscn; audit in MATERIALS.md.",
+   "beat_ids": [
+    "B02",
+    "B07",
+    "B08",
+    "B09",
+    "B11"
+   ],
+   "files": [
+    "MATERIALS.md",
+    "assets/props3d/toybox.glb.import",
+    "assets/textures/metal_plate/ATTRIBUTION.md",
+    "assets/textures/metal_plate/metal_plate_diff_1k.png",
+    "assets/textures/metal_plate/metal_plate_diff_1k.png.import",
+    "assets/textures/metal_plate/metal_plate_nor_dx_1k.png",
+    "assets/textures/metal_plate/metal_plate_nor_dx_1k.png.import",
+    "assets/textures/metal_plate/metal_plate_nor_gl_1k.png",
+    "assets/textures/metal_plate/metal_plate_nor_gl_1k.png.import",
+    "assets/textures/metal_plate/metal_plate_rough_1k.png",
+    "assets/textures/metal_plate/metal_plate_rough_1k.png.import",
+    "prop_room/materials/toybox_fresh.tres",
+    "prop_room/materials/toybox_worn.tres",
+    "prop_room/prop_room.tscn",
+    "shaders/painted_tin.gdshader"
+   ]
+  },
+  {
+   "id": "language",
+   "explanation": "Hint experiment (hint_experiment.gdshader, the 3x1 PNG, two materials and scene) and the editor-generated standard_generated.gdshader annotated by Tharun.",
+   "beat_ids": [
+    "B10",
+    "B12"
+   ],
+   "files": [
+    "assets/textures/hint/hint_greys_3x1.png",
+    "assets/textures/hint/hint_greys_3x1.png.import",
+    "hint_experiment/hint_data.tres",
+    "hint_experiment/hint_experiment.tscn",
+    "hint_experiment/hint_source_color.tres",
+    "shaders/hint_experiment.gdshader",
+    "shaders/standard_generated.gdshader"
+   ]
+  },
+  {
+   "id": "tests",
+   "explanation": "test_rewind_tint.gd (agent; R1-R6 at 30/60/144 through real input), test_materials.gd (Claude audit), and the normal-map calibration/check scripts.",
+   "beat_ids": [
+    "B13",
+    "B14"
+   ],
+   "files": [
+    "tests/calibrate_normal_map.gd",
+    "tests/normal_map_check.gd",
+    "tests/test_materials.gd",
+    "tests/test_rewind_tint.gd"
+   ]
+  },
+  {
+   "id": "capture-tools",
+   "explanation": "Claude-made windowed capture tools and resource builders (tools/a5_*.gd, make_*.gd, write_hint_png.gd); evidence only, not loaded by the game.",
+   "beat_ids": [
+    "B04",
+    "B08",
+    "B10",
+    "B11"
+   ],
+   "files": [
+    "tools/a5_capture_hint.gd",
+    "tools/a5_capture_run.gd",
+    "tools/a5_capture_side_by_side.gd",
+    "tools/a5_capture_toybox.gd",
+    "tools/make_hint_scene.gd",
+    "tools/make_toybox_materials.gd",
+    "tools/write_hint_png.gd"
+   ]
+  },
+  {
+   "id": "project",
+   "explanation": "project.godot: reordered rendering lines only (the A5 import pass); renderer and settings unchanged.",
+   "beat_ids": [
+    "B13"
+   ],
+   "files": [
+    "project.godot"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B03",
+   "path": "shaders/rewind_tint.gdshader",
+   "start_line": 1,
+   "end_line": 9,
+   "text": "shader_type canvas_item;\n\nuniform float rewind_amount : hint_range(0.0, 1.0) = 0.0;\nuniform vec4 tint_color : source_color = vec4(0.353, 0.627, 1.0, 1.0);\nuniform float tint_strength : hint_range(0.0, 1.0) = 0.5;\n\nvoid fragment() {\n\tCOLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);\n}"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/env/bowl.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/env/bowl.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/anchors.json",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/music/waltz.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/music/waltz.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/cork.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/cork.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/cutlass.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/cutlass.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/key-bolt.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/key-bolt.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/key-rivet.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/key-rivet.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/popgun.png",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props/popgun.png.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props3d/castle.glb",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props3d/castle.glb.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props3d/toybox.glb",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props3d/windkey.glb",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/props3d/windkey.glb.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/bell.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/bell.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/empty.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/empty.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/jab.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/jab.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/pop.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/pop.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg.import",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "audio/music.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "audio/sfx.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "default_bus_layout.tres",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "fighter/cork.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "fighter/fighter.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "fighter/rivet_brain.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "game/controls.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "game/main.tscn",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tests/check_props3d.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tests/test_slice.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tools/capture_film.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tools/shot_prop_room.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tools/shot_prop_views.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "tools/shots.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  },
+  {
+   "path": "ui/hud.gd",
+   "reason": "Pre-Assignment-5 file, byte-identical to revision 23a0363 (git diff 23a0363 HEAD is empty for it) and explained in the earlier films; A5 does not change it."
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B03",
+   "result_beat": "B04",
+   "observation": "In-engine captures (scripted input) at rewind_amount 0.0 / 0.5 / 1.0 / 2.0: the colour line output at Bolt's chest and helmet equals Tharun's hand predictions (12 of 12 channels at 0 and 0.5; four channels -1 at 1.0); at 2.0 both pixels are the pure tint (90, 160, 255).",
+   "media": {
+    "path": "media/B04.mp4",
+    "sha256": "821ad698919941a5d8ec239d386dd9318ddb134ad1e7396c52b673e2c8d667a3"
+   }
+  }
+ ],
+ "source_view_code_result_pairs": [
+  {
+   "code_beat": "B05",
+   "result_beat": "B06",
+   "sources": [
+    {
+     "path": "godot/fighter/rewind_tint_driver.gd",
+     "start_line": 17,
+     "end_line": 30,
+     "sha256": "1856bd67e73a11dbc6f912e84b4cd6e7fdc420d1bb6de54345e7d39139c1eeda",
+     "text": "func _ready() -> void:\n\tprocess_mode = Node.PROCESS_MODE_PAUSABLE   # main is ALWAYS; freeze on tree pause (R4b)\n\tmaterial = ShaderMaterial.new()             # one per fighter (R6)\n\tmaterial.shader = preload(\"res://shaders/rewind_tint.gdshader\")\n\tfighter.sprite.material = material\n\tmaterial.set_shader_parameter(\"rewind_amount\", amount)\n\nfunc _process(delta: float) -> void:\n\tif game.paused:\n\t\treturn                                  # the fight is frozen, so is the tint (R4c)\n\tvar target := 1.0 if fighter.state == Fighter.S.REWIND else 0.0\n\tvar rate := 1.0 / (FADE_IN if target > amount else FADE_OUT)\n\tamount = move_toward(amount, target, rate * delta)\n\tmaterial.set_shader_parameter(\"rewind_amount\", amount)"
+    }
+   ],
+   "observation": "Movie Maker capture (scripted input, isolated copy of 2e6946d): Bolt tints blue within 5 frames of the press, Rivet hits him (REWIND -> HURT) and the tint fades out from 1.0; readout from the per-frame log.",
+   "media": {
+    "path": "media/B06.mp4",
+    "sha256": "0145b6bf0a8f19412bd2d9445448909980efc41a1e79fb074b85dac46632cbee"
+   }
+  },
+  {
+   "code_beat": "B07",
+   "result_beat": "B08",
+   "sources": [
+    {
+     "path": "godot/shaders/painted_tin.gdshader",
+     "start_line": 7,
+     "end_line": 14,
+     "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+     "text": "group_uniforms paint;\nuniform vec4 paint_color : source_color = vec4(0.710, 0.188, 0.165, 1.0);\nuniform float paint_roughness : hint_range(0.0, 1.0) = 0.35;\ngroup_uniforms metal;\nuniform float wear_amount : hint_range(0.0, 1.0) = 0.1;\nuniform float normal_depth : hint_range(0.0, 2.0) = 1.0;\nuniform float uv_scale : hint_range(0.5, 8.0) = 2.5;\ngroup_uniforms;"
+    },
+    {
+     "path": "godot/prop_room/materials/toybox_fresh.tres",
+     "start_line": 9,
+     "end_line": 16,
+     "sha256": "6c2f4fc8a22713842a539fb8552fc4d0a57cf5493bd82f172064a28543bad940",
+     "text": "resource_name = \"toybox_fresh\"\nrender_priority = 0\nshader = ExtResource(\"1_78inm\")\nshader_parameter/metal_albedo = ExtResource(\"2_ny66c\")\nshader_parameter/metal_normal = ExtResource(\"3_yy5tw\")\nshader_parameter/metal_rough = ExtResource(\"4_ihh2e\")\nshader_parameter/paint_roughness = 0.3\nshader_parameter/wear_amount = 0.05"
+    },
+    {
+     "path": "godot/prop_room/materials/toybox_worn.tres",
+     "start_line": 9,
+     "end_line": 16,
+     "sha256": "fb5563e28e04d5d6abdf1ca8839b8e40b0df4b0b76100fc22297c0deb4844cd5",
+     "text": "resource_name = \"toybox_worn\"\nrender_priority = 0\nshader = ExtResource(\"1_1xxbb\")\nshader_parameter/metal_albedo = ExtResource(\"2_lhxcb\")\nshader_parameter/metal_normal = ExtResource(\"3_04qot\")\nshader_parameter/metal_rough = ExtResource(\"4_nutc4\")\nshader_parameter/paint_roughness = 0.7\nshader_parameter/wear_amount = 0.55"
+    }
+   ],
+   "observation": "Edit checks: the shader edit changed both boxes (88 px, 1622 px); the material edit changed only the worn box (6698 px); castle 0 px both times.",
+   "media": {
+    "path": "media/B08.mp4",
+    "sha256": "ac539376458683c0761cb8fc0373e18c7d994eab312b39777dad6a713fc90e9a"
+   }
+  },
+  {
+   "code_beat": "B09",
+   "result_beat": "B10",
+   "sources": [
+    {
+     "path": "godot/shaders/painted_tin.gdshader",
+     "start_line": 1,
+     "end_line": 5,
+     "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+     "text": "shader_type spatial;\n\nuniform sampler2D metal_albedo : source_color, filter_linear_mipmap, repeat_enable;\nuniform sampler2D metal_normal : hint_normal, filter_linear_mipmap, repeat_enable;\nuniform sampler2D metal_rough : filter_linear_mipmap, repeat_enable;"
+    },
+    {
+     "path": "godot/shaders/painted_tin.gdshader",
+     "start_line": 16,
+     "end_line": 25,
+     "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+     "text": "void fragment() {\n\tvec2 uv = UV * uv_scale;\n\tvec3 metal = texture(metal_albedo, uv).rgb;\n\tfloat rough = texture(metal_rough, uv).r;\n\tfloat wear = step(1.0 - wear_amount, rough);\n\tALBEDO = mix(paint_color.rgb, metal, wear);\n\tROUGHNESS = mix(paint_roughness, rough, wear);\n\tNORMAL_MAP = texture(metal_normal, uv).rgb;\n\tNORMAL_MAP_DEPTH = normal_depth;\n}"
+    }
+   ],
+   "observation": "Hint experiment capture: quad S shows 64/128/192, quad D 137/188/225, exactly as Tharun predicted by hand.",
+   "media": {
+    "path": "media/B10.mp4",
+    "sha256": "ee7f97d368452c53f203f1d85f11f5ec45ed5e6e7a08edc056678eebb98084ed"
+   }
+  },
+  {
+   "code_beat": "B12",
+   "result_beat": "B13",
+   "sources": [
+    {
+     "path": "godot/shaders/standard_generated.gdshader",
+     "start_line": 7,
+     "end_line": 7,
+     "sha256": "7935fff8a8e1513a0ae0aaa2398d5185ecbfecfced5b0b756d9a7ffa951b1b19",
+     "text": "uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable; // Albedo sampler with sRGB color conversion and mipmapping"
+    },
+    {
+     "path": "godot/shaders/standard_generated.gdshader",
+     "start_line": 19,
+     "end_line": 19,
+     "sha256": "7935fff8a8e1513a0ae0aaa2398d5185ecbfecfced5b0b756d9a7ffa951b1b19",
+     "text": "uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable; // Normal map sampler with normal map decoding hints"
+    },
+    {
+     "path": "godot/shaders/painted_tin.gdshader",
+     "start_line": 3,
+     "end_line": 3,
+     "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+     "text": "uniform sampler2D metal_albedo : source_color, filter_linear_mipmap, repeat_enable;"
+    },
+    {
+     "path": "godot/shaders/painted_tin.gdshader",
+     "start_line": 4,
+     "end_line": 4,
+     "sha256": "0462a6746ba769f5641fbc15483a25187362a9c18092e2dec70abc133605eb35",
+     "text": "uniform sampler2D metal_normal : hint_normal, filter_linear_mipmap, repeat_enable;"
+    }
+   ],
+   "observation": "Recorded test output, including m3: removing source_color from painted_tin line 3 fails 1 of 55 checks.",
+   "media": {
+    "path": "media/B13.mp4",
+    "sha256": "506faa3a7351da20903b799ab1a8a5698709a079cdb54772ae5c8b74318cb8fe"
+   }
+  }
+ ]
+}

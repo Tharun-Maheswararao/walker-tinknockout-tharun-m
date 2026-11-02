@@ -1,0 +1,1309 @@
+{
+  "metadata": {
+    "title": "Tin Knockout, Shaders and Materials",
+    "slug": "claude-liam-walker-tinknockout-tharun-m-a5-shaders",
+    "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 5",
+    "kind": "godot-gamedev",
+    "playlist": "Walker",
+    "brand": "claude-liam",
+    "audience": "CSYE 7270 reviewers and Walker users",
+    "register": "Teardown",
+    "engine": "kokoro",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "aspect_ratio": "16:9",
+    "captions": false,
+    "channel_title": "@NikBearBrown",
+    "channel": "@NikBearBrown",
+    "presenter": "Liam (in for Bear)",
+    "persona": "Liam (in for Bear)",
+    "episode_id": "walker-tinknockout-tharun-m-a5",
+    "mode": "walker",
+    "game": {
+      "name": "walker-tinknockout-tharun-m",
+      "revision": "2e6946dce3a96999204e4eaa71fb015f4779ed47",
+      "docs_revision": "93aedd9",
+      "godot_path": "godot",
+      "engine_version": "4.7.2.stable.official.ed1daf0bf",
+      "renderer": "Forward+ (Vulkan/MoltenVK)"
+    },
+    "student": "Tharun Maheswararao",
+    "course": "CSYE 7270 Fall 2026 · Assignment 5",
+    "note": "Walker-mode godot-gamedev film of the A5 shaders and materials. Game source shown: 2e6946d; standard_generated.gdshader shown as annotated by Tharun (e4c188f, comments only); docs and evidence read at 93aedd9. Shader results are real engine output: the committed windowed captures (scripted input, Claude-made) and one Movie Maker capture made for this film on an isolated copy of 2e6946d (scripted input). The OS screenshot is Tharun's. B00 is an illustrative reconstruction; code views are labelled reconstructions / source views.",
+    "build": {
+      "at": "2026-11-01T19:22:07",
+      "cut": "master",
+      "filled": 19,
+      "of": 19,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "role_note": "COLD OPEN / walker B00 — ClaudeComposerAsk. Illustrative reconstruction, not a transcript.",
+      "narration_text": "Merhaba, this is Liam, in for Bear. Today we take apart assignment five of Tin Knockout, Tharun Maheswararao's game about tin wind-up toys boxing in an empty goldfish bowl. This time the game gets shaders and materials. The prompt on screen is an illustrative reconstruction, not a saved transcript.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the reconstructed Walker ask; output lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Merhaba, Liam",
+            "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 5",
+            "segment": "walker-tinknockout-tharun-m",
+            "command": "Please use Walker to convert my game design document about tin wind-up toys boxing in an empty goldfish bowl into two shaders for my Godot game: a blue tint that marks REWIND, the vulnerable window, and painted tin for the toy box in the prop room.",
+            "runningText": "reading the brief…",
+            "output": [
+              "■ walker-tinknockout-tharun-m  ·  Godot 4.7.2  ·  Forward+  ·  2e6946d",
+              "  rewind_tint.gdshader   canvas_item  ·  Bolt and Rivet",
+              "  painted_tin.gdshader   spatial  ·  toy box, two materials",
+              "  Metal Plate textures   Poly Haven  ·  Rob Tuytel  ·  CC0",
+              "  RECONSTRUCTED PROMPT — illustrative, not a transcript"
+            ],
+            "durationSeconds": 17.19
+          }
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.19,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 17.2,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "role_note": "walker B01 — what was built and what the film explains. The correction is the misconception the body dismantles: a headless test proves timing, not looks.",
+      "lead_silence_s": 0.8,
+      "narration_text": "Tin Knockout got a blue REWIND tint and a painted-tin toy box. Headless tests prove how the tint fades, frame by frame. How it looks took windowed captures and a person's eyes. This film shows both.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "writer types the overview; \"looks\" is struck and corrected to \"fades\""
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Tin Knockout got a REWIND tint\nand a painted-tin toy box.\nHeadless tests prove how it looks.",
+            "triggerWords": "looks",
+            "replacementWords": "fades",
+            "charMs": 10,
+            "mistakeRate": 2,
+            "hesitateBetween": 4,
+            "seed": "claude-liam-walker-tinknockout-tharun-m-a5-shaders",
+            "face": "serif",
+            "fontSize": 114,
+            "lineSpacing": 2.6,
+            "align": "left",
+            "ink": "#2b2118",
+            "durationSeconds": 12.51
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-11-02T00:18:18.779021+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 12,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 12.51,
+      "audio_file": "mp3/beat-B01.mp3",
+      "lead_silence_baked": true,
+      "voice_duration_s": 11.71,
+      "render_duration_s": 12.533333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "SETUP",
+      "role_note": "The game, the state the effect communicates (REWIND, the vulnerable window) and the textured object.",
+      "narration_text": "The game: two tin toys box on wind-up springs. The state is REWIND: a fighter cranks its key and is open, and a hit there does one and a half times the damage. That is the vulnerable window, and the tint has to say punish now. Here it is in Tharun's own screenshot from play, both fighters blue. The object is the toy box in the prop room, which gets a textured shader.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B02.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "OS screenshot during play (Tharun) beside three cards"
+          },
+          {
+            "at": "The state is",
+            "event": "STATE card lights: REWIND, the vulnerable window, 1.5x damage"
+          },
+          {
+            "at": "Tharun's own screenshot",
+            "event": "ring on the two blue fighters"
+          },
+          {
+            "at": "The object is",
+            "event": "OBJECT card lights: toy box in prop_room.tscn, in-engine capture"
+          }
+        ],
+        "anchors": [
+          [
+            "state",
+            "The state is"
+          ],
+          [
+            "shot",
+            "Tharun's own screenshot"
+          ],
+          [
+            "object",
+            "The object is"
+          ]
+        ],
+        "panel": {
+          "kind": "setup",
+          "title": "Game · State · Object"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "state": 2.13,
+          "shot": 13.19,
+          "object": 15.34
+        }
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.69,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 19.7,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "MECHANISM",
+      "role_note": "Q1 what a shader does — rewind_tint.gdshader:7-8; the colour line from CHANGE-BRIEF A5.2.",
+      "narration_text": "Question one: what does a shader do? It is a small program the graphics card runs for every pixel it draws. Line three declares rewind amount, a number the game sets from outside. Line seven opens fragment, which runs once for each pixel of the sprite. And line eight is the colour line from the brief: mix the sprite's colour toward the blue tint, by rewind amount times strength. Claude suggested that line. Tharun typed it.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/shaders/rewind_tint.gdshader:1-9 at reading size"
+          },
+          {
+            "at": "Line three declares",
+            "event": "line 3: rewind_amount: 0 to 1, set from outside"
+          },
+          {
+            "at": "Line seven opens",
+            "event": "line 7: fragment(): runs once per pixel"
+          },
+          {
+            "at": "line eight is",
+            "event": "line 8: the colour line: mix toward the tint"
+          }
+        ],
+        "anchors": [
+          [
+            "3",
+            "Line three declares"
+          ],
+          [
+            "7",
+            "Line seven opens"
+          ],
+          [
+            "8",
+            "line eight is"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Q1 · What a Shader Does",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://shaders/rewind_tint.gdshader  ·  lines 1–9  ·  revision 2e6946d",
+            "source": "Godot editor reconstruction · godot/shaders/rewind_tint.gdshader lines 1–9 at 2e6946d, verbatim",
+            "code": "shader_type canvas_item;\n\nuniform float rewind_amount : hint_range(0.0, 1.0) = 0.0;\nuniform vec4 tint_color : source_color = vec4(0.353, 0.627, 1.0, 1.0);\nuniform float tint_strength : hint_range(0.0, 1.0) = 0.5;\n\nvoid fragment() {\n\tCOLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);\n}",
+            "startLine": 1,
+            "codeFontSize": 28,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "CHANGE-BRIEF A5.2 · colour line",
+                "value": "written in the brief before the shader existed"
+              },
+              {
+                "label": "Who",
+                "value": "suggested by Claude Code · typed by Tharun (SOURCES.md)"
+              }
+            ],
+            "cues": [
+              {
+                "at": 5.57,
+                "line": 3,
+                "label": "rewind_amount: 0 to 1, set from outside"
+              },
+              {
+                "at": 8.92,
+                "line": 7,
+                "label": "fragment(): runs once per pixel"
+              },
+              {
+                "at": 12.83,
+                "line": 8,
+                "label": "the colour line: mix toward the tint"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 21.23
+          },
+          "rendered": {
+            "out": "media/B03.mp4",
+            "at": "2026-11-01T23:57:49.334078+00:00"
+          }
+        },
+        "cue_times": {
+          "3": 5.57,
+          "7": 8.92,
+          "8": 12.83
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.23,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 21.233333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "RESULT",
+      "role_note": "Controlled-value captures beside the hand predictions (CHANGE-BRIEF A5.3, pixel-samples.txt).",
+      "narration_text": "The result, in real engine captures at controlled values, from a scripted-input run. Tharun predicted two pixels by hand, on paper: Bolt's chest and helmet. At zero and at one half, all twelve channels match exactly. At one, four channels read one lower, all among the five whose predictions sat exactly on a half before rounding. And at two, set from code, both pixels are pure tint. So hint range does not clamp a value set from code.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B04.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "four in-engine captures (scripted input) with pixel A and B marked"
+          },
+          {
+            "at": "At zero and at one half",
+            "event": "columns 0.0 and 0.5 light: predicted = captured"
+          },
+          {
+            "at": "At one, four channels",
+            "event": "column 1.0 lights: four channels −1"
+          },
+          {
+            "at": "And at two",
+            "event": "column 2.0 lights: pure tint (90, 160, 255)"
+          }
+        ],
+        "anchors": [
+          [
+            "half",
+            "At zero and at one half"
+          ],
+          [
+            "one",
+            "At one, four channels"
+          ],
+          [
+            "two",
+            "And at two"
+          ]
+        ],
+        "panel": {
+          "kind": "pixels",
+          "title": "The Colour Line, Measured"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "half": 7.02,
+          "one": 10.25,
+          "two": 16.1
+        }
+      },
+      "estimated_duration_s": 26,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.85,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 22.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "MECHANISM",
+      "role_note": "The driver lines — rewind_tint_driver.gd: one material per fighter, target, move_toward × delta.",
+      "narration_text": "The driver feeds that number. Claude wrote it, in an agent session, from a prompt Tharun approved. Line nineteen gives each fighter its own material, so Rivet's rewind never tints Bolt. Line twenty-seven sets the target: one in REWIND, zero otherwise. Line twenty-nine moves toward it, faster going up, slower coming down, times delta, so the fade runs in game time, not frames.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B05.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/fighter/rewind_tint_driver.gd:17-30 at reading size"
+          },
+          {
+            "at": "Line nineteen",
+            "event": "line 19 highlighted: one ShaderMaterial per fighter (R6)"
+          },
+          {
+            "at": "Line twenty-seven",
+            "event": "line 27 highlighted: target: 1 in REWIND, else 0"
+          },
+          {
+            "at": "Line twenty-nine",
+            "event": "line 29 highlighted: move_toward at 1/0.15 or 1/0.30 per s × delta"
+          }
+        ],
+        "anchors": [
+          [
+            "19",
+            "Line nineteen"
+          ],
+          [
+            "27",
+            "Line twenty-seven"
+          ],
+          [
+            "29",
+            "Line twenty-nine"
+          ]
+        ],
+        "panel": {
+          "kind": "code",
+          "title": "The Driver",
+          "path": "godot/fighter/rewind_tint_driver.gd",
+          "segments": [
+            [
+              17,
+              30
+            ]
+          ],
+          "notes": [
+            {
+              "label": "Who",
+              "value": "Claude, agent session 2 (driver and test); prompt approved by Tharun"
+            },
+            {
+              "label": "Brief A5.2 R2",
+              "value": "fade-in 0.15 s · fade-out 0.30 s"
+            },
+            {
+              "label": "Boundary",
+              "value": "reads fighter.state, never writes game state"
+            }
+          ],
+          "cues": [
+            [
+              19,
+              "one ShaderMaterial per fighter (R6)"
+            ],
+            [
+              27,
+              "target: 1 in REWIND, else 0"
+            ],
+            [
+              29,
+              "move_toward at 1/0.15 or 1/0.30 per s × delta"
+            ]
+          ],
+          "code": [
+            "func _ready() -> void:\n\tprocess_mode = Node.PROCESS_MODE_PAUSABLE   # main is ALWAYS; freeze on tree pause (R4b)\n\tmaterial = ShaderMaterial.new()             # one per fighter (R6)\n\tmaterial.shader = preload(\"res://shaders/rewind_tint.gdshader\")\n\tfighter.sprite.material = material\n\tmaterial.set_shader_parameter(\"rewind_amount\", amount)\n\nfunc _process(delta: float) -> void:\n\tif game.paused:\n\t\treturn                                  # the fight is frozen, so is the tint (R4c)\n\tvar target := 1.0 if fighter.state == Fighter.S.REWIND else 0.0\n\tvar rate := 1.0 / (FADE_IN if target > amount else FADE_OUT)\n\tamount = move_toward(amount, target, rate * delta)\n\tmaterial.set_shader_parameter(\"rewind_amount\", amount)"
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "19": 5.13,
+          "27": 9.6,
+          "29": 12.79
+        }
+      },
+      "estimated_duration_s": 24,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 20.12,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 20.133333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "RESULT",
+      "role_note": "The effect in play: a scripted-input Movie Maker capture made for this film (capture/rewind-4k.mp4).",
+      "narration_text": "Here is that in motion, a scripted-input capture made for this film. The rewind key goes down, and within a few frames Bolt turns blue. Then Rivet punches him. REWIND ends in a hit, and the tint fades out over three tenths of a second. Again, at quarter speed, with the value the driver set on each frame.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B06.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "capture/rewind-4k.mp4 frames 70–220 at real speed, logged rewind_amount readout"
+          },
+          {
+            "at": "Again, at quarter speed",
+            "event": "labelled 0.25× replay of frames 82–122"
+          }
+        ],
+        "anchors": [
+          [
+            "slow",
+            "Again, at quarter speed"
+          ]
+        ],
+        "panel": {
+          "kind": "motion",
+          "title": "The Tint in Play"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "slow": 12.36
+        }
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.32,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 16.333333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "MECHANISM",
+      "role_note": "Q2 how a material differs from a shader — painted_tin.gdshader uniforms; toybox_fresh.tres / toybox_worn.tres.",
+      "narration_text": "Question two: how is a material different from a shader? The shader is the program, and it declares the knobs: painted tin, lines eight to thirteen. A material is one saved set of values for those knobs. Toybox fresh and toybox worn both point at the same shader, on line eleven, and differ on lines fifteen and sixteen: paint roughness and wear amount.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B07.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "painted_tin.gdshader:7-14 beside toybox_fresh.tres:9-16 and toybox_worn.tres:9-16"
+          },
+          {
+            "at": "lines eight to thirteen",
+            "event": "shader lines 8–13 highlighted"
+          },
+          {
+            "at": "on line eleven",
+            "event": "line 11 of both .tres highlighted"
+          },
+          {
+            "at": "lines fifteen and sixteen",
+            "event": "lines 15–16 of both .tres highlighted"
+          }
+        ],
+        "anchors": [
+          [
+            "knobs",
+            "lines eight to thirteen"
+          ],
+          [
+            "shader",
+            "on line eleven"
+          ],
+          [
+            "values",
+            "lines fifteen and sixteen"
+          ]
+        ],
+        "panel": {
+          "kind": "materials",
+          "title": "Q2 · One Shader, Two Materials",
+          "files": [
+            [
+              "godot/shaders/painted_tin.gdshader",
+              7,
+              14
+            ],
+            [
+              "godot/prop_room/materials/toybox_fresh.tres",
+              9,
+              16
+            ],
+            [
+              "godot/prop_room/materials/toybox_worn.tres",
+              9,
+              16
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "knobs": 6.25,
+          "shader": 13.99,
+          "values": 15.77
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 18.75,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 18.766666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "RESULT",
+      "role_note": "One shader, two materials: shader edit vs material edit (evidence/a5/captures/toybox/edit_checks/).",
+      "narration_text": "The proof is an edit test. Tharun changed the shader's u v scale default from two point five to six. Both boxes changed; the castle did not. Then, with the shader restored, he changed only the worn material's wear amount, from point five five to point two. Only the worn box changed, mostly bare metal back to red paint. Edit the shader, and every material follows. Edit a material, and one object changes.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B08.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "before: fresh and worn boxes side by side (in-engine capture)"
+          },
+          {
+            "at": "Tharun changed the shader's",
+            "event": "after shader edit lights: both changed (88 px, 1622 px)"
+          },
+          {
+            "at": "he changed only",
+            "event": "after material edit lights: worn only (6698 px)"
+          }
+        ],
+        "anchors": [
+          [
+            "shader",
+            "Tharun changed the shader's"
+          ],
+          [
+            "material",
+            "he changed only"
+          ]
+        ],
+        "panel": {
+          "kind": "edits",
+          "title": "Shader Edit vs Material Edit"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "shader": 1.44,
+          "material": 9.0
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.23,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 21.233333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "MECHANISM",
+      "role_note": "Q3 why a texture is information — painted_tin.gdshader:3-5 hints; line 20 roughness as the wear mask.",
+      "narration_text": "Question three: why is a texture information, not just a picture? Painted tin samples three images of Poly Haven's Metal Plate, by Rob Tuytel, released C C zero. Line three is colour, marked source colour, so Godot decodes it from s R G B. Line four is a normal map: its pixels store directions, not colours. Line five is roughness, plain numbers. And line twenty turns that roughness into the wear mask: where the plate is rough, the paint has worn through.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B09.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/shaders/painted_tin.gdshader:1-5, 16-25 at reading size"
+          },
+          {
+            "at": "Line three is colour",
+            "event": "line 3 highlighted: colour: source_color, decoded from sRGB"
+          },
+          {
+            "at": "Line four is",
+            "event": "line 4 highlighted: normal map: hint_normal, directions"
+          },
+          {
+            "at": "Line five is",
+            "event": "line 5 highlighted: roughness: plain data, no colour hint"
+          },
+          {
+            "at": "line twenty turns",
+            "event": "line 20 highlighted: roughness becomes the wear mask"
+          }
+        ],
+        "anchors": [
+          [
+            "3",
+            "Line three is colour"
+          ],
+          [
+            "4",
+            "Line four is"
+          ],
+          [
+            "5",
+            "Line five is"
+          ],
+          [
+            "20",
+            "line twenty turns"
+          ]
+        ],
+        "panel": {
+          "kind": "code",
+          "title": "Q3 · A Texture Is Information",
+          "path": "godot/shaders/painted_tin.gdshader",
+          "segments": [
+            [
+              1,
+              5
+            ],
+            [
+              16,
+              25
+            ]
+          ],
+          "notes": [
+            {
+              "label": "Textures",
+              "value": "Poly Haven \"Metal Plate\" · Rob Tuytel · CC0 · four 1k PNGs"
+            },
+            {
+              "label": "Who",
+              "value": "skeleton suggested by Claude; Tharun typed the file and filled every blank"
+            },
+            {
+              "label": "Normal map",
+              "value": "_nor_gl (OpenGL convention)"
+            }
+          ],
+          "cues": [
+            [
+              3,
+              "colour: source_color, decoded from sRGB"
+            ],
+            [
+              4,
+              "normal map: hint_normal, directions"
+            ],
+            [
+              5,
+              "roughness: plain data, no colour hint"
+            ],
+            [
+              20,
+              "roughness becomes the wear mask"
+            ]
+          ],
+          "code": [
+            "shader_type spatial;\n\nuniform sampler2D metal_albedo : source_color, filter_linear_mipmap, repeat_enable;\nuniform sampler2D metal_normal : hint_normal, filter_linear_mipmap, repeat_enable;\nuniform sampler2D metal_rough : filter_linear_mipmap, repeat_enable;",
+            "void fragment() {\n\tvec2 uv = UV * uv_scale;\n\tvec3 metal = texture(metal_albedo, uv).rgb;\n\tfloat rough = texture(metal_rough, uv).r;\n\tfloat wear = step(1.0 - wear_amount, rough);\n\tALBEDO = mix(paint_color.rgb, metal, wear);\n\tROUGHNESS = mix(paint_roughness, rough, wear);\n\tNORMAL_MAP = texture(metal_normal, uv).rgb;\n\tNORMAL_MAP_DEPTH = normal_depth;\n}"
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "3": 8.81,
+          "4": 14.02,
+          "5": 17.92,
+          "20": 20.2
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 26.68,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 26.7,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "RESULT",
+      "role_note": "The hint experiment, predicted vs measured (hint_quads.png, hint-samples.txt; CHANGE-BRIEF A5.4).",
+      "narration_text": "The hint experiment makes that visible. One three-pixel P N G, values sixty-four, one twenty-eight and one ninety-two, on two quads. The top quad samples it as colour, the bottom as data. Tharun predicted, by hand: the top shows the file unchanged; the bottom shows one thirty-seven, one eighty-eight and two twenty-five. Measured: exactly those six numbers. Same bytes, different meaning, and only the hint decides.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B10.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "hint_quads.png (in-engine capture) beside the prediction table"
+          },
+          {
+            "at": "Tharun predicted",
+            "event": "predicted column lights"
+          },
+          {
+            "at": "Measured: exactly",
+            "event": "measured column lights: 6 of 6 equal"
+          }
+        ],
+        "anchors": [
+          [
+            "pred",
+            "Tharun predicted"
+          ],
+          [
+            "meas",
+            "Measured: exactly"
+          ]
+        ],
+        "panel": {
+          "kind": "hint",
+          "title": "The Hint Experiment"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "pred": 10.03,
+          "meas": 16.49
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.31,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 21.333333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "RESULT",
+      "role_note": "The interface sweep (evidence/a5/captures/toybox/sweep_contact_sheet.png) and Tharun's read (TEST-REPORT A5-7).",
+      "narration_text": "And the interface sweep: each uniform of the fresh material at its minimum, default and maximum, one at a time, with the worn box unchanged as the control. Tharun's read: paint colour, wear, normal depth and u v scale each do one visible job. Paint roughness barely shows at this distance, which points at an open question.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B11.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "sweep_contact_sheet.png (in-engine captures, windowed)"
+          },
+          {
+            "at": "Paint roughness barely",
+            "event": "paint_roughness row ringed"
+          }
+        ],
+        "anchors": [
+          [
+            "rough",
+            "Paint roughness barely"
+          ]
+        ],
+        "panel": {
+          "kind": "sweep",
+          "title": "The Interface Sweep"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "rough": 13.29
+        }
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.6,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 17.6,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "MECHANISM",
+      "role_note": "Q4 the Godot shading language — standard_generated.gdshader lines 7 and 19 (annotated by Tharun) beside painted_tin.gdshader lines 3 and 4; shader_type, hints, built-ins (LANGUAGE-NOTES.md).",
+      "narration_text": "Question four: what is the Godot shading language? A G L S L-style language with the plumbing done for you. Shader type picks the pipeline: canvas item for the sprite, spatial for the box. Hints tell the engine how to feed a uniform, and built-ins like COLOR and ALBEDO arrive ready. On the left, the shader Godot generated from a standard material, with Tharun's notes. Line seven reads albedo as colour; line nineteen reads the normal map as data. On the right, the same jobs in painted tin, lines three and four.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B12.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "shader_type / hints / built-ins cards (LANGUAGE-NOTES.md)"
+          },
+          {
+            "at": "On the left",
+            "event": "standard_generated.gdshader lines 7 and 19 with Tharun's annotations"
+          },
+          {
+            "at": "On the right",
+            "event": "painted_tin.gdshader lines 3 and 4 linked to them"
+          }
+        ],
+        "anchors": [
+          [
+            "left",
+            "On the left"
+          ],
+          [
+            "right",
+            "On the right"
+          ]
+        ],
+        "panel": {
+          "kind": "language",
+          "title": "Q4 · The Godot Shading Language",
+          "files": [
+            [
+              "godot/shaders/standard_generated.gdshader",
+              7,
+              7
+            ],
+            [
+              "godot/shaders/standard_generated.gdshader",
+              19,
+              19
+            ],
+            [
+              "godot/shaders/painted_tin.gdshader",
+              3,
+              3
+            ],
+            [
+              "godot/shaders/painted_tin.gdshader",
+              4,
+              4
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "left": 16.22,
+          "right": 25.29
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 29.8,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 29.8,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B12.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "TESTS",
+      "role_note": "What the tests proved: counts and the three mutations (evidence/a5/mutations/, TEST-REPORT \"Assignment 5\").",
+      "narration_text": "What the tests proved. Test rewind tint: fifty of fifty checks at thirty, sixty and one hundred forty-four frames per second, sampled every frame through real input. Test materials: fifty-five of fifty-five, and again after deleting the import cache. The existing suites still pass: twenty-five checks with zero failed, and the props check, PASS. Then Tharun broke the shaders three ways, restoring them each time. A deleted semicolon: five failures. A renamed uniform: two. Source colour removed from line three: one. Each was caught, but only by the uniform-list and source checks; the driver's own checks kept passing.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B13.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "test counts (TEST-REPORT Assignment 5)"
+          },
+          {
+            "at": "Then Tharun broke",
+            "event": "mutation diffs and their FAIL lines (evidence/a5/mutations/)"
+          },
+          {
+            "at": "Each was caught",
+            "event": "\"45 and 48 driver checks still passed\" highlighted"
+          }
+        ],
+        "anchors": [
+          [
+            "mut",
+            "Then Tharun broke"
+          ],
+          [
+            "caught",
+            "Each was caught"
+          ]
+        ],
+        "panel": {
+          "kind": "tests",
+          "title": "What the Tests Proved"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "mut": 18.54,
+          "caught": 27.96
+        }
+      },
+      "estimated_duration_s": 36,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 34.19,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 34.2,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B13.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "TESTS",
+      "role_note": "What no headless run can show (evidence/a5/headless-facts.txt; TEST-REPORT A5-13).",
+      "narration_text": "And what no headless run can show. The headless probe sets rewind amount to two and reads back two: it stores the number and says nothing about a pixel. Headless runs draw no image at all. Only the windowed capture showed that two meant pure blue, and only Tharun's eyes judged the look.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B14.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "evidence/a5/headless-facts.txt lines 1–12"
+          },
+          {
+            "at": "reads back two",
+            "event": "line 9 highlighted: set 2.0 -> readback 2.0"
+          },
+          {
+            "at": "Only the windowed",
+            "event": "capture at 2.0 beside it"
+          }
+        ],
+        "anchors": [
+          [
+            "read",
+            "reads back two"
+          ],
+          [
+            "win",
+            "Only the windowed"
+          ]
+        ],
+        "panel": {
+          "kind": "headless",
+          "title": "What No Headless Run Shows"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "read": 4.44,
+          "win": 10.37
+        }
+      },
+      "estimated_duration_s": 16,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 15.7,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 15.7,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B14.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "CREDITS",
+      "role_note": "Human and AI contributions exactly as SOURCES.md \"Who did what (A5)\", shown verbatim on screen.",
+      "narration_text": "Who did what, as SOURCES dot m d records it. Tharun accepted Claude's proposed design decisions and material plan, and computed the pixel, contrast and hint predictions by hand. He wrote the failure cases and short answers, typed all three shaders from Claude's recorded suggestions, ran the three mutations, reviewed the audit, converted the material in the editor, made both edits, took the OS screenshot and playtested. Claude proposed the design and material plan, set up the textures, ran the agent sessions that wrote the driver and test, fixed two test bugs, wrote the probes, builders and capture tools, ran the audit, made and measured every capture, and drafted the docs.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B15.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "SOURCES.md \"Who did what (A5)\" verbatim, two columns"
+          },
+          {
+            "at": "Claude proposed the design",
+            "event": "Claude column lights"
+          }
+        ],
+        "anchors": [
+          [
+            "claude",
+            "Claude proposed the design"
+          ]
+        ],
+        "panel": {
+          "kind": "credits",
+          "title": "Who Did What (A5)"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "claude": 21.36
+        }
+      },
+      "estimated_duration_s": 40,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 35.88,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 35.9,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B15.mp4",
+        "filled_by": "media",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "VERDICT",
+      "role_note": "VERDICT — checked by numbers / by eye, agent mistakes caught (A5-10), uncertain (M5, start delay), one next step; revision shown.",
+      "narration_text": "The verdict, at game revision two e six nine four six d. Checked by numbers: the fades, retrigger, both pauses and one material per fighter, at three frame rates; and eighteen hand predictions, fourteen exact and four off by one. Checked by eye: Tharun's look at the captures and in play. Six agent mistakes were caught, among them a test that read the frame rate from arguments the engine had already consumed. Still uncertain: painted tin never writes metallic, so worn metal may read as grey paint; and REWIND starts on the sixty hertz physics tick, so the fade can begin up to a sixtieth of a second after the press. One next step: write metallic from the wear mask, then sweep and look again.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "verdict artifact lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "walker-tinknockout-tharun-m · Assignment 5",
+            "artifactHeading": "VERDICT · revision 2e6946d",
+            "brandLabel": "WALKER · GODOT 4.7.2 · FORWARD+",
+            "artifactLines": [
+              "CHECKED — numbers (headless, every frame, 30 / 60 / 144 fps)",
+              "  fades 0.15 s / 0.30 s · extend · both pauses · own material",
+              "  18 hand predictions: 14 exact, 4 off by one",
+              "CHECKED — the look (Tharun): captures, sweep, playtest",
+              "AGENT MISTAKES CAUGHT — 6 (TEST-REPORT A5-10)",
+              "UNCERTAIN  no METALLIC: worn metal may read as grey paint (M5)",
+              "UNCERTAIN  fade can start up to 1/60 s after the press",
+              "NEXT  METALLIC from the wear mask; sweep and look again"
+            ],
+            "durationSeconds": 36.94
+          },
+          "rendered": {
+            "out": "media/B16.mp4",
+            "at": "2026-11-02T00:03:19.105016+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 36,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 36.94,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 36.96666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B16.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "YOUR_TURN",
+      "role_note": "YOUR TURN — a useful Walker prompt read aloud, one bounded change + prediction, texture source, revision; Liam signs off before the locked outro.",
+      "narration_text": "Your turn. Here is a useful Walker prompt. Please use Walker to make painted tin write metallic from the wear mask, and before you run anything, tell me which row of the interface sweep you predict will change. My prediction: the wear amount row, with worn areas reading as metal; the paint colour row should barely move. Then a person looks. The texture is Metal Plate by Rob Tuytel, from Poly Haven, C C zero. This voice is Kokoro text to speech. The source shown is revision two e six nine four six d. Liam, in for Bear.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the suggested prompt; prediction and credits land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "WALKER · YOUR TURN",
+            "segment": "one bounded change",
+            "command": "Please use Walker to make painted_tin.gdshader write METALLIC from the wear mask, and before you run anything, tell me which row of the interface sweep you predict will change.",
+            "runningText": "over to you…",
+            "output": [
+              "■ prediction, written first: wear_amount row; paint_color row barely moves",
+              "■ then a person looks at the new sweep",
+              "  TEXTURE  Poly Haven \"Metal Plate\" · Rob Tuytel · CC0",
+              "  SOURCE   game revision 2e6946d",
+              "  VOICE    Liam — Kokoro am_onyx, AI text-to-speech"
+            ],
+            "durationSeconds": 29.28
+          },
+          "rendered": {
+            "out": "media/B17.mp4",
+            "at": "2026-11-02T00:00:26.719855+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 29.28,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 29.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B17.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-11-01T19:22:07"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "OUTRO",
+      "kind": "outro_voice",
+      "role_note": "OUTRO-LOCK — exact title, @NikBearBrown, slug-seeded mascot. Spoken, never scored; 1.0 s silent tail.",
+      "narration_text": "Tin Knockout, Shaders and Materials. At Nik Bear Brown.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "locked title card"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Tin Knockout, Shaders and Materials",
+            "slug": "claude-liam-walker-tinknockout-tharun-m-a5-shaders",
+            "durationSeconds": 5.01
+          },
+          "rendered": {
+            "out": "media/B18.mp4",
+            "at": "2026-11-02T00:00:41.008674+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 5,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 5.01,
+      "audio_file": "mp3/beat-B18.mp3",
+      "outro_tail_s": 1.0,
+      "voice_duration_s": 4.01,
+      "render_duration_s": 5.033333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B18.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-01T19:22:07"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+PROBE {"programs": [], "stream_groups": [], "streams": [{"codec_name": "h264", "width": 3840, "height": 2160, "r_frame_rate": "30/1"}, {"codec_name": "aac", "sample_rate": "48000", "channels": 2, "r_frame_rate": "0/0"}], "format": {"duration": "422.533000"}}
+B00    0.00s +17.19  mean -27.0 dB  max -4.3 dB
+B01   17.19s +12.51  mean -27.4 dB  max -7.2 dB
+B02   29.70s +19.69  mean -27.3 dB  max -8.8 dB
+B03   49.39s +21.23  mean -27.3 dB  max -4.2 dB
+B04   70.62s +22.85  mean -27.0 dB  max -3.5 dB
+B05   93.47s +20.12  mean -27.2 dB  max -3.4 dB
+B06  113.59s +16.32  mean -26.9 dB  max -5.7 dB
+B07  129.91s +18.75  mean -27.1 dB  max -3.0 dB
+B08  148.66s +21.23  mean -27.3 dB  max -4.4 dB
+B09  169.89s +26.68  mean -27.2 dB  max -2.8 dB
+B10  196.57s +21.31  mean -27.4 dB  max -6.2 dB
+B11  217.88s +17.60  mean -27.3 dB  max -7.8 dB
+B12  235.48s +29.80  mean -27.2 dB  max -5.4 dB
+B13  265.28s +34.19  mean -26.9 dB  max -3.0 dB
+B14  299.47s +15.70  mean -27.2 dB  max -7.4 dB
+B15  315.17s +35.88  mean -27.0 dB  max -4.0 dB
+B16  351.05s +36.94  mean -27.2 dB  max -6.4 dB
+B17  387.99s +29.28  mean -27.3 dB  max -6.6 dB
+B18  417.27s + 5.01  mean -26.6 dB  max -7.5 dB
+OUTRO TAIL last 0.85 s: max_volume: -54.2 dB
+FULL DECODE errors: ''
+timeline 422.28

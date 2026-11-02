@@ -1,0 +1,21 @@
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B02.mp4 591 frames 4 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B04.mp4 686 frames 4 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B07.mp4 562 frames 4 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B08.mp4 637 frames 3 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B10.mp4 639 frames 3 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B11.mp4 528 frames 2 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B12.mp4 894 frames 3 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B13.mp4 1026 frames 3 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B14.mp4 471 frames 3 states
+wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/media/B15.mp4 1076 frames 2 states
+STILLSDONE
+Traceback (most recent call last):
+  File "/Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/_tools/make_media.py", line 670, in <module>
+    MAKERS[bid]()
+    ~~~~~~~~~~~^^
+  File "/Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/_tools/make_media.py", line 385, in b06
+    cache[src] = Image.open(SP_MOVIE / f'frame{src:08d}.png').convert('RGB').resize((VW, VH), Image.LANCZOS)
+                 ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/PIL/Image.py", line 3431, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/claude-501/-Users-tharunmaheswararao-Documents-csye7270/bd7e0154-1adb-46a2-9aa4-44133a1f88cb/scratchpad/movie/frame00000221.png'
