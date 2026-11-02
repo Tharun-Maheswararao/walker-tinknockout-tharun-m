@@ -390,4 +390,4 @@ Nothing headless says how anything looks (`evidence/a5/headless-facts.txt:3`). T
 - The captures are scripted-input runs, labelled as such. Tharun's playtest is the unscripted check.
 - `painted_tin` writes no `METALLIC` (M5), so the worn bare metal is shaded as a non-metal.
 - A dummy-renderer teardown ERROR appears in headless logs that free a ShaderMaterial mesh (M1). It prints after the result line, and the wrapper ignores it.
-- No film was made for A5 (see SUBMISSION.md).
+- The A5 film was built by a Claude film session; Tharun watched it before uploading. File `claude-liam-walker-tinknockout-tharun-m-a5-shaders.mp4`, SHA-256 `6568f966a28b65ffad73d3aac36430b4f222d5f065af60dfd930946d141b2ed8` (SUBMISSION.md).

@@ -217,7 +217,11 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **LANGUAGE-NOTES:** Claude's reference check found TEXTURE cited where it isn't used, the wrong file cited for the 2.0 test, and no line reference in Q8. I revised all three (`93aedd9`).
 - **In my words:** Running headless verification scripts highlighted the sharp boundary between headless data and actual human visual checks. It reinforced why automated tests can't replace a real playtest or contact sheet sweep.
 
-## Not done
+## 18:35–23:00 — the film
 
-- No A5 film.
-- **In my words (why, and what I'd do differently):** TODO-YOU
+- **What happened:**
+  - **Decision:** I chose to try the required film with a hard cut-off, after Claude estimated 3–3½ hours from my A3 film's timestamps.
+  - **Build:** Claude started a separate film session (Brutalist `godot-gamedev`, walker modifier, Liam narration) briefed with my evidence and the rule to state contributions exactly as in SOURCES.md. It finished at 19:22, much faster than estimated: 4K 3840×2160, 7:02, workflow gates passed (`youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/CHECKS-REPORT.md`).
+  - **Checks:** Claude checked the file with ffprobe and SHA-256 (`6568f966…`) and confirmed it is kept out of git.
+  - **Upload:** I watched the whole film, then uploaded it to Google Drive at about 23:00. Claude checked that the link opens without signing in.
+- **In my words:** *(none written before the deadline)*

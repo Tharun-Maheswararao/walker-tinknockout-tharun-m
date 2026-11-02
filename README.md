@@ -160,5 +160,7 @@ Expected results:
 - `painted_tin` writes no METALLIC, so worn bare metal is shaded as a non-metal (MATERIALS.md M5).
 - Bolt's tint starts up to one physics tick (1/60 s) after the key press at high frame rates.
 - The `claude -p` sessions hit the account's spend limit, so the later agent work ran in the interactive session (SOURCES.md).
-- **No A5 film was made.**
+- The film's narration and visuals were built by a Claude film session (Brutalist `godot-gamedev` workflow); I watched it in full before uploading.
+
+**A5 film:** [claude-liam-walker-tinknockout-tharun-m-a5-shaders.mp4](https://drive.google.com/file/d/1x90bbSlU_QSjNzabapgok6JhSpoYX68V/view?usp=sharing) · SHA-256 `6568f966a28b65ffad73d3aac36430b4f222d5f065af60dfd930946d141b2ed8` · 4K 3840×2160, 7:02 · shows game source `2e6946d`. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/` (the MP4 itself is not in GitHub).
 
