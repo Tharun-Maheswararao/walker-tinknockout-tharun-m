@@ -1,15 +1,15 @@
 # A6 brief facts (not the brief)
 
-*Collected by Claude on 2026-10-29 from this repository, the installed Godot 4.7.2 and the Godot docs. It contains facts only. Every effect choice, value, intent, prediction and budget in CHANGE-BRIEF.md is yours to make.*
+*Collected by Claude on 2026-10-29 from this repository, the installed Godot 4.7.2 and the Godot docs; re-checked against the code at tag `a5` on 2026-11-07 (line numbers, starting state, baseline, free keys). It contains facts only. Every effect choice, value, intent, prediction and budget in CHANGE-BRIEF.md is yours to make.*
 
-## 1. Starting state
+## 1. Starting state (2026-11-07, after A5)
 
-- Tags `a2` and `a3` only. There is no `a4` or `a5` tag, no `CLAUDE.md`, no `godot/shaders/`, and no A5 "Headless facts" block.
-- `CHANGE-BRIEF.md` still holds the A2 asset brief (v1, 2026-10-05), not an A5 brief. The old version stays in history at `a2`/`a3`, not `a5`.
-- Consequences for A6:
-  - `prompts/prompt-1.txt` creates `CLAUDE.md` instead of revising it.
-  - The "Headless facts" lines go into a new block.
-  - `git diff --stat godot/shaders/` is trivially empty until Step 6.
+- Tags `a2`, `a3` and `a5` (`f4dda68`). There is no `a4` tag.
+- `CLAUDE.md` exists (A5 version, 114 lines). It imports `@CHANGE-BRIEF.md`, has a "Headless facts" block, and its Ownership section protects `godot/shaders/` and `scripts/run-test.sh`. There is no `AGENTS.md`. So the handout's Step 1 prompt applies as written: **revise** CLAUDE.md.
+- `CHANGE-BRIEF.md` holds the A2, A3 and A5 briefs one after another. The handout says to **replace** its contents with the A6 brief; the A5 version stays in history at tag `a5`.
+- `godot/shaders/` holds A5's hand-written `rewind_tint.gdshader`, `painted_tin.gdshader`, `hint_experiment.gdshader` and the generated `standard_generated.gdshader`. `git diff --stat godot/shaders/` must print nothing after every A6 agent session. Step 6 adds `particles_generated.gdshader`, saved by you from the editor.
+- `scripts/run-test.sh` is the A6 wrapper again (commit `8731c5c`; A5 had swapped in its own at `23a0363`).
+- The A5 REWIND tint is live: `godot/fighter/rewind_tint_driver.gd`, attached per fighter in `main.gd:61`. An Effect B on REWIND would sit on top of a sprite that is already tinting blue.
 - **Renderer switched from GL Compatibility to Forward+ on 2026-10-29, before the brief** (your decision; Claude made the edit).
   - Reason: Godot's docs say the Visual Profiler is not supported with Compatibility on macOS, so the GPU price was impossible on this Mac.
   - Evidence: `evidence/a6/renderer-switch/`. The 2D game's still frames are identical under both renderers (max difference 1/255). The A3 3D prop room renders darker under Forward+.
@@ -23,7 +23,7 @@
 |---|---|
 | Godot 4.7.2.stable.official.ed1daf0bf, at `/opt/homebrew/bin/godot` | `godot --version` |
 | Renderer Forward+: `config/features` says "Forward Plus". The editor drops `rendering_method="forward_plus"` because it is the default. | `godot/project.godot:15` |
-| Driver on macOS: Vulkan (MoltenVK), adapter "Apple M4" | `godot/project.godot:32` (`rendering_device/driver.macos="vulkan"`); `evidence/a6/renderer-switch/gpu-driver.txt` |
+| Driver on macOS: Vulkan (MoltenVK), adapter "Apple M4" | `godot/project.godot:31` (`rendering_device/driver.macos="vulkan"`); `evidence/a6/renderer-switch/gpu-driver.txt` |
 | Vsync: enabled (default mode 1; the project does not override it) | ProjectSettings default |
 | Viewport 640×360, window 1280×720 (2×), stretch `canvas_items` | `godot/project.godot:23-27` |
 | Camera2D at (320, 180), zoom 1 | `godot/game/main.gd:39-41` |
@@ -42,17 +42,17 @@
 | `Fighter.rewind_tick(fighter)`, one per 10 wind | `fighter.gd:16` | `fighter.gd:213` |
 | `Fighter.state_changed(fighter, old, new)`, edge-triggered | `fighter.gd:13` | `fighter.gd:255` |
 | `Fighter.projectile_fired(fighter)` | `fighter.gd:15` | `fighter.gd:189` |
-| `Main.round_changed(state)` (TITLE, INTRO, FIGHT, KO) | `main.gd:9` | `main.gd:104` |
+| `Main.round_changed(state)` (TITLE, INTRO, FIGHT, KO) | `main.gd:9` | `main.gd:112` |
 | `Main.LOW_WIND = 25.0` (music slows below it) | `main.gd:15` | |
 
 Existing hit feedback:
-- Hand-drawn star "sparks", 0.14 s, at the impact point (`main.gd:198-220`).
-- Melee hits use the centre of the attacker's attack box (`main.gd:194-196`); cork hits use the cork's position (`main.gd:191`).
-- Camera shake lasts 0.15 s (`main.gd:200`), and hitstop is 0.07 s (`fighter.gd:37`).
+- Hand-drawn star "sparks", 0.14 s, at the impact point (`main.gd:206-207`, drawn in `main.gd:221-228`).
+- Melee hits use the centre of the attacker's attack box (`main.gd:202-204`); cork hits use the cork's position, read in the `struck` handler before the cork frees itself (`main.gd:200`).
+- Camera shake lasts 0.15 s (`main.gd:208`), and hitstop is 0.07 s (`fighter.gd:37`).
 - Your boundaries section has to say whether Effect A replaces the sparks or sits beside them. Removing them changes `main.gd`.
 
 **Pause is a game flag, not a tree pause.**
-- Esc/P toggles `main.paused` (`main.gd:115-117`), and the fight loop skips simulation while it is set (`main.gd:133-136`).
+- Esc/P toggles `main.paused` (`main.gd:123-125`), and the fight loop skips simulation while it is set (`main.gd:141-142`).
 - `get_tree().paused` is never set.
 - `Main` runs with `PROCESS_MODE_ALWAYS` (`main.gd:38`), so particles under it inherit that and keep simulating during the game's pause unless something stops them.
 - Your brief's pause rule has to say which pause it means.
@@ -110,19 +110,24 @@ The project now runs Forward+, so these Compatibility limits no longer apply. Th
 ## 7. Instruments and environment
 
 - `timeout` is installed (`/opt/homebrew/bin/timeout`), so `scripts/run-test.sh` works on macOS.
-- The game binds A, D, ←, →, J, K, L, I, ↑, S, ↓, Esc, P, Enter, Space, R, M, N and F1 (`godot/game/controls.gd:6-18`). **F9 is free** for the vsync debug key.
-- Example 09 (the chapter's cost script) is not on this machine. `prompts/prompt-7.txt` has a placeholder for its path.
+- The game binds A, D, ←, →, J, K, L, I, ↑, S, ↓, Esc, P, Enter, Space, R, M, N and F1 (`godot/game/controls.gd:6-18`). **F9 is taken** since A5: it is the debug-build capture key (`godot/game/debug_capture.gd:18`, `README.md:116`). F10, F11 and F12 are unbound in the game's code; pick one for the vsync debug key and name it in the README.
+- Example 09 (the chapter's cost script) is still not on this machine (searched `csye7270/` on 2026-11-07). `prompts/prompt-7.txt` has a placeholder for its path.
+- **Wrapper caveat (found 2026-11-07):** if the test file name doesn't exist, `scripts/run-test.sh` exits 0. Godot prints "Can't load script", which matches neither `SCRIPT ERROR` nor `SHADER ERROR`. Read the count line, not just the exit code. Also, in zsh an unquoted `$var` holding "file.gd 60" is passed as one argument; Claude's first baseline loop hit exactly this.
 
-## 8. Baseline (2026-10-29, before any A6 change, through the new wrapper)
+## 8. Baseline (2026-11-07, at `a5` plus the A6 wrapper, before any A6 change)
 
-| Test | Mode | Compatibility (before switch) | Forward+ (after switch) | Log |
-|---|---|---|---|---|
-| `test_slice.gd` | realtime (A2 ran it without `--fixed-fps`) | 25 checks, 0 failed, exit 0 | 25 checks, 0 failed, exit 0 | `logs/test_slice_realtime.log` |
-| `check_props3d.gd` | 60 | 23 PASS, 0 FAIL, exit 0 | 23 PASS, 0 FAIL, exit 0 | `logs/check_props3d_60fps.log` |
+Claude ran these through the A6 wrapper (`8731c5c`), each in the mode the A5 README gives (`README.md:120-135`):
 
-- The logs on disk are from the Forward+ run. The counts were the same again after the switch to Vulkan. The wrapper overwrote the Compatibility logs, which used the same names.
-- Headless runs use the dummy renderer either way, so identical counts are expected and say nothing about the look.
-- No log contains `SCRIPT ERROR` or `SHADER ERROR`. Both end with Godot's usual "leaked at exit" warnings.
+| Test | Mode | Result | Log |
+|---|---|---|---|
+| `test_slice.gd` | 60 | 25 checks, 0 failed, exit 0 | `logs/test_slice_60fps.log` |
+| `check_props3d.gd` | 60 | 23 PASS, `RESULT: PASS (0 failing)`, exit 0 | `logs/check_props3d_60fps.log` |
+| `test_rewind_tint.gd` | 30 / 60 / 144 | 50 checks, 0 failed, exit 0, at each rate | `logs/test_rewind_tint_{30,60,144}fps.log` |
+| `test_materials.gd` | 60 | 55 checks, 0 failed, exit 0 | `logs/test_materials_60fps.log` |
+
+- No log contains `SCRIPT ERROR` or `SHADER ERROR`. They end with Godot's usual "resources still in use at exit" lines; `check_props3d` and `test_materials` also print `Parameter "material" is null`, which already appeared at A5 (`evidence/a5/mutations/m3-source_color_test_materials_60fps.log:72`).
+- These are the counts your TEST-REPORT "before" column needs. Run them again yourself after the A6 work.
+- The 2026-10-29 baseline (before A5) was `test_slice` 25/25 realtime and `check_props3d` 23/23 at 60, under both renderers.
 
 ## 9. What CHANGE-BRIEF.md needs (structure only, from the assignment)
 
@@ -154,16 +159,18 @@ For the whole brief:
 
 ## 10. Order of work
 
-1. Commit `scripts/run-test.sh`, then the renderer switch (`godot/project.godot`, the README engine line, `evidence/a6/renderer-switch/`), each with the baseline counts from section 8 in the message.
-2. Write `CHANGE-BRIEF.md` yourself, and commit it before any prompt is sent.
-3. Run Step 1, from the repository root:
+1. ~~Commit the A6 `scripts/run-test.sh` with the baseline counts~~: done in `8731c5c` (Claude, 2026-11-07). The renderer switch was committed during A5 (`aec645e` and earlier).
+2. **Confirm the Visual Profiler shows non-zero GPU times under Vulkan** (section 6). Your GPU-time predictions and budgets depend on this instrument working.
+3. Write the A6 `CHANGE-BRIEF.md` yourself, replacing the file's contents, and commit it before any prompt is sent.
+4. Run Step 1 with `prompts/prompt-1.txt` (now the handout's text: revise CLAUDE.md). From the repository root:
 
    ```bash
    claude -p "$(cat prompts/prompt-1.txt)" --permission-mode acceptEdits --allowedTools "Read,Write,Glob,Grep,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(ls:*)" --max-turns 40 --output-format stream-json --verbose > prompts/session-1.jsonl
    ```
 
-   Commit the draft unedited, review it, then commit your review separately.
-4. For Steps 2, 3, 5 and 7, use the scoped command in the assignment with `prompts/prompt-<N>.txt` and `prompts/session-<N>.jsonl`.
+   - During A5, `claude -p` hit an individual spend limit that lasts until 2026-12-01. If it still refuses, run the same prompt in an interactive session and save its transcript, as you did for A5. Record which route you used in FRICTIONAL.md.
+   - Commit the draft unedited, review it, then commit your review separately.
+5. For Steps 2, 3, 5 and 7, use the scoped command in the assignment with `prompts/prompt-<N>.txt` and `prompts/session-<N>.jsonl`.
    - Steps 3 and 4 plan and then wait for your approval, so run them interactively in `claude`.
    - After every session, read the final `result` event, then run `git diff --stat godot/shaders/` and `git diff scripts/run-test.sh`.
-5. You run every Movie Maker capture and every check in the running game.
+6. You run every Movie Maker capture and every check in the running game.
