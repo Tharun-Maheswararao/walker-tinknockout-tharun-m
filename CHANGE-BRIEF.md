@@ -259,4 +259,4 @@ The effects-off reference: Visual Profiler, Render Viewport 0.97 ms GPU / 0.11 m
 
 ## A6 revisions
 
-*(none yet)*
+- **2026-11-08:** the cork's `struck` handler is at `main.gd:199`, not 200 (line 200 is `corks.append(c)`). Applies to A.1 and A-R4; no rule or value changes.
