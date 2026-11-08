@@ -1,352 +1,262 @@
-# CHANGE-BRIEF — Tin Knockout asset slice
+# CHANGE-BRIEF — Assignment 6: two particle effects for Tin Knockout
 
-*Version 1 · 2026-10-05 · committed before any generation. Predictions are kept even if later refuted; results go in TEST-REPORT.md.*
-
-## 1. Asset list
-
-| ID | What | Source | Storyboard panels |
-|---|---|---|---|
-| CHAR-REF | Bolt reference / turnaround (P01) | generated | all (consistency) |
-| CHAR-IDLE | P02 fight stance | generated, derived from CHAR-REF | 1, 2 |
-| CHAR-WALK | P03 walk | generated | 3, 6 |
-| CHAR-JAB | P04 jab | generated | 3 |
-| CHAR-CUTLASS | P05 cutlass swing (empty hand; blade is WPN-CUTLASS) | generated | 5 |
-| CHAR-POP | P06 pop-gun fire (empty hand; gun is WPN-POPGUN) | generated | 6 |
-| CHAR-BLOCK | P07 block | generated | — (in slice, not boarded) |
-| CHAR-REWIND | P08 rewind | generated | 4, 6 |
-| CHAR-HURT | P09 hurt | generated | 3 (Rivet), 5 |
-| CHAR-EMPTY | P10 spring empty | generated | 5 |
-| CHAR-KO | P11 knocked out | generated | 7 (Rivet) |
-| CHAR-WIN | P12 victory | generated | 7 |
-| RIVET-* | Rivet versions of every CHAR-* pose | **edit:** palette recolour of the accepted CHAR-* images | 1–7 |
-| WPN-CUTLASS | tin cutlass prop | generated | 5 |
-| WPN-POPGUN | tin cork pop-gun prop | generated | 6 |
-| PROP-CORK | cork projectile | generated (or cropped from WPN-POPGUN) | 6 |
-| ENV-BOWL | arena background: inside the empty goldfish bowl, gravel floor, plastic castle, seaweed, moonlit glass | generated | 2, 3, 5, 6 |
-| ENV-TITLE | title background: the shop counter with the bowl, from above | generated (stretch: may reuse ENV-BOWL with a title overlay) | 1 |
-| SFX-BELL | boxing-ring style bell, small and tinny | generated | 2, 7 |
-| SFX-JAB | hollow tin *clang* | generated | 3 |
-| SFX-CUTLASS | metallic *shing* plus clank | generated | 5 |
-| SFX-POP | cork pop-gun *pop* | generated | 6 |
-| SFX-REWIND | one ratchet click (played once per quarter-turn) | generated | 4, 6 |
-| SFX-EMPTY | spring unwinding *wrrr-clunk* | generated | 5 |
-| MUS-WALTZ | music-box / carnival-organ waltz loop | generated | 1–7 |
-| UI-HUD | health bars, spring dial, text | **code-drawn** (not generated; doesn't count toward the requirement) | 2–7 |
-
-## 2. Event-to-sound map
-
-All sounds are played by an `Sfx` helper that **listens** to gameplay signals. Gameplay code never waits on, reads, or depends on audio. Muting just sets the bus volume, so the same signals still fire.
-
-| Sound | Exact trigger (gameplay code that already represents the event) | Double-trigger prevention |
-|---|---|---|
-| SFX-BELL | `Round` state changes to `FIGHT` (round start) and to `KO` (round end) | Played from the state-*enter* handler only; a transition to the same state is ignored. |
-| SFX-JAB | `Fighter.hit_landed(attack="jab")`, emitted when a jab hitbox first overlaps the opponent's hurtbox | Each attack instance has a `has_hit` flag. The first overlap sets it, emits once, and disables the hitbox. Later overlapping frames do nothing. |
-| SFX-CUTLASS | `Fighter.hit_landed(attack="cutlass")` | Same `has_hit` flag per swing. |
-| SFX-POP | `Fighter.projectile_fired`, when a cork is spawned | Firing uses `is_action_just_pressed` plus an attack lockout. Holding the key fires once; the next shot needs a new press after recovery. |
-| SFX-REWIND | `Fighter.rewind_tick`, emitted each time accumulated rewind angle crosses a 90° boundary | Ticks come from a counter, not from frames: at most one per quarter-turn, regardless of frame rate or how long the key is held. |
-| SFX-EMPTY | `Fighter` state *enters* `EMPTY` (spring reaches 0) | Edge-triggered on state entry. Staying empty does not re-fire it. |
-
-## 3. Music behaviour
-
-| Situation | Behaviour | How it's implemented |
-|---|---|---|
-| Round in progress | MUS-WALTZ loops seamlessly | OGG with loop enabled on import, loop point at a bar boundary |
-| Bolt's spring < 25 % | Music slows and pitch drops (~0.85×) | Tween `pitch_scale` on the music player; back to 1.0 when wind ≥ 25 % |
-| Pause | Quieter (−10 dB) and muffled | Enable a low-pass effect on the Music bus and lower its volume; reverse on unpause |
-| Failure (Bolt KO) | Music stops on the KO bell | `stop()` in the KO state handler |
-| Success (Rivet KO) | Music stops on the KO bell | Same handler: the end of a round always means silence |
-| End of slice / rematch | Silence until R; a rematch restarts the loop from the top | Restart on `Round` entering `FIGHT` |
-| Mute | `M` toggles music, `N` toggles effects, separately | Bus mute on `Music` / `SFX` buses |
-
-## 4. Predicted failure cases
-
-| # | Prediction | How I will check it |
-|---|---|---|
-| F1 | **Pose drift:** SDXL-Turbo poses drift from the reference (helmet too small or too big, two portholes, key missing or on the front). | Scale each pose to 112 px and overlay it on CHAR-REF. Measure the helmet/height ratio (must be 33–47 %). Check consistency rules 2 and 3 for each pose. Rejects go on the contact sheet. |
-| F2 | **Hit sound fires more than once per attack** because the hitbox overlaps for several physics frames. | Automated test: a scripted input sequence of N jabs and N cutlass swings into a stationary opponent. Assert `SFX-JAB count == jabs that hit` and the same for the cutlass. |
-| F3 | **Music loop clicks at the seam.** | Listen to at least 3 repetitions (human). Plus an automated check on the exported OGG: the sample jump and the RMS difference across the seam must be under a threshold. |
-| F4 | **Rivet (copper and verdigris) disappears against the bowl.** The palette check already shows a 1.07:1 contrast between Rivet's suit and the planned gravel. | Measure luminance contrast between each fighter's main colours and the real generated background behind them. Squint test on a muted screenshot. Fix by recolouring Rivet or regenerating the background with a lighter band. |
-| F5 | **Rewind clicks fire every frame** while the key is held (a machine-gun buzz). | Automated test: hold Rewind for exactly 2.0 s. Assert ticks == floor(rewound angle / 90°). |
-| F6 | **Muted play is unreadable:** you can't tell idle from rewinding, or empty from hurt. | Muted playtest (human) plus side-by-side state screenshots. Each state must be identifiable without sound or HUD text. |
-| F7 | **Weapon sprites don't line up with the hand** in generated poses (the anchor moves between poses). | Measure the hand anchor per pose after generation and store the offsets in code. Visually check every weapon pose in-engine. |
-
-## Revision 1 — 2026-10-06 (after building; results in TEST-REPORT.md)
-
-- **New assets:**
-  - `PROP-KEY`: the winding key as a separate sprite, see CHARACTER-SHEET revision 1.
-  - **Cork impact** reuses SFX-JAB at pitch 1.25. There is no separate generated sound for it.
-  - **Blocked hits** play their hit sound at pitch 0.8, still exactly once per hit.
-- **Gameplay rule changes found by testing:**
-  - a 1.5 s pop-gun cooldown for Rivet at round start;
-  - **HURT always returns to IDLE**, which fixes a stun-lock chain at 0 wind;
-  - a fighter with 0 wind cannot walk.
-- **Facing** follows the walk input (it was "always face the opponent").
-- **ENV-TITLE** was not made; the title is an overlay on the arena.
-- Predicted failures F1–F7: outcomes are in TEST-REPORT section 10.
-
----
-
-# Assignment 3 — three 3D props for Tin Knockout
-
-*Version 1 · 2026-10-14 · committed before any asset is built. The Assignment 2 brief above is unchanged. Later changes go under "A3 revisions" below and never rewrite this version.*
-
-> **Authorship:** I chose the three assets, the character scale and the dropped cork. Claude drafted the numbers, colours and failure cases from those choices and from my "Learn the window" session. I reviewed every number below before committing. Changes I made to Claude's draft: **none. I accepted the numbers, colours, budgets and failure cases as Claude drafted them.**
-
-## A3.1 Ground rules
-
-| | |
-|---|---|
-| **Game scale** | Character scale: **Bolt = 1.80 m tall** (helmet ≈ 0.72 m, 40 %). Everything is sized against him. 1 Blender unit = 1 m = 1 Godot unit, so nothing converts. |
-| **Where they appear** | A new Godot 3D "prop room", `godot/prop_room/prop_room.tscn`: a floor, one light, a camera, and the three props side by side. The bowl-floor diorama is not yet connected to the 2D slice. Assignments 4 and 5 reuse it. |
-| **Axes** | Blender is Z-up; Godot is Y-up. The glTF exporter's **+Y Up** converts them. Each prop's **front faces Blender −Y**, which arrives as **Godot +Z**, so a Godot camera at +Z looking toward −Z sees the front. |
-| **Origin (all three)** | The **centre of the underside, at Blender's world origin (0, 0, 0)**, with the lowest point at Z = 0. Godot places a scene at its origin, so a prop dropped at floor height Y = 0 should sit exactly on the floor. |
-| **Build** | Basic shapes only, ≤ 6 per asset, one `execute_blender_code` call per shape. At the end: apply rotation and scale, **join the parts into one object** named after the asset, and set the origin to the base centre. One `.blend` and one `.glb` per asset. |
-| **Materials** | Flat colour as the **Principled BSDF Base Color**, roughness 0.5, metallic 0, no textures. (The viewport display colour alone would not survive glTF export.) |
-| **Triangle limit** | Course limit ≤ 500 per asset. My own budgets are below and lower. Cylinder/cone segments are set explicitly: a cylinder with *n* sides and n-gon caps is 4*n* − 4 triangles, a cone 2*n* − 2, a cube 12. |
-| **Tolerance** | Sizes match the brief within **±0.01 m** in both Blender and Godot. The base sits at height 0 within **±0.005 m**. |
-
-## A3.2 The assets
-
-### ASSET 1 — `castle`: sunken-castle ornament (environment)
-
-| | |
-|---|---|
-| **In the game** | The plastic castle on the bowl floor, behind the fighters. It is the landmark that says "goldfish bowl" (it appears pink in my A2 background). |
-| **Size W × D × H** | **1.80 × 0.82 × 2.30 m** |
-| **Why that size** | At 2.30 m it is 1.28 × Bolt's height, so it reads as scenery *behind* him, not a hiding place. It is 1.80 m wide, one Bolt-height. The 0.70 m door is deliberately too small for Bolt: it is an ornament, not a building, which sells the toy-world joke. |
-| **Shapes (6)** | Keep: cube 1.20 × 0.80 × 1.40. Two towers: cylinders r 0.30, h 1.80, 12 sides, at X = ±0.60. Two roofs: cones r 0.30, h 0.50, 12 sides, on top of each tower (Z 1.80–2.30). Door: cube 0.40 × 0.04 × 0.70 on the −Y face, protruding 0.02. |
-| **Look** | Two towers with pointed roofs and a dark door read as "castle" from any side. **Colours:** faded aquarium pink `#D98BA0` (keep and towers), verdigris teal `#3E8E86` (roofs), dark brown `#3A2A20` (door). |
-| **Budget** | **≤ 200 triangles.** Predicted 156: 12 keep + 2 × 44 towers + 2 × 22 roofs + 12 door. It is the biggest prop on screen, but its silhouette is all straight lines and cones, so 12 sides is enough. |
-
-### ASSET 2 — `windkey`: winding key pickup (collectible)
-
-| | |
-|---|---|
-| **In the game** | A spare brass key lying on the bowl floor. Picking it up would refill Bolt's spring. It is a future mechanic, not in the A2 slice. |
-| **Size W × D × H** | **0.60 × 0.14 × 0.70 m** |
-| **Why that size** | The same size as the key on Bolt's back, about ⅓ of his height, so the player instantly recognises "that's my key". |
-| **Shapes (4)** | Shaft: cylinder r 0.04, h 0.36, 8 sides, standing on Z = 0. Collar: cylinder r 0.07, h 0.04, 12 sides, at Z 0.36–0.40. Two bow lobes: cylinders r 0.15, depth 0.06, 16 sides, **rotated 90° about X** so their round faces point ±Y, centred at X = ±0.15, Z = 0.55. |
-| **Look** | The two round lobes on a stem are the key's silhouette, as on Bolt's back. It stands upright, bow on top. **Colours:** polished brass `#C9A23A` (shaft and lobes), dark brass `#8C6A1E` (collar). |
-| **Budget** | **≤ 250 triangles.** Predicted 192: 28 shaft + 44 collar + 2 × 60 lobes. The round lobes *are* the recognisable part, so they get the most sides. |
-| **Note** | The origin is at the shaft tip, so in-game it can stand or hover. Any hover offset is game code, not the asset. |
-
-### ASSET 3 — `toybox`: toy-box crate (prop)
-
-| | |
-|---|---|
-| **In the game** | The tin toy box that weapon pickups (cutlass, mallet, shield) come out of, on my A2 "Out" list. |
-| **Size W × D × H** | **1.26 × 0.76 × 0.75 m** |
-| **Why that size** | At 0.75 m the lid is at Bolt's waist (≈ 0.42 × 1.80 m), so he can reach in. The 1.20 m inner body fits the ~0.9 m cutlass lying flat. |
-| **Shapes (4)** | Body: cube 1.20 × 0.70 × 0.65 (Z 0–0.65). Lid: cube 1.26 × 0.76 × 0.10 (Z 0.65–0.75), overhanging 0.03 on each side. Band: cube 1.22 × 0.72 × 0.08 around the body at Z 0.30–0.38, standing in for a lithographed stripe. Latch: cube 0.12 × 0.03 × 0.12 on the −Y face just under the lid. |
-| **Look** | A box with an overhanging lid and a brass latch reads as "toy chest". The stripe gives the tin-toy look. **Colours:** tin-toy red `#B5302A` (body), cream `#E8DCC0` (lid), navy `#23395B` (band), brass `#C9A23A` (latch). |
-| **Budget** | **≤ 100 triangles.** Predicted 48: 4 cubes × 12. Boxes need nothing more. The spare budget is not a target. |
-
-## A3.3 Predicted failure cases
-
-| # | Prediction | How I will check it |
-|---|---|---|
-| A3-F1 | **Wrong size by a factor of 2 (or 10).** Blender's default cube is 2 m, not 1 m (seen in my own sidebar). A "scale 0.6" cube becomes 1.2 m, and a size typed in centimetres comes out 100× too big. | Blender sidebar **Dimensions** vs. the brief, ±0.01 m, recorded in TEST-REPORT. The Godot check prints each asset's AABB size for a second comparison. |
-| A3-F2 | **Arrives lying on its side or facing backwards.** Caused by exporting with +Y Up off, or by the key's 90° lobe rotation leaking into the whole object. | The Godot check reports which axis is the tallest (it must be Y for the castle and key) and the node rotation (must be 0, 0, 0). A camera at +Z must see the castle door and the toy-box latch. |
-| A3-F3 | **Floats or sinks.** The origin stays at the geometric centre, as Blender's primitives create it, so the base is at −H/2 or +H/2. | The check prints each AABB's minimum Y; it must be 0.000 ± 0.005. Human check: each prop placed at Y = 0 visibly sits on the floor, with no gap and no clipping. |
-| A3-F4 | **Unapplied scale or rotation.** Blender shows Scale ≠ 1, the glTF node carries it, and Godot shows a scaled node. | Blender sidebar: Rotation 0°, Scale 1.000 before export. The Godot check prints node scale; it must be (1, 1, 1). |
-| A3-F5 | **Claude builds more than asked**: default 32-sided cylinders (124 tris each), extra bevels or decorations, or more than 6 shapes. | Blender **Scene Statistics** triangle count vs. my budget (200 / 250 / 100). The Outliner shows the part count before joining. I compare each `execute_blender_code` body with the brief before approving it. |
-| A3-F6 | **A colour does not survive export.** It was set only as the viewport colour, or a material slot was lost when joining, so the asset arrives white or single-coloured. | Human check in Godot under one light. The check also prints each surface's material albedo for comparison with the hex codes. |
-| A3-F7 | **The MCP route breaks mid-build**: Claude cannot reach port 9876, or a session started before the server cannot see the tools. | The first `get_scene_info` call must return the scene. Record any exact error in FRICTIONAL.md. Time box 2 h, then fall back to the script route (`blender -b --factory-startup --python-exit-code 1 --python …`). |
-
-## A3.4 Planned hand edit
-
-At least one change made by me with the mouse in Blender, recorded in FRICTIONAL.md and the film. Candidate: recolour the toy box's band, or nudge the castle door, then re-check the dimensions in the sidebar. *(I will confirm which while building.)*
-
-## A3 revisions
-
-*(none yet)*
-
----
-
-# Assignment 5 — a state tint from code, and a textured tin material
-
-*Version 1 · 2026-11-01 · committed before either shader exists and before the first agent prompt. The A2 and A3 briefs above are unchanged. Later changes go under "A5 revisions" below, dated, and never rewrite this version.*
+*Version 1 · 2026-11-08 · committed before the first prompt. The A2, A3 and A5 briefs are in history at tags `a3` and `a5`. Later changes go under "A6 revisions" at the bottom, dated, and never rewrite this version.*
 
 > **Authorship:**
-> - **Layout and facts:** Claude laid out these headings from the Assignment 5 handout and filled in the file:line facts from `design/a5/BRIEF-FACTS.md`.
-> - **Design decisions:** Claude proposed them on 2026-11-01 and I accepted them all unchanged. They cover the state, tint colour, strength, fade times, rules R1–R6, uniform names, hints and defaults, boundaries, the textured object, the two materials, and the material plan in A5.5 (texture choice, import settings, uniforms, material values, lighting).
-> - **Colour line:** I was stuck, so I asked Claude for a suggestion. Claude suggested `COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);` on 2026-11-01. I typed it in myself and can explain each part: the swizzle keeps alpha, `mix` blends from the sprite's colour to the tint, and the product makes the amount 0 at rest and 0.5 at full.
-> - **Mine:** every predicted number and its working (by hand, on paper), the hint-experiment predictions, the failure cases and the short answers.
-> - **Review corrections I accepted from Claude:**
->   - the check references in F1–F3 (R3 → R6, "performance throttle" → the R2 test at 30/60/144, R5 → R3);
->   - "unshaded white" → "white … still lit by the scene" in short answer 4.
+> - **Layout:** Claude laid out these headings from the Assignment 6 handout. File:line facts come from `design/a6/BRIEF-FACTS.md`.
+> - **Mine:** the choice of both effects (2026-11-08) and every decision and value under the headings. Drafting help is listed below.
+> - **Help I asked for:**
+>   - 2026-11-08, A.2–A.3, B.1–B.4: Used an external LLM, Claude 3.5 Sonnet, to draft initial structural bullet points for sections A.2, A.3, B.1, B.2, B.3, B.4, C, D, E, F and G, which I subsequently reviewed, corrected against Godot particle behavior, and integrated. The corrections came from Claude Code's reviews: an additive layer cannot draw a dark outline, so the dark edge and the cyan core went on separate MIX and ADD emitters; the scale row mixed view and window pixels; a 0.25 s lifetime leaves strip frames 20, 30 and 50 empty and does not remove the need for a retrigger rule; in A.3, a `Curve` clamps points above `max_value` 1.0 (probed in 4.7.2), `gravity` is a `Vector3`, a 64×64 default gradient made the core about 100 px wide, and the core curve's start disagreed with A.2.
+>   - 2026-11-08, A.1: Claude's review of my first draft pointed out that hits already have shake, hitstop, the clang and the star; that `p` is the attack box's centre, not the overlap; and that the star is a static polygon, not debris. I rewrote A.1 with those corrections.
 
-## A5.1 The state
+---
+
+## A. Effect A — impact burst
+
+### A.1 The job
 
 | | |
 |---|---|
-| **State** | REWIND |
-| **What the effect communicates** | "This fighter is cranking its key and is open." A blue tint fades in while a fighter rewinds and fades out after it stops. |
-| **Why the player needs it** | REWIND is the vulnerable window: a hit there does 1.5× damage and causes a knockdown (`fighter.gd:228-230`). The player must see **Rivet** rewinding to punish it, and must notice their own rewind as a risk. Today the only cue is the key pose. |
-| **Script and variable** | `godot/fighter/fighter.gd`: `var state` (line 50) equals `S.REWIND` (enum, line 19). Entered at line 159; left at line 204 (key released), line 232 (hit, to HURT) and line 236 (KO). |
-| **Object shaded** | Each fighter's body `sprite: Sprite2D` (`fighter.gd:64, 72`). The key and weapon sprites are separate nodes and are not shaded. |
+| **What it tells the player, and why they need it** | Rather than confirming that a hit happened—which the current 0.15s camera shake, 0.07s hitstop, tin clang sound (`SFX-JAB`), and star spark already do—Effect A adds visual contrast and variety. The current feedback uses the exact same static star spark for every single connection, which blends in and easily disappears against bright background elements like the castle wall. Effect A gives the hit distinct visual weight and better readability across different arena backgrounds. |
+| **Blocked hits** | **Different.** Blocked hits show a smaller, muted grey-tin deflection burst instead of the full Effect A, clearly signaling that the attack was successfully parried or guarded. This needs the `blocked` flag passed from `_on_hit` and `Cork.struck` to `_on_impact` (`main.gd:200-207`; `_on_hit` drops it today, `main.gd:202`). |
+| **Event** | Every impact: a melee hit (`Fighter.hit_landed`, `fighter.gd:14`, emitted at `:197`) or a cork hit (`Cork.struck`, `cork.gd:11`, emitted at `:24`). Both already arrive at `main._on_impact(p)` (`main.gd:200, 202-207`). |
+| **Position** | `p` from `main._on_impact`. For melee attacks, `p` represents the center of the attacker's 2D attack box (`main.gd:204`), which means it can sit slightly in front of the target sprite rather than at the exact overlap intersection. We will use `p` directly because it provides a reliable, consistent origin point tied to the attack action without requiring extra 2D polygon intersection math between collision boxes. For cork hits, `p` is the cork's position (`main.gd:200`). |
+| **The existing hand-drawn sparks** (`main.gd:207, 221-228`) | **Kept.** The existing star spark is not particle debris—it is a single 16-point static star polygon that scales slightly and fades over 0.14s (`main.gd:221-228`). Keep the star spark as the base flash layer and use Effect A to add the dynamic, moving element (burst lines/secondary shapes) on top of it. This builds on the existing impact pop rather than removing working feedback code from `main.gd`. |
 
-## A5.2 Effect specification
+### A.2 Intent: how it reads
 
-**Shader:** `godot/shaders/rewind_tint.gdshader` · `shader_type canvas_item;` · render_mode: none. It sits on one ShaderMaterial per fighter, on each fighter's body `sprite`.
-
-**Uniforms.** No sampler uniforms; the sprite's own texture arrives in `COLOR`.
-
-| Name | Type | Hint | Default | Set by |
-|---|---|---|---|---|
-| `rewind_amount` | float | `hint_range(0.0, 1.0)` | `0.0` | the driver, every frame, from `fighter.state == S.REWIND` (0 = no tint, 1 = full) |
-| `tint_color` | vec4 | `source_color` | `vec4(0.353, 0.627, 1.0, 1.0)`, i.e. RGB (90, 160, 255) | the material (Inspector), not changed at runtime |
-| `tint_strength` | float | `hint_range(0.0, 1.0)` | `0.5` | the material (Inspector), not changed at runtime |
-
-**Colour line,** the one line inside `fragment()` that changes the colour:
-
-```glsl
-COLOR.rgb = mix(COLOR.rgb, tint_color.rgb, rewind_amount * tint_strength);
-```
-
-**Rules**
-
-| # | Rule | My value | Evidence: headless test or my eyes, and how |
-|---|---|---|---|
-| R1 | Uniform value when the state begins, and when it ends | When REWIND begins, `rewind_amount` starts rising from its current value (0.0 from rest) to 1.0. When REWIND ends, it falls from its current value to 0.0. Outside REWIND, at rest, it is exactly 0.0. | Headless test: hold `rewind` through the real input path, sample every frame. |
-| R2 | How long each change takes in seconds (± one frame period); the same game time at 30, 60 and 144 fps | Linear ramps: **fade-in 0.15 s** (0 → 1, rate 1/0.15 per s) and **fade-out 0.30 s** (1 → 0, rate 1/0.30 per s). Tolerance is one frame period (1/30, 1/60, 1/144 s), with the same game-time duration at 30, 60 and 144 fps. | Headless test at `--fixed-fps` 30, 60 and 144 through the wrapper: game time from the first frame the value moves to the first frame it reaches 1.0 (in) or 0.0 (out). |
-| R3 | The state begins again mid-transition: restart, extend or ignore | **Extend:** if REWIND begins again during the fade-out, the value rises from where it is at the fade-in rate. It never drops on re-entry, and it reaches 1.0 after (1 − v) × 0.15 s. | Headless test: release, re-press mid-fade-out, assert no frame-to-frame drop and the time to 1.0. |
-| R4a | `Engine.time_scale`: is the duration in scaled or unscaled time? | **Scaled** game time (the frame `delta`), the same clock as the simulation. At `time_scale` 0.5 the fade-in takes 0.30 s of real time and 0.15 s of game time. | Headless test with `Engine.time_scale = 0.5`. |
-| R4b | While the tree is paused (the game never does this, `main.gd:38`, but say what happens) | **Freeze:** the value holds while `get_tree().paused` is true and resumes from the same value after. | Headless test: pause the tree mid-fade, assert the value is unchanged over several frames. |
-| R4c | While the game's own pause flag is set (`main.paused`, `main.gd:115-117, 134`) | **Freeze:** the value holds while `main.paused` is true, because the state itself is frozen then. It resumes from the same value after unpause. | Headless test: press `pause` (P) mid-fade through real input, assert the value is unchanged. |
-| R5 | The state ends before a transition finishes (for example, a hit during the fade-in, `fighter.gd:232`) | **Fade out from the current value**, no snap: from value v the fade-out takes v × 0.30 s. | Headless test: release (or get hit) mid-fade-in, assert the value falls from where it was. |
-| R6 | Bolt and Rivet: how each gets its own value | **One ShaderMaterial per fighter**, both using the same shader. Rivet's REWIND never changes Bolt's `rewind_amount`, and vice versa. | Headless test: each sprite's material is a different object with the same shader; Bolt rewinds while Rivet's value stays 0.0. Eyes: in play. |
-| Look | The tint is visible on both fighters, the pose details still read, and the key and weapon are untinted | as specified above | **My eyes:** captures at the controlled values (A5.3) and play (Use It). No headless run can judge this. |
-
-**Boundaries.** The handout's list, applied to these files:
-- Unchanged:
-  - collision and hurtboxes (`fighter.gd:112-125`);
-  - movement;
-  - input (`game/controls.gd`);
-  - the state machine and its timings (`fighter.gd:128-255`);
-  - the expectations in `tests/test_slice.gd` and `tests/check_props3d.gd`;
-  - every object other than the two fighter body sprites.
-- The driver may read `fighter.state`; it never writes game state.
-
-## A5.3 Controlled inputs and predicted values
-
-**Lighting:** the shader is canvas_item, there are no 2D lights, and `rendering/viewport/hdr_2d` is off (not set in `project.godot`). Because there are no 2D lights in the arena and HDR 2D is turned off, the colour line works directly on the original raw pixel colour values from the PNG file, so my predictions apply `mix` to those numbers with no other step in between.
-
-**Pixels.** Measured texels from `design/a5/BRIEF-FACTS.md`. Both are opaque, and the capture position assumes Bolt at his start position (x 200, facing right) in a 1280×720 capture:
-
-The three controlled values are `rewind_amount` = 0.0, 0.5 and 1.0, with `tint_strength` 0.5 and `tint_color` (90, 160, 255), so the mix amount t = `rewind_amount` × 0.5 = 0, 0.25 and 0.5.
-
-| Pixel | Input RGB | Capture px | `rewind_amount` 0.0 (t = 0) | `rewind_amount` 0.5 (t = 0.25) | `rewind_amount` 1.0 (t = 0.5) |
-|---|---|---|---|---|---|
-| A: Bolt's chest, texel (251, 275) | (217, 87, 64) | (407, 477) | (217, 87, 64) | (185, 105, 112) | (154, 124, 160) |
-| B: Bolt's helmet dome, texel (281, 153) | (251, 188, 34) | (427, 396) | (251, 188, 34) | (211, 181, 89) | (171, 174, 145) |
-
-**Working, by hand (2026-11-01), on paper, photographed in `design/a5/predictions-pixelA-0.5-handwritten.jpg`.** Each channel is `c × (1 − t) + tint × t`. Pixel A at `rewind_amount` 0.5 (t = 0.25):
-- R = 217 × 0.75 + 90 × 0.25 = 162.75 + 22.5 = 185.25 ≈ **185**
-- G = 87 × 0.75 + 160 × 0.25 = 65.25 + 40 = 105.25 ≈ **105**
-- B = 64 × 0.75 + 255 × 0.25 = 48 + 63.75 = 111.75 ≈ **112**
-
-*Note (Claude, from checking my arithmetic):* five results at t = 0.5 land exactly on .5 before rounding (A: 153.5, 123.5, 159.5; B: 170.5, 144.5). I rounded them up, so the capture may read one step lower in those channels.
-
-**Contrast against the background** (WCAG relative-luminance ratio, computed 2026-11-01). Pixel A is compared with the background just right of Bolt's chest at his start position: the pink castle, mean RGB (215, 89, 123), measured by Claude (`design/a5/BRIEF-FACTS.md`).
-
-| Pair | Ratio |
+| | |
 |---|---|
-| Chest at `rewind_amount` 0, (217, 87, 64), vs castle | **1.04 : 1** |
-| Chest at `rewind_amount` 1, (154, 124, 160), vs castle | **1.03 : 1** |
+| **Timing phases** (rough durations) | Total lifetime is 0.25 seconds (staying safely below the ~0.4s maximum jab cycle to prevent visual clutter), beginning with an instant 0.05s snap expansion, followed by a 0.20s smooth fade-out and gentle contraction. |
+| **Contrast** against the named background | A dark edge and a bright core, on separate emitters: the shards use `MIX` blend with a dark-rimmed tin shard texture to ensure a visible dark edge against bright castle backgrounds; the core/dust uses `ADD` blend with a soft radial gradient to provide the glowing cyan core. Readable against both the darkest (x 256–287, mean luminance 98) and lightest (x 192–223, mean luminance 160) sections of the background (`design/a6/BRIEF-FACTS.md` §4). |
+| **Scale** against the character | Spans approximately 60 pixels wide in the 1280×720 window (representing roughly 70% of a fighter's helmet height). |
+| **Change over life** (colour, alpha, scale) | Starts at full scale and 100% opacity, expands by 20% to 50% (`1.0` to `1.2–1.5`) during the active phase. The shards fade from dark charcoal to transparent; the core ramp transitions from bright cyan (`0, 1, 1`) through deep blue (`0, 0.3, 0.7`) to transparent. |
+| **Variation** | Randomizes shard ejection angle (full 360 degrees), initial velocity speed (±20%), and particle rotation so rapid repeated hits never look stamped or repetitive. |
+| **Emitters**, each with its job | Two emitters alongside the retained static star flash (`main.gd:221-228`): **Shards** (`MIX`, dark-rimmed tin shard texture), a fast outer ring of tiny tin shards; **Core/Dust** (`ADD`, soft radial gradient), a slower, soft-fading cyan glow at the impact center. Blocked hits: the smaller, muted grey-tin burst above. |
 
-Worked example, the chest at `rewind_amount` 0:
-1. Normalise each channel: R = 217/255 ≈ 0.8510, G = 87/255 ≈ 0.3412, B = 64/255 ≈ 0.2510.
-2. Linearise (every c > 0.04045, so use ((c + 0.055)/1.055)^2.4): R_lin ≈ 0.6939, G_lin ≈ 0.0953, B_lin ≈ 0.0513.
-3. Luminance: L = 0.2126 × 0.6939 + 0.7152 × 0.0953 + 0.0722 × 0.0513 = 0.1475 + 0.0682 + 0.0037 = **0.2194**.
+### A.3 Settings
 
-*Note (Claude, from re-checking the arithmetic):*
-- Both ratios are correct. The castle's luminance is 0.2302 and the tinted chest's is 0.2382.
-- The chest is slightly darker than the castle at 0 and slightly lighter at 1. Somewhere in between, the two have the same luminance, a 1.00 : 1 ratio.
-- Against the castle, the tint is therefore a hue cue (red toward violet-blue), not a brightness cue.
+Scene: `godot/effects/impact_effect.tscn`, one root node with the two emitters below. Blocked hits use `godot/effects/impact_effect_blocked.tscn` (A.3c).
 
-## A5.4 Hint experiment predictions
+**Both emitters** (node settings)
 
-**Setup:** a 3×1 PNG with texels 64, 128 and 192 on two unshaded quads. Quad S samples with `source_color, filter_nearest`; quad D with `filter_nearest` only. Linear tonemap at exposure 1.0, with glow, fog and adjustments off. Forward+ (`project.godot:15`).
-
-| Band (file value) | Quad S displays | Quad D displays |
+| Setting | Value | Why |
 |---|---|---|
-| 64 | 64 | 137 |
-| 128 | 128 | 188 |
-| 192 | 192 | 225 |
+| Node type | `GPUParticles2D`, process settings in a `ParticleProcessMaterial` | Same node type as Effect B; calculations processed on the GPU. |
+| one_shot | true | _(it is a burst)_ |
+| explosiveness | 1.0 | Forces every particle to emit instantaneously on frame 1, creating the sharp "snap" required for an impact hit. |
+| lifetime | 0.25 s | A.2 timing phases. |
+| local_coords | false | Ensures particles stay anchored in world space at impact point `p` even if the fighters move or get knocked back during the hitstop. |
+| visibility_rect | default `Rect2(-100, -100, 200, 200)`, read back by the config test | The default 200×200 box is more than large enough to safely bound a 30 px burst without risking culling bugs. |
+| preprocess | 0.0 | Instantaneous impact burst. |
 
-**Working, using the handout's encode(x)**, band 64 on quad D: v = 64/255 = 0.250980 → v^0.41667 = 0.562144 → × 1.055 = 0.593062 → − 0.055 = 0.538062 → × 255 = 137.205906 ≈ **137**. Bands 128 and 192 use the same steps.
+**A.3a Shards emitter**
 
-**Which quad shows the file's values unchanged, and why:** Quad S shows 64, 128, and 192 unchanged because the texture sampler decodes the sRGB input values into linear space (decode(x)) upon reading, and the output screen stage applies the exact inverse function (encode(x)) upon display, cancelling out both transformations.
+| Setting | Value | Why |
+|---|---|---|
+| amount | 16 | Provides enough individual fragments for a crisp debris feel without cluttering the screen or impacting performance. |
+| emission shape | Point (`EMISSION_SHAPE_POINT`) | |
+| initial_velocity_min / max | 60.0 / 90.0 px/s | Speeds designed to push tin fragments outward into the ~15 px radius ring. |
+| spread | 180.0° | Full omnidirectional burst. |
+| angle_min / max | -180.0 / 180.0° | Fully randomized shard rotation. |
+| gravity | `Vector3(0, 400, 0)` | Gives the tiny tin fragments physical weight so they arc downward like real debris. |
+| damping_min / max | 100.0 / 150.0 | Rapid deceleration so debris stays clustered near the impact point `p`. |
+| color_ramp | `Color(0.25, 0.25, 0.28, 1.0)` → `Color(0.1, 0.1, 0.1, 0.0)` | Dark charcoal fading to transparent. |
+| scale_min / max | 0.8 / 1.2 | |
+| scale_curve | 1.0 at 0.0 → 1.2 at 0.2 (0.05 s) → 0.4 at 1.0 (0.25 s); curve `max_value` 2.0 | `max_value` 2.0 prevents default 1.0 clamping on scale points > 1.0. |
+| texture | 8 × 8 px PNG written by a committed script, `tools/generate_shard_texture.gd` | Provides a custom dark-rimmed tin shard texture since none exists in the base repository. |
+| draw material | `CanvasItemMaterial`, `blend_mode` MIX | Dark edge against bright backgrounds (A.2). |
 
-## A5.5 Material plan
+**A.3b Core emitter**
 
-**Object(s) and scene:** the toy box in `godot/prop_room/prop_room.tscn` ("fresh from the shop"), and a second toy-box instance beside it ("a hundred rounds later"). Two copies of the same mesh, so any difference between them comes from the material, not the shape. The shader replaces the toy box's red body material, slot `toybox_red` (the glb's material names are `toybox_red`, `toybox_cream`, `toybox_navy` and `toybox_brass`, read from `godot/assets/props3d/toybox.glb`'s JSON chunk).
+| Setting | Value | Why |
+|---|---|---|
+| amount | 8 | Keeps the glowing impact flash dense enough to read as a solid core without oversaturating the blend mode. |
+| emission shape | Point (`EMISSION_SHAPE_POINT`) | |
+| initial_velocity_min / max | 10.0 / 20.0 px/s | Slow, controlled energy expansion. |
+| spread | 180.0° | |
+| gravity | `Vector3(0, 0, 0)` | Keeps the energy flash expanding symmetrically around the impact point `p`. |
+| damping_min / max | 50.0 / 80.0 | |
+| color_ramp | `Color(0.0, 1.0, 1.0, 1.0)` at 0.0 → `Color(0.0, 0.3, 0.8, 0.8)` at 0.5 → `Color(0.0, 0.3, 0.7, 0.0)` | Bright cyan, transitions to deep blue, and fades out. |
+| scale_min / max | 1.0 / 1.2 | |
+| scale_curve | 1.0 at 0.0 → 1.5 at 0.2 (0.05 s) → 0.2 at 1.0 (0.25 s); curve `max_value` 2.0 | Rapid flash expansion. |
+| texture | `GradientTexture2D`, `fill` radial, centred _(fill_from (0.5, 0.5))_; explicit size 16 × 16 px (instead of the 64×64 default) so the core particles remain tightly scaled within the 30 px total effect scope | Generates a smooth soft radial gradient purely in engine resources without needing an external image asset file. |
+| draw material | `CanvasItemMaterial`, `blend_mode` ADD | Glowing cyan core (A.2). |
 
-**Lighting I will judge under:** the prop room exactly as A3 left it (`prop_room.tscn`):
-- Sun DirectionalLight3D, energy 1.0, shadows on;
-- WorldEnvironment: custom background colour, ambient (0.45, 0.5, 0.6) at energy 0.6, default (Linear) tonemap.
+**A.3c Blocked burst** — `godot/effects/impact_effect_blocked.tscn`
 
-SSAO, SSIL, SSR, SDFGI, glow and fog are off, because the Environment never enables them. I compare captures only under this setup, from the scene's Camera3D at (0, 1.6, 5.5).
+A second small scene file. Keeps scene settings declarative and clean per course preference, cleanly separating the grey muted deflection values from the full unblocked effect scene. Values: the shards' colour ramp is replaced with muted grey-tin `Color(0.5, 0.5, 0.5, 1.0)` fading to `Color(0.5, 0.5, 0.5, 0.0)` at the end, matching the unblocked shards so the blocked burst fades out smoothly rather than snapping out abruptly; the core's cyan/blue ramp is replaced with a faint desaturated grey-white ADD flash, `Color(0.6, 0.6, 0.6, 0.8)` fading to alpha `0.0`, so the blocked hit is fully muted across both layers; `amount = 8` for shards, `amount = 4` for core; `scale_min = 0.5`, `scale_max = 0.7`. Everything else as A.3a/A.3b.
 
-**Textures.** All four come from Poly Haven "Metal Plate" (https://polyhaven.com/a/metal_plate) by Rob Tuytel, CC0, 1k PNG, 16-bit. Credits and checksums are in `godot/assets/textures/metal_plate/ATTRIBUTION.md`.
+> **Shard motion (my decision on Claude's review note, 2026-11-08):** Keep it as it is. The downward gravitational sag (~12 px) and the 10–19 px dispersal radius give the tin debris a physical, heavy feel while relying on the scale curve for the visual snap.
 
-| Role | File | What its numbers mean | Sampled as | compress/mode | compress/normal_map | mipmaps/generate |
-|---|---|---|---|---|---|---|
-| Colour: bare metal under the paint | `metal_plate_diff_1k.png` | sRGB-encoded colour of the bare plate | colour, `source_color` | 2 (VRAM Compressed) | 2 (Disabled) | true |
-| Data: normal map | `metal_plate_nor_gl_1k.png` | tangent-space surface direction, x/y/z remapped to 0–1, OpenGL (Y+) green | data, `hint_normal` | 2 (VRAM Compressed) | 1 (Enable) | true |
-| Data: roughness, also the wear mask | `metal_plate_rough_1k.png` | 0 = mirror-smooth, 1 = fully rough; the same values decide where the paint wears through first | data, no `source_color` | 2 (VRAM Compressed) | 2 (Disabled) | true |
-| Calibration only | `metal_plate_nor_dx_1k.png` | the same normals with DirectX (Y−) green | not bound to any material | 2 (VRAM Compressed) | 1 (Enable) | true |
+### A.4 Observable rules
 
-I also set two more import settings on all four files so the editor has nothing to change later:
-- `roughness/mode=1` (Disabled);
-- `detect_3d/compress_to=0` (Disabled).
+| # | Rule | Evidence: headless test, frame strip, or my eyes, and how |
+|---|---|---|
+| A-R1 | Fires on every event the retrigger rule allows, never otherwise, including on scene load. | Headless state test driving automated combat inputs, counting spawned effect instances against `hit_landed` and `struck` event signals to verify it fires on every impact and never otherwise, and asserting that the instance count is strictly `0` immediately upon scene load. |
+| A-R2 | Fires at the event's position `p`. | Headless position assertion test verifying that every spawned effect instance's global position precisely matches the impact coordinate `p` passed from `main._on_impact`. |
+| A-R3 | **Overlap.** Instantiate a fresh `impact_effect.tscn` per impact, connected to free itself via the `finished` signal. Most bursts alive at once: `4` bursts (96 particles max), accounting for the worst-case overlap where both fighters' melee hits and in-flight corks land within the same 0.25s window. | Headless retrigger test invoking two impacts within a single 0.25s lifetime using count tracking to verify that the overlap rule correctly spawns distinct instances without silent instance accumulation or premature cutting. |
+| A-R4 | Spawn the effect as a child of `Main` at position `p` (captured before `cork.queue_free()`, `main.gd:200`), ensuring freeing the cork mid-flight has zero impact on the running animation. | Headless position assertion test verifying the effect node persists independently of the freed cork entity. |
+| A-R5 | Blocked hit scene selection: unblocked hits spawn `impact_effect.tscn`; blocked hits spawn `impact_effect_blocked.tscn`. | Headless scene-type check verifying file paths match the incoming `blocked` flag. |
+| A-R6 | Draw order: the effect node's `z_index = 6`, to draw cleanly above the existing star layer (`z_index = 5`, `main.gd:88`). | Visual check in running game. |
+| A-R7 | Pause: keep `PROCESS_MODE_ALWAYS` (inherited from Main, `main.gd:38`) so the short 0.25s burst finishes its animation naturally even if pause (`main.paused`) is toggled. | Headless pause state assertion test. |
+| A-Look | Reads as the intent above, on screen. | Frame strip verification confirming that frames 10, 12, and 15 show the active burst expansion and fading while frames 20, 30, and 50 are completely empty, backed by a visual run-through at 1280×720 to verify high readability and contrast against both the darkest and lightest stretches of the castle background. |
 
-Both labels were read from the Godot 4.7.2 binary.
+> **Review note (Claude, 2026-11-08):**
+> - Probed in 4.7.2 (headless and windowed, 30 fps): a one-shot `GPUParticles2D` started with `restart()` after it is in the tree emits `finished` about 7 frames (0.23 s) later. In a probe that set `emitting = true` before the node had processed a frame, `finished` never fired, so a burst freed by `finished` would never be freed.
 
-Import values, read from the Godot 4.7.2 binary's property hints:
-- `compress/mode`: 0 Lossless, 1 Lossy, 2 VRAM Compressed, 3 VRAM Uncompressed, 4 Basis Universal
-- `compress/normal_map`: 0 Detect, 1 Enable, 2 Disabled
-- `mipmaps/generate`: true or false
+---
 
-**Uniforms.** At least four non-texture uniforms, in at least two `group_uniforms` groups:
+## B. Effect B — wind feedback loop
 
-| Name | Type | Hint and range | Default | Group | What I expect to change on screen across the range |
-|---|---|---|---|---|---|
-| `paint_color` | vec4 | `source_color` | `#B5302A` (A3's toy-box red) | paint | The hue of the painted areas; bare-metal areas do not change. |
-| `paint_roughness` | float | `hint_range(0.0, 1.0)` | 0.35 | paint | At 0, a small sharp highlight from the Sun on the painted areas; at 1, a broad dull sheen. |
-| `wear_amount` | float | `hint_range(0.0, 1.0)` | 0.1 | metal | At 0, all paint; rising, bare metal (from the colour texture) shows through where the roughness map is roughest first; at 1, all bare metal. |
-| `normal_depth` | float | `hint_range(0.0, 2.0)` | 1.0 | metal | At 0, flat with no dents or scratches; at 2, dents exaggerated. |
-| `uv_scale` | float | `hint_range(0.5, 8.0)` | 2.5 | metal | The tile size. The plate is 0.5 m and the box 1.26 m wide, so 2.5 is about life size; at 8 the pattern repeats visibly. |
+### B.1 The job
 
-Samplers: the colour, normal and roughness textures above, each with repeat and linear mipmap filtering. The `_nor_dx` file is not a sampler.
+| | |
+|---|---|
+| **What it tells the player, and why they need it** | While the HUD dial displays exact wind values, players fighting at high speed cannot afford to look away from the character sprites to check UI meters. Effect B places a visceral exhaustion cue directly on the fighter's back (at the key sprite), giving peripheral spatial awareness of critical wind depletion and impending stall states without breaking visual focus. |
+| **Job** | Feedback loop following a game value. |
+| **Value** | `Fighter.wind` (0–100, `fighter.gd:27, 49`), announced by `Fighter.wind_changed(fighter, wind)` (`fighter.gd:17`). It drains 3/s while walking (`:29`) and on each attack (`_spend`, `:242-244`), and rises 10 per ratchet click while rewinding (`:31, 211-212`). |
+| **Which fighters** | One per fighter (both Bolt and Rivet). Applying it to both fighters allows the player to read Rivet's wind status directly during combat, creating clear tactical opportunities to predict and punish low-wind vulnerabilities or incoming rewinds. |
+| **Condition** | It triggers dynamically as wind drops, activating specifically when wind falls below the 25 threshold (matching the musical slowdown cue, `main.gd:15`), signaling an active warning state before hitting the 1.6s defenceless EMPTY stall (`fighter.gd:35`). |
+| **Mapping** | Ramp only below 25. The effect remains entirely dormant (`amount_ratio = 0.0`) while wind is ≥ 25, and scales linearly from `0.0` at wind 25 to `1.0` at wind 0. This matches the existing music slowdown cue and keeps the exhaustion steam hidden during normal high-wind combat. |
+| **Feature Effect A doesn't use** | `amount_ratio` (dynamically scaling active particle density without triggering a system restart), continuous emission (`one_shot = false` instead of a one-shot burst), and local coordinates (`local_coords = true` so the steam/pressure puffs track and move naturally with the fighter's back key sprite). |
 
-**Two materials:** `godot/prop_room/materials/toybox_fresh.tres` and `godot/prop_room/materials/toybox_worn.tres`, both using the same shader. They share the textures and `paint_color`. Two values differ:
-- **fresh:** `wear_amount` 0.05, `paint_roughness` 0.30;
-- **worn:** `wear_amount` 0.55, `paint_roughness` 0.70.
+> **Review note (Claude, 2026-11-08):**
+> - The handout's candidates for this feature are process or draw features; `amount_ratio` is the one on its list. Continuous emission and `local_coords` are node settings.
 
-The other uniforms stay at their defaults. Why: the same tin toy box before and after a career of fights, which is the game's story in one object.
 
-**Where they attach:** `toybox_fresh.tres` goes behind `toybox.glb`'s per-material "Use External" setting in Advanced Import, because the A3 glbs embed their materials (`CHANGE-BRIEF.md` A3.1). "Use External" binds one material per glb slot for every instance. So the second instance takes `toybox_worn.tres` as a surface material override saved in `prop_room.tscn`, which a reimport also keeps.
+### B.2 Intent: how it reads
 
-## A5.6 Predicted failure cases
+| | |
+|---|---|
+| **Timing** (start, steady state, stop) | Continuous emission begins emitting as wind drops below 25, subject to particle pool threshold (noted as potential failure case F2: slight delay before first visible puff appears); maintains steady-state output proportional to the exact wind level; and stops smoothly over one particle lifetime (when emission cuts via `amount_ratio = 0`) as wind recovers above 25 or during rewind recovery steps. |
+| **Contrast** against the named background | Utilizes a semi-transparent grey-white steam texture with a dark core/outline, ensuring high legibility and contrast against both the bright castle background (mean luminance 160) and dark water/fighter clothing. |
+| **Scale** against the character | Puffs start small (~5 pixels) right at the key sprite's mount point and expand to roughly 15–20 pixels wide, keeping them proportional (about half the width) to the 35–40 view-pixel key sprite on the fighter's back. |
+| **Change over life** | Alpha fades smoothly from 0.8 down to 0.0, the core diffuses outward, and particle scale expands from about 5 px to 15–20 px (a ~3× growth factor matching natural steam expansion) over each puff's individual lifespan as the steam dissipates. |
+| **Variation** | Randomizes initial emission angle (±30° cone), initial velocity, particle rotation, and lifespan variance (`lifetime_randomness = 0.3`) so the continuous steam flow looks natural and organic rather than mechanically uniform. |
+| **Emitters**, each with its job | Uses a single dedicated emitter (`GPUParticles2D`) configured for continuous steam exhaust, driving its density adjustments entirely through real-time `amount_ratio` scaling. |
+
+### B.3 Settings
+
+Scene: `godot/effects/wind_steam.tscn`, one emitter, one instance per fighter, parented to each fighter's `key_sprite`.
+
+**Scale rule:** `key_sprite` is scaled to 1/3 (`ART_SCALE`, `fighter.gd:260, 273`). To compensate, we multiply base velocities by ×3 so they resolve to the intended on-screen sizes and speeds. Lengths in this table are in `key_sprite`'s local units; on screen they are 1/3.
+
+| Setting | Value | Why |
+|---|---|---|
+| Node type | `GPUParticles2D`, `ParticleProcessMaterial` | `amount_ratio` exists only on the GPU node in 4.7 (`design/a6/BRIEF-FACTS.md` §5). |
+| amount (fixed, the maximum) | 25 | Maximum active particle pool scaled dynamically via `amount_ratio`. |
+| one_shot | false | Continuous emission. |
+| explosiveness | 0.0 | Continuous steam exhaust requires an even, steady stream of particles over time rather than a single frame burst (`explosiveness = 1.0`). |
+| lifetime | 0.6 s | |
+| lifetime_randomness (on the process material) | 0.3 | Lifespan variance (B.2). In Godot, randomness only shortens individual particle lives, ensuring frame 70 remains strictly empty. |
+| emission shape | Point (`EMISSION_SHAPE_POINT`) positioned directly at the fighter's back key sprite | |
+| direction | `Vector3(0, -1, 0)` | Combined with gravity, to ensure the steam properly rises upward from the back key. |
+| initial_velocity_min / max | 60.0 / 120.0 local (20 / 40 px/s on screen) | |
+| spread | 30.0° | Godot 4 treats spread as a half-angle, yielding the correct ±30° cone. |
+| gravity | `Vector3(0.0, -180.0, 0.0)` local (−60 px/s² on screen) | Negative Y for rising steam/exhaust. |
+| damping_min / max | 90.0 / 150.0 local (30 / 50 on screen) | |
+| color_ramp (colour and alpha) | `Color(0.85, 0.85, 0.85, 0.8)` → `Color(0.9, 0.9, 0.9, 0.0)` | Soft grey-white fading out to transparent; starting alpha unified at 0.8 with B.2. |
+| scale_min / max | 0.2 / 0.8 | With the 32×32 texture and `key_sprite`'s 1/3: 2–8.5 px on screen at the start (about 5), 6–26 px at the end (about 16), so puffs start small at ~5 px and expand toward 15–20 px. Not multiplied by 3 again. |
+| scale_curve | 1.0 → 3.0 over lifetime, curve `max_value = 3.0` | Preventing default 1.0 clamping. |
+| texture | 32 × 32 px PNG written by a committed script, `tools/generate_steam_texture.gd`: a soft steam puff with a darker core/outline | Prevents it from washing out against bright backgrounds (B.2 contrast). |
+| draw material, blend | `CanvasItemMaterial`, `blend_mode` MIX | |
+| local_coords | true | So the steam/pressure puffs track and move naturally with the fighter's back key sprite. |
+| parent and flip | Parented directly to the fighter's `key_sprite` node, automatically inheriting position and scale flips when the fighter changes direction (facing left/right). This automatically handles position tracking and ensures the steam correctly hides on KO (`fighter.gd:274`). Consequences: it draws behind the body (`key_sprite.z_index = -1`, `fighter.gd:76`) and squashes horizontally with the spinning key during REWIND (`fighter.gd:272-273`). | |
+| visibility_rect | `Rect2(-150, -150, 300, 300)` local (±50 px on screen) | Unscaled, ±17 px on screen would cull puffs that rise 25–30 px. |
+| preprocess | 0.0 | Dormant at round start when wind is 100. |
+
+**Mapping:** wind ≥ 25 → `amount_ratio` 0.0; wind 25 → 0 maps linearly to `amount_ratio` 0.0 → 1.0 (B.1).
+
+### B.4 Observable rules
+
+| # | Rule | Evidence |
+|---|---|---|
+| B-R1 / B-R2 | Activates when wind drops below 25 (`amount_ratio > 0`). Stops smoothly by returning `amount_ratio` to `0.0` while `emitting` stays `true`, allowing existing puffs to fade out naturally over one particle lifetime (0.6s) during wind recovery or rewind. | **Headless:** driving combat attacks to drop wind below 25, then triggering a rewind to raise wind back above 25, asserts that `amount_ratio` transitions from `0` to active (>0) and back down to `0` while `emitting` remains `true`. **Strip / eyes:** verifies the smooth 0.6s particle fade-out without abrupt visual cuts. |
+| B-R3 | `amount_ratio` scales linearly below wind 25: `amount_ratio = (25 − wind) / 25`, while the base `amount` property remains permanently locked at `25`. | **Headless:** real game input (exact jab attacks, each costing 12 wind, `fighter.gd:41`) drops wind from 100 down to 16 and 4 through the live game loop; asserts `amount_ratio` is `0.36` at wind 16 and `0.84` at wind 4, and `amount == 25`. |
+| B-R4 | Inherits `PROCESS_MODE_ALWAYS` from Main, keeping the particle simulation active during game pauses (`main.paused`) so ongoing exhaust puffs complete their natural lifecycle without freezing mid-air. `get_tree().paused`: the game never sets it, but because of `PROCESS_MODE_ALWAYS`, the effect also keeps running under tree pauses unless explicitly overridden. | **Headless:** asserts `can_process() == true` via `PROCESS_MODE_ALWAYS`, that `emitting` and `speed_scale` are unchanged, and that the ratio holds steady while `main.paused = true`. **Strip / eyes:** verifies that particle motion and puff traversal continue uninterrupted during pause. |
+| B-R5 | Automatically hides when parent `key_sprite` is hidden (such as on fighter KO via `fighter.gd:274`), preventing orphaned steam effects from floating in space. | Headless KO state test asserting that when the fighter's state shifts to KO, the key sprite and its particle child inherit hidden visibility. |
+| B-R6 | Wind initializes at 100 on scene load and round restarts (`fighter.gd:101`), forcing `amount_ratio = 0` on frame 1 so zero particles spawn on startup regardless of preprocess settings. | **Headless:** asserts `amount_ratio == 0` on frame 1 of scene load. **Strip / eyes:** confirms zero visible puffs are rendered on startup. |
+
+---
+
+## C. Boundaries
+
+This section defines the strict architectural line between presentation updates and core game simulation rules, establishing what is permitted to change and what must remain untouched.
+
+**May change (presentation only):**
+- **Combat feedback & impact routing:** modifying `main.gd` (`_on_hit`, struck handlers, and `_on_impact`) to pass the blocked flag and spawn `impact_effect.tscn` or `impact_effect_blocked.tscn` (while keeping the existing star layer intact).
+- **Wind steam integration:** code that attaches a `wind_steam.tscn` instance to each fighter's `key_sprite` and drives `amount_ratio` dynamically from `wind_changed` signals (housed either directly in `main.gd` where the A5 tint driver lived, or via a dedicated driver script).
+- **Assets & tooling:** the new effect scenes, automated state/headless tests, preview scenes, and procedural texture generation scripts (`tools/generate_shard_texture.gd`, `tools/generate_steam_texture.gd`, and their corresponding PNGs).
+- **Debugging utilities:** a vsync debug key (F10–F12).
+
+**Must not change (core engine & simulation):**
+- **Core physics & mechanics:** collision boxes, hurtboxes, movement physics, input handling (`controls.gd`), the fighter state machine and its internal timings, and base wind/health arithmetic (`fighter.gd`).
+- **Existing infrastructure:** existing test expectations, the A5 shaders located in `godot/shaders/`, `project.godot`, the base star spark, camera shake, and hitstop logic.
+- **Read-only boundary rule:** presentation code is strictly permitted to read game state variables (such as wind, blocked status, and impact position `p`); it must never write to or modify core game state simulation variables.
+
+## D. Frame strips
+
+All preview captures are **fixture** captures. Each preview instance has `use_fixed_seed` on; the effect scenes never do.
+
+### D.1 Effect A: impact burst preview (`godot/previews/impact_preview.tscn`)
+
+- **Background setup:** positioned over the light castle stretch (x = 192–223, mean luminance 160) to rigorously test the dark-rimmed shards and bright cyan core contrast against a high-luminance background where the original star spark vanished.
+- **Trigger:** frame 10. **Retrigger setup:** fires a second impact at frame 11 to demonstrate the `A-R3` overlap rule; the second burst completes its 0.25s lifetime by frame 18.5.
+- **Frame-by-frame predictions (30 fps):**
+  - **Frame 10 (trigger):** instantaneous spawn. Particles may first appear on frame 11; I'll record it once if so.
+  - **Frame 12 (0.067 s):** just past the scale peak. Shards have expanded outward by 4–6 px. Ramps are roughly 25% through their life, displaying the bright cyan core and dark-rimmed debris.
+  - **Frame 15 (0.167 s):** shards have traveled 8–14 px out with noticeable downward gravitational sag. Scale is falling toward 0.4 / 0.2. Simultaneously, the second burst overlaps here: burst 1 is at 67% of its life (fading, scale falling toward 0.4), while burst 2 (triggered at frame 11) is at 53% of its life (past its scale peak, actively dispersing).
+  - **Frames 20, 30 and 50:** completely empty, confirming the 0.25 s lifetime concludes cleanly for both bursts.
+
+### D.2 Effect B: wind steam preview (`godot/previews/steam_preview.tscn`)
+
+- **Rig setup:** uses a stand-in `key_sprite` at scale `1/3` to accurately reflect parent scaling, rendered with `use_fixed_seed` enabled on the preview instance and `--quit-after 80` specified for the Movie Maker capture run.
+- **Wind/ratio schedule:** condition starts at frame 10 (setting `amount_ratio = 1.0`), runs at steady state until frame 50, and cuts emission at frame 50 (`amount_ratio = 0.0`, `emitting` stays true, B-R2).
+- **Background setup:** x = 256–287 (the darkest water/castle boundary stretch, mean luminance 98), to verify steam legibility.
+- **Frame-by-frame predictions (30 fps):**
+  - **Frame 12:** initial emission beginning; small initial puffs (~5 px) emerge upward from the key anchor point.
+  - **Frame 20:** rising exhaust plume establishing density and vertical travel along the `Vector3(0, -1, 0)` direction vector.
+  - **Frame 40:** fully established steady-state stream (exceeding one 0.6 s / 18-frame lifetime). Displays a continuous column of rising steam puffs expanding from ~5 px to ~16 px with soft edges and visible contrast against the background.
+  - **Frame 55:** emission has ceased (ended at frame 50), leaving the remaining active tail-end puffs floating upward and fading out.
+  - **Frame 70:** completely empty, confirming all active particles have completed their lifetime and cleared out.
+
+## E. Predicted failures
 
 | # | Prediction | The check that catches it |
 |---|---|---|
-| A5-F1 | If Bolt and Rivet accidentally shared a single material instance, Bolt tinting blue during the rewind effect would simultaneously force Rivet to turn blue as well. | The R6 headless test, plus a look check in play. |
-| A5-F2 | If the rewind duration logic relied on unscaled delta frames instead of delta time, the rewind effect would speed up or slow down depending on the frame rate. | The R2 test at `--fixed-fps` 30, 60 and 144. |
-| A5-F3 | Since the rule is set to extend, if the code incorrectly restarted the rewind timer back to 0 whenever triggered again mid-animation, the rewind effect would abruptly snap and loop from the beginning instead of blending forward. | The R3 retrigger test. |
+| F1 | **Scale curve clamping (Effect A & B):** default `Curve` max value is `1.0`. Setting scale points above 1.0 (such as the core's 1.5 or B's 3.0) is silently clamped to 1.0, flattening growth. | Automated configuration test reading back the curve's control points directly (verifying that the core's control point at x = 0.2 retains its value of 1.5 and Effect B's point at x = 1.0 retains its value of 3.0). |
+| F2 | **Finished signal dropout / instance leak (Effect A):** if `emitting = true` is set before a one-shot `GPUParticles2D` node enters the tree or processes its first frame, the `finished` signal never fires, causing instances freed on completion to pile up silently. | Headless instance count tracking test verifying that instance counts return to zero after particle lifetimes expire. |
+| F3 | **Visibility rect culling (Effect B):** default bounding boxes cull steam puffs as they rise and expand, causing particles to pop out abruptly near the edges. | Visual strip inspection and bounds assertion verifying `visibility_rect` (`Rect2(-150, -150, 300, 300)`). |
+| F4 | **Godot 3 property name legacy (config check):** using outdated Godot 3 syntax (e.g., `initial_velocity`) silently leaves velocity min/max at zero. | Property validation test scanning scene files for valid Godot 4 property names (`initial_velocity_min` / `initial_velocity_max`), catching silent Godot 3 legacy failures; the configuration test's read-back of both values fails too (Step 2 mutation). |
+| F5 | **Delayed first puff (Effect B):** Effect B does not emit its first visible puff immediately at wind 25 because `amount_ratio` yields a fractional particle count until wind drops slightly lower (around wind 24). | **Headless node-state check:** automated test verifying that the calculated particle emission threshold (`amount × amount_ratio`) reaches ≥ 1.0 at wind = 24 (25 × 0.04 = 1.0). **Strip / eyes:** visual frame strip inspection to record the exact frame where the first visible puff physically emerges from the key sprite. |
 
-## A5.7 Short answers
+## F. Price predictions and budget
 
-1. **Which renderer does project.godot name, and what does it rule out?** The project uses the Forward Plus (Forward+) renderer (`project.godot:15`, `config/features`; there is no `rendering_method` line). It provides full support for complex lighting and modern shader features without the feature limitations of Mobile or Compatibility modes. However, it rules out running the game on older hardware, web exports (HTML5/WebGL), and low-end mobile devices.
-2. **What colour arrives in your fragment function before you change it, and what would the tempting alternative give you?** The COLOR variable in fragment() arrives with the original texture pixel multiplied by the node's modulate colour property. The tempting alternative is sampling the raw texture directly using texture(TEXTURE, UV).
-3. **canvas_item: what would `texture(TEXTURE, UV)` give you instead of `COLOR`?** Sampling texture(TEXTURE, UV) directly skips node-level tinting (modulate / self_modulate) as well as vertex colours. You wouldn't notice a difference in this game today, since modulate is white, but using texture(TEXTURE, UV) would break any future adjustments to the node's modulate colour.
-4. **spatial: what does `ALBEDO` hold if you never write it, and what does `COLOR` hold?** In spatial shaders, if ALBEDO is never written to, it defaults to white, vec3(1.0, 1.0, 1.0), and is still lit by the scene. The COLOR built-in holds the mesh's vertex colours, which evaluate to solid white vec4(1.0, 1.0, 1.0, 1.0) for my .glb models since they contain no vertex colour data.
-5. **How long would a frame-counting version of your effect last at 30, 60 and 144 fps?** If the effect is programmed by counting 9 frames (tuned for 60 fps / 0.15 s), those 9 frames last 0.30 s at 30 fps (running twice as slow) and 0.0625 s at 144 fps (running more than twice as fast). Similarly, a 0.30 s fade-out (18 frames at 60 fps) would take 0.60 s at 30 fps and 0.125 s at 144 fps.
-6. **Which resource holds your uniform's default, which holds its current value, and what happens if two objects share the material?** The default parameter value lives in the .gdshader file, while set_shader_parameter() stores the runtime value on the specific ShaderMaterial instance. If two sprites shared a single material, updating the parameter during Bolt's rewind would cause Rivet to mistakenly display the same blue tint simultaneously.
-7. **Does `hint_range` clamp a value your driver sets from code?** My prediction: hint_range only constrains the UI slider in the Inspector. It does not clamp values passed programmatically via code, so calling set_shader_parameter() with 2.0 will send 2.0 directly to the shader without being clamped by the range. (Checked in Use It.)
+The effects-off reference: Visual Profiler, Render Viewport 0.97 ms GPU / 0.11 ms CPU (2026-11-08, `evidence/a6/visual-profiler-vulkan.webp`).
 
-## A5 revisions
+| | Effect A (impact burst) | Effect B (wind steam) |
+|---|---|---|
+| Peak particle count | 4 concurrent bursts × 24 particles = 96 particles max | 2 fighters × 25 base amount = 50 particles max at `amount_ratio = 1.0` |
+| Predicted headless CPU price | Near zero for the particle simulation itself (the dummy headless renderer skips GPU particle updates); Effect A's dynamic instancing/freeing (up to 4 scenes per window) incurs minimal CPU instantiation overhead. Within the empty-scene control's spread (±0.03 ms). | Near zero for the particle simulation itself. Within the empty-scene control's spread (±0.03 ms). |
+| Predicted GPU time | ∼0.12 ms per active burst | ∼0.08 ms per fighter at full ratio |
+| Budget, and which price | < 0.55 ms peak for 4 concurrent bursts (comfortably accommodating the 4 × 0.12 ms = 0.48 ms predicted worst case), compared on GPU time against the 0.97 ms baseline | < 0.20 ms combined for both active fighter streams, compared on GPU time |
 
-- **2026-11-01: shader file names.** Version 1 named only `godot/shaders/rewind_tint.gdshader`. The textured shader is `godot/shaders/painted_tin.gdshader`. The hint-experiment shader will be `godot/shaders/hint_experiment.gdshader`. Its sampler names are `metal_albedo` (colour), `metal_normal` (normal) and `metal_rough` (roughness and wear mask). Claude suggested these names and I used them.
+## G. Short answers
+
+1. **Node types & property mutations:** both Effect A and Effect B use `GPUParticles2D`. When configuring them, Godot 4 property name mutations must be respected—specifically using `initial_velocity_min` and `initial_velocity_max` instead of outdated Godot 3 names, which fail silently. `GPUParticles2D` in Godot 4 contains all features required by this brief—including `amount_ratio`, custom scale/color curves, `lifetime_randomness`, `visibility_rect`, and `restart()`. Features that 2D particle nodes lack compared to 3D (such as 3D particle colliders and vector attractors) are not required or used by either effect in this brief.
+2. **Local coordinates (`local_coords`):** setting `local_coords = false` on Effect A anchors impact bursts in world space at position `p` so they don't drift if fighters move; setting `local_coords = true` on Effect B ensures steam puffs inherit the `key_sprite`'s motion trail.
+3. **Peak burst concurrency:** peak concurrency for Effect A is capped at n = 4 bursts (96 particles) to accommodate overlapping melee hits and in-flight corks within the 0.25s lifetime window.
+4. **Price measurement & headless limits:** a headless run reports strictly CPU time because the dummy renderer skips the GPU particle simulation pass entirely, meaning CPU metrics omit the GPU rendering workload. With Vsync enabled, FPS reads identically (pinned to the monitor's refresh rate, e.g., 60 Hz) whether the effect is toggled off or on, proving that frame rate alone cannot measure GPU overhead and requiring direct viewport profiler timestamps instead.
+5. **Lifecycle rules (pause, hidden, load):**
+   - Pause: inherits `PROCESS_MODE_ALWAYS` from Main, keeping simulation active during `main.paused`.
+   - Hidden: automatically hidden when parent `key_sprite` hides on fighter KO (`fighter.gd:274`).
+   - Scene load: initializes at wind 100 (`amount_ratio = 0`), ensuring zero particles spawn on frame 1.
+6. **Setting categorization:**
+   - Emission: `amount`, `amount_ratio`, `emission_shape`, `one_shot`, `preprocess`, `lifetime`, `explosiveness`.
+   - Process (`ParticleProcessMaterial`): `initial_velocity_min`/`max`, `gravity`, `damping_min`/`max`, `spread`, `angle_min`/`max`, `scale_min`/`max`, `lifetime_randomness`, color ramp, and scale curve.
+   - Draw: `texture`, `visibility_rect`, `z_index`, and blend mode.
+
+## A6 revisions
+
+*(none yet)*
