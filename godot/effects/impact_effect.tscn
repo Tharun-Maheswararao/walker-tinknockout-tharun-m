@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://effects/textures/shard_8.png" id="1_iyonu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_voqhm"]
+
+[sub_resource type="Gradient" id="Gradient_qjpv3"]
+colors = PackedColorArray(0.25, 0.25, 0.28, 1, 0.1, 0.1, 0.1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_23yar"]
+gradient = SubResource("Gradient_qjpv3")
+
+[sub_resource type="Curve" id="Curve_kvqmt"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1.2), 0.0, 0.0, 0, 0, Vector2(1, 0.4), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ftub3"]
+curve = SubResource("Curve_kvqmt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hq5gu"]
+angle_min = -180.0
+angle_max = 180.0
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 90.0
+gravity = Vector3(0, 400, 0)
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_ftub3")
+color_ramp = SubResource("GradientTexture1D_23yar")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bp8ig"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_sf2la"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ylyty"]
+gradient = SubResource("Gradient_sf2la")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_xv3jr"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 1, 1, 1, 0, 0.3, 0.8, 0.8, 0, 0.3, 0.7, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_afiyf"]
+gradient = SubResource("Gradient_xv3jr")
+
+[sub_resource type="Curve" id="Curve_ligr2"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1ljps"]
+curve = SubResource("Curve_ligr2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_37hfw"]
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+damping_min = 50.0
+damping_max = 80.0
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_1ljps")
+color_ramp = SubResource("GradientTexture1D_afiyf")
+
+[node name="ImpactEffect" type="Node2D" unique_id=855714175]
+z_index = 6
+
+[node name="Shards" type="GPUParticles2D" parent="." unique_id=567126519]
+material = SubResource("CanvasItemMaterial_voqhm")
+emitting = false
+amount = 16
+texture = ExtResource("1_iyonu")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hq5gu")
+
+[node name="Core" type="GPUParticles2D" parent="." unique_id=215977664]
+material = SubResource("CanvasItemMaterial_bp8ig")
+emitting = false
+texture = SubResource("GradientTexture2D_ylyty")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_37hfw")

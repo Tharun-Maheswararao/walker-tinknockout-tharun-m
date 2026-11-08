@@ -1,0 +1,141 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== impact_effect.tscn (A.3a, A.3b)
+PASS  res://effects/impact_effect.tscn loads as a PackedScene
+PASS  res://effects/impact_effect.tscn root is Node2D ImpactEffect
+PASS  res://effects/impact_effect.tscn root z_index 6, above the star at 5 (A-R6)
+PASS  res://effects/impact_effect.tscn has two emitters (got 2)
+PASS  Shards exists and is a GPUParticles2D
+PASS  Shards amount 16 (got 16)
+PASS  Shards one_shot
+PASS  Shards explosiveness 1.0 (got 1.00)
+PASS  Shards lifetime 0.25 (got 0.250)
+PASS  Shards local_coords false
+PASS  Shards visibility_rect default Rect2(-100, -100, 200, 200) (got [P: (-100.0, -100.0), S: (200.0, 200.0)])
+PASS  Shards preprocess 0.0 (got 0.00)
+PASS  Shards not emitting when the scene loads (A-R1)
+PASS  Shards use_fixed_seed off in the effect scene (repeats must vary)
+PASS  Shards process_material is a ParticleProcessMaterial
+PASS  Shards emission shape point
+PASS  Shards initial_velocity 60 / 90 (got 60.0 / 90.0)
+PASS  Shards spread 180 (got 180.0)
+PASS  Shards angle -180 / 180 (got -180.0 / 180.0)
+PASS  Shards gravity (0, 400, 0) (got (0.0, 400.0, 0.0))
+PASS  Shards damping 100 / 150 (got 100.0 / 150.0)
+PASS  Shards color_ramp is a GradientTexture1D with a Gradient
+PASS  Shards color_ramp has 2 points (got 2)
+PASS  Shards color_ramp point 0 = (0.25, 0.25, 0.28, 1.0) at 0.00 (got (0.25, 0.25, 0.28, 1.0) at 0.00)
+PASS  Shards color_ramp point 1 = (0.1, 0.1, 0.1, 0.0) at 1.00 (got (0.1, 0.1, 0.1, 0.0) at 1.00)
+PASS  Shards scale 0.8 / 1.2 (got 0.80 / 1.20)
+PASS  Shards scale_curve is a CurveTexture with a Curve
+PASS  Shards scale_curve max_value 2.0 (got 2.0)
+PASS  Shards scale_curve has 3 points (got 3)
+PASS  Shards scale_curve point 0 = (0.0, 1.0) (got (0.0, 1.0))
+PASS  Shards scale_curve point 1 = (0.2, 1.2) (got (0.2, 1.2))
+PASS  Shards scale_curve point 2 = (1.0, 0.4) (got (1.0, 0.4))
+PASS  Shards texture res://effects/textures/shard_8.png
+PASS  Shards texture is 8 x 8
+PASS  Shards draw material CanvasItemMaterial, blend MIX
+PASS  Core exists and is a GPUParticles2D
+PASS  Core amount 8 (got 8)
+PASS  Core one_shot
+PASS  Core explosiveness 1.0 (got 1.00)
+PASS  Core lifetime 0.25 (got 0.250)
+PASS  Core local_coords false
+PASS  Core visibility_rect default Rect2(-100, -100, 200, 200) (got [P: (-100.0, -100.0), S: (200.0, 200.0)])
+PASS  Core preprocess 0.0 (got 0.00)
+PASS  Core not emitting when the scene loads (A-R1)
+PASS  Core use_fixed_seed off in the effect scene (repeats must vary)
+PASS  Core process_material is a ParticleProcessMaterial
+PASS  Core emission shape point
+PASS  Core initial_velocity 10 / 20 (got 10.0 / 20.0)
+PASS  Core spread 180 (got 180.0)
+PASS  Core gravity (0, 0, 0) (got (0.0, 0.0, 0.0))
+PASS  Core damping 50 / 80 (got 50.0 / 80.0)
+PASS  Core color_ramp is a GradientTexture1D with a Gradient
+PASS  Core color_ramp has 3 points (got 3)
+PASS  Core color_ramp point 0 = (0.0, 1.0, 1.0, 1.0) at 0.00 (got (0.0, 1.0, 1.0, 1.0) at 0.00)
+PASS  Core color_ramp point 1 = (0.0, 0.3, 0.8, 0.8) at 0.50 (got (0.0, 0.3, 0.8, 0.8) at 0.50)
+PASS  Core color_ramp point 2 = (0.0, 0.3, 0.7, 0.0) at 1.00 (got (0.0, 0.3, 0.7, 0.0) at 1.00)
+PASS  Core scale 1.0 / 1.2 (got 1.00 / 1.20)
+PASS  Core scale_curve is a CurveTexture with a Curve
+PASS  Core scale_curve max_value 2.0 (got 2.0)
+PASS  Core scale_curve has 3 points (got 3)
+PASS  Core scale_curve point 0 = (0.0, 1.0) (got (0.0, 1.0))
+PASS  Core scale_curve point 1 = (0.2, 1.5) (got (0.2, 1.5))
+PASS  Core scale_curve point 2 = (1.0, 0.2) (got (1.0, 0.2))
+PASS  Core texture is a GradientTexture2D
+PASS  Core texture 16 x 16 (got 16 x 16)
+PASS  Core texture fill radial
+PASS  Core texture centred, fill_from (0.5, 0.5) (got (0.5, 0.5))
+PASS  Core draw material CanvasItemMaterial, blend ADD
+== impact_effect_blocked.tscn (A.3c)
+PASS  res://effects/impact_effect_blocked.tscn loads as a PackedScene
+PASS  res://effects/impact_effect_blocked.tscn root is Node2D ImpactEffectBlocked
+PASS  res://effects/impact_effect_blocked.tscn root z_index 6, above the star at 5 (A-R6)
+PASS  res://effects/impact_effect_blocked.tscn has two emitters (got 2)
+PASS  Blocked Shards exists and is a GPUParticles2D
+PASS  Blocked Shards amount 8 (got 8)
+PASS  Blocked Shards one_shot
+PASS  Blocked Shards explosiveness 1.0 (got 1.00)
+PASS  Blocked Shards lifetime 0.25 (got 0.250)
+PASS  Blocked Shards local_coords false
+PASS  Blocked Shards visibility_rect default Rect2(-100, -100, 200, 200) (got [P: (-100.0, -100.0), S: (200.0, 200.0)])
+PASS  Blocked Shards preprocess 0.0 (got 0.00)
+PASS  Blocked Shards not emitting when the scene loads (A-R1)
+PASS  Blocked Shards use_fixed_seed off in the effect scene (repeats must vary)
+PASS  Blocked Shards process_material is a ParticleProcessMaterial
+PASS  Blocked Shards emission shape point
+PASS  Blocked Shards initial_velocity 60 / 90 (got 60.0 / 90.0)
+PASS  Blocked Shards spread 180 (got 180.0)
+PASS  Blocked Shards angle -180 / 180 (got -180.0 / 180.0)
+PASS  Blocked Shards gravity (0, 400, 0) (got (0.0, 400.0, 0.0))
+PASS  Blocked Shards damping 100 / 150 (got 100.0 / 150.0)
+PASS  Blocked Shards color_ramp is a GradientTexture1D with a Gradient
+PASS  Blocked Shards color_ramp has 2 points (got 2)
+PASS  Blocked Shards color_ramp point 0 = (0.5, 0.5, 0.5, 1.0) at 0.00 (got (0.5, 0.5, 0.5, 1.0) at 0.00)
+PASS  Blocked Shards color_ramp point 1 = (0.5, 0.5, 0.5, 0.0) at 1.00 (got (0.5, 0.5, 0.5, 0.0) at 1.00)
+PASS  Blocked Shards scale 0.5 / 0.7 (got 0.50 / 0.70)
+PASS  Blocked Shards scale_curve is a CurveTexture with a Curve
+PASS  Blocked Shards scale_curve max_value 2.0 (got 2.0)
+PASS  Blocked Shards scale_curve has 3 points (got 3)
+PASS  Blocked Shards scale_curve point 0 = (0.0, 1.0) (got (0.0, 1.0))
+PASS  Blocked Shards scale_curve point 1 = (0.2, 1.2) (got (0.2, 1.2))
+PASS  Blocked Shards scale_curve point 2 = (1.0, 0.4) (got (1.0, 0.4))
+PASS  Blocked Shards texture res://effects/textures/shard_8.png
+PASS  Blocked Shards texture is 8 x 8
+PASS  Blocked Shards draw material CanvasItemMaterial, blend MIX
+PASS  Blocked Core exists and is a GPUParticles2D
+PASS  Blocked Core amount 4 (got 4)
+PASS  Blocked Core one_shot
+PASS  Blocked Core explosiveness 1.0 (got 1.00)
+PASS  Blocked Core lifetime 0.25 (got 0.250)
+PASS  Blocked Core local_coords false
+PASS  Blocked Core visibility_rect default Rect2(-100, -100, 200, 200) (got [P: (-100.0, -100.0), S: (200.0, 200.0)])
+PASS  Blocked Core preprocess 0.0 (got 0.00)
+PASS  Blocked Core not emitting when the scene loads (A-R1)
+PASS  Blocked Core use_fixed_seed off in the effect scene (repeats must vary)
+PASS  Blocked Core process_material is a ParticleProcessMaterial
+PASS  Blocked Core emission shape point
+PASS  Blocked Core initial_velocity 10 / 20 (got 10.0 / 20.0)
+PASS  Blocked Core spread 180 (got 180.0)
+PASS  Blocked Core gravity (0, 0, 0) (got (0.0, 0.0, 0.0))
+PASS  Blocked Core damping 50 / 80 (got 50.0 / 80.0)
+PASS  Blocked Core color_ramp is a GradientTexture1D with a Gradient
+PASS  Blocked Core color_ramp has 2 points (got 2)
+PASS  Blocked Core color_ramp point 0 = (0.6, 0.6, 0.6, 0.8) at 0.00 (got (0.6, 0.6, 0.6, 0.8) at 0.00)
+PASS  Blocked Core color_ramp point 1 = (0.6, 0.6, 0.6, 0.0) at 1.00 (got (0.6, 0.6, 0.6, 0.0) at 1.00)
+PASS  Blocked Core scale 0.5 / 0.7 (got 0.50 / 0.70)
+PASS  Blocked Core scale_curve is a CurveTexture with a Curve
+PASS  Blocked Core scale_curve max_value 2.0 (got 2.0)
+PASS  Blocked Core scale_curve has 3 points (got 3)
+PASS  Blocked Core scale_curve point 0 = (0.0, 1.0) (got (0.0, 1.0))
+PASS  Blocked Core scale_curve point 1 = (0.2, 1.5) (got (0.2, 1.5))
+PASS  Blocked Core scale_curve point 2 = (1.0, 0.2) (got (1.0, 0.2))
+PASS  Blocked Core texture is a GradientTexture2D
+PASS  Blocked Core texture 16 x 16 (got 16 x 16)
+PASS  Blocked Core texture fill radial
+PASS  Blocked Core texture centred, fill_from (0.5, 0.5) (got (0.5, 0.5))
+PASS  Blocked Core draw material CanvasItemMaterial, blend ADD
+
+135 checks, 0 failed
