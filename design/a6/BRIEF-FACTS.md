@@ -47,7 +47,7 @@
 
 Existing hit feedback:
 - Hand-drawn star "sparks", 0.14 s, at the impact point (`main.gd:206-207`, drawn in `main.gd:221-228`).
-- Melee hits use the centre of the attacker's attack box (`main.gd:202-204`); cork hits use the cork's position, read in the `struck` handler before the cork frees itself (`main.gd:200`).
+- Melee hits use the centre of the attacker's attack box (`main.gd:202-204`); cork hits use the cork's position, read in the `struck` handler before the cork frees itself (`main.gd:199`; corrected from 200 on 2026-11-08).
 - Camera shake lasts 0.15 s (`main.gd:208`), and hitstop is 0.07 s (`fighter.gd:37`).
 - Your boundaries section has to say whether Effect A replaces the sparks or sits beside them. Removing them changes `main.gd`.
 
