@@ -34,6 +34,9 @@
 - Defaults are not reported (`shader_get_parameter_default` is null, line 5): read them from the `.gdshader` text.
 - `set_shader_parameter` raises no error for an undeclared name and reads back whatever was set, even 2.0 on `hint_range(0, 1)` (lines 9-10): a readback proves nothing about the shader.
 - Physics runs at 60 ticks per game second under any `--fixed-fps` (lines 12, 23). REWIND starts and stops in physics, so at 144 fps a `_process` driver sees it up to 1/60 s late.
+- A headless run uses a dummy renderer: it draws no particles and runs no GPU particle process. Node state (emitting,one_shot, amount_ratio, visibility, instance counts) is observable; the look is not.
+- A GPU effect's headless CPU price is near zero by construction.
+- Frame strips come from a windowed Movie Maker run, which I start.
 
 ## Current change
 
