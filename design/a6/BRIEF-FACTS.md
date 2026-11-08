@@ -104,7 +104,7 @@ The project now runs Forward+, so these Compatibility limits no longer apply. Th
 - **`emit_particle()`** is only supported on Forward+ and Mobile ([GPUParticles2D](https://docs.godotengine.org/en/stable/classes/class_gpuparticles2d.html)), so it is now available.
 - **Visual Profiler:** "not supported when using the Compatibility renderer on macOS" ([debugger panel docs](https://docs.godotengine.org/en/stable/tutorials/scripting/debug/debugger_panel.html)). The same page says it otherwise works with any renderer.
   - On this Mac, Forward+ on **Metal** gives a GPU column of all zeros. Forward+ on **Vulkan** gives real GPU times, but so far only through Claude's probe.
-  - **Still to confirm:** open the Visual Profiler in the editor and check that the GPU column now has non-zero values.
+  - **Confirmed by Tharun on 2026-11-08** in the editor (Forward+, Vulkan 1.2.334, Apple M4), with the game running a fight before any A6 effect existed. The GPU column is non-zero: Render Viewport 0.97 ms GPU / 0.11 ms CPU, Prepare Render 0.06 ms GPU. Screenshot: `evidence/a6/visual-profiler-vulkan.webp`.
 - Turbulence and sub-emitters: no renderer restriction found in the docs. Confirm them on screen like every other feature.
 
 ## 7. Instruments and environment
@@ -160,7 +160,7 @@ For the whole brief:
 ## 10. Order of work
 
 1. ~~Commit the A6 `scripts/run-test.sh` with the baseline counts~~: done in `8731c5c` (Claude, 2026-11-07). The renderer switch was committed during A5 (`aec645e` and earlier).
-2. **Confirm the Visual Profiler shows non-zero GPU times under Vulkan** (section 6). Your GPU-time predictions and budgets depend on this instrument working.
+2. ~~Confirm the Visual Profiler shows non-zero GPU times under Vulkan~~: done 2026-11-08 (section 6).
 3. Write the A6 `CHANGE-BRIEF.md` yourself, replacing the file's contents, and commit it before any prompt is sent.
 4. Run Step 1 with `prompts/prompt-1.txt` (now the handout's text: revise CLAUDE.md). From the repository root:
 
