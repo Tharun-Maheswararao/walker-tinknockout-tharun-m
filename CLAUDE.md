@@ -3,66 +3,29 @@
 ## Project context
 
 - **Engine:** Godot 4.7.2.stable.official.ed1daf0bf (`godot --version`, `evidence/a5/headless-facts.txt:1`); `config/features` "4.7" (`godot/project.godot:15`).
-- **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"; there is no
-  `rendering_method` line). macOS driver is Vulkan (`godot/project.godot:31`).
-  `rendering/viewport/hdr_2d` is not set, so it is off (`godot/project.godot:29-32`).
-- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`). It is one
-  `Node2D` with `game/main.gd` attached (`godot/game/main.tscn:5-6`); everything
-  else is built in code in `main.gd:_ready()` (`godot/game/main.gd:37-88`).
-- **How the shaded object is drawn:** each fighter is a `Fighter` (`Node2D`,
-  `godot/fighter/fighter.gd:1-2`) created by `main.gd` (`godot/game/main.gd:50-59`;
-  Bolt `skin="bolt"`, Rivet `skin="rivet"`). There is no fighter `.tscn`. The body
-  is `var sprite: Sprite2D` (`fighter.gd:64`), created in `_ready()`
-  (`fighter.gd:72-74`, `centered = false`). Its texture is swapped per state from
-  `res://assets/fighters/<skin>/<pose>.png` (`fighter.gd:84-89, 264-265`), scaled
-  `ART_SCALE * facing` for the left-facing flip and offset by `-FEET`
-  (`fighter.gd:260-261, 266-267`). `key_sprite` and `weapon` are separate
-  `Sprite2D` children (`fighter.gd:65-66, 75-80`) and are not the shaded object.
-- **Game state that drives the effect:** `godot/fighter/fighter.gd`, `var state`
-  (line 50), enum `S.REWIND` (line 19). REWIND is entered at line 159 and left at
-  line 204 (key released), 232 (hit → HURT) and 236 (KO). All transitions go
-  through `_enter()` (`fighter.gd:246-255`), which emits `state_changed`.
-  Simulation runs in `Fighter.step(dt)` (`fighter.gd:128-155`), called from
-  `main.gd:_simulate()` (`godot/game/main.gd:161-163`) only while the round is
-  FIGHT and not `main.paused`, or during KO (`godot/game/main.gd:133-146`).
-  `main.gd` is `PROCESS_MODE_ALWAYS` (`godot/game/main.gd:38`). The rewind input
-  is the `rewind` action, S / ↓ / LB (`godot/game/controls.gd:12, 22`), read
-  with `Input.is_action_pressed` (`godot/game/main.gd:158`).
-- **3D object for the textured shader:** the `toybox` instance in
-  `godot/prop_room/prop_room.tscn:42-43` (at x = 2.0), instancing
-  `res://assets/props3d/toybox.glb` (`prop_room.tscn:5`). The A5 plan adds a
-  second toy-box instance beside it (`CHANGE-BRIEF.md` A5.5).
-- **Where its material comes from today:** embedded in the glb, which holds the
-  materials `toybox_red`, `toybox_cream`, `toybox_navy`, `toybox_brass`
-  (`godot/assets/props3d/toybox.glb` JSON chunk). Its import file has no
-  external-material setup yet: `materials/extract=0`, `_subresources={}`
-  (`godot/assets/props3d/toybox.glb.import`). The plan replaces slot
-  `toybox_red` via "Use External" with `toybox_fresh.tres`, and gives the second
-  instance `toybox_worn.tres` as a surface override (`CHANGE-BRIEF.md` A5.5).
-- **Textures:** `godot/assets/textures/metal_plate/` (diff, nor_gl, nor_dx, rough
-  1k PNGs, plus `ATTRIBUTION.md`). Import settings already match the brief:
-  `compress/mode=2`, `mipmaps/generate=true`, `compress/normal_map=1` on both
-  normal maps and `=2` on diff and rough (each `*.png.import`, lines 19, 25, 27).
-- **Prop-room lighting:** Sun `DirectionalLight3D` with shadows, WorldEnvironment
-  with ambient (0.45, 0.5, 0.6) at 0.6, Camera3D at (0, 1.6, 5.5)
-  (`godot/prop_room/prop_room.tscn:13-35`).
-- **Tests, always through the wrapper, from the repository root**
-  (`scripts/run-test.sh:2`, usage `<test-file.gd> <fps>`; it runs
-  `timeout 120 godot --headless --path godot --script res://tests/<file>
-  --fixed-fps <fps>`, logs to `logs/<name>_<fps>fps.log`, and fails on
-  `SHADER ERROR` or `SCRIPT ERROR` in the log, `scripts/run-test.sh:4-9`):
+- **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"; there is no `rendering_method` line). macOS driver is Vulkan (`godot/project.godot:31`). Viewport 640×360, window 1280×720, stretch `canvas_items` (`godot/project.godot:23-27`).
+- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`), one `Node2D` running `game/main.gd`; everything else is built in code in `main.gd:_ready()` (`godot/game/main.gd:37-96`). Main is `PROCESS_MODE_ALWAYS` (`main.gd:38`), so its children inherit it.
+- **Pause** is a game flag, not a tree pause: `var paused` (`main.gd:19`), toggled at `main.gd:123-125`; the fight loop skips simulation while it is set (`main.gd:141-142`). `get_tree().paused` is never set.
+- **Effect A, impact burst** (`CHANGE-BRIEF.md` A): `GPUParticles2D` emitters (Shards and Core) in `godot/effects/impact_effect.tscn`, plus `godot/effects/impact_effect_blocked.tscn` for blocked hits. Neither exists yet.
+  - Event: melee hits, `Fighter.hit_landed(attacker, attack, blocked)` (declared `godot/fighter/fighter.gd:14`, emitted `:197`), connected to `_on_hit` (`main.gd:60, 202-204`); cork hits, `Cork.struck(cork, blocked)` (declared `godot/fighter/cork.gd:11`, emitted `:24`; the cork frees itself at `:25`), connected at `main.gd:199`.
+  - Both arrive at `main._on_impact(p)` (`main.gd:206-210`), which today drops `blocked` (`main.gd:199, 202`) and draws the kept star spark (`main.gd:207, 221-228`) on the `fx` node at `z_index` 5 (`main.gd:87-90`).
+  - Bursts are instanced per impact as children of Main (overlap), freed on `finished` (`CHANGE-BRIEF.md` A-R3, A-R4).
+- **Effect B, wind steam** (`CHANGE-BRIEF.md` B): `GPUParticles2D` in `godot/effects/wind_steam.tscn` (not yet created), one per fighter, parented to that fighter's `key_sprite` (`fighter.gd:65, 75-77`).
+  - Value: `Fighter.wind`, 0–100 (`fighter.gd:27, 49`), announced by `wind_changed(fighter, wind)` (declared `fighter.gd:17`, emitted `:107, 212, 244`). It drains on walking and attacks (`fighter.gd:29, 41-43, 242-244`) and rises 10 per rewind click (`fighter.gd:31, 211-213`).
+  - `key_sprite` is scaled `ART_SCALE` = 1/3 × facing, pulses in x during REWIND, has `z_index` −1, and is hidden on KO (`fighter.gd:76, 260, 269-274`).
+  - The existing low-wind listener is the music, Bolt only (`main.gd:83-85`, `LOW_WIND` 25 at `main.gd:15`).
+- **Fighters:** two `Fighter` nodes (no `.tscn`), created and connected in `main.gd:50-64`. The A5 tint driver is attached per fighter at `main.gd:61-64` (`godot/fighter/rewind_tint_driver.gd`); the F9 capture key at `main.gd:65-68` (`godot/game/debug_capture.gd`).
+- **Tests, always through the wrapper, from the repository root** (`scripts/run-test.sh:2`: `<test-file.gd> <fps|realtime> [timeout-seconds]`). A number runs headless with `--fixed-fps <n>` and logs to `logs/<name>_<n>fps.log`; `realtime` runs without `--fixed-fps` and logs to `logs/<name>_realtime.log` (`scripts/run-test.sh:5-11`). The timeout defaults to 120 s (`:11`). It exits 1 if the log contains `SHADER ERROR` or `SCRIPT ERROR` (`:13`). Run `godot --headless --path godot --import` once after cloning (`README.md:118`).
 
   ```bash
-  scripts/run-test.sh test_slice.gd 60       # 2D slice checks; exit code = failures (godot/tests/test_slice.gd:8, 74)
-  scripts/run-test.sh check_props3d.gd 60    # A3 props + prop room; read "RESULT: PASS (0 failing)" (godot/tests/check_props3d.gd:101-102)
+  ./scripts/run-test.sh test_slice.gd 60          # "N checks, N failed" (godot/tests/test_slice.gd:73)
+  ./scripts/run-test.sh check_props3d.gd 60       # "RESULT: PASS (0 failing)" (godot/tests/check_props3d.gd:101)
+  ./scripts/run-test.sh test_rewind_tint.gd 30    # also 60 and 144 (godot/tests/test_rewind_tint.gd:158)
+  ./scripts/run-test.sh test_materials.gd 60      # (godot/tests/test_materials.gd:42)
+  ./scripts/run-test.sh <new_test>.gd realtime    # only for a test that waits on audio
   ```
 
-  For the R2 timing rule, run the same test file at 30, 60 and 144
-  (`CHANGE-BRIEF.md` A5.2 R2), e.g. `scripts/run-test.sh <file>.gd 30`.
-  `timeout` comes from Homebrew coreutils (`README.md:88`). The 3D check expects
-  an import first: `godot --headless --path godot --import` (`README.md:90`).
-  Tests drive input through the real input path (`Input.action_press`,
-  `Input.parse_input_event`, `godot/tests/test_slice.gd:5-7, 32-45`).
+  These modes match `README.md:120-135`. A test file name that does not exist still exits 0 ("Can't load script" matches neither pattern; `design/a6/BRIEF-FACTS.md` §7): read the count line, not only the exit code.
 
 ## Headless facts (measured on this Mac: `evidence/a5/headless-facts.txt`)
 
@@ -78,37 +41,34 @@
 
 ## Ownership
 
-- Files in `godot/shaders/` are hand-written by the human and are never edited
-  by an agent. Do not create, edit, rename, reformat or "fix" them, even to make
-  a test pass; report the problem instead.
+- Files in `godot/shaders/` are hand-written by the human and are never edited by an agent. Do not create, edit, rename, reformat or "fix" them, even to make a test pass; report the problem instead. (`particles_generated.gdshader` is saved there by the human from the editor.)
 - `scripts/run-test.sh` is the handout's wrapper; agents never edit it (`git diff scripts/run-test.sh` is checked after every session).
+- Effect settings live in scene files in `godot/effects/`, not in code. Code may instance a scene, start it, and set `amount_ratio`; it does not set emission, process or draw values.
+
+## Godot 4 names
+
+- Use Godot 4 class and property names for 4.7.2, never Godot 3 names: `ParticleProcessMaterial`, not `ParticlesMaterial`; `initial_velocity_min` / `initial_velocity_max`, not `initial_velocity`; `scale_min` / `scale_max`, not `scale` / `scale_random`.
+- If you are unsure a property exists in this version, say so instead of guessing, or check it with `ClassDB` / `in` in a headless script and report the result.
+- Facts already probed in 4.7.2 (`design/a6/BRIEF-FACTS.md` §5; `CHANGE-BRIEF.md` A.3–A.4, E):
+  - `gravity` and `direction` are `Vector3`; +y is down in 2D. `spread` is a half-angle.
+  - A `Curve`'s `max_value` defaults to 1.0 and silently clamps higher points; set it when a curve peaks above 1.
+  - `amount_ratio` exists on `GPUParticles2D`, not `CPUParticles2D`. `lifetime_randomness` is on the process material. `GradientTexture2D` defaults to 64×64.
+  - A one-shot burst started with `restart()` after it is in the tree emits `finished`; one set `emitting = true` before its first frame did not.
 
 ## Out of scope
 
-This change adds a REWIND tint driven from code and a textured toy-box material.
-It must not touch:
+This change adds two particle effects as presentation. It must not touch:
 
-- Gameplay: the fighter state machine, its timings and transitions, movement, wind/health numbers, hit and hurt boxes (`fighter.gd:25-45, 112-255`).
-- Input: `godot/game/controls.gd` and how `main.gd` reads it.
-- Round flow, pause and mute logic in `main.gd`, beyond attaching materials or a driver. The driver only reads `fighter.state`; it never writes game state.
-- Audio (`godot/audio/`), music behaviour, HUD (`godot/ui/`), camera shake/roll, sparks.
-- Any sprite other than the two fighter body sprites: not the key, weapon, cork, background or HUD.
-- A single material shared by both fighters: each body sprite gets its own ShaderMaterial (R6).
-- Existing test expectations in `godot/tests/test_slice.gd` and `godot/tests/check_props3d.gd`. New tests may be added; old ones are not loosened.
-- The A3 props: the `.glb` geometry, the `.blend` sources, castle and windkey, the toy box's cream/navy/brass slots, and the prop room's floor, Sun, WorldEnvironment and camera.
-- `project.godot` settings (renderer, HDR 2D, viewport, autoloads) and the texture import settings, which are already set.
-- The `metal_plate_nor_dx_1k.png` file is calibration only and is not bound to any material.
+- Gameplay in `godot/fighter/fighter.gd`: the state machine and its timings, movement, wind and health numbers, attacks, hit and hurt boxes. Presentation may read `wind`, `state` and `key_sprite`; it never writes game state.
+- Input (`godot/game/controls.gd`), round flow, pause and mute logic in `main.gd`. Allowed in `main.gd`: passing `blocked` through `_on_hit` and the `struck` handler to `_on_impact`, spawning the effect scenes there, and attaching and driving Effect B (`CHANGE-BRIEF.md` C).
+- The star spark, camera shake and roll, hitstop, audio, music and HUD.
+- Existing tests and their expectations (`godot/tests/`); new tests are added, old ones are not loosened.
+- `godot/shaders/`, `godot/project.godot`, the A3 props and prop room, and existing texture files and their import settings.
 
 ## Unconfirmed
 
-- `godot/shaders/` does not exist yet, and neither does `rewind_tint.gdshader`
-  or the textured shader's file name (the brief does not name it).
-- `godot/prop_room/materials/` does not exist yet.
-- Where the tint driver will live (a new script, `main.gd`, or `fighter.gd`) is
-  not decided in any file I read.
-- No A5 test file exists yet in `godot/tests/`; its name is unknown.
-- `check_props3d.gd:78` prints `albedo_color` only for `BaseMaterial3D`; with a
-  ShaderMaterial on `toybox_red` it will print `#000000` for that surface. It
-  does not assert on colour, so it should still pass, but I have not run it.
-- `README.md:46` and `README.md:93` give raw `godot` commands; use
-  `scripts/run-test.sh` instead. I did not run either test.
+- None of `godot/effects/`, `godot/previews/`, `tools/generate_shard_texture.gd` or `tools/generate_steam_texture.gd` exists yet.
+- Where Effect B's driver lives (in `main.gd` or a new script) is left open by `CHANGE-BRIEF.md` C.
+- The brief cites `main.gd:200` for the cork's `struck` handler; the handler is at `main.gd:199`.
+- No new test file names are fixed by the brief; the handout's pattern is `godot/tests/test_<effect>_config.gd`.
+- Whether a hidden `GPUParticles2D` keeps simulating, and what shows when it reappears, is not observable headlessly; it is a strip or eyes check (`CHANGE-BRIEF.md` B-R5).
