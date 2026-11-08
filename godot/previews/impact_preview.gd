@@ -8,7 +8,13 @@ extends Node2D
 ## x 192-223. The burst fires at frame 10 and, when `retrigger` is on, a second
 ## overlapping instance at frame 11 (A-R3). Only these preview instances use a
 ## fixed seed, so before/after strips are comparable; the effect scene does not.
+##
+## For watching (never for captures): `-- --loop` refires the pair every
+## LOOP_SECONDS until the window is closed; adding `--random` drops the fixed
+## seed so repeats vary as they will in the game.
+##   godot --path godot res://previews/impact_preview.tscn -- --loop [--random]
 
+const LOOP_SECONDS := 1.0
 const EFFECT := preload("res://effects/impact_effect.tscn")
 const ART_SCALE := 1.0 / 3.0          # fighter.gd:260
 const FEET := Vector2(240, 435)       # fighter.gd:261
@@ -20,6 +26,9 @@ const FEET := Vector2(240, 435)       # fighter.gd:261
 @export var fixed_seed := 6270
 
 var frame := 0
+var loop := "--loop" in OS.get_cmdline_user_args()
+var random := "--random" in OS.get_cmdline_user_args()
+var since_fire := 0.0
 
 func _ready() -> void:
 	var cam := Camera2D.new()
@@ -39,12 +48,16 @@ func _ready() -> void:
 	bolt.position = Vector2(170, 292)
 	add_child(bolt)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if frame == trigger_frame:
 		_fire(0)
+		since_fire = 0.0
 	if retrigger and frame == retrigger_frame:
 		_fire(1)
 	frame += 1
+	since_fire += delta
+	if loop and frame > retrigger_frame and since_fire >= LOOP_SECONDS:
+		frame = trigger_frame
 
 func _fire(i: int) -> void:
 	var fx := EFFECT.instantiate()
@@ -52,7 +65,7 @@ func _fire(i: int) -> void:
 	add_child(fx)
 	var left := [fx.get_child_count()]   # an Array, because lambdas capture locals by value
 	for e: GPUParticles2D in fx.get_children():
-		e.use_fixed_seed = true
+		e.use_fixed_seed = not random
 		e.seed = fixed_seed + i
 		e.finished.connect(func():
 			left[0] -= 1
