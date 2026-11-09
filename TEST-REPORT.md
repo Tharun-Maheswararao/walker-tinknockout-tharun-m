@@ -588,10 +588,10 @@ Checked at revision `f825d97` (plus the docs commit after it). Godot 4.7.2.stabl
 | State | **done**: Effect A 44/0 at 60, including two impacts inside one lifetime; Effect B 37/0 at 60 | A6-2, A6-3 |
 | Frame strips (fixture) | **done**: `captures/impact_effect/r0`, `r1`; `captures/wind_steam/r0`; `captures/wind_steam_rewind/r0`, `r1` | TUNING.md |
 | In play (HUMAN CHECK) | **partly**: landed jab, block, cork and pause for A; low wind and rewind for B; boundaries held | A6-2, A6-3 |
-| Against the background (HUMAN CHECK) | _open: each effect over the darkest and lightest stretch_ | |
-| Edge of screen (HUMAN CHECK) | _open: a large effect near the screen edge does not pop out_ | |
-| Scene load (HUMAN CHECK) | _open: Effect B on the first frames after load (headless: ratio 0 on load, B-R6)_ | |
-| Claude against you | _open: each of Claude's strip readings beside Tharun's verdict, and at least one disagreement or "none"_ | TUNING.md |
+| Against the background (HUMAN CHECK) | **done**: both effects over both extremes; Effect A's shards weak over the dark stretch | A6-5a |
+| Edge of screen (HUMAN CHECK) | **done**: at the arena walls (the nearest the effects get to the edge), no popping or clipping | A6-5b |
+| Scene load (HUMAN CHECK) | **done**: no steam through the title and intro | A6-5b |
+| Claude against you | **done**: six readings compared; disagreements on the steam's size and the shards' apparent size | A6-5c |
 | Headless CPU price | **done**: both effects within the spread of game_off; empty-scene control included | A6-4 |
 | GPU price (HUMAN CHECK) | **open**: Visual Profiler GPU time, off vs on at heaviest, per effect; FPS with vsync off (F10); compare against CHANGE-BRIEF F budgets (A < 0.55 ms, B < 0.20 ms). One unlabelled screenshot so far (Render Viewport 0.33 ms, Update GPU particles 0.02 ms, case unknown) | fixture `godot/previews/gpu_price.tscn` |
 | Process shader | **done**: line references checked by Claude | "The process shader" |
