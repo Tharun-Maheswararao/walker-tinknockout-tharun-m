@@ -415,3 +415,55 @@ Nothing headless says how anything looks (`evidence/a5/headless-facts.txt:3`). T
 _(From the single M1 preview run above, written down after the restore and after Claude had stated the expected result: speed random in 0–90 instead of 60–90, so about half the shards keep roughly their normal reach.)_
 
 **M2:** a wrong number in the scene is caught even though it is a valid Godot 4 name; the test's expected values are the brief's, so the test catches drift between brief and scene.
+
+## A6-2. Effect A wired: state test (Step 3)
+
+Plan: `evidence/a6/step3a-plan.md`, approved step by step. Wiring: `godot/game/main.gd` passes `blocked` to `_on_impact`, which keeps the star, shake and roll and calls `_spawn_impact`: a fresh instance of the normal or blocked scene per impact, a child of Main at `p`, `restart()` after `add_child`, freed when both emitters emit `finished`.
+
+`godot/tests/test_impact_effect_state.gd`, through the wrapper at a fixed 60 fps (it does not wait on audio): **44 checks, 0 failed**, exit 0 (`logs/test_impact_effect_state_60fps.log`). Bolt is driven through the real Input path; Rivet's block and pop come from a stand-in brain that sets his `intent` (SETUP, like test_slice's `FrozenBrain`), because the game has no keys for Rivet. The test never calls the spawn code; bursts are counted as they enter Main's tree.
+
+| Scenario | Result | Rule |
+|---|---|---|
+| Scene load, round to FIGHT | 0 bursts | A-R1 |
+| 6 landed jabs | 6 `impact_effect.tscn` bursts, each at the attack-box centre (339, 227), under Main | A-R1, A-R2, A-R4, A-R5 |
+| Whiffed jabs and cutlass, walking, rewinding | 0 bursts | A-R1 |
+| Bolt's cork hits Rivet | 1 burst at the cork's position; the cork frees itself; the burst is still under Main afterwards and frees itself 15 frames later | A-R2, A-R4 |
+| Bolt's and Rivet's corks land 5 frames apart | 2 distinct bursts alive at once, each at its own cork's position | A-R3 |
+| Rivet blocks a jab | `impact_effect_blocked.tscn` at the attack-box centre | A-R5 |
+| Pause (real event) right after a hit | the burst still processes and frees itself while paused (13 frames) | A-R7 |
+| End of every scenario | live bursts back to 0 | F2 |
+
+All existing tests unchanged after the wiring: `test_slice` 60 25/0; `check_props3d` 60 PASS; `test_rewind_tint` 30/60/144 50/0 each; `test_materials` 60 55/0; `test_impact_effect_config` 60 135/0. `git diff scripts/run-test.sh godot/shaders` empty.
+
+**Does the state test catch failures?** (logs in `evidence/a6/mutations/`)
+
+| Run | What changed | Result |
+|---|---|---|
+| First run | none; a bug in the test: it compared two bursts after both were freed, and freed objects cannot be told apart | `44 checks, 1 failed` (`state-run1-test-bug.log`); fixed by recording each burst's instance id at spawn |
+| M3 | main.gd temporarily set `emitting = true` before `add_child` instead of `restart()` after it | `44 checks, 0 failed` (`state-m3-emitting-before-tree.log`): **not caught, because the predicted failure did not happen**: `finished` still fired and every burst freed itself |
+| M4 | main.gd temporarily never freed the burst | `44 checks, 5 failed`: the four F2 checks and the A-R7 free check (`state-m4-no-queue-free.log`) |
+
+main.gd was restored byte for byte after M3 and M4.
+
+**F2, outcome:** the brief predicts that a burst started with `emitting = true` before its first frame never emits `finished` (from Claude's earlier probe). In main.gd's setup, headless, that did not reproduce (M3). The leak itself is caught when it happens (M4). The brief's A.4 note and the CLAUDE.md line state the probe more broadly than this result supports.
+
+**What the state test cannot show:** how the burst looks, its draw order on screen beyond the `z_index` value, and its contrast against the castle; a headless run draws nothing.
+
+### HUMAN CHECK: in the running game (Tharun, 2026-11-08)
+
+Windowed run, `godot --path godot`, 1280×720; closed with no `ERROR` or `SCRIPT ERROR` in the terminal.
+
+| Check | What I saw |
+|---|---|
+| Landed jab | The bright cyan core flash and dark charcoal shards burst right over the yellow star, and they were distinct enough to tell apart from the background flash. |
+| Blocked hit | Didn't catch Rivet in a block state during this run, so I didn't see the blocked variant. |
+| Cork hit | Didn't see a cork actually connect with Rivet, so I can't confirm the world-space anchor by eye. |
+| Pause | Didn't pause at the exact frame of impact, so I didn't verify the unpaused continuation visually. |
+
+**Second run, same day** (`godot --path …/godot`, windowed; closed with no `ERROR` or `SCRIPT ERROR`), aimed at the three checks missed above:
+
+| Check | What I saw |
+|---|---|
+| Cork hit | Yes, a cork connected squarely against the target. Because of the world-space anchoring (local_coords = false), the impact burst appeared right at the precise point of contact and stayed cleanly pinned in space, holding its position even after the cork projectile itself vanished. |
+| Blocked jab | Rivet successfully threw up his guard for a block. That hit looked distinct—instantly reading as a scaled-down, muted grey spark rather than the bright cyan and charcoal flash of a normal, unblocked hit, providing immediate visual feedback of the deflection. |
+| Pause right after a hit | Pressing pause right on the frame of impact felt smooth and deliberate. While the rest of the game paused instantly, the impact effect didn't freeze mid-air; it continued its animation sequence naturally and finished its lifecycle cleanly. |

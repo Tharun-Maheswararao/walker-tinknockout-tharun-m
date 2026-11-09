@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== A-R1: scene load
+PASS  round reached FIGHT
+PASS  A-R1 no burst from loading main.tscn and starting the round (got 0)
+== A-R1, A-R2, A-R5: one unblocked burst per jab hit, at the attack box centre
+PASS  6 jab presses in range -> 6 hit_landed (got 6)
+PASS  A-R1 one burst per hit: 6 bursts for 6 hits
+PASS  A-R2/A-R5 burst 1: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 1 spawned under Main
+PASS  A-R2/A-R5 burst 2: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 2 spawned under Main
+PASS  A-R2/A-R5 burst 3: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 3 spawned under Main
+PASS  A-R2/A-R5 burst 4: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 4 spawned under Main
+PASS  A-R2/A-R5 burst 5: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 5 spawned under Main
+PASS  A-R2/A-R5 burst 6: impact_effect.tscn at the attack box centre (339.0, 227.0) (got (339.0, 227.0), impact_effect.tscn)
+PASS  A-R4 burst 6 spawned under Main
+FAIL  F2 all 6 bursts freed after their lifetime (live 6)
+== A-R1: never otherwise (whiffs, walking, rewinding)
+PASS  A-R1 no burst from whiffed jabs, a whiffed cutlass, walking or rewinding (got 0)
+== A-R2, A-R4: cork hit; the burst outlives the freed cork
+PASS  Bolt's cork struck Rivet (struck 1)
+PASS  A-R1 one burst for one cork hit (got 1)
+PASS  A-R2 burst at the cork's position when it struck (420.0003, 207.5) (got (420.0003, 207.5))
+PASS  A-R5 unblocked cork -> impact_effect.tscn
+PASS  the cork has freed itself
+PASS  A-R4 the burst is still in the tree under Main after the cork is gone
+FAIL  F2 burst freed itself 47 frames later
+== A-R3: two impacts inside one lifetime overlap
+PASS  both corks struck (got 2)
+PASS  two impacts -> two bursts (got 2)
+PASS  the second impact came 5 frames after the first, inside the 15-frame lifetime
+PASS  A-R3 overlap: both bursts alive in the tree at once (most alive 2)
+PASS  A-R3 two distinct instances, not one restarted (ids 101770593919, 102022252190)
+PASS  A-R2 burst 1 at its own cork's position (420.0003, 207.5) (got (420.0003, 207.5))
+PASS  A-R2 burst 2 at its own cork's position (179.9998, 207.5) (got (179.9998, 207.5))
+FAIL  F2 both freed afterwards (live 2)
+== A-R5: blocked hit -> blocked scene
+PASS  Rivet is blocking
+PASS  the jab landed blocked ([[(339.0, 227.0), true]])
+PASS  one burst for the blocked hit (got 1)
+PASS  A-R5 blocked hit -> impact_effect_blocked.tscn (got impact_effect_blocked.tscn)
+PASS  A-R2 blocked burst at the attack box centre (339.0, 227.0) (got (339.0, 227.0))
+FAIL  F2 blocked burst freed
+== A-R7: pause on the frame after the impact; the burst still finishes
+PASS  jab hit -> one burst
+PASS  main.paused is set (real pause event)
+PASS  A-R7 burst still processes while paused (PROCESS_MODE_ALWAYS inherited)
+FAIL  A-R7 burst finished and freed itself while still paused (45 frames)
+PASS  unpaused
+
+44 checks, 5 failed
+WARNING: 22 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 6 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

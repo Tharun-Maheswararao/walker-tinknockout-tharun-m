@@ -13,6 +13,8 @@ const FLOOR_Y := 292.0     # sand floor of ENV-BOWL (80% of frame height)
 const ARENA := Vector2(132, 500)  # inside the bowl's glass
 const INTRO_TIME := 1.3
 const LOW_WIND := 25.0
+const IMPACT_FX := preload("res://effects/impact_effect.tscn")                  # A6 Effect A (CHANGE-BRIEF A.3)
+const IMPACT_FX_BLOCKED := preload("res://effects/impact_effect_blocked.tscn")  # A.3c
 
 var round_state: int = R.TITLE
 var round_t := 0.0
@@ -196,18 +198,35 @@ func _spawn_cork(f: Fighter) -> void:
 		c.scale = Vector2.ONE * (14.0 / c.texture.get_width())
 	add_child(c)
 	sfx.watch_cork(c)
-	c.struck.connect(func(cork, _blocked): _on_impact(cork.position))
+	c.struck.connect(func(cork, blocked): _on_impact(cork.position, blocked))
 	corks.append(c)
 
-func _on_hit(attacker: Fighter, _attack: String, _blocked: bool) -> void:
+func _on_hit(attacker: Fighter, _attack: String, blocked: bool) -> void:
 	var box := attacker.attack_box()
-	_on_impact(box.get_center() if box.has_area() else attacker.opponent.position + Vector2(0, -70))
+	_on_impact(box.get_center() if box.has_area() else attacker.opponent.position + Vector2(0, -70), blocked)
 
-func _on_impact(p: Vector2) -> void:
+func _on_impact(p: Vector2, blocked := false) -> void:
 	sparks.append([p, 0.14])
 	shake = 0.15
 	if bolt.state == Fighter.S.HURT and bolt.stun >= Fighter.KNOCKDOWN_TIME:
 		roll = 0.45   # knockdown: Dutch-angle camera roll (storyboard panel 5)
+	_spawn_impact(p, blocked)
+
+## A6 Effect A: a fresh burst per impact, so bursts overlap (A-R3). It is a child
+## of Main at p (A-R2, A-R4) and inherits PROCESS_MODE_ALWAYS (A-R7). restart()
+## comes after add_child: only then does a one-shot emit `finished` (brief A.4
+## note, F2). Freed once both emitters have finished. No effect values here.
+func _spawn_impact(p: Vector2, blocked: bool) -> void:
+	var burst: Node2D = (IMPACT_FX_BLOCKED if blocked else IMPACT_FX).instantiate()
+	burst.position = p
+	add_child(burst)
+	var left := [burst.get_child_count()]   # an Array: lambdas capture locals by value
+	for e: GPUParticles2D in burst.get_children():
+		e.finished.connect(func():
+			left[0] -= 1
+			if left[0] == 0:
+				burst.queue_free())
+		e.restart()
 
 func _effects(dt: float) -> void:
 	shake = maxf(0.0, shake - dt)
