@@ -260,3 +260,5 @@ The effects-off reference: Visual Profiler, Render Viewport 0.97 ms GPU / 0.11 m
 ## A6 revisions
 
 - **2026-11-08:** the cork's `struck` handler is at `main.gd:199`, not 200 (line 200 is `corks.append(c)`). Applies to A.1 and A-R4; no rule or value changes.
+- 2026-11-08: A.3a Shards `color_ramp` updated with a mid-point keyframe at `0.7: Color(0.25, 0.25, 0.28, 1.0)`, keeping dark charcoal shards fully opaque through 70% of their lifetime before fading out. This resolves castle background contrast issues (TUNING.md revision 1; verdict: keep). Blocked variant remains unchanged.
+- 2026-11-08: F2 particle leak did not reproduce under `main.gd` setup (verified by state test M3); existing state test (M4) continues to catch particle leaks when triggered.

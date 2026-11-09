@@ -23,9 +23,10 @@ PASS  Shards angle -180 / 180 (got -180.0 / 180.0)
 PASS  Shards gravity (0, 400, 0) (got (0.0, 400.0, 0.0))
 PASS  Shards damping 100 / 150 (got 100.0 / 150.0)
 PASS  Shards color_ramp is a GradientTexture1D with a Gradient
-PASS  Shards color_ramp has 2 points (got 2)
+PASS  Shards color_ramp has 3 points (got 3)
 PASS  Shards color_ramp point 0 = (0.25, 0.25, 0.28, 1.0) at 0.00 (got (0.25, 0.25, 0.28, 1.0) at 0.00)
-PASS  Shards color_ramp point 1 = (0.1, 0.1, 0.1, 0.0) at 1.00 (got (0.1, 0.1, 0.1, 0.0) at 1.00)
+PASS  Shards color_ramp point 1 = (0.25, 0.25, 0.28, 1.0) at 0.70 (got (0.25, 0.25, 0.28, 1.0) at 0.70)
+PASS  Shards color_ramp point 2 = (0.1, 0.1, 0.1, 0.0) at 1.00 (got (0.1, 0.1, 0.1, 0.0) at 1.00)
 PASS  Shards scale 0.8 / 1.2 (got 0.80 / 1.20)
 PASS  Shards scale_curve is a CurveTexture with a Curve
 PASS  Shards scale_curve max_value 2.0 (got 2.0)
@@ -138,4 +139,4 @@ PASS  Blocked Core texture fill radial
 PASS  Blocked Core texture centred, fill_from (0.5, 0.5) (got (0.5, 0.5))
 PASS  Blocked Core draw material CanvasItemMaterial, blend ADD
 
-135 checks, 0 failed
+136 checks, 0 failed

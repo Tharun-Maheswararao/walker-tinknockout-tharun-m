@@ -73,7 +73,7 @@ func check_blend(tag: String, e: GPUParticles2D, blend: int, name: String) -> vo
 	var m := e.material as CanvasItemMaterial
 	ok(m != null and m.blend_mode == blend, "%s draw material CanvasItemMaterial, blend %s" % [tag, name])
 
-func check_shards(tag: String, e: GPUParticles2D, amount: int, colors: Array, smin: float, smax: float) -> void:
+func check_shards(tag: String, e: GPUParticles2D, amount: int, offsets: Array, colors: Array, smin: float, smax: float) -> void:
 	var pm := check_node(tag, e, amount)
 	if pm == null:
 		return
@@ -84,7 +84,7 @@ func check_shards(tag: String, e: GPUParticles2D, amount: int, colors: Array, sm
 	ok(near(pm.angle_min, -180.0) and near(pm.angle_max, 180.0), "%s angle -180 / 180 (got %.1f / %.1f)" % [tag, pm.angle_min, pm.angle_max])
 	ok(pm.gravity.is_equal_approx(Vector3(0, 400, 0)), "%s gravity (0, 400, 0) (got %s)" % [tag, pm.gravity])
 	ok(near(pm.damping_min, 100.0) and near(pm.damping_max, 150.0), "%s damping 100 / 150 (got %.1f / %.1f)" % [tag, pm.damping_min, pm.damping_max])
-	check_ramp(tag, pm, [0.0, 1.0], colors)
+	check_ramp(tag, pm, offsets, colors)
 	ok(near(pm.scale_min, smin) and near(pm.scale_max, smax), "%s scale %.1f / %.1f (got %.2f / %.2f)" % [tag, smin, smax, pm.scale_min, pm.scale_max])
 	check_curve(tag, pm, [Vector2(0.0, 1.0), Vector2(0.2, 1.2), Vector2(1.0, 0.4)], 2.0)
 	var tex := e.texture
@@ -128,15 +128,16 @@ func _initialize() -> void:
 	print("== impact_effect.tscn (A.3a, A.3b)")
 	var full := check_scene(FULL, "ImpactEffect")
 	if full:
-		check_shards("Shards", full.get_node_or_null("Shards") as GPUParticles2D, 16,
-			[Color(0.25, 0.25, 0.28, 1.0), Color(0.1, 0.1, 0.1, 0.0)], 0.8, 1.2)
+		# TUNING.md revision 1 (2026-11-08, approved by Tharun): opaque until 0.7, then fade
+		check_shards("Shards", full.get_node_or_null("Shards") as GPUParticles2D, 16, [0.0, 0.7, 1.0],
+			[Color(0.25, 0.25, 0.28, 1.0), Color(0.25, 0.25, 0.28, 1.0), Color(0.1, 0.1, 0.1, 0.0)], 0.8, 1.2)
 		check_core("Core", full.get_node_or_null("Core") as GPUParticles2D, 8, [0.0, 0.5, 1.0],
 			[Color(0.0, 1.0, 1.0, 1.0), Color(0.0, 0.3, 0.8, 0.8), Color(0.0, 0.3, 0.7, 0.0)], 1.0, 1.2)
 		full.free()
 	print("== impact_effect_blocked.tscn (A.3c)")
 	var blk := check_scene(BLOCKED, "ImpactEffectBlocked")
 	if blk:
-		check_shards("Blocked Shards", blk.get_node_or_null("Shards") as GPUParticles2D, 8,
+		check_shards("Blocked Shards", blk.get_node_or_null("Shards") as GPUParticles2D, 8, [0.0, 1.0],
 			[Color(0.5, 0.5, 0.5, 1.0), Color(0.5, 0.5, 0.5, 0.0)], 0.5, 0.7)
 		check_core("Blocked Core", blk.get_node_or_null("Core") as GPUParticles2D, 4, [0.0, 1.0],
 			[Color(0.6, 0.6, 0.6, 0.8), Color(0.6, 0.6, 0.6, 0.0)], 0.5, 0.7)
