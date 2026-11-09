@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== wind_steam.tscn (B.3)
+PASS  res://effects/wind_steam.tscn loads as a PackedScene
+PASS  root is a GPUParticles2D (one emitter, B.2)
+-- node: emission and draw
+PASS  amount 25, the fixed maximum (got 25)
+PASS  amount_ratio 0.0 in the scene: dormant until wind < 25 (B.1, B-R6) (got 0.00)
+PASS  emitting true: amount_ratio starts and stops it, emitting stays on (B-R1/B-R2)
+PASS  one_shot false: continuous emission
+PASS  explosiveness 0.0 (got 0.00)
+PASS  lifetime 0.6 (got 0.600)
+PASS  local_coords true: puffs follow key_sprite
+PASS  visibility_rect Rect2(-150, -150, 300, 300) (F3) (got [P: (-150.0, -150.0), S: (300.0, 300.0)])
+PASS  preprocess 0.0 (got 0.00)
+PASS  use_fixed_seed off in the effect scene (only the preview fixes it)
+PASS  texture res://effects/textures/steam_32.png
+PASS  texture is 32 x 32
+PASS  draw material CanvasItemMaterial, blend MIX
+-- process material
+PASS  process_material is a ParticleProcessMaterial
+PASS  lifetime_randomness 0.3 (got 0.30)
+PASS  emission shape point
+PASS  direction (0, -1, 0) (got (0.0, -1.0, 0.0))
+PASS  spread 30 (got 30.0)
+PASS  initial_velocity 60 / 120 local (got 60.0 / 120.0)
+PASS  gravity (0, -180, 0) local (got (0.0, -180.0, 0.0))
+PASS  damping 90 / 150 local (got 90.0 / 150.0)
+PASS  scale 0.2 / 0.8 (got 0.20 / 0.80)
+PASS  color_ramp is a GradientTexture1D with a Gradient
+PASS  color_ramp has 2 points (got 2)
+PASS  color_ramp point 0 = (0.85, 0.85, 0.85, 0.8) at 0.00 (got (0.85, 0.85, 0.85, 0.8) at 0.00)
+PASS  color_ramp point 1 = (0.9, 0.9, 0.9, 0.0) at 1.00 (got (0.9, 0.9, 0.9, 0.0) at 1.00)
+PASS  scale_curve is a CurveTexture with a Curve
+PASS  scale_curve max_value 3.0 (got 3.0)
+PASS  scale_curve has 2 points (got 2)
+PASS  scale_curve point 0 = (0, 1) (got (0.0, 1.0))
+PASS  scale_curve point 1 = (1, 3), not clamped (F1) (got (1.0, 3.0))
+
+33 checks, 0 failed

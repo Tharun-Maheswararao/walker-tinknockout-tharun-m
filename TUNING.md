@@ -69,3 +69,13 @@ Windowed run, `godot --path godot`, 1280×720; landed jabs over the castle. The 
 - **Visibility:** shards were easier to make out against the bright castle as solid dark flecks. They also looked bigger on screen, even though the scale is unchanged.
 - **The end:** they faded out smoothly, no snap or blink.
 - **Verdict: Keep.**
+
+## 2026-11-08 — Effect B, first look (before Claude read any strip)
+
+Fixture: `godot/previews/steam_preview.tscn`, windowed at the project's 1280×720, watched with `-- --loop` (fixed seed; 11 cycles of 2.67 s: steam on for 1.33 s per cycle). The first loop I watched ran about 4× too fast (the loop counted display frames at about 120 fps); Claude fixed the loop to count real time before this look. The capture was not affected. The effect is not yet wired into gameplay.
+
+What I saw:
+1. What I see and its colour: fine white misty trails rising upward, reading bright and semi-translucent against the darker background.
+2. Size compared with Bolt and his key: the entire steam rise is tall, roughly half of Bolt's height and noticeably larger than his key.
+3. Steam or exhaustion? It reads clearly as rising steam or heat dissipation rather than heavy physical exhaustion.
+4. What to change first: tweak the particle drift and fade timing so it feels more like heavy panting/exhaustion rather than steady, continuous chimney steam.
