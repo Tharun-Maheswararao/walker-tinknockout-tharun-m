@@ -35,3 +35,7 @@ youtube/**/_qc/frames/
 
 # Blender auto-backup saves
 *.blend1
+# Reel QC frame dumps (4K PNGs, 70-100 MB per reel): regenerable from the master; contact sheets ARE tracked
+youtube/**/_qc/master/
+youtube/**/_qc/stills/
+youtube/**/_qc/pilot/

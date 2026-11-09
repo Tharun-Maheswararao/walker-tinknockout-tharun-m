@@ -1,0 +1,1718 @@
+{
+  "metadata": {
+    "title": "Tin Knockout, Particle Effects",
+    "slug": "claude-liam-walker-tinknockout-tharun-m-a6-particles",
+    "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 6",
+    "kind": "godot-gamedev",
+    "playlist": "Walker",
+    "brand": "claude-liam",
+    "audience": "CSYE 7270 reviewers and Walker users",
+    "register": "Teardown",
+    "engine": "kokoro",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "aspect_ratio": "16:9",
+    "captions": false,
+    "channel_title": "@NikBearBrown",
+    "channel": "@NikBearBrown",
+    "presenter": "Liam (in for Bear)",
+    "persona": "Liam (in for Bear)",
+    "episode_id": "walker-tinknockout-tharun-m-a6",
+    "mode": "walker",
+    "game": {
+      "name": "walker-tinknockout-tharun-m",
+      "revision": "c844ab2c13eda0288d0cee63e1789a0efcbd84f5",
+      "docs_revision": "c844ab2",
+      "godot_path": "godot",
+      "engine_version": "4.7.2.stable.official.ed1daf0bf",
+      "renderer": "Forward+ (Vulkan/MoltenVK)"
+    },
+    "student": "Tharun Maheswararao",
+    "course": "CSYE 7270 Fall 2026 · Assignment 6",
+    "note": "Walker-mode godot-gamedev film of the A6 particle effects. Game source and docs shown: c844ab2. Strips are fixture captures (godot/previews/, fixed seed) taken by Tharun; the in-play footage is one Movie Maker capture made for this film on an isolated copy of c844ab2 (scripted input). The Visual Profiler screenshot is Tharun's. The GPU price is not measured and is shown as pending. B00 is an illustrative reconstruction; code views are labelled reconstructions / source views.",
+    "build": {
+      "at": "2026-11-09T12:18:31",
+      "cut": "master",
+      "filled": 25,
+      "of": 25,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "role_note": "COLD OPEN / walker B00 — ClaudeComposerAsk. Illustrative reconstruction, not a transcript.",
+      "narration_text": "Hola, this is Liam, in for Bear. Today we take apart assignment six of Tin Knockout, Tharun Maheswararao's game about tin wind-up toys boxing in an empty goldfish bowl. This time the game gets two particle effects. The prompt on screen is an illustrative reconstruction, not a saved transcript.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the reconstructed Walker ask; output lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Hola, Liam",
+            "topic": "WALKER · GAME DEVELOPMENT · ASSIGNMENT 6",
+            "segment": "walker-tinknockout-tharun-m",
+            "command": "Please use Walker to convert my game design document about tin wind-up toys boxing in an empty goldfish bowl into two particle effects for my Godot game: a burst on every hit, and steam from the back key when a fighter runs low on wind.",
+            "runningText": "reading the brief…",
+            "output": [
+              "■ walker-tinknockout-tharun-m  ·  Godot 4.7.2  ·  Forward+  ·  c844ab2",
+              "  impact_effect.tscn   two GPUParticles2D  ·  Shards MIX  ·  Core ADD",
+              "  wind_steam.tscn      one per fighter  ·  amount_ratio from wind",
+              "  textures             written by code  ·  no third-party art",
+              "  RECONSTRUCTED PROMPT — illustrative, not a transcript"
+            ],
+            "durationSeconds": 16.9
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-11-09T15:50:12.022564+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.9,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 16.9,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "role_note": "walker B01 — what was built and what the film explains. The correction is the misconception the body dismantles: a headless run proves behaviour, not cost.",
+      "lead_silence_s": 0.8,
+      "narration_text": "Tin Knockout got two particle effects: an impact burst on every hit, and steam when a fighter's wind runs low. Headless tests prove their behaviour. How they look, and what they cost the graphics card, no headless run can show.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "writer types the overview; \"cost\" is struck and corrected to \"behaviour\""
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Tin Knockout got an impact burst\nand wind steam.\nHeadless tests prove their cost.",
+            "triggerWords": "cost",
+            "replacementWords": "behaviour",
+            "charMs": 10,
+            "mistakeRate": 2,
+            "hesitateBetween": 4,
+            "seed": "claude-liam-walker-tinknockout-tharun-m-a6-particles",
+            "face": "serif",
+            "fontSize": 112,
+            "lineSpacing": 2.6,
+            "align": "left",
+            "ink": "#2b2118",
+            "durationSeconds": 13.58
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-11-09T16:26:06.197305+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 13,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 13.58,
+      "audio_file": "mp3/beat-B01.mp3",
+      "lead_silence_baked": true,
+      "voice_duration_s": 12.78,
+      "render_duration_s": 13.6,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "SETUP",
+      "role_note": "The game, both effects, their jobs, and the event (A) and condition (B) that drive them (CHANGE-BRIEF A.1, B.1; main.gd).",
+      "narration_text": "The game: two tin toys box on wind-up springs, and every attack spends wind. Effect A is an impact burst. Its job, in Tharun's brief, is to give each hit distinct visual weight and better readability across backgrounds. Its event is every impact, a melee hit or a cork hit, both arriving at main's on impact, with a blocked flag. Effect B is wind steam at the fighter's back key, a feedback loop. Its condition is wind below twenty-five, and its mapping: amount ratio equals twenty-five minus wind, over twenty-five, clamped between zero and one.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B02.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "two held frames from the film capture (scripted input), each with a zoom of the effect"
+          },
+          {
+            "at": "Effect A is",
+            "event": "EFFECT A card lights: job, event, blocked variant"
+          },
+          {
+            "at": "Effect B is",
+            "event": "EFFECT B card lights: job, value, condition, mapping"
+          }
+        ],
+        "anchors": [
+          [
+            "a",
+            "Effect A is"
+          ],
+          [
+            "b",
+            "Effect B is"
+          ]
+        ],
+        "panel": {
+          "kind": "setup",
+          "title": "Two Effects, Two Jobs"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "a": 4.31,
+          "b": 19.46
+        }
+      },
+      "estimated_duration_s": 32,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 31.29,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 31.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "MECHANISM",
+      "role_note": "The three parts of a particle system, each with a scene-file line (impact_effect.tscn:86, 28, 37) and the visible result in the r1 strip; why the headless price is near zero (CLAUDE.md Headless facts).",
+      "narration_text": "Every particle system has three parts. Emission decides how many particles are born, and when. Line eighty-six, explosiveness one: all sixteen shards are born at once, and the burst is on screen in frame ten itself. Process moves each particle over its life. Line twenty-eight, gravity four hundred: the shards fall into a ring below the fist. Draw decides how each particle is painted. Line thirty-seven, blend mode one, which is add: the core can only brighten. In this game the process runs on the graphics card. A headless run uses a dummy renderer that runs no GPU particle process and draws nothing, so a GPU effect's headless price is near zero by construction.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B03.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "three columns: one line of godot/effects/impact_effect.tscn each"
+          },
+          {
+            "at": "on screen in frame ten",
+            "event": "EMISSION result: r1 frame 10, burst on screen at the trigger frame"
+          },
+          {
+            "at": "into a ring",
+            "event": "PROCESS result: r1 frame 15, shards in a ring below the fist"
+          },
+          {
+            "at": "the core can only",
+            "event": "DRAW result: r1 frame 12, the ADD core brightens the castle"
+          },
+          {
+            "at": "A headless run",
+            "event": "headless fact (CLAUDE.md) lights"
+          }
+        ],
+        "anchors": [
+          [
+            "emit",
+            "on screen in frame ten"
+          ],
+          [
+            "proc",
+            "into a ring"
+          ],
+          [
+            "draw",
+            "the core can only"
+          ],
+          [
+            "head",
+            "A headless run"
+          ]
+        ],
+        "panel": {
+          "kind": "parts",
+          "title": "Emission · Process · Draw",
+          "files": [
+            [
+              "godot/effects/impact_effect.tscn",
+              86,
+              86
+            ],
+            [
+              "godot/effects/impact_effect.tscn",
+              28,
+              28
+            ],
+            [
+              "godot/effects/impact_effect.tscn",
+              36,
+              37
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "emit": 9.44,
+          "proc": 16.27,
+          "draw": 23.09,
+          "head": 27.96
+        }
+      },
+      "estimated_duration_s": 40,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 37.03,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 37.03333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "INTENT",
+      "role_note": "Effect A intent block, CHANGE-BRIEF A.2 (Tharun, drafted with Claude 3.5 Sonnet; corrections from Claude Code reviews), quoted verbatim.",
+      "narration_text": "Effect A's intent, written before the build. Timing: a quarter-second life, an instant snap expansion, then a smooth fade. Contrast: a dark edge and a bright core, on separate emitters, the shards in mix and the core in add. That split came from Claude Code's review: an additive layer cannot draw a dark outline. Scale: about sixty pixels wide in the window. Variation: random angle, speed and rotation, so rapid repeated hits never look stamped.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B04.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "CHANGE-BRIEF A.2 rows quoted verbatim"
+          },
+          {
+            "at": "Contrast: a dark",
+            "event": "Contrast row lights; brief authorship note on the split"
+          },
+          {
+            "at": "Scale: about sixty",
+            "event": "Scale and Variation rows light"
+          }
+        ],
+        "anchors": [
+          [
+            "contrast",
+            "Contrast: a dark"
+          ],
+          [
+            "scale",
+            "Scale: about sixty"
+          ]
+        ],
+        "panel": {
+          "kind": "intentA",
+          "title": "Effect A · The Intent"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "contrast": 5.49,
+          "scale": 16.15
+        }
+      },
+      "estimated_duration_s": 27,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.85,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 22.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "MECHANISM",
+      "role_note": "The Effect A scene as built: impact_effect.tscn:77-86, root and Shards node (checked excerpt).",
+      "narration_text": "And here is how that intent landed in the scene file. Line seventy-seven: the root draws at z index six, above the kept star at five. Line eighty: the shards draw through their own material, which blends in mix. Lines eighty-two to eighty-six: sixteen shards, a quarter-second life, one shot, all born at once. Claude built this scene, unedited; every value comes from Tharun's brief, and no code sets them.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/effects/impact_effect.tscn:77-86 at reading size"
+          },
+          {
+            "at": "Line seventy-seven",
+            "event": "line 77: z_index 6: above the star at 5 (A-R6)"
+          },
+          {
+            "at": "Line eighty",
+            "event": "line 80: Shards material: blend MIX"
+          },
+          {
+            "at": "Lines eighty-two",
+            "event": "line 86: amount 16 · lifetime 0.25 · one shot · all at once"
+          }
+        ],
+        "anchors": [
+          [
+            "77",
+            "Line seventy-seven"
+          ],
+          [
+            "80",
+            "Line eighty"
+          ],
+          [
+            "86",
+            "Lines eighty-two"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Effect A · The Scene",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://effects/impact_effect.tscn  ·  lines 77–86  ·  revision c844ab2",
+            "source": "Godot editor reconstruction · godot/effects/impact_effect.tscn lines 77–86 at c844ab2, verbatim",
+            "code": "z_index = 6\n\n[node name=\"Shards\" type=\"GPUParticles2D\" parent=\".\" unique_id=567126519]\nmaterial = SubResource(\"CanvasItemMaterial_voqhm\")\nemitting = false\namount = 16\ntexture = ExtResource(\"1_iyonu\")\nlifetime = 0.25\none_shot = true\nexplosiveness = 1.0",
+            "startLine": 77,
+            "codeFontSize": 28,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "Who",
+                "value": "built by Claude Code · every value from Tharun's brief (SOURCES.md)"
+              },
+              {
+                "label": "Rule",
+                "value": "effect settings live in scene files, not code (CLAUDE.md)"
+              }
+            ],
+            "cues": [
+              {
+                "at": 3.02,
+                "line": 77,
+                "label": "z_index 6: above the star at 5 (A-R6)"
+              },
+              {
+                "at": 7.54,
+                "line": 80,
+                "label": "Shards material: blend MIX"
+              },
+              {
+                "at": 11.45,
+                "line": 86,
+                "label": "amount 16 · lifetime 0.25 · one shot · all at once"
+              }
+            ],
+            "output": [
+              "code → visible result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 21.1
+          },
+          "rendered": {
+            "out": "media/B05.mp4",
+            "at": "2026-11-09T15:49:25.083272+00:00"
+          }
+        },
+        "cue_times": {
+          "77": 3.02,
+          "80": 7.54,
+          "86": 11.45
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 21.1,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 21.1,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "RESULT",
+      "role_note": "The first strip, r0 (fixture), with Tharun's first look (before Claude read it) and Claude's reading (TUNING.md Effect A).",
+      "narration_text": "The first strip is a fixture: a preview scene with a fixed seed, a burst at frame ten and a second at frame eleven. Tharun looked first, before Claude read anything. The core flash, bright cyan, reads. The dark shards are a bit hard to make out. Claude's reading agreed and measured why: at frame fifteen the shards darken the castle by a median of only forty-one levels. The colour ramp fades alpha in a straight line, so two-thirds through life about a third is left. Frames twenty, thirty and fifty are empty, as the brief predicted.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B06.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "captures/impact_effect/r0 frames 10, 12, 15, 20, 30, 50 (fixture, held frames, zoom)"
+          },
+          {
+            "at": "Tharun looked first",
+            "event": "Tharun's first look, verbatim"
+          },
+          {
+            "at": "Claude's reading agreed",
+            "event": "frame 15 ringed; Claude's reading: median drop 41"
+          },
+          {
+            "at": "Frames twenty, thirty",
+            "event": "frames 20, 30, 50 marked empty"
+          }
+        ],
+        "anchors": [
+          [
+            "look",
+            "Tharun looked first"
+          ],
+          [
+            "read",
+            "Claude's reading agreed"
+          ],
+          [
+            "empty",
+            "Frames twenty, thirty"
+          ]
+        ],
+        "panel": {
+          "kind": "stripA",
+          "title": "Effect A · The First Strip"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "look": 7.01,
+          "read": 14.02,
+          "empty": 25.91
+        }
+      },
+      "estimated_duration_s": 33,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 29.56,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 29.566666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "MECHANISM",
+      "role_note": "Effect A revision 1: the one-setting change (impact_effect.tscn:8-9, git 45e986f) and Claude's frame-by-frame prediction written before the change (TUNING.md).",
+      "narration_text": "Revision one changes one setting: the shards' colour ramp, lines eight and nine. A middle point at seven tenths keeps the charcoal fully opaque for most of the shard's life. Claude's prediction, written before any change: frame ten unchanged; frame twelve slightly darker; and at frame fifteen the median darkening rises from forty-one to ninety or more, with about the same count of dark pixels. The risk Claude named: the fade is squeezed into the last few frames, so the shards may blink out. Tharun approved the change.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B07.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "git diff 45e986f: impact_effect.tscn Gradient, old line and new lines 8-9"
+          },
+          {
+            "at": "Claude's prediction",
+            "event": "prediction card: frames 10, 12, 15, 20-50"
+          },
+          {
+            "at": "The risk Claude named",
+            "event": "risk line lights: blink out"
+          }
+        ],
+        "anchors": [
+          [
+            "pred",
+            "Claude's prediction"
+          ],
+          [
+            "risk",
+            "The risk Claude named"
+          ]
+        ],
+        "panel": {
+          "kind": "revA",
+          "title": "Effect A · Revision 1",
+          "files": [
+            [
+              "godot/effects/impact_effect.tscn",
+              7,
+              9
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "pred": 9.33,
+          "risk": 20.56
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 28.24,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 28.266666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "RESULT",
+      "role_note": "r0 vs r1 (captures/impact_effect/r0_vs_r1_sheet.png), Claude's comparison and Tharun's in-game verdict.",
+      "narration_text": "r1, captured by Tharun with the same fixture and seed. Top row before, bottom row after. Frame fifteen: the median rose to one hundred and five point seven, so the median matches. The count does not: it rose by sixteen percent, because faint edge pixels now pass the threshold. Frame twelve: direction right, size wrong. Frame ten: almost; Claude had assumed the particles were zero frames old. The blink-out risk is something the strip cannot show, so it went to Tharun in the running game: they faded out smoothly, no snap or blink. His verdict: keep.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B08.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "r0_vs_r1_sheet.png (top r0, bottom r1; frames 10, 12, 15, 20)"
+          },
+          {
+            "at": "Frame fifteen: the median",
+            "event": "frame 15 column ringed; row: 41.3 → 105.7, Matches"
+          },
+          {
+            "at": "Frame twelve",
+            "event": "rows for frames 12 and 10 light"
+          },
+          {
+            "at": "it went to Tharun",
+            "event": "Tharun's verdict, verbatim: Keep"
+          }
+        ],
+        "anchors": [
+          [
+            "f15",
+            "Frame fifteen: the median"
+          ],
+          [
+            "f12",
+            "Frame twelve"
+          ],
+          [
+            "verdict",
+            "it went to Tharun"
+          ]
+        ],
+        "panel": {
+          "kind": "cmpA",
+          "title": "Effect A · Before and After"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "f15": 4.93,
+          "f12": 15.73,
+          "verdict": 24.88
+        }
+      },
+      "estimated_duration_s": 33,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 31.4,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 31.4,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "MECHANISM",
+      "role_note": "The event wiring: main.gd:228-238 _spawn_impact (Claude, plan approved step by step by Tharun).",
+      "narration_text": "Now the event. Main's on impact keeps the star, the shake and the roll, then calls spawn impact. Line two twenty-nine picks the normal or the blocked scene from the blocked flag. Line two thirty-one makes the burst a child of Main at p, so a cork can free itself without taking the burst with it. And line two thirty-eight restarts each emitter after add child; the burst frees itself once both have finished. A fresh instance per hit, so rapid hits overlap instead of cutting each other off.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B09.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/game/main.gd:228-238 at reading size"
+          },
+          {
+            "at": "Line two twenty-nine",
+            "event": "line 229 highlighted: normal or blocked scene"
+          },
+          {
+            "at": "Line two thirty-one",
+            "event": "line 231 highlighted: child of Main at p"
+          },
+          {
+            "at": "thirty-eight restarts",
+            "event": "line 238 highlighted: restart() after add_child"
+          }
+        ],
+        "anchors": [
+          [
+            "229",
+            "Line two twenty-nine"
+          ],
+          [
+            "231",
+            "Line two thirty-one"
+          ],
+          [
+            "238",
+            "thirty-eight restarts"
+          ]
+        ],
+        "panel": {
+          "kind": "code",
+          "title": "Effect A · The Event",
+          "path": "godot/game/main.gd",
+          "segments": [
+            [
+              228,
+              238
+            ]
+          ],
+          "cues": [
+            [
+              229,
+              "normal or blocked scene, from the blocked flag (A-R5)"
+            ],
+            [
+              231,
+              "a child of Main at p: outlives the cork (A-R2, A-R4)"
+            ],
+            [
+              238,
+              "restart() after add_child; freed on finished (A-R3, F2)"
+            ]
+          ],
+          "notes": [
+            [
+              "Who",
+              "Claude, from plan step3a-plan.md, approved step by step by Tharun"
+            ],
+            [
+              "Kept",
+              "star, shake, roll and hitstop unchanged (brief C)"
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "229": 5.22,
+          "231": 9.51,
+          "238": 17.78
+        }
+      },
+      "estimated_duration_s": 27,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 27.28,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 27.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "RESULT",
+      "role_note": "Effect A in play: Movie Maker capture made for this film, scripted input on an isolated copy of c844ab2 (capture/play-4k.mp4); rapid repeats, blocked variant, 0.25x replay.",
+      "narration_text": "In play, from a scripted-input capture made for this film. Bolt taps jab each time he is ready, eight times; Rivet is the game's own brain. Every landed jab bursts. Every other jab, Rivet blocks, and that hit gets the smaller grey burst. Rivet's own hits on Bolt burst too. Again at quarter speed: each hit gets its own instance, and the counter shows how many are alive.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B10.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "capture/play-4k.mp4, the jab sequence at real speed, with a zoom on the hit point and a per-frame readout from the capture log"
+          },
+          {
+            "at": "Again at quarter speed",
+            "event": "labelled 0.25x replay"
+          }
+        ],
+        "anchors": [
+          [
+            "slow",
+            "Again at quarter speed"
+          ]
+        ],
+        "panel": {
+          "kind": "playA",
+          "title": "Effect A · In Play"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "slow": 14.15
+        }
+      },
+      "estimated_duration_s": 25,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.65,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 19.666666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "INTENT",
+      "role_note": "Effect B intent: CHANGE-BRIEF B.1 (job, value, condition, mapping, feature A does not use) and B.2 (timing, scale), quoted verbatim.",
+      "narration_text": "Effect B is a feedback loop. Tharun's brief says players fighting at high speed cannot afford to look away from the sprites to check the dial, so the cue sits on the fighter's back, at the key. The value is wind, zero to one hundred. The condition: below twenty-five, the same threshold as the music's slowdown. The mapping: dormant at twenty-five and above, rising in a straight line to one at zero. And the feature Effect A doesn't use: amount ratio, which scales how many particles are emitted without restarting the system. Puffs should start around five pixels and grow to fifteen or twenty.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B11.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "CHANGE-BRIEF B.1 rows quoted verbatim"
+          },
+          {
+            "at": "The condition: below",
+            "event": "Condition and Mapping rows light"
+          },
+          {
+            "at": "Effect A doesn't use",
+            "event": "Feature row lights: amount_ratio"
+          },
+          {
+            "at": "Puffs should start",
+            "event": "B.2 scale row lights"
+          }
+        ],
+        "anchors": [
+          [
+            "cond",
+            "The condition: below"
+          ],
+          [
+            "feat",
+            "Effect A doesn't use"
+          ],
+          [
+            "scale",
+            "Puffs should start"
+          ]
+        ],
+        "panel": {
+          "kind": "intentB",
+          "title": "Effect B · The Intent"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "cond": 13.56,
+          "feat": 22.8,
+          "scale": 28.04
+        }
+      },
+      "estimated_duration_s": 33,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 32.04,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 32.06666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "MECHANISM",
+      "role_note": "Effect B as built: wind_steam.tscn:35-43 (node) beside main.gd:69-70 and 241-242 (attach, mapping).",
+      "narration_text": "The scene: one emitter. Amount twenty-five, the fixed maximum, and amount ratio zero: dormant. A life of six tenths of a second, and local coordinates on, so the puffs ride with the key. In main, line seventy: each time a fighter announces its wind, the steam's amount ratio is set from steam ratio. Lines two forty-one and two forty-two: twenty-five minus wind, over twenty-five, clamped. That is the only effect value any code sets.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B12.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "wind_steam.tscn:35-43 beside main.gd:69-70, 241-242"
+          },
+          {
+            "at": "Amount twenty-five",
+            "event": "lines 37-38 highlighted: amount 25, amount_ratio 0.0"
+          },
+          {
+            "at": "A life of",
+            "event": "lines 40, 42 highlighted: lifetime 0.6, local_coords true"
+          },
+          {
+            "at": "line seventy",
+            "event": "main.gd line 70 highlighted"
+          },
+          {
+            "at": "Lines two forty-one",
+            "event": "main.gd lines 241-242 highlighted"
+          }
+        ],
+        "anchors": [
+          [
+            "amt",
+            "Amount twenty-five"
+          ],
+          [
+            "life",
+            "A life of"
+          ],
+          [
+            "70",
+            "line seventy"
+          ],
+          [
+            "241",
+            "Lines two forty-one"
+          ]
+        ],
+        "panel": {
+          "kind": "codeB",
+          "title": "Effect B · The Scene and the Mapping",
+          "files": [
+            [
+              "godot/effects/wind_steam.tscn",
+              35,
+              43
+            ],
+            [
+              "godot/game/main.gd",
+              69,
+              70
+            ],
+            [
+              "godot/game/main.gd",
+              241,
+              242
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "amt": 0.92,
+          "life": 3.95,
+          "70": 10.33,
+          "241": 15.8
+        }
+      },
+      "estimated_duration_s": 28,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 22.49,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 22.5,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B12.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "RESULT",
+      "role_note": "The first steam strip, captures/wind_steam/r0 (fixture), Tharun's first look, and Claude's later size measurement (TUNING.md, TEST-REPORT A6-5c).",
+      "narration_text": "The first steam strip, again a fixture: ratio one from frame ten, cut to zero at frame fifty. Frame forty is the steady plume; fifty-five, the tail fading; seventy, empty. Tharun's first look: fine white misty trails rising upward, and the entire steam rise is tall, roughly half of Bolt's height. Claude measured it afterwards at frame forty: eighteen by twenty-seven view pixels, about a quarter of Bolt's one hundred and twelve. That disagreement stands. We come back to it.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B13.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "captures/wind_steam/r0 frames 12, 20, 40, 55, 70 (fixture, held frames, zoom)"
+          },
+          {
+            "at": "Tharun's first look",
+            "event": "Tharun's first look, verbatim"
+          },
+          {
+            "at": "Claude measured it",
+            "event": "Claude's measurement: 18 x 27 view px, about 1/4 of Bolt"
+          }
+        ],
+        "anchors": [
+          [
+            "look",
+            "Tharun's first look"
+          ],
+          [
+            "meas",
+            "Claude measured it"
+          ]
+        ],
+        "panel": {
+          "kind": "stripB",
+          "title": "Effect B · The First Strip"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "look": 9.8,
+          "meas": 16.87
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 26.94,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 26.966666666666665,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B13.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "MECHANISM",
+      "role_note": "Effect B revision 1: Tharun's in-game observation, the rewind strip r0 (fixture), the change (steam_mount.gd:31-35, Tharun's choice) and Claude's prediction (TUNING.md).",
+      "narration_text": "Revision one came from play. Tharun, in game: the steam cut out immediately upon triggering the rewind state. The first strip never rewinds, so Claude added a rewind fixture. Its strip, r0, frame thirty-four: the whole plume collapses to a thin sliver. The key spins, its x scale swings down to fifteen percent, and the steam, its child, squashes with it. Tharun chose the fix: a holder, Steam Mount, over turning local coordinates off. Lines thirty-three to thirty-five copy the key's position, facing and visibility, but not its squash. Claude's prediction: r1 equals r0 wherever the key was full width, and at frame thirty-four, a full-width plume.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B14.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "Tharun's in-game observation (TEST-REPORT A6-3), verbatim"
+          },
+          {
+            "at": "Its strip, r0",
+            "event": "rewind strip r0 frames 31, 34, 38 (fixture, held frames, zoom); 34 ringed"
+          },
+          {
+            "at": "Tharun chose the fix",
+            "event": "godot/effects/steam_mount.gd:31-35, lines 33-35 highlighted"
+          },
+          {
+            "at": "Claude's prediction",
+            "event": "prediction card"
+          }
+        ],
+        "anchors": [
+          [
+            "strip",
+            "Its strip, r0"
+          ],
+          [
+            "fix",
+            "Tharun chose the fix"
+          ],
+          [
+            "pred",
+            "Claude's prediction"
+          ]
+        ],
+        "panel": {
+          "kind": "revB",
+          "title": "Effect B · Revision 1",
+          "files": [
+            [
+              "godot/effects/steam_mount.gd",
+              31,
+              35
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "strip": 9.63,
+          "fix": 20.59,
+          "pred": 30.18
+        }
+      },
+      "estimated_duration_s": 40,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 36.64,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 36.666666666666664,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B14.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "RESULT",
+      "role_note": "Rewind r0 vs r1 (captures/wind_steam_rewind/r0_vs_r1_sheet.png), Claude's comparison and Tharun's in-game verdict.",
+      "narration_text": "r1, same fixture, seed and flags. Top row before, bottom row after. Frames twenty-eight and thirty-one: zero pixels differ. Frame thirty-four: one thousand and twenty-one pixels differ, all in a small box above the key, a full soft plume where r0 had a sliver. Every later frame: zero. It matches. But the strip under-shows the old flicker: only one of seven rewind frames caught the key narrow. So the verdict was Tharun's, in game: it kept going and tapered off smoothly instead of cutting out. Keep.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B15.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "r0_vs_r1_sheet.png (top r0, bottom r1; frames 28-72)"
+          },
+          {
+            "at": "Frame thirty-four",
+            "event": "frame 34 column ringed: 1021 px differ"
+          },
+          {
+            "at": "under-shows",
+            "event": "note: 1 of 7 rewind frames caught the key narrow"
+          },
+          {
+            "at": "Tharun's, in game",
+            "event": "Tharun's verdict, verbatim: Keep"
+          }
+        ],
+        "anchors": [
+          [
+            "f34",
+            "Frame thirty-four"
+          ],
+          [
+            "under",
+            "under-shows"
+          ],
+          [
+            "verdict",
+            "Tharun's, in game"
+          ]
+        ],
+        "panel": {
+          "kind": "cmpB",
+          "title": "Effect B · Before and After"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "f34": 6.14,
+          "under": 17.66,
+          "verdict": 23.75
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 29.14,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 29.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B15.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "RESULT",
+      "role_note": "Effect B in play, start / pause / stop: the same Movie Maker capture (scripted input), with Bolt's wind, amount_ratio and pause read from the capture log each frame; state-test rows B-R1..B-R4.",
+      "narration_text": "In play, from the same scripted capture. After the seventh jab, Bolt's wind is sixteen: ratio point three six, and steam starts from the key. After the eighth, wind four: point eight four. Then pause. The fight freezes and the screen dims, but the steam keeps rising. It is the only thing that moves, because it inherits process mode always from Main. Play resumes, and Rivet lands a hit. Then rewind. Each click adds ten wind, the ratio steps down, point four four, point zero four, zero, and the puffs already alive fade out over their life instead of vanishing.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B16.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "capture/play-4k.mp4 from the 7th jab to the end, zoom on the key, readout of wind, amount_ratio and paused from the capture log"
+          },
+          {
+            "at": "Then pause",
+            "event": "PAUSED in the readout; puffs still move (the only pixels that change)"
+          },
+          {
+            "at": "Play resumes",
+            "event": "Bolt HURT in the readout"
+          },
+          {
+            "at": "Then rewind",
+            "event": "REWIND in the readout; ratio 0.84 -> 0.44 -> 0.04 -> 0"
+          }
+        ],
+        "anchors": [
+          [
+            "pause",
+            "Then pause"
+          ],
+          [
+            "rew",
+            "Then rewind"
+          ]
+        ],
+        "panel": {
+          "kind": "playB",
+          "title": "Effect B · In Play"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "pause": 10.05,
+          "rew": 21.35
+        }
+      },
+      "estimated_duration_s": 27,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 31.38,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 31.4,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B16.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "MECHANISM",
+      "role_note": "Two annotated lines of the generated process shader (particles_generated.gdshader:258, 302 with 315) beside the brief settings they implement (B.3 spread 30.0, gravity (0, -180, 0)); Tharun's line references (TEST-REPORT \"The process shader\").",
+      "narration_text": "Under the hood. Tharun converted Effect B's process material in the editor and saved the shader Godot wrote; the game does not use this copy. Line two fifty-eight: each new puff gets a random direction from spread, times its starting speed. That spread is the brief's thirty degrees, a half-angle. Line three oh two: force starts as gravity, and line three fifteen adds force times delta to the velocity. That gravity is the brief's minus one eighty. The numbers themselves live on the material, so the shader only declares them as uniforms.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B17.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "particles_generated.gdshader lines 258, 302, 315 beside CHANGE-BRIEF B.3 rows"
+          },
+          {
+            "at": "Line two fifty-eight",
+            "event": "line 258 highlighted, linked to spread 30.0"
+          },
+          {
+            "at": "Line three oh",
+            "event": "lines 302 and 315 highlighted, linked to gravity (0, -180, 0)"
+          },
+          {
+            "at": "The numbers themselves",
+            "event": "Tharun's note: the value lives on the material resource"
+          }
+        ],
+        "anchors": [
+          [
+            "258",
+            "Line two fifty-eight"
+          ],
+          [
+            "302",
+            "Line three oh"
+          ],
+          [
+            "mat",
+            "The numbers themselves"
+          ]
+        ],
+        "panel": {
+          "kind": "shader",
+          "title": "The Process Shader",
+          "files": [
+            [
+              "godot/shaders/particles_generated.gdshader",
+              258,
+              258
+            ],
+            [
+              "godot/shaders/particles_generated.gdshader",
+              302,
+              302
+            ],
+            [
+              "godot/shaders/particles_generated.gdshader",
+              315,
+              315
+            ],
+            [
+              "godot/shaders/particles_generated.gdshader",
+              7,
+              7
+            ],
+            [
+              "godot/shaders/particles_generated.gdshader",
+              43,
+              43
+            ]
+          ]
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "258": 7.99,
+          "302": 16.28,
+          "mat": 25.23
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 30.5,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 30.5,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B17.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "TESTS",
+      "role_note": "What the tests proved: counts (logs/, re-run for this film on a clean copy of c844ab2) and the mutations (evidence/a6/mutations/, TEST-REPORT A6-1..A6-3).",
+      "narration_text": "What the tests proved, re-run for this film on a clean copy of c844ab2. The config tests read every brief value back from the scenes: one hundred thirty-six checks for Effect A and thirty-three for Effect B, none failed, including that spread of thirty and gravity of minus one eighty. The state tests drive real input: forty-four for A, thirty-seven for B. Then the mutations. A Godot three name: Godot loaded it with no warning, and the effect still fired, but one check failed. A value drift, sixteen shards to twelve: one failed. Never freeing a burst: five. Setting amount instead of amount ratio: eleven. And one did not fail: setting emitting before the burst entered the tree, because the predicted failure never happened.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B18.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "test counts from the re-run logs (evidence/runs/tests-c844ab2/)"
+          },
+          {
+            "at": "Then the mutations",
+            "event": "mutation table with each FAIL line (evidence/a6/mutations/)"
+          },
+          {
+            "at": "And one did not",
+            "event": "M3 row lights: 44 checks, 0 failed, not caught"
+          }
+        ],
+        "anchors": [
+          [
+            "mut",
+            "Then the mutations"
+          ],
+          [
+            "m3",
+            "And one did not"
+          ]
+        ],
+        "panel": {
+          "kind": "tests",
+          "title": "What the Tests Proved"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "mut": 19.34,
+          "m3": 32.97
+        }
+      },
+      "estimated_duration_s": 42,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 39.29,
+      "audio_file": "mp3/beat-B18.mp3",
+      "render_duration_s": 39.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B18.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "act": "TESTS",
+      "role_note": "Both prices against the budget: headless wall-clock price (evidence/a6/cost/cost_effects_60fps.log), the GPU budgets (CHANGE-BRIEF F) and the effects-off reference (evidence/a6/visual-profiler-vulkan.webp, Tharun); the GPU price is not measured (TEST-REPORT A6-5: open).",
+      "narration_text": "And the price. The headless cost script includes an empty-scene control. The game without the effects costs about point zero two milliseconds a frame on the wall clock. Four bursts at once add point zero zero six, inside a spread of point zero one six. Full steam on both fighters: minus point zero zero zero seven. Neither can be told apart from the game without it, and two engine timers read zero throughout. The budgets are GPU budgets: Effect A under point five five milliseconds, Effect B under point two, against a point nine seven millisecond effects-off reference. The GPU price has not been measured yet. Those numbers are pending, and this film does not guess them. No headless run can show the look, or the GPU time.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B19.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "cost_effects_60fps.log table, verbatim"
+          },
+          {
+            "at": "The budgets are GPU",
+            "event": "budget card (CHANGE-BRIEF F) and the effects-off Visual Profiler screenshot (Tharun)"
+          },
+          {
+            "at": "The GPU price has not",
+            "event": "GPU PRICE: PENDING (not measured) lights"
+          }
+        ],
+        "anchors": [
+          [
+            "budget",
+            "The budgets are GPU"
+          ],
+          [
+            "pending",
+            "The GPU price has not"
+          ]
+        ],
+        "panel": {
+          "kind": "price",
+          "title": "Two Prices, One Budget"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "budget": 21.84,
+          "pending": 29.42
+        }
+      },
+      "estimated_duration_s": 40,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 38.82,
+      "audio_file": "mp3/beat-B19.mp3",
+      "render_duration_s": 38.833333333333336,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B19.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "act": "VERDICT",
+      "role_note": "Agent mistakes caught (CHANGE-BRIEF A6 revisions, TEST-REPORT A6-2, A6-3, TUNING.md) and the readings of Claude's where Tharun's verdict differs (TEST-REPORT A6-5c, Tharun's statement verbatim).",
+      "narration_text": "Agent mistakes, caught. Claude cited main line two hundred for the cork's handler; it was one ninety-nine. Claude's first key list said R for rewind; it is S. Claude's first watch loop ran four times too fast. Claude's first state test compared two bursts after both were freed. And Claude's early probe was stated more broadly than the result supports. Where Tharun's verdict differs from Claude's readings: the shards looked bigger to him, though their scale is unchanged; and the steam looked like half of Bolt's height, against a measured quarter. In Tharun's words, he accepts the objective pixel measurements; however, he keeps his visual observation for gameplay evaluation. And once it went the other way: his first answer said the shards pop cleanly over the dark stretch, Claude measured forty-two against one hundred five, and he corrected it.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B20.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "five agent mistakes, each with its record"
+          },
+          {
+            "at": "Where Tharun's verdict",
+            "event": "A6-5c rows: shard size, steam size"
+          },
+          {
+            "at": "In Tharun's words",
+            "event": "Tharun's statement, verbatim"
+          },
+          {
+            "at": "the other way",
+            "event": "dark-stretch row: corrected after measurement"
+          }
+        ],
+        "anchors": [
+          [
+            "diff",
+            "Where Tharun's verdict"
+          ],
+          [
+            "words",
+            "In Tharun's words"
+          ],
+          [
+            "other",
+            "the other way"
+          ]
+        ],
+        "panel": {
+          "kind": "against",
+          "title": "Claude, Checked · Claude, Overruled"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "diff": 19.45,
+          "words": 29.65,
+          "other": 36.89
+        }
+      },
+      "estimated_duration_s": 45,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 45.75,
+      "audio_file": "mp3/beat-B20.mp3",
+      "render_duration_s": 45.766666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B20.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B21",
+      "act": "CREDITS",
+      "role_note": "Human and AI contributions as SOURCES.md \"Who did what (A6)\", shown verbatim; texture sources (godot/effects/textures/ATTRIBUTION.md); drafting help (Claude 3.5 Sonnet).",
+      "narration_text": "Who did what, as SOURCES dot m d records it. Tharun chose both effects and every value in the brief, drafting with Claude three point five Sonnet, and wrote every dated revision. He reviewed CLAUDE dot m d, took the Visual Profiler screenshot, ran every Movie Maker capture and both config mutations, approved each wiring step and tuning change, gave every first look and in-game verdict, and converted the process shader. Claude Code wrote the facts sheet and probes, built both effect scenes, the texture scripts, the tests, the fixtures, the wiring and Steam Mount, read and measured every strip, and drafted the docs. Both textures are written by code; there is no third-party art.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "evidence_media": "media/B21.mp4",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "SOURCES.md \"Who did what (A6)\" verbatim, two columns"
+          },
+          {
+            "at": "Claude Code wrote",
+            "event": "Claude column lights"
+          },
+          {
+            "at": "Both textures",
+            "event": "texture sources (ATTRIBUTION.md) light"
+          }
+        ],
+        "anchors": [
+          [
+            "claude",
+            "Claude Code wrote"
+          ],
+          [
+            "tex",
+            "Both textures"
+          ]
+        ],
+        "panel": {
+          "kind": "credits",
+          "title": "Who Did What (A6)"
+        },
+        "note": "Composite of real files, recorded output and real engine captures, built by _tools/make_media.py; labels name the provenance of every embedded image.",
+        "cue_times": {
+          "claude": 22.3,
+          "tex": 32.8
+        }
+      },
+      "estimated_duration_s": 40,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 36.6,
+      "audio_file": "mp3/beat-B21.mp3",
+      "render_duration_s": 36.6,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B21.mp4",
+        "filled_by": "media",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B22",
+      "act": "VERDICT",
+      "role_note": "VERDICT — checked by numbers / by eye, open (GPU price), uncertain, one next step; revision shown.",
+      "narration_text": "The verdict, at revision c eight four four a b two. Checked by numbers: every brief value read back, the rules in the state tests, five mutations caught, and one honestly not. Checked by eye: Tharun's first looks, both tuning verdicts, both backgrounds, scene load and the arena walls. Still open: the GPU price. Still uncertain: Effect A's shards lose most of their contrast over the dark stretch; Rivet rarely steams, because his brain rewinds at the same threshold; and whether a hidden emitter keeps simulating has not been checked. One next step: take the GPU price in the GPU price fixture, effect off against on at its heaviest, for each effect, against its budget.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "verdict artifact lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "walker-tinknockout-tharun-m · Assignment 6",
+            "artifactHeading": "VERDICT · revision c844ab2",
+            "brandLabel": "WALKER · GODOT 4.7.2 · FORWARD+",
+            "artifactLines": [
+              "CHECKED — numbers: config 136/0 · 33/0, state 44/0 · 37/0",
+              "  mutations: 5 caught, 1 not (M3: the failure never happened)",
+              "CHECKED — by eye (Tharun): first looks, both verdicts, backgrounds",
+              "OPEN  GPU price: Visual Profiler, not measured yet",
+              "UNCERTAIN  shards faint over the dark stretch (42 vs 105)",
+              "UNCERTAIN  Rivet rarely steams · hidden emitter not checked",
+              "NEXT  GPU price per effect in gpu_price.tscn, vs its budget"
+            ],
+            "durationSeconds": 36.71
+          },
+          "rendered": {
+            "out": "media/B22.mp4",
+            "at": "2026-11-09T15:52:16.308303+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 36,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 36.71,
+      "audio_file": "mp3/beat-B22.mp3",
+      "render_duration_s": 36.733333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B22.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B23",
+      "act": "YOUR_TURN",
+      "role_note": "YOUR TURN — a useful Walker prompt read aloud, one bounded change + prediction first, texture source, revision; Liam signs off before the locked outro.",
+      "narration_text": "Your turn. Here is a useful Walker prompt. Please use Walker to give Effect A's shards a lighter rim for dark backgrounds, and before you capture anything, tell me what you predict frame fifteen's shard darkening will be over the dark stretch and over the castle. Write the prediction first; a strip only means something against one. Then a person looks, in game. The textures here are written by code. This voice is Kokoro text to speech. The source shown is revision c eight four four a b two. Liam, in for Bear.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "composer types the suggested prompt; prediction rule and credits land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "WALKER · YOUR TURN",
+            "segment": "one bounded change",
+            "command": "Please use Walker to give Effect A's shards a lighter rim for dark backgrounds, and before you capture anything, tell me what you predict frame 15's shard darkening will be over the dark stretch and over the castle.",
+            "runningText": "over to you…",
+            "output": [
+              "■ prediction first: frame 15 now reads 42 (dark) and 105 (castle)",
+              "■ then a person looks, in game",
+              "  TEXTURES  written by code: generate_shard_texture.gd, generate_steam_texture.gd",
+              "  SOURCE    game revision c844ab2",
+              "  VOICE     Liam — Kokoro am_onyx, AI text-to-speech"
+            ],
+            "durationSeconds": 27.04
+          },
+          "rendered": {
+            "out": "media/B23.mp4",
+            "at": "2026-11-09T15:53:11.942202+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 30,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 27.04,
+      "audio_file": "mp3/beat-B23.mp3",
+      "render_duration_s": 27.066666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B23.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-11-09T12:18:31"
+      }
+    },
+    {
+      "beat_id": "B24",
+      "act": "OUTRO",
+      "kind": "outro_voice",
+      "role_note": "OUTRO-LOCK — exact title, @NikBearBrown, slug-seeded mascot. Spoken, never scored; 1.0 s silent tail.",
+      "narration_text": "Tin Knockout, Particle Effects. At Nik Bear Brown.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.10",
+            "event": "locked title card"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Tin Knockout, Particle Effects",
+            "slug": "claude-liam-walker-tinknockout-tharun-m-a6-particles",
+            "durationSeconds": 4.69
+          },
+          "rendered": {
+            "out": "media/B24.mp4",
+            "at": "2026-11-09T15:53:25.033497+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 5,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 4.69,
+      "audio_file": "mp3/beat-B24.mp3",
+      "outro_tail_s": 1.0,
+      "voice_duration_s": 3.69,
+      "render_duration_s": 4.7,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B24.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-09T12:18:31"
+      }
+    }
+  ]
+}

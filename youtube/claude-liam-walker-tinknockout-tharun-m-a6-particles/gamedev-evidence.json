@@ -1,0 +1,1015 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "game": {
+  "package": "walker-tinknockout-tharun-m",
+  "godot_folder": "godot",
+  "revision": "c844ab2c13eda0288d0cee63e1789a0efcbd84f5",
+  "docs_revision": "c844ab2",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Forward+ (Vulkan/MoltenVK)"
+ },
+ "files": [
+  {
+   "path": "effects/impact_effect.tscn",
+   "sha256": "7a39cdedf2f86fd8cb33177cd22de938945a03b6cbb07f6c09ad5f8254868eed",
+   "role": "A6 Effect A scene / wiring",
+   "component_ids": [
+    "effect-a"
+   ]
+  },
+  {
+   "path": "effects/impact_effect_blocked.tscn",
+   "sha256": "205cb4085ce6950bd27dc74f8145720c57cb42d1ed77a6386fc4c7bb5425e4ab",
+   "role": "A6 Effect A scene / wiring",
+   "component_ids": [
+    "effect-a"
+   ]
+  },
+  {
+   "path": "effects/steam_mount.gd",
+   "sha256": "f3fe62cc14784c0f2a805fcae0ff6b851421b382c4fedf58f0fb94f28c9ad5ce",
+   "role": "A6 Effect B scene / mount",
+   "component_ids": [
+    "effect-b"
+   ]
+  },
+  {
+   "path": "effects/textures/ATTRIBUTION.md",
+   "sha256": "98ee54d8b82ad01d442a447a33df39230045da3b7a132034fddb0e28882d1d5e",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "effects/textures/shard_8.png",
+   "sha256": "906da5c5b5ab1542103829dec52b7a810add051724c2c3a44a88150d7f01ad06",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "effects/textures/shard_8.png.import",
+   "sha256": "9899b6169cd87138ac44c39811586a660768e0ecec68c32306fb6135f76de560",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "effects/textures/steam_32.png",
+   "sha256": "3b634d75032b5d0153923b5fb05db6a6b85f8e868987bcf431ab749d7fafe676",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "effects/textures/steam_32.png.import",
+   "sha256": "674f66c22a91902af5740a26613dd1654cd1735762e4abf8bcd46f023d84e449",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "effects/wind_steam.tscn",
+   "sha256": "5f222d3ada5805532871d187dc7ca157e7fba50fbfbed97a300112ca79f65295",
+   "role": "A6 Effect B scene / mount",
+   "component_ids": [
+    "effect-b"
+   ]
+  },
+  {
+   "path": "game/debug_vsync.gd",
+   "sha256": "023cb5a077188bd6110bb2585fd7b6fd8ffba63badbbc90148a2213d101fc99f",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "game/main.gd",
+   "sha256": "4c6963d9b16764f2d94e385404bc06e857fd2f302ab9434d7b3128bebcfcfab8",
+   "role": "A6 Effect A scene / wiring",
+   "component_ids": [
+    "effect-a",
+    "effect-b"
+   ]
+  },
+  {
+   "path": "previews/gpu_price.gd",
+   "sha256": "baa14e88a79c9e2c79498e27f05e2682d6cf288ad4742ae300456ddb33a17f0d",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/gpu_price.tscn",
+   "sha256": "cbb94f4fcffb8031e1756ea2e237d1c311fc2c0d11b28e53efddc12b167b2dd0",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/impact_preview.gd",
+   "sha256": "e65e5710d5e31756b261a532213ce3bc5e1a54d73103b2574a7bb3c713a61148",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/impact_preview.tscn",
+   "sha256": "f3667ed1e12e4e127744f1f68de5db843db12adb2096a6e00f6fd2ae2b568dcb",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/steam_preview.gd",
+   "sha256": "6050c64a28442a1d959974237a801e57ced4539ecb64128e1f7b7034f37c548f",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/steam_preview.tscn",
+   "sha256": "12b6496e2cb275b245cd6c9c653b46d3fb49e7e12d27c9ba28b300dcadf4e7dd",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/steam_rewind_preview.gd",
+   "sha256": "d5dd8c5c1f3e9dcec3acfb84925df9d5b98f13db2c39817edbae6d257788e12e",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "previews/steam_rewind_preview.tscn",
+   "sha256": "1bc2f991e938fd87155a002d51bdd247e004ba3f7bed51b006070d1f9e4b30d5",
+   "role": "A6 fixture (not part of the game) / vsync debug key",
+   "component_ids": [
+    "fixtures"
+   ]
+  },
+  {
+   "path": "shaders/particles_generated.gdshader",
+   "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+   "role": "A6 generated process shader (Tharun, editor)",
+   "component_ids": [
+    "process-shader"
+   ]
+  },
+  {
+   "path": "tests/cost_effects.gd",
+   "sha256": "d6d36503457df94a2e93f6723f0a3bad2559db31eb267cf23fb9b8f90810c555",
+   "role": "A6 headless test / cost script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_impact_effect_config.gd",
+   "sha256": "581b74eb1cb128ae163397ba28f95e151b32b3e9539b143442c7cae11a640b13",
+   "role": "A6 headless test / cost script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_impact_effect_state.gd",
+   "sha256": "ec7adef9daa994d173a9cd715a09b7d0dc0a3e2ed26c5afa0a5e6df939c8d589",
+   "role": "A6 headless test / cost script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_wind_steam_config.gd",
+   "sha256": "17bdd8668dd6a8de85b86b32479ede1a20a26ce83508458eb8db76d0af7c7ec6",
+   "role": "A6 headless test / cost script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_wind_steam_state.gd",
+   "sha256": "9443065c7a6ca97b9e51460fa0f97a30cd3ded3df27bbc699b4ea26f7779f32f",
+   "role": "A6 headless test / cost script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tools/generate_shard_texture.gd",
+   "sha256": "9a65e3af0225217e19f679e7918992948fe56c53591774808f283298138ce91c",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  },
+  {
+   "path": "tools/generate_steam_texture.gd",
+   "sha256": "09c8fb2c5cfeed9efcc07c612a0fb701799f3daa59bd019d9699b1a6ab43c1d7",
+   "role": "A6 code-written texture / its script / credits",
+   "component_ids": [
+    "textures"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "effect-a",
+   "explanation": "Effect A, impact burst: impact_effect.tscn (Shards MIX, Core ADD; tuned Shards ramp, revision 1) and impact_effect_blocked.tscn, instanced per impact by main._spawn_impact (blocked flag, child of Main at p, restart() after add_child, freed on finished).",
+   "beat_ids": [
+    "B02",
+    "B03",
+    "B05",
+    "B06",
+    "B07",
+    "B08",
+    "B09",
+    "B10"
+   ],
+   "files": [
+    "effects/impact_effect.tscn",
+    "effects/impact_effect_blocked.tscn",
+    "game/main.gd"
+   ]
+  },
+  {
+   "id": "effect-b",
+   "explanation": "Effect B, wind steam: wind_steam.tscn (amount 25, amount_ratio 0, local_coords) on SteamMount (steam_mount.gd; follows the key but not its rewind squash, revision 1), attached and driven in main.gd (steam_ratio = clamp((25 - wind) / 25, 0, 1)).",
+   "beat_ids": [
+    "B02",
+    "B12",
+    "B13",
+    "B14",
+    "B15",
+    "B16"
+   ],
+   "files": [
+    "effects/steam_mount.gd",
+    "effects/wind_steam.tscn",
+    "game/main.gd"
+   ]
+  },
+  {
+   "id": "textures",
+   "explanation": "Both particle textures written by code: generate_shard_texture.gd -> shard_8.png, generate_steam_texture.gd -> steam_32.png, import sidecars and ATTRIBUTION.md.",
+   "beat_ids": [
+    "B21",
+    "B23"
+   ],
+   "files": [
+    "effects/textures/ATTRIBUTION.md",
+    "effects/textures/shard_8.png",
+    "effects/textures/shard_8.png.import",
+    "effects/textures/steam_32.png",
+    "effects/textures/steam_32.png.import",
+    "tools/generate_shard_texture.gd",
+    "tools/generate_steam_texture.gd"
+   ]
+  },
+  {
+   "id": "fixtures",
+   "explanation": "Strip fixtures, not part of the game: impact_preview, steam_preview, steam_rewind_preview (fixed seed); gpu_price fixture and the F10 vsync key (debug_vsync.gd) for the open GPU price.",
+   "beat_ids": [
+    "B06",
+    "B13",
+    "B14",
+    "B19",
+    "B22"
+   ],
+   "files": [
+    "game/debug_vsync.gd",
+    "previews/gpu_price.gd",
+    "previews/gpu_price.tscn",
+    "previews/impact_preview.gd",
+    "previews/impact_preview.tscn",
+    "previews/steam_preview.gd",
+    "previews/steam_preview.tscn",
+    "previews/steam_rewind_preview.gd",
+    "previews/steam_rewind_preview.tscn"
+   ]
+  },
+  {
+   "id": "process-shader",
+   "explanation": "particles_generated.gdshader: Effect B's ParticleProcessMaterial converted in the editor by Tharun; not used by the game.",
+   "beat_ids": [
+    "B17"
+   ],
+   "files": [
+    "shaders/particles_generated.gdshader"
+   ]
+  },
+  {
+   "id": "tests",
+   "explanation": "test_impact_effect_config (136), test_impact_effect_state (44), test_wind_steam_config (33), test_wind_steam_state (37), cost_effects (headless wall-clock price).",
+   "beat_ids": [
+    "B18",
+    "B19"
+   ],
+   "files": [
+    "tests/cost_effects.gd",
+    "tests/test_impact_effect_config.gd",
+    "tests/test_impact_effect_state.gd",
+    "tests/test_wind_steam_config.gd",
+    "tests/test_wind_steam_state.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B05",
+   "path": "effects/impact_effect.tscn",
+   "start_line": 77,
+   "end_line": 86,
+   "text": "z_index = 6\n\n[node name=\"Shards\" type=\"GPUParticles2D\" parent=\".\" unique_id=567126519]\nmaterial = SubResource(\"CanvasItemMaterial_voqhm\")\nemitting = false\namount = 16\ntexture = ExtResource(\"1_iyonu\")\nlifetime = 0.25\none_shot = true\nexplosiveness = 1.0"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "MATERIALS.md",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/env/bowl.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/env/bowl.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/anchors.json",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/music/waltz.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/music/waltz.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/cork.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/cork.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/cutlass.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/cutlass.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/key-bolt.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/key-bolt.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/key-rivet.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/key-rivet.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/popgun.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props/popgun.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/castle.glb",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/castle.glb.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/toybox.glb",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/toybox.glb.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/windkey.glb",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/props3d/windkey.glb.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/bell.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/bell.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/empty.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/empty.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/jab.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/jab.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/pop.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/pop.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/ATTRIBUTION.md",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png.import",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "audio/music.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "audio/sfx.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "default_bus_layout.tres",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "fighter/cork.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "fighter/fighter.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "fighter/rewind_tint_driver.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "fighter/rivet_brain.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "game/controls.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "game/debug_capture.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "game/main.tscn",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "hint_experiment/hint_data.tres",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "hint_experiment/hint_experiment.tscn",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "hint_experiment/hint_source_color.tres",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "project.godot",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "prop_room/materials/toybox_fresh.tres",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "prop_room/materials/toybox_worn.tres",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "prop_room/prop_room.tscn",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "shaders/hint_experiment.gdshader",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "shaders/painted_tin.gdshader",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "shaders/rewind_tint.gdshader",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "shaders/standard_generated.gdshader",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/calibrate_normal_map.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/check_props3d.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/normal_map_check.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/test_materials.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/test_rewind_tint.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tests/test_slice.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/a5_capture_hint.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/a5_capture_run.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/a5_capture_side_by_side.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/a5_capture_toybox.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/capture_film.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/make_hint_scene.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/make_toybox_materials.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/shot_prop_room.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/shot_prop_views.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/shots.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "tools/write_hint_png.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  },
+  {
+   "path": "ui/hud.gd",
+   "reason": "Pre-Assignment-6 file, byte-identical to tag a5 (f4dda68); explained in the earlier films; A6 does not change it."
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B05",
+   "result_beat": "B06",
+   "observation": "Fixture strip r0 (impact_preview.tscn, fixed seed, captured by Tharun): the burst is on screen in frame 10 itself (explosiveness 1.0, one shot), 16 shards fall into a ring below the fist, frames 20, 30, 50 empty (lifetime 0.25); the shards are faint at frame 15 (median drop 41).",
+   "media": {
+    "path": "media/B06.mp4",
+    "sha256": "8d52a98fd812707528d59010967ae15eaf863ea75fcf7322918d745aa0fc8d42"
+   }
+  }
+ ],
+ "source_view_code_result_pairs": [
+  {
+   "code_beat": "B07",
+   "result_beat": "B08",
+   "sources": [
+    {
+     "path": "godot/effects/impact_effect.tscn",
+     "start_line": 7,
+     "end_line": 9,
+     "sha256": "7a39cdedf2f86fd8cb33177cd22de938945a03b6cbb07f6c09ad5f8254868eed",
+     "text": "[sub_resource type=\"Gradient\" id=\"Gradient_qjpv3\"]\noffsets = PackedFloat32Array(0, 0.7, 1)\ncolors = PackedColorArray(0.25, 0.25, 0.28, 1, 0.25, 0.25, 0.28, 1, 0.1, 0.1, 0.1, 0)"
+    }
+   ],
+   "observation": "r0 vs r1: frame 15 median darkening 41.3 -> 105.7; count +16 %; frames 20+ pixel-identical; Tharun in game: faded smoothly, Keep.",
+   "media": {
+    "path": "media/B08.mp4",
+    "sha256": "ab7bf9e4de395a733c128da991a4f38cc4b102b9c4cbb56d4612f5039e03865f"
+   }
+  },
+  {
+   "code_beat": "B09",
+   "result_beat": "B10",
+   "sources": [
+    {
+     "path": "godot/game/main.gd",
+     "start_line": 228,
+     "end_line": 238,
+     "sha256": "4c6963d9b16764f2d94e385404bc06e857fd2f302ab9434d7b3128bebcfcfab8",
+     "text": "func _spawn_impact(p: Vector2, blocked: bool) -> void:\n\tvar burst: Node2D = (IMPACT_FX_BLOCKED if blocked else IMPACT_FX).instantiate()\n\tburst.position = p\n\tadd_child(burst)\n\tvar left := [burst.get_child_count()]   # an Array: lambdas capture locals by value\n\tfor e: GPUParticles2D in burst.get_children():\n\t\te.finished.connect(func():\n\t\t\tleft[0] -= 1\n\t\t\tif left[0] == 0:\n\t\t\t\tburst.queue_free())\n\t\te.restart()"
+    }
+   ],
+   "observation": "Movie Maker capture (scripted input, isolated copy of c844ab2): every landed jab bursts, every other jab is blocked and gets the grey burst, Rivet's hits burst too; node counts from the log.",
+   "media": {
+    "path": "media/B10.mp4",
+    "sha256": "cef5ce5c39086ab5bdb262100cc47fedc13611da2a1276814e08cae65d520d3f"
+   }
+  },
+  {
+   "code_beat": "B12",
+   "result_beat": "B13",
+   "sources": [
+    {
+     "path": "godot/effects/wind_steam.tscn",
+     "start_line": 35,
+     "end_line": 43,
+     "sha256": "5f222d3ada5805532871d187dc7ca157e7fba50fbfbed97a300112ca79f65295",
+     "text": "[node name=\"WindSteam\" type=\"GPUParticles2D\" unique_id=2128388386]\nmaterial = SubResource(\"CanvasItemMaterial_g42rk\")\namount = 25\namount_ratio = 0.0\ntexture = ExtResource(\"1_ejeuf\")\nlifetime = 0.6\nvisibility_rect = Rect2(-150, -150, 300, 300)\nlocal_coords = true\nprocess_material = SubResource(\"ParticleProcessMaterial_713wi\")"
+    },
+    {
+     "path": "godot/game/main.gd",
+     "start_line": 69,
+     "end_line": 70,
+     "sha256": "4c6963d9b16764f2d94e385404bc06e857fd2f302ab9434d7b3128bebcfcfab8",
+     "text": "\t\tvar steam := SteamMount.attach(f, WIND_STEAM)\n\t\tf.wind_changed.connect(func(_f, w): steam.amount_ratio = steam_ratio(w))"
+    },
+    {
+     "path": "godot/game/main.gd",
+     "start_line": 241,
+     "end_line": 242,
+     "sha256": "4c6963d9b16764f2d94e385404bc06e857fd2f302ab9434d7b3128bebcfcfab8",
+     "text": "static func steam_ratio(w: float) -> float:\n\treturn clampf((LOW_WIND - w) / LOW_WIND, 0.0, 1.0)"
+    }
+   ],
+   "observation": "Fixture strip D.2 r0: plume at frame 40, tail at 55, empty at 70; Tharun: half of Bolt's height; Claude measured about a quarter.",
+   "media": {
+    "path": "media/B13.mp4",
+    "sha256": "525cbea9816e558bf58e57f7474d73369f91a0a6d61c215e77a197a9488c53d2"
+   }
+  },
+  {
+   "code_beat": "B14",
+   "result_beat": "B15",
+   "sources": [
+    {
+     "path": "godot/effects/steam_mount.gd",
+     "start_line": 31,
+     "end_line": 35,
+     "sha256": "f3fe62cc14784c0f2a805fcae0ff6b851421b382c4fedf58f0fb94f28c9ad5ce",
+     "text": "func follow() -> void:\n\tvar key := fighter.key_sprite\n\tposition = key.position\n\tscale = Vector2(Fighter.ART_SCALE * fighter.facing, Fighter.ART_SCALE)\n\tvisible = key.visible"
+    }
+   ],
+   "observation": "Rewind r0 vs r1: only frame 34 differs (1021 px), a full plume where r0 had a sliver; Tharun in game: tapered off smoothly, Keep.",
+   "media": {
+    "path": "media/B15.mp4",
+    "sha256": "6001ea2d1dbbbb8bafd6a063d8627813f30b1cc2fd32e59aeee18141588f1181"
+   }
+  },
+  {
+   "code_beat": "B17",
+   "result_beat": "B18",
+   "sources": [
+    {
+     "path": "godot/shaders/particles_generated.gdshader",
+     "start_line": 258,
+     "end_line": 258,
+     "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+     "text": "\t\tUSERDATA1.xyz = get_random_direction_from_spread(alt_seed, spread) * dynamic_params.initial_velocity_multiplier;"
+    },
+    {
+     "path": "godot/shaders/particles_generated.gdshader",
+     "start_line": 302,
+     "end_line": 302,
+     "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+     "text": "\t\tforce = gravity;"
+    },
+    {
+     "path": "godot/shaders/particles_generated.gdshader",
+     "start_line": 315,
+     "end_line": 315,
+     "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+     "text": "\t\tUSERDATA1.xyz += force * DELTA;"
+    },
+    {
+     "path": "godot/shaders/particles_generated.gdshader",
+     "start_line": 7,
+     "end_line": 7,
+     "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+     "text": "uniform float spread;"
+    },
+    {
+     "path": "godot/shaders/particles_generated.gdshader",
+     "start_line": 43,
+     "end_line": 43,
+     "sha256": "9752f0555a680a5692ec5d0dc87811ef5326faaebb2c6feb796743c05b8367a6",
+     "text": "uniform vec3 gravity;"
+    }
+   ],
+   "observation": "test_wind_steam_config reads spread 30 and gravity (0, -180, 0) back from the material the generated shader declares; 33 checks, 0 failed.",
+   "media": {
+    "path": "media/B18.mp4",
+    "sha256": "09c9b68cad757176172496994d8eaa09da7e572e4e2f8aadf3556552231e4e10"
+   }
+  }
+ ],
+ "engine_capture": {
+  "path": "capture/play-4k.mp4",
+  "sha256": "2cefbd947584969552296ad00f60a4a146cea3a17adeab64c6cd81cc71bbec5f",
+  "frames": 382,
+  "fps": 30,
+  "size": "3840x2160",
+  "revision": "c844ab2",
+  "method": "Movie Maker, windowed, scripted input",
+  "log": "evidence/runs/play-capture-log.txt"
+ }
+}
