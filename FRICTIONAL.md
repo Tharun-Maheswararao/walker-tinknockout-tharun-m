@@ -239,7 +239,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - test_materials 55/0 at 60.
 
   It refreshed the facts sheet, noting that F9 is A5's key, so the vsync key had to be F10–F12 (`3c8e9da`). On 11-08 I confirmed that the Visual Profiler shows GPU time under Vulkan (`8541d4e`).
-- **In my words:** _TO FILL_
+- **In my words:** It took a little time to re-orient back into the code structure, and seeing the Visual Profiler trace performance metrics right away was a surprisingly smooth way to jump back in.
 
 ## 11-08 ~17:00–18:15 — the brief and CLAUDE.md
 
@@ -247,7 +247,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Effects:** I chose an impact burst on every hit and wind steam as a feedback loop.
   - **Drafting:** I drafted with Claude 3.5 Sonnet, and Claude Code's reviews caught errors. An ADD layer can't draw a dark edge. A `Curve` clamps points above 1.0. `gravity` is a Vector3. The default 64×64 gradient was too big. A 0.25 s lifetime still needs a retrigger rule.
   - **Commits:** brief `ae0bfc3`. `claude -p` hit the spend limit on the first prompt, so CLAUDE.md was drafted in the interactive session (`ebc2e8a`). My review added the Headless-facts lines (`820e54b`). Claude's `main.gd:200` slip was fixed by a brief revision (`75f9194`, `762992e`).
-- **In my words:** _TO FILL_
+- **In my words:** Drafting the brief helped structure the changes clearly, and learning that ADD blend mode cannot draw dark pixels and how curve clamping works were huge takeaways.
 
 ## 11-08 ~18:15–20:35 — Effect A built, looked at, mutated
 
@@ -258,7 +258,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Mutation 1, the Godot 3 name:** failed 1 check. Godot gave no warning, and the effect still fired.
   - **Mutation 2, value drift:** failed 1 check (`e20acd7`).
   - **My first M1 observation** said the shards all dropped. Claude pointed out that the maximum speed was unchanged and that the preview hadn't been rerun. The recorded line is the one I gave after that.
-- **In my words:** _TO FILL_
+- **In my words:** I didn't expect the Godot 3 name mutation to silently drop a value without an error rather than breaking execution, which taught me to double-check asset and property string references immediately.
 
 ## 11-08 ~20:35–21:10 — Effect A wired and tuned
 
@@ -268,7 +268,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **F2:** the brief's F2 ("finished never fires") did not reproduce in main.gd's setup. The leak check still caught a burst that is never freed.
   - **In-game check:** my first answers explained by settings, and one claimed checks the terminal showed no run for. Claude asked for plain answers. My first run saw only the landed jab; a second run covered the cork, the block and the pause.
   - **Tuning:** the shards were faint because their alpha faded linearly. Claude predicted that holding them opaque to 0.7 would raise frame 15's darkening from 41 to 90 or more. r1 measured 106, though frames 10 and 12 matched less well. My verdict: keep (`45e986f`).
-- **In my words:** _TO FILL_
+- **In my words:** The initial prediction matched the general spark behavior closely, though managing two impacts within a single particle lifetime took more precise timing calibration than expected.
 
 ## 11-08 ~21:10–22:25 — Effect B
 
@@ -282,7 +282,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
     - Rivet barely steams. A probe showed his brain rewinds at the same 25 threshold.
     - The steam "cut out" on rewind. A rewind fixture and strip (brief D.3) showed the cause: the key's spin squash narrowed the whole plume.
   - **Fix:** I chose a holder, `SteamMount`, over `local_coords = false`, which would likely have made the puffs 3× bigger. r1 differed from r0 only at frame 34, as predicted. My verdict: keep (`f254728`).
-- **In my words:** _TO FILL_
+- **In my words:** The rewind squash changing how the active puffs were drawn rather than their emission was the biggest surprise, making it clear how node-level scaling affects live particle rendering.
 
 ## 11-08 ~22:25–23:20 — the process shader, the price, the vsync key
 
@@ -290,4 +290,4 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Shader:** I converted Effect B's material in the editor. It first saved as a `.tres`; I then saved the shader on its own (`490095f`). Claude checked my line references: one wrong number (331 for 315) and incomplete rows, which I fixed (`1892d4f`).
   - **Cost script:** both effects within the spread of the game without them. Two engine monitors read 0, so only the wall clock was used (`a2b7a67`).
   - **GPU price:** the F10 key and the GPU-price fixture were added (`f825d97`).
-- **In my words:** _TO FILL_
+- **In my words:** Searching through the generated shader lines was tedious but gave a clear view of how particle parameters map to underlying GPU code, while the empty-scene control usefully isolated the measuring script's own overhead during headless runs.
