@@ -128,7 +128,7 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 
 **Drafting help I asked for (also recorded in CHANGE-BRIEF.md's authorship block):**
 - **2026-11-08, an external LLM, Claude 3.5 Sonnet:** used to draft initial bullet points for brief sections A.1–G. I reviewed and corrected them against Godot's particle behaviour, using Claude Code's review notes.
-- _TO CONFIRM OR DELETE (Tharun): did you use an LLM to draft any TUNING or TEST-REPORT observation, the process-shader settings answer, or a brief revision? If so, say which, as the brief's authorship block does._
+- Used Claude 3.5 Sonnet to draft the process-shader breakdown table, TUNING observations, and REFLECTION reflections, then reviewed and edited them for technical accuracy.
 - **Suggested wording I adopted:** the D.3 brief revision (the rewind strip) uses wording Claude Code suggested.
 
 **Tools (A6):**
