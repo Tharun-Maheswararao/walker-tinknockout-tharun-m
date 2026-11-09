@@ -391,3 +391,27 @@ Nothing headless says how anything looks (`evidence/a5/headless-facts.txt:3`). T
 - `painted_tin` writes no `METALLIC` (M5), so the worn bare metal is shaded as a non-metal.
 - A dummy-renderer teardown ERROR appears in headless logs that free a ShaderMaterial mesh (M1). It prints after the result line, and the wrapper ignores it.
 - The A5 film was built by a Claude film session; Tharun watched it before uploading. File `claude-liam-walker-tinknockout-tharun-m-a5-shaders.mp4`, SHA-256 `6568f966a28b65ffad73d3aac36430b4f222d5f065af60dfd930946d141b2ed8` (SUBMISSION.md).
+
+---
+
+# Assignment 6 — particle effects
+
+*Sections drafted by Claude from the logs named in each row; Tharun's own observations are marked "(Tharun)".*
+
+## A6-1. Config test: mutations (Step 2)
+
+`godot/tests/test_impact_effect_config.gd` reads every setting the brief names (A.3a–A.3c) back from the loaded scenes. Unmutated: `135 checks, 0 failed`, exit 0 (`logs/test_impact_effect_config_60fps.log`, rerun after each restore). Each mutation was made by hand in `godot/effects/impact_effect.tscn`, run once, then undone with `git checkout`.
+
+| # | Mutation | Test result | Log |
+|---|---|---|---|
+| M1 | Godot 3 name: Shards line 25 `initial_velocity_min = 60.0` → `initial_velocity = 60.0` | `FAIL  Shards initial_velocity 60 / 90 (got 0.0 / 90.0)`; `135 checks, 1 failed`; exit 1 | `evidence/a6/mutations/m1-godot3-name.log` |
+| M2 | Value drift: Shards line 81 `amount = 16` → `amount = 12`, brief unchanged | `FAIL  Shards amount 16 (got 12)`; `135 checks, 1 failed`; exit 1 | `evidence/a6/mutations/m2-value-drift.log` |
+
+**M1, what else showed it: nothing.** Godot loaded the scene without a warning; the M1 log has no line containing "warn", "error", "unknown" or "invalid". The unknown float line was dropped and `initial_velocity_min` stayed at its default 0.0, as probed earlier (`design/a6/BRIEF-FACTS.md` §5). This is CHANGE-BRIEF prediction F4, confirmed: the read-back is the only check that caught it.
+
+**M1, does the effect still fire?** Yes. With the mutated file, the windowed preview (`impact_preview.tscn -- --loop`, real time, about 120 fps) fired and finished both bursts on every one of 16 loops ("burst 1 fired at frame 10 … finished at frame 31–48"), with no error printed.
+
+**M1, how it looked (Tharun):** Watching the run with min speed dropped to zero, I saw most shards still fly outward near their usual distance, but a noticeable cluster fell short and pooled closer to the center origin.
+_(From the single M1 preview run above, written down after the restore and after Claude had stated the expected result: speed random in 0–90 instead of 60–90, so about half the shards keep roughly their normal reach.)_
+
+**M2:** a wrong number in the scene is caught even though it is a valid Godot 4 name; the test's expected values are the brief's, so the test catches drift between brief and scene.
