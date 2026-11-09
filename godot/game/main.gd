@@ -76,6 +76,7 @@ func _ready() -> void:
 		var cap := preload("res://game/debug_capture.gd").new()
 		cap.game = self
 		add_child(cap)
+		add_child(preload("res://game/debug_vsync.gd").new())   # A6 Use It: F10 vsync toggle
 	bolt.opponent = rivet
 	rivet.opponent = bolt
 	brain = preload("res://fighter/rivet_brain.gd").new()
