@@ -398,6 +398,8 @@ Nothing headless says how anything looks (`evidence/a5/headless-facts.txt:3`). T
 
 *Sections drafted by Claude from the logs named in each row; Tharun's own observations are marked "(Tharun)".*
 
+**Environment for every A6 result:** Godot 4.7.2.stable.official.ed1daf0bf; Forward+ on Vulkan 1.2.334 (MoltenVK); GPU Apple M4; macOS 15.6. Window 1280×720, viewport 640×360. Source revisions: each section names its commit; the Use It table below names the revision it was checked at.
+
 ## A6-1. Config test: mutations (Step 2)
 
 `godot/tests/test_impact_effect_config.gd` reads every setting the brief names (A.3a–A.3c) back from the loaded scenes. Unmutated: `135 checks, 0 failed`, exit 0 (`logs/test_impact_effect_config_60fps.log`, rerun after each restore). Each mutation was made by hand in `godot/effects/impact_effect.tscn`, run once, then undone with `git checkout`.
@@ -574,3 +576,24 @@ Emission & Bounds: amount (particle count cap), local_coords (world vs. local sp
   This matches CHANGE-BRIEF F's prediction, "near zero … within the empty-scene control's spread". It does so by construction: the dummy renderer neither simulates nor draws GPU particles, so all that is left is node work (instancing and freeing bursts, and steam nodes that do nothing).
 - **Two clocks are dead here.** `Performance.TIME_PROCESS` and `TIME_PHYSICS_PROCESS` read 0.0000 in every case, including game_off, whose logic clearly costs 0.02 ms on the wall clock. The script prints them so this is visible, and its own comparison flags them as "WITHIN the spread: these two cases read the same". They are not used for any conclusion.
 - **What this does not show:** any GPU cost. The budgets in CHANGE-BRIEF F are GPU budgets (A < 0.55 ms for 4 bursts, B < 0.20 ms for both streams, against the 0.97 ms Render Viewport baseline), and are measured windowed in the Visual Profiler (Use It).
+
+## A6-5. Use It: checklist
+
+Checked at revision `f825d97` (plus the docs commit after it). Godot 4.7.2.stable, Forward+, Vulkan, Apple M4.
+
+| Check | Status | Where |
+|---|---|---|
+| Baseline, before and after | **done**: test_slice 60 25/0; check_props3d 60 PASS; test_rewind_tint 30/60/144 50/0; test_materials 60 55/0, before (`8731c5c`) and after every A6 change | A6-2, A6-3 |
+| Configuration | **done**: Effect A 136/0, Effect B 33/0; both Effect A mutations exit 1 | A6-1, A6-3 |
+| State | **done**: Effect A 44/0 at 60, including two impacts inside one lifetime; Effect B 37/0 at 60 | A6-2, A6-3 |
+| Frame strips (fixture) | **done**: `captures/impact_effect/r0`, `r1`; `captures/wind_steam/r0`; `captures/wind_steam_rewind/r0`, `r1` | TUNING.md |
+| In play (HUMAN CHECK) | **partly**: landed jab, block, cork and pause for A; low wind and rewind for B; boundaries held | A6-2, A6-3 |
+| Against the background (HUMAN CHECK) | _open: each effect over the darkest and lightest stretch_ | |
+| Edge of screen (HUMAN CHECK) | _open: a large effect near the screen edge does not pop out_ | |
+| Scene load (HUMAN CHECK) | _open: Effect B on the first frames after load (headless: ratio 0 on load, B-R6)_ | |
+| Claude against you | _open: each of Claude's strip readings beside Tharun's verdict, and at least one disagreement or "none"_ | TUNING.md |
+| Headless CPU price | **done**: both effects within the spread of game_off; empty-scene control included | A6-4 |
+| GPU price (HUMAN CHECK) | **open**: Visual Profiler GPU time, off vs on at heaviest, per effect; FPS with vsync off (F10); compare against CHANGE-BRIEF F budgets (A < 0.55 ms, B < 0.20 ms). One unlabelled screenshot so far (Render Viewport 0.33 ms, Update GPU particles 0.02 ms, case unknown) | fixture `godot/previews/gpu_price.tscn` |
+| Process shader | **done**: line references checked by Claude | "The process shader" |
+| No agent session changed `godot/shaders/` | **done**: the only A6 file there, `particles_generated.gdshader`, was saved by Tharun from the editor (`490095f`) | |
+| Every texture credited | **done**: `godot/effects/textures/ATTRIBUTION.md` | |

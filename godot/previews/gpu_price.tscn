@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://brw3s1q5p4tst"]
 
-[ext_resource type="Script" path="res://previews/gpu_price.gd" id="1_gpu"]
+[ext_resource type="Script" uid="uid://cuuh8amy6pm0l" path="res://previews/gpu_price.gd" id="1_gpu"]
 
-[node name="GpuPrice" type="Node2D"]
+[node name="GpuPrice" type="Node2D" unique_id=1049770950]
 script = ExtResource("1_gpu")

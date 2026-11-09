@@ -225,3 +225,69 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Checks:** Claude checked the file with ffprobe and SHA-256 (`6568f966…`) and confirmed it is kept out of git.
   - **Upload:** I watched the whole film, then uploaded it to Google Drive at about 23:00. Claude checked that the link opens without signing in.
 - **In my words:** *(none written before the deadline)*
+
+# Assignment 6 — particle effects (2026-11-07 to 11-09)
+
+*Written at the end, not as the work happened. Claude organised the facts below from the commit log, the plans and the logs, citing each commit. Every "In my words" line is mine; Claude left them blank.*
+
+## 11-07 — restarting after A5
+
+- **What happened:** Claude restored the handout's `run-test.sh` (`8731c5c`). Baseline:
+  - test_slice 25/0 at 60;
+  - check_props3d PASS at 60;
+  - test_rewind_tint 50/0 at 30, 60 and 144;
+  - test_materials 55/0 at 60.
+
+  It refreshed the facts sheet, noting that F9 is A5's key, so the vsync key had to be F10–F12 (`3c8e9da`). On 11-08 I confirmed that the Visual Profiler shows GPU time under Vulkan (`8541d4e`).
+- **In my words:** _TO FILL_
+
+## 11-08 ~17:00–18:15 — the brief and CLAUDE.md
+
+- **What happened:**
+  - **Effects:** I chose an impact burst on every hit and wind steam as a feedback loop.
+  - **Drafting:** I drafted with Claude 3.5 Sonnet, and Claude Code's reviews caught errors. An ADD layer can't draw a dark edge. A `Curve` clamps points above 1.0. `gravity` is a Vector3. The default 64×64 gradient was too big. A 0.25 s lifetime still needs a retrigger rule.
+  - **Commits:** brief `ae0bfc3`. `claude -p` hit the spend limit on the first prompt, so CLAUDE.md was drafted in the interactive session (`ebc2e8a`). My review added the Headless-facts lines (`820e54b`). Claude's `main.gd:200` slip was fixed by a brief revision (`75f9194`, `762992e`).
+- **In my words:** _TO FILL_
+
+## 11-08 ~18:15–20:35 — Effect A built, looked at, mutated
+
+- **What happened:**
+  - **Build:** Claude built Effect A unedited, config test 135/0 (`5120eeb`), and added loop viewing (`0e50fa0`).
+  - **First look:** I wrote it before Claude read anything (`9166122`): the cyan core reads, the shards are hard to make out.
+  - **Strip:** r0 captured (`ccccc5e`).
+  - **Mutation 1, the Godot 3 name:** failed 1 check. Godot gave no warning, and the effect still fired.
+  - **Mutation 2, value drift:** failed 1 check (`e20acd7`).
+  - **My first M1 observation** said the shards all dropped. Claude pointed out that the maximum speed was unchanged and that the preview hadn't been rerun. The recorded line is the one I gave after that.
+- **In my words:** _TO FILL_
+
+## 11-08 ~20:35–21:10 — Effect A wired and tuned
+
+- **What happened:**
+  - **Wiring:** a fresh burst per impact, `restart()` after `add_child`, freed on `finished`. State test 44/0 (`7dded73`).
+  - **Two corks:** two impacts inside one lifetime needed two corks, because Bolt alone can't land two hits in 0.25 s.
+  - **F2:** the brief's F2 ("finished never fires") did not reproduce in main.gd's setup. The leak check still caught a burst that is never freed.
+  - **In-game check:** my first answers explained by settings, and one claimed checks the terminal showed no run for. Claude asked for plain answers. My first run saw only the landed jab; a second run covered the cork, the block and the pause.
+  - **Tuning:** the shards were faint because their alpha faded linearly. Claude predicted that holding them opaque to 0.7 would raise frame 15's darkening from 41 to 90 or more. r1 measured 106, though frames 10 and 12 matched less well. My verdict: keep (`45e986f`).
+- **In my words:** _TO FILL_
+
+## 11-08 ~21:10–22:25 — Effect B
+
+- **What happened:**
+  - **Build:** config test 33/0 (`d3f20d6`).
+  - **Two capture problems:**
+    - The first watch loop ran about 4× too fast (it counted display frames), so Claude fixed it before my first look.
+    - The first r0 had frames that were copies of earlier ones. Movie Maker writes duplicates while its window isn't being drawn. `--disable-vsync --always-on-top` fixed it.
+  - **Wiring:** state test 34/0 (`dc6a980`).
+  - **In game I saw two things:**
+    - Rivet barely steams. A probe showed his brain rewinds at the same 25 threshold.
+    - The steam "cut out" on rewind. A rewind fixture and strip (brief D.3) showed the cause: the key's spin squash narrowed the whole plume.
+  - **Fix:** I chose a holder, `SteamMount`, over `local_coords = false`, which would likely have made the puffs 3× bigger. r1 differed from r0 only at frame 34, as predicted. My verdict: keep (`f254728`).
+- **In my words:** _TO FILL_
+
+## 11-08 ~22:25–23:20 — the process shader, the price, the vsync key
+
+- **What happened:**
+  - **Shader:** I converted Effect B's material in the editor. It first saved as a `.tres`; I then saved the shader on its own (`490095f`). Claude checked my line references: one wrong number (331 for 315) and incomplete rows, which I fixed (`1892d4f`).
+  - **Cost script:** both effects within the spread of the game without them. Two engine monitors read 0, so only the wall clock was used (`a2b7a67`).
+  - **GPU price:** the F10 key and the GPU-price fixture were added (`f825d97`).
+- **In my words:** _TO FILL_

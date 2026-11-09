@@ -119,3 +119,35 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
   - **Audit:** ran it (MATERIALS.md, `test_materials.gd`).
   - **Captures:** wrote the F9 capture key and the capture tools; made and measured every capture.
   - **Docs:** drafted TEST-REPORT, README and SUBMISSION.
+
+## Assignment 6 — particle effects
+
+**Textures:**
+- Both are written by code; nothing is sourced or model-generated. See `godot/effects/textures/ATTRIBUTION.md`.
+- Effect A's core uses an in-scene `GradientTexture2D`.
+
+**Drafting help I asked for (also recorded in CHANGE-BRIEF.md's authorship block):**
+- **2026-11-08, an external LLM, Claude 3.5 Sonnet:** used to draft initial bullet points for brief sections A.1–G. I reviewed and corrected them against Godot's particle behaviour, using Claude Code's review notes.
+- _TO CONFIRM OR DELETE (Tharun): did you use an LLM to draft any TUNING or TEST-REPORT observation, the process-shader settings answer, or a brief revision? If so, say which, as the brief's authorship block does._
+- **Suggested wording I adopted:** the D.3 brief revision (the rewind strip) uses wording Claude Code suggested.
+
+**Tools (A6):**
+- Godot 4.7.2.stable.official.ed1daf0bf (Forward+, Vulkan/MoltenVK), macOS 15.6, Apple M4; Movie Maker for the strips (`--disable-vsync --always-on-top`); the Visual Profiler for GPU time.
+- Claude Code (Claude Opus 5.5) in the interactive desktop session. `claude -p` hit the individual spend limit on the Step 1 prompt (`evidence/a6/session-1-spend-limit.jsonl`, result event: 1 turn, $0), so every agent prompt ran in the interactive session. The handout's prompts are in `prompts/`, and Claude's plans are in `evidence/a6/step3a-plan.md` and `step3b-plan.md`.
+- Python 3 with Pillow, for strip trimming and pixel measurements.
+- Example 09's cost script from the chapter was not available on this machine, so `godot/tests/cost_effects.gd` was written from the handout's description.
+
+**Who did what (A6):**
+- **Me (Tharun):**
+  - **Brief:** chose both effects and every value in CHANGE-BRIEF.md, with the drafting help above, and wrote every dated revision.
+  - **Reviews and evidence:** reviewed CLAUDE.md and added the Headless-facts lines; took the Visual Profiler screenshot.
+  - **Captures:** ran every Movie Maker capture.
+  - **Mutations:** ran both Step 2 mutations.
+  - **Approvals:** approved each wiring step and each tuning change, choosing the holder fix for Effect B.
+  - **Verdicts:** gave the first-look notes and in-game verdicts in TUNING.md and TEST-REPORT.md.
+  - **Process shader:** converted it in the editor and wrote its line references and the settings answer.
+- **Claude Code:**
+  - **Facts:** wrote `design/a6/BRIEF-FACTS.md` and the probes; reviewed the brief drafts; drafted CLAUDE.md.
+  - **Build:** built both effect scenes, the texture scripts, the config and state tests, the preview fixtures, the wiring in `main.gd`, `SteamMount`, the cost script, the F10 key and the GPU-price fixture.
+  - **Tuning:** read every strip, wrote the predictions and comparisons, and measured the frames.
+  - **Docs:** drafted the TEST-REPORT, README, SOURCES and FRICTIONAL sections.

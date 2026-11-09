@@ -31,6 +31,8 @@ godot --path godot          # or open godot/project.godot in the Godot editor an
 | **N** | **mute / unmute effects** | |
 | R | rematch after K.O. | Back |
 | F1 | show hurtboxes (green) and hitboxes (red) | |
+| F9 | (debug builds) A5 in-engine tint captures | |
+| **F10** | **(debug builds) toggle vsync, for the A6 GPU-price FPS comparison** | |
 
 ## What the slice demonstrates
 
@@ -164,3 +166,83 @@ Expected results:
 
 **A5 film:** [claude-liam-walker-tinknockout-tharun-m-a5-shaders.mp4](https://drive.google.com/file/d/1x90bbSlU_QSjNzabapgok6JhSpoYX68V/view?usp=sharing) · SHA-256 `6568f966a28b65ffad73d3aac36430b4f222d5f065af60dfd930946d141b2ed8` · 4K 3840×2160, 7:02 · shows game source `2e6946d`. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a5-shaders/` (the MP4 itself is not in GitHub).
 
+
+---
+
+## Assignment 6 — particle effects (tag `a6`)
+
+**Started from:** tag `a5` (`f4dda68`). Godot 4.7.2.stable, Forward+ on Vulkan (MoltenVK), Apple M4, window 1280×720 (viewport 640×360, `canvas_items`).
+
+**Added:**
+- **Effect A, impact burst** (`godot/effects/impact_effect.tscn`, plus `impact_effect_blocked.tscn` for blocked hits). It fires on every melee or cork impact through `main._on_impact`:
+  - two GPUParticles2D emitters: dark tin shards (MIX) and a cyan core (ADD), drawn above the kept star spark;
+  - a fresh instance per hit, so bursts overlap, each freed on `finished`;
+  - blocked hits get a smaller grey burst.
+- **Effect B, wind steam** (`godot/effects/wind_steam.tscn`). One emitter per fighter at the back key, on `godot/effects/steam_mount.gd`, which follows the key but not its rewind spin squash. `amount_ratio` follows wind: 0 at 25 and above, rising to 1 at 0.
+- **Textures written by code:** `godot/tools/generate_shard_texture.gd` and `generate_steam_texture.gd` (credits: `godot/effects/textures/ATTRIBUTION.md`).
+- **Generated process shader:** `godot/shaders/particles_generated.gdshader`, Effect B's ParticleProcessMaterial converted in the editor. Nothing in the game uses it.
+- **Fixtures, not part of the game,** in `godot/previews/`:
+  - `impact_preview`, `steam_preview` and `steam_rewind_preview` for the frame strips;
+  - `gpu_price` for the Visual Profiler.
+- **F10:** a debug-build vsync toggle (`godot/game/debug_vsync.gd`).
+
+**Run the tests** from the repo root, through the wrapper. Run `godot --headless --path godot --import` once after cloning (it also registers the `SteamMount` class):
+```bash
+./scripts/run-test.sh test_impact_effect_config.gd 60
+```
+```bash
+./scripts/run-test.sh test_impact_effect_state.gd 60
+```
+```bash
+./scripts/run-test.sh test_wind_steam_config.gd 60
+```
+```bash
+./scripts/run-test.sh test_wind_steam_state.gd 60
+```
+```bash
+./scripts/run-test.sh cost_effects.gd 60 300
+```
+
+Expected results:
+- `test_impact_effect_config`: 136 checks, 0 failed;
+- `test_impact_effect_state`: 44 checks, 0 failed;
+- `test_wind_steam_config`: 33 checks, 0 failed;
+- `test_wind_steam_state`: 37 checks, 0 failed;
+- `cost_effects`: a table of the four cases, exit 0.
+
+The A5 commands above still give their baseline counts.
+
+**See it:**
+- **In the game:** `godot --path godot`, Enter. Jab Rivet (J) for Effect A. Whiff 7–8 jabs to bring Bolt's wind under 25 for Effect B, then hold S to rewind.
+- **Strip fixtures** (capture commands are at the top of each script):
+  ```bash
+  godot --path godot res://previews/impact_preview.tscn -- --loop
+  ```
+  ```bash
+  godot --path godot res://previews/steam_preview.tscn -- --loop
+  ```
+  ```bash
+  godot --path godot res://previews/steam_rewind_preview.tscn -- --loop
+  ```
+- **GPU price:** open `res://previews/gpu_price.tscn` in the editor and press F6. Keys: **0** off, **1** Effect A at 4 bursts, **2** Effect B at full ratio on both fighters, **9** remove the steam, **F10** vsync. Read Debugger → Visual Profiler.
+- **Captures:** use `--disable-vsync --always-on-top`. Without them, Movie Maker can write repeated frames (TEST-REPORT A6-3).
+
+**Docs for A6:**
+- CLAUDE.md (reviewed; imports the brief);
+- CHANGE-BRIEF.md (v1 plus dated revisions);
+- TUNING.md (both tuning loops);
+- TEST-REPORT.md ("Assignment 6", "The process shader");
+- FRICTIONAL.md;
+- SOURCES.md;
+- `godot/effects/textures/ATTRIBUTION.md`;
+- `evidence/a6/` (plans, mutation logs, probes, cost log, profiler screenshot);
+- `captures/` (strip frames);
+- `prompts/`.
+
+**Known limitations (A6):**
+- Rivet's steam rarely shows. His pattern brain retreats and rewinds as soon as his wind drops below 25, the same threshold where the steam starts (TEST-REPORT A6-3).
+- The headless price is near zero by construction (the dummy renderer). Two engine timing monitors read 0 headless, so only the wall clock is used.
+- The GPU price is measured from a fixture (`gpu_price.tscn`), not from ordinary play.
+- `claude -p` was spend-limited until 2026-12-01, so all agent prompts ran in the interactive Claude Code session (SOURCES.md).
+
+**A6 film:** _link and SHA-256 to be added._
