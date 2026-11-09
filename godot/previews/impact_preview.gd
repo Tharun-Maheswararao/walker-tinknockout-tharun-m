@@ -13,6 +13,10 @@ extends Node2D
 ## LOOP_SECONDS until the window is closed; adding `--random` drops the fixed
 ## seed so repeats vary as they will in the game.
 ##   godot --path godot res://previews/impact_preview.tscn -- --loop [--random]
+##
+## Background check (Use It): `--dark` moves Bolt and the hit point 62 px right,
+## so the burst lands over the darkest stretch, x 256-287, instead of the light
+## castle (design/a6/BRIEF-FACTS.md §4). Captures never use it.
 
 const LOOP_SECONDS := 1.0
 const EFFECT := preload("res://effects/impact_effect.tscn")
@@ -29,8 +33,13 @@ var frame := 0
 var loop := "--loop" in OS.get_cmdline_user_args()
 var random := "--random" in OS.get_cmdline_user_args()
 var since_fire := 0.0
+var dark := "--dark" in OS.get_cmdline_user_args()
+var bolt_x := 170.0
 
 func _ready() -> void:
+	if dark:
+		impact_point.x += 62.0     # 209 -> 271, the middle of x 256-287
+		bolt_x += 62.0
 	var cam := Camera2D.new()
 	cam.position = Vector2(320, 180)
 	add_child(cam)
@@ -45,7 +54,7 @@ func _ready() -> void:
 	bolt.centered = false
 	bolt.offset = -FEET
 	bolt.scale = Vector2(ART_SCALE, ART_SCALE)
-	bolt.position = Vector2(170, 292)
+	bolt.position = Vector2(bolt_x, 292)
 	add_child(bolt)
 
 func _process(delta: float) -> void:

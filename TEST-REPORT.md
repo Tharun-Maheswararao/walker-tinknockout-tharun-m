@@ -597,3 +597,45 @@ Checked at revision `f825d97` (plus the docs commit after it). Godot 4.7.2.stabl
 | Process shader | **done**: line references checked by Claude | "The process shader" |
 | No agent session changed `godot/shaders/` | **done**: the only A6 file there, `particles_generated.gdshader`, was saved by Tharun from the editor (`490095f`) | |
 | Every texture credited | **done**: `godot/effects/textures/ATTRIBUTION.md` | |
+
+### A6-5a. HUMAN CHECK: against the background (Tharun, 2026-11-09)
+
+Fixture captures, watched windowed at 1280×720 with `-- --loop --random`. Same real level art (`bowl.png`) and camera as the game. New switches `--dark` (impact preview) and `--light` (steam preview) move the effect to the other extreme stretch (design/a6/BRIEF-FACTS.md §4: lightest x 192–223, mean luminance 160; darkest x 256–287, mean 98).
+
+| Effect, stretch | What I saw |
+|---|---|
+| A, light castle (x 209) | Shards clear, core stands out against the bright stone background. |
+| A, dark stretch (x 271) | Core stands out brightly, but the charcoal shards are much fainter and harder to make out against the dark background. |
+| B, dark stretch (key x 271) | Steam clearly visible as bright rising plumes against the darker backdrop. |
+| B, light stretch (key x 207) | Steam slightly softer against the bright castle walls, but still easily readable from the key. |
+
+**Measurement (Claude), Effect A at frame 15:** the median shard darkening is 105 luminance levels over the castle (background 174 under the shards), but **42 over the dark stretch** (background 102). Trial capture with the `--dark` switch. This agrees with the corrected row above. Tharun's first answer for this row said the flecks "pop cleanly"; after Claude's measurement, Tharun corrected it.
+
+**Finding:** Effect A's dark shards lose most of their contrast over the dark stretch; there, the core carries the hit. This is a candidate for a further tuning revision (a lighter shard rim or interior on dark backgrounds), not done in A6.
+
+### A6-5b. HUMAN CHECK: scene load and edge of screen (Tharun, 2026-11-09)
+
+Windowed run of the game, `godot --path godot`, 1280×720; closed with no `ERROR` or `SCRIPT ERROR`.
+
+| Check | What I saw |
+|---|---|
+| Scene load (Effect B) | None. Both fighters' keys remained completely still and free of steam throughout the title screen and the "ROUND 1" intro sequence until wind was actually consumed. |
+| Edge: steam at the left arena wall, low wind | The steam rising at the left arena wall faded out smoothly over its lifespan without popping, clipping, or cutting off early at the boundary. |
+| Edge: impact bursts near the walls | The jab impact bursts landed cleanly near the arena walls with no sudden vanishing or clipped edges. |
+
+**Context (Claude):** the arena walls are at x 132 and 500 of the 640-px view (`main.gd` `ARENA`), so neither effect can reach the screen edge itself. The wall is the nearest test there is. The steam's `visibility_rect` is ±150 local units, ±50 px on screen around the key, against a plume that rises about 30 px. The bursts use the default ±100 rect against a spread of about 20 px. Headless, scene load gives ratio 0 for both fighters (B-R6, `test_wind_steam_state.gd`).
+
+### A6-5c. Claude against me
+
+Each of Claude's strip readings beside my verdict. The left two columns quote TUNING.md and this report. Claude laid out the table; the last line is mine.
+
+| Strip / check | Claude's reading | My verdict | Agree? |
+|---|---|---|---|
+| Effect A r0 | The shards are faint at frame 15 (median darkening 41): a linear alpha fade leaves about ⅓ alpha | First look, before Claude read it: "a bit hard to make out" | Agree |
+| Effect A r1 (ramp opaque to 0.7) | Frame 15 median darkening 106: solid flecks; **scale unchanged** (0.8–1.2) | "easier to make out … solid dark flecks"; "**they also looked bigger on screen, even though the scale is unchanged**" | **Partly:** I saw them as bigger; Claude's settings and pixel counts say only their opacity changed (the darker-pixel count rose 16 %, because faint edge pixels now pass the threshold) |
+| Effect B r0 (D.2) | Not read for size before my first look. Measured afterwards at frame 40: the plume is 18 × 27 view px, **about ¼ of Bolt's 112 px height** | First look: "the entire steam rise is tall, **roughly half of Bolt's height**" | **Disagree** on size, by about 2× |
+| Effect B rewind r0 | The "cut" is the key's spin squash narrowing the whole plume (frame 34) | In game: "cut out immediately upon triggering the rewind state" | Agree (same event, explained) |
+| Effect B rewind r1 (SteamMount) | Differs from r0 only at frame 34, as predicted | In game: "tapered off smoothly … stayed correctly anchored" | Agree |
+| Background, Effect A dark stretch | Shard darkening 42 here, against 105 on the castle | First: "flecks pop cleanly"; corrected: "charcoal shards are much fainter and harder to make out" | Disagreed at first; my answer was corrected after Claude's measurement |
+
+**My statement on where we disagreed:** On the steam size and shard scale disagreements, I accept the objective pixel measurements—the plume is a quarter of Bolt's height, and the shard scale remained unchanged at 0.8–1.2. However, I keep my visual observation for gameplay evaluation: in active motion, the extended opacity timing makes the effects feel larger and more readable to the player on screen. That live perceptual impact is what matters most for feel and feedback.

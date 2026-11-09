@@ -15,6 +15,10 @@ extends Node2D
 ## every LOOP_FRAMES, counted in 30 fps frames of real time (2.67 s per cycle at
 ## any display rate); adding `--random` drops the fixed seed.
 ##   godot --path godot res://previews/steam_preview.tscn -- --loop [--random]
+##
+## Background check (Use It): `--light` moves Bolt 64 px left, so the key sits
+## at x 207, over the lightest stretch, x 192-223, instead of the darkest
+## (design/a6/BRIEF-FACTS.md §4). Captures never use it.
 
 const LOOP_FRAMES := 80
 const EFFECT := preload("res://effects/wind_steam.tscn")
@@ -28,8 +32,11 @@ var frame := 0
 var loop := "--loop" in OS.get_cmdline_user_args()
 var random := "--random" in OS.get_cmdline_user_args()
 var steam: GPUParticles2D
+var light := "--light" in OS.get_cmdline_user_args()
 
 func _ready() -> void:
+	if light:
+		bolt_x -= 64.0             # key 271 -> 207
 	var cam := Camera2D.new()
 	cam.position = Vector2(320, 180)
 	add_child(cam)
