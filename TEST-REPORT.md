@@ -520,3 +520,36 @@ The in-game "cut out on rewind" was the key's spin squash narrowing every live p
 - In game (Tharun): it tapered off smoothly on rewind and stayed anchored to the key. Keep.
 
 **Capture note:** Movie Maker can write copies of an earlier frame while its window is not being drawn. The summary then reports fewer frames than requested. That is what spoiled the first Effect B r0 and the first rewind r0. Every strip since was captured with `--disable-vsync --always-on-top`, reported the full frame count, and was checked frame by frame against a clean trial.
+
+## The process shader
+
+File: godot/shaders/particles_generated.gdshader (Effect B's ParticleProcessMaterial, converted in the editor, commit 490095f).
+
+| What | Line(s) |
+|---|---|
+| shader_type | 3 |
+| start() | 219 |
+| process() | 269 |
+| initial velocity set from its min and max | 10, 11, 139 |
+| gravity changes velocity | 43 (declaration), 302 (force = gravity;), and 315 (USERDATA1.xyz += force * DELTA; where velocity is actually updated) |
+| colour over life sampled | 44 (declaration), 161 (sampled in process_display_param) |
+| scale over life applied | 45 (declaration), 160 (sampled) and 351–353 (applied to particle transform from process() at line 336) |
+| a line tied to a brief setting (name the setting and its value) | 7 (uniform float spread; declaration) and 258 (used with get_random_direction_from_spread), matching the brief setting B.3 spread = 30.0. Note that this numeric value lives on the particle material resource, not directly hardcoded inside this shader file. |
+
+Which of my brief's settings live in this shader, and which belong to the draw step instead:
+Shader vs. Draw/Node Step Allocation (B.3 Table Sort)
+Lives in the Process Shader (particles_generated.gdshader):
+
+Lifetime & Velocity Dynamics: lifetime, initial velocity (initial_linear_velocity_min/max), gravity, radial/tangential forces, and acceleration curves.
+
+Particle Lifecycle Ramps: color_ramp and scale_curve calculations over normalized lifetime.
+
+Spread & Randomness: spread and lifetime_randomness logic.
+
+Lives in the Material (Draw Step / Material Property):
+
+Texture Asset & Blend Mode: The source particle sprite texture and blend modes (e.g., MIX or ADD) are handled by the material configuration wrapping the draw pass, not the process shader math.
+
+Lives on the GPUParticles2D Node:
+
+Emission & Bounds: amount (particle count cap), local_coords (world vs. local space anchoring), and visibility_rect (culling bounds) are node-level operational configurations.
