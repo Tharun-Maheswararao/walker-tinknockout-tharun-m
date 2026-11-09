@@ -242,7 +242,7 @@ The A5 commands above still give their baseline counts.
 **Known limitations (A6):**
 - Rivet's steam rarely shows. His pattern brain retreats and rewinds as soon as his wind drops below 25, the same threshold where the steam starts (TEST-REPORT A6-3).
 - The headless price is near zero by construction (the dummy renderer). Two engine timing monitors read 0 headless, so only the wall clock is used.
-- The GPU price is measured from a fixture (`gpu_price.tscn`), not from ordinary play.
+- The GPU price was not measured (skipped, 2026-11-09), so the GPU budgets in CHANGE-BRIEF F are unchecked. The fixture `gpu_price.tscn` is there to measure it later (TEST-REPORT A6-5).
 - `claude -p` was spend-limited until 2026-12-01, so all agent prompts ran in the interactive Claude Code session (SOURCES.md).
 
-**A6 film:** _link and SHA-256 to be added._
+**A6 film:** claude-liam-walker-tinknockout-tharun-m-a6-particles.mp4 (_link to be added after upload_) · SHA-256 `04d435e30352681ac1bfecd855072acf700a9afc3a02cc5e601407e4b010630a` · 4K 3840×2160, 11:57 · shows game source `c844ab2`. Watched in full by Tharun on 2026-11-09. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a6-particles/` (the MP4 itself is not in GitHub).

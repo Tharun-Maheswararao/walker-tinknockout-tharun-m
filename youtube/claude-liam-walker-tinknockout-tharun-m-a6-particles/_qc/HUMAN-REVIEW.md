@@ -1,6 +1,6 @@
 # _qc/HUMAN-REVIEW.md — review of the actual master (by eye and by measurement)
 
-Reviewer: Claude Code (agent), not a human. Tharun has not yet watched the film.
+Reviewer: Claude Code (agent), not a human. Tharun watched the master in full afterwards (2026-11-09) and asked for no changes.
 
 Master: `exports/landscape/claude-liam-walker-tinknockout-tharun-m-a6-particles.mp4`
 SHA-256 `04d435e30352681ac1bfecd855072acf700a9afc3a02cc5e601407e4b010630a` · 717.27 s (11:57) · 3840×2160 H.264 30 fps

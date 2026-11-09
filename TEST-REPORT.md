@@ -593,7 +593,7 @@ Checked at revision `f825d97` (plus the docs commit after it). Godot 4.7.2.stabl
 | Scene load (HUMAN CHECK) | **done**: no steam through the title and intro | A6-5b |
 | Claude against you | **done**: six readings compared; disagreements on the steam's size and the shards' apparent size | A6-5c |
 | Headless CPU price | **done**: both effects within the spread of game_off; empty-scene control included | A6-4 |
-| GPU price (HUMAN CHECK) | **open**: Visual Profiler GPU time, off vs on at heaviest, per effect; FPS with vsync off (F10); compare against CHANGE-BRIEF F budgets (A < 0.55 ms, B < 0.20 ms). One unlabelled screenshot so far (Render Viewport 0.33 ms, Update GPU particles 0.02 ms, case unknown) | fixture `godot/previews/gpu_price.tscn` |
+| GPU price (HUMAN CHECK) | **not measured**: Tharun chose to skip it (2026-11-09). The CHANGE-BRIEF F GPU budgets (A < 0.55 ms, B < 0.20 ms) are therefore unchecked, and no GPU number is claimed for either effect. The only reading is one unlabelled screenshot (Render Viewport 0.33 ms, Update GPU particles 0.02 ms, case unknown), which cannot be compared with anything. The fixture is in place for a later measurement | fixture `godot/previews/gpu_price.tscn` |
 | Process shader | **done**: line references checked by Claude | "The process shader" |
 | No agent session changed `godot/shaders/` | **done**: the only A6 file there, `particles_generated.gdshader`, was saved by Tharun from the editor (`490095f`) | |
 | Every texture credited | **done**: `godot/effects/textures/ATTRIBUTION.md` | |
