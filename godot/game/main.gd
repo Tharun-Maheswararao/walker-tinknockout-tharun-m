@@ -15,6 +15,7 @@ const INTRO_TIME := 1.3
 const LOW_WIND := 25.0
 const IMPACT_FX := preload("res://effects/impact_effect.tscn")                  # A6 Effect A (CHANGE-BRIEF A.3)
 const IMPACT_FX_BLOCKED := preload("res://effects/impact_effect_blocked.tscn")  # A.3c
+const WIND_STEAM := preload("res://effects/wind_steam.tscn")                    # A6 Effect B (CHANGE-BRIEF B.3)
 
 var round_state: int = R.TITLE
 var round_t := 0.0
@@ -60,6 +61,12 @@ func _ready() -> void:
 		f.spawn_cork = _spawn_cork
 		add_child(f)
 		f.hit_landed.connect(_on_hit)
+		# A6 Effect B: steam on the fighter's key (B.3). Only amount_ratio is set,
+		# from the wind the fighter already announces (B.1, B-R3); pause, KO hiding
+		# and the round-start reset come from the parent and reset() (B-R4..B-R6).
+		var steam: GPUParticles2D = WIND_STEAM.instantiate()
+		f.key_sprite.add_child(steam)
+		f.wind_changed.connect(func(_f, w): steam.amount_ratio = steam_ratio(w))
 		var tint := preload("res://fighter/rewind_tint_driver.gd").new()
 		tint.fighter = f
 		tint.game = self
@@ -227,6 +234,10 @@ func _spawn_impact(p: Vector2, blocked: bool) -> void:
 			if left[0] == 0:
 				burst.queue_free())
 		e.restart()
+
+## Effect B mapping (CHANGE-BRIEF B.1): 0 at wind >= 25, rising linearly to 1 at wind 0.
+static func steam_ratio(w: float) -> float:
+	return clampf((LOW_WIND - w) / LOW_WIND, 0.0, 1.0)
 
 func _effects(dt: float) -> void:
 	shake = maxf(0.0, shake - dt)

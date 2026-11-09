@@ -467,3 +467,43 @@ Windowed run, `godot --path godot`, 1280×720; closed with no `ERROR` or `SCRIPT
 | Cork hit | Yes, a cork connected squarely against the target. Because of the world-space anchoring (local_coords = false), the impact burst appeared right at the precise point of contact and stayed cleanly pinned in space, holding its position even after the cork projectile itself vanished. |
 | Blocked jab | Rivet successfully threw up his guard for a block. That hit looked distinct—instantly reading as a scaled-down, muted grey spark rather than the bright cyan and charcoal flash of a normal, unblocked hit, providing immediate visual feedback of the deflection. |
 | Pause right after a hit | Pressing pause right on the frame of impact felt smooth and deliberate. While the rest of the game paused instantly, the impact effect didn't freeze mid-air; it continued its animation sequence naturally and finished its lifecycle cleanly. |
+
+## A6-3. Effect B built and wired: config and state tests (Step 5)
+
+Build (`d3f20d6`): `godot/tools/generate_steam_texture.gd` writes `steam_32.png`; `godot/effects/wind_steam.tscn` holds one emitter with the B.3 values, dormant (`amount_ratio` 0, `emitting` true). `godot/tests/test_wind_steam_config.gd` at 60: **33 checks, 0 failed**, including `amount_ratio`, continuous emission, `local_coords` and the unclamped scale point 3.0 (F1).
+
+Wiring (plan `evidence/a6/step3b-plan.md`, approved step by step): `godot/game/main.gd` adds one steam instance under each fighter's `key_sprite` and connects `wind_changed` to `amount_ratio = steam_ratio(wind)` = clamp((25 − wind) / 25, 0, 1). Nothing else is set from code.
+
+`godot/tests/test_wind_steam_state.gd`, through the wrapper at a fixed 60 fps: **34 checks, 0 failed**, exit 0 (`logs/test_wind_steam_state_60fps.log`). Bolt's wind moves only through real jabs and real rewinding; Rivet is frozen by a stand-in brain (SETUP).
+
+| Real input | Wind | Result | Rule |
+|---|---|---|---|
+| Load, round start | 100 | both ratios 0, `emitting` on, `amount` 25 | B-R6 |
+| 6 jabs | 28 | ratio 0 | B-R1 |
+| 7th jab | 16 | ratio 0.36, `amount` 25 | B-R1, B-R3 |
+| 8th jab | 4 | ratio 0.84, `amount` 25; Rivet's ratio still 0 | B-R3, one per fighter |
+| Pause, then keys pressed | 4 | wind, ratio, `emitting`, `speed_scale` unchanged; the steam still processes | B-R4 |
+| Rewind, 2 clicks | 24 | ratio 0.04: `amount × amount_ratio` = 1.00 | F5 |
+| Rewind, 1 more click | 34 | ratio 0, `emitting` still true | B-R2 |
+| Jab at Rivet on 5 hp | | Rivet KO; his key and steam hidden; Bolt's visible | B-R5 |
+| Rematch event | 100 | both ratios 0; no extra steam nodes | B-R6 |
+
+**Does it catch failures?** M5: main.gd temporarily set `amount` instead of `amount_ratio` → **34 checks, 11 failed** (`evidence/a6/mutations/steam-m5-sets-amount.log`). main.gd was restored byte for byte.
+
+All tests after the wiring, through the wrapper: both Effect B tests and both Effect A tests at 60 (34/0, 33/0, 44/0, 136/0); `test_slice` 60 25/0; `check_props3d` 60 PASS; `test_rewind_tint` 30/60/144 50/0 each; `test_materials` 60 55/0. No SCRIPT or SHADER ERROR; `git diff scripts/run-test.sh godot/shaders godot/fighter` empty.
+
+**What the state test cannot show:** how the steam looks and whether it fades smoothly when the ratio drops (B-R2's look); whether a hidden emitter keeps simulating and what shows when the key reappears (B-R5); that it draws behind the body and squashes while rewinding; and the frame on which the first puff becomes visible (F5's eyes half).
+
+### HUMAN CHECK: in the running game (Tharun, 2026-11-08)
+
+Two windowed runs, `godot --path godot`, 1280×720; both closed with no `ERROR` or `SCRIPT ERROR`. (Claude's first key list said R for rewind; rewind is S. The second run used S.)
+
+| Check | What I saw |
+|---|---|
+| Low wind (7–8 whiffed jabs) | Yes, steam vented directly from Bolt's back key as his wind depleted. It rendered as a semi-translucent, rising white plume puffing upward from the key housing. |
+| Rewind (hold S) | The steam emission stopped abruptly and cut out immediately upon triggering the rewind state, rather than tapering off with a smooth fade. |
+| Rivet | No steam appeared on Rivet when his wind dropped. |
+
+**Claude's notes on the last two rows** (facts from the code and a probe, not observations):
+- *Rivet.* The wiring gives Rivet his own steam (the state test finds it under his key). Tharun's answer also said the effect "is anchored specifically to Bolt's key mechanism"; that explanation is not what the code does, so it is left out of the row above. A headless probe of the real game with Rivet's real brain for 30 s (`evidence/a6/probes/probe_rivet_steam.gd`, output `probe_rivet_steam.txt`): Rivet's steam was on for 7.0 s and visible the whole time, but his wind never went below 17.7, so the ratio peaked at 0.29 and was usually 0.01–0.04, at most 1 puff at a time. Rivet's brain backs off and rewinds as soon as his wind falls below 25 (`rivet_brain.gd:26-27`), the same threshold where the steam starts. Seeing almost no steam on him is consistent with that. This affects B.1's stated purpose (reading Rivet's wind).
+- *Rewind.* Pressing S does not change the ratio at once: from wind 4 the first click comes after 0.25 s (ratio 0.84 → 0.44), the second at 0.5 s (0.04) and the third at 0.75 s (0). Setting the ratio to 0 does not delete live puffs either: in the fixture capture they keep drawing for 13 frames (0.43 s) after the ratio drops to 0 at frame 50. What does change the moment REWIND starts is the key itself: `key_sprite.scale.x` swings between full width and 15 % as the key spins (`fighter.gd:272-273`), and the steam, a child in local coordinates, is squashed with it (predicted in B.3, "parent and flip"). That squash is a likely cause of the abrupt look; it has not been checked frame by frame.

@@ -34,7 +34,7 @@ PASS  both corks struck (got 2)
 PASS  two impacts -> two bursts (got 2)
 PASS  the second impact came 5 frames after the first, inside the 15-frame lifetime
 PASS  A-R3 overlap: both bursts alive in the tree at once (most alive 2)
-PASS  A-R3 two distinct instances, not one restarted (ids 98968798913, 99220457138)
+PASS  A-R3 two distinct instances, not one restarted (ids 99706996430, 99958654655)
 PASS  A-R2 burst 1 at its own cork's position (420.0003, 207.5) (got (420.0003, 207.5))
 PASS  A-R2 burst 2 at its own cork's position (179.9998, 207.5) (got (179.9998, 207.5))
 PASS  F2 both freed afterwards (live 0)
