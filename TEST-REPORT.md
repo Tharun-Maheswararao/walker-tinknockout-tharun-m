@@ -507,3 +507,16 @@ Two windowed runs, `godot --path godot`, 1280×720; both closed with no `ERROR` 
 **Claude's notes on the last two rows** (facts from the code and a probe, not observations):
 - *Rivet.* The wiring gives Rivet his own steam (the state test finds it under his key). Tharun's answer also said the effect "is anchored specifically to Bolt's key mechanism"; that explanation is not what the code does, so it is left out of the row above. A headless probe of the real game with Rivet's real brain for 30 s (`evidence/a6/probes/probe_rivet_steam.gd`, output `probe_rivet_steam.txt`): Rivet's steam was on for 7.0 s and visible the whole time, but his wind never went below 17.7, so the ratio peaked at 0.29 and was usually 0.01–0.04, at most 1 puff at a time. Rivet's brain backs off and rewinds as soon as his wind falls below 25 (`rivet_brain.gd:26-27`), the same threshold where the steam starts. Seeing almost no steam on him is consistent with that. This affects B.1's stated purpose (reading Rivet's wind).
 - *Rewind.* Pressing S does not change the ratio at once: from wind 4 the first click comes after 0.25 s (ratio 0.84 → 0.44), the second at 0.5 s (0.04) and the third at 0.75 s (0). Setting the ratio to 0 does not delete live puffs either: in the fixture capture they keep drawing for 13 frames (0.43 s) after the ratio drops to 0 at frame 50. What does change the moment REWIND starts is the key itself: `key_sprite.scale.x` swings between full width and 15 % as the key spins (`fighter.gd:272-273`), and the steam, a child in local coordinates, is squashed with it (predicted in B.3, "parent and flip"). That squash is a likely cause of the abrupt look; it has not been checked frame by frame.
+
+### A6-3 follow-up: rewind squash fixed (TUNING.md Effect B revision 1)
+
+The in-game "cut out on rewind" was the key's spin squash narrowing every live puff (rewind strip r0, frame 34). The steam now rides `godot/effects/steam_mount.gd` (`SteamMount`), which follows the key's position, facing and visibility but not its squash. `main.gd` and both fixtures use it; `wind_steam.tscn` is unchanged.
+
+- `test_wind_steam_state.gd` at 60: **37 checks, 0 failed**. The three new checks: while rewinding, the key reached |scale.x| 0.050, the steam stayed at 0.333, and the steam stayed on the key (0.000 px).
+- M6: the mount temporarily copying the key's squashed scale → 1 failed (`evidence/a6/mutations/steam-m6-mount-copies-squash.log`).
+- All other tests are unchanged: Effect B config 33/0; Effect A 44/0 and 136/0; `test_slice` 25/0; `check_props3d` PASS; `test_rewind_tint` 30/60/144 50/0; `test_materials` 55/0.
+- D.2 strip unchanged: pixel-identical to `captures/wind_steam/r0`.
+- Rewind strip r1: differs from r0 only at frame 34, as predicted.
+- In game (Tharun): it tapered off smoothly on rewind and stayed anchored to the key. Keep.
+
+**Capture note:** Movie Maker can write copies of an earlier frame while its window is not being drawn. The summary then reports fewer frames than requested. That is what spoiled the first Effect B r0 and the first rewind r0. Every strip since was captured with `--disable-vsync --always-on-top`, reported the full frame count, and was checked frame by frame against a clean trial.

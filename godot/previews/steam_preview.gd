@@ -3,8 +3,8 @@ extends Node2D
 ##   godot --path godot res://previews/steam_preview.tscn --write-movie <abs>/frame.png --fixed-fps 30 --quit-after 80
 ##
 ## The arena background and camera exactly as main.gd sets them, and a real
-## Fighter (Bolt, idle, facing right) so the steam rides his actual key_sprite:
-## the game's 1/3 scale, z_index -1 and key anchor. Bolt stands at x 314, which
+## Fighter (Bolt, idle, facing right) so the steam rides his actual key through
+## the game's SteamMount: the 1/3 scale, z_index -1 and key anchor. Bolt stands at x 314, which
 ## puts the key (anchor x -42.6, anchors.json "idle") at x 271, the middle of
 ## the darkest background stretch, x 256-287 (design/a6/BRIEF-FACTS.md §4).
 ## The condition starts at frame 10 (amount_ratio 1.0, as at wind 0) and ends at
@@ -43,10 +43,10 @@ func _ready() -> void:
 	bolt.skin = "bolt"
 	bolt.position = Vector2(bolt_x, 292)   # FLOOR_Y, main.gd:12
 	add_child(bolt)                        # _ready loads the art and applies the idle pose
-	steam = EFFECT.instantiate()
+	steam = SteamMount.attach(bolt, EFFECT)   # mounted as in the game (main.gd)
 	steam.use_fixed_seed = not random
 	steam.seed = fixed_seed
-	bolt.key_sprite.add_child(steam)
+	steam.restart()                         # so the fixed seed applies from the start
 	print("preview: key_sprite at %s, scale %s; steam amount_ratio %.2f" % [bolt.key_sprite.global_position, bolt.key_sprite.scale, steam.amount_ratio])
 
 var t := 0.0

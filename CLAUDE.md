@@ -4,17 +4,17 @@
 
 - **Engine:** Godot 4.7.2.stable.official.ed1daf0bf (`godot --version`, `evidence/a5/headless-facts.txt:1`); `config/features` "4.7" (`godot/project.godot:15`).
 - **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"; there is no `rendering_method` line). macOS driver is Vulkan (`godot/project.godot:31`). Viewport 640×360, window 1280×720, stretch `canvas_items` (`godot/project.godot:23-27`).
-- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`), one `Node2D` running `game/main.gd`; everything else is built in code in `main.gd:_ready()` (`godot/game/main.gd:39-98`). Main is `PROCESS_MODE_ALWAYS` (`main.gd:40`), so its children inherit it.
-- **Pause** is a game flag, not a tree pause: `var paused` (`main.gd:21`), toggled at `main.gd:125-127`; the fight loop skips simulation while it is set (`main.gd:143-144`). `get_tree().paused` is never set.
+- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`), one `Node2D` running `game/main.gd`; everything else is built in code in `main.gd:_ready()` (`godot/game/main.gd:40-106`). Main is `PROCESS_MODE_ALWAYS` (`main.gd:41`), so its children inherit it.
+- **Pause** is a game flag, not a tree pause: `var paused` (`main.gd:22`), toggled at `main.gd:133-135`; the fight loop skips simulation while it is set (`main.gd:152-153`). `get_tree().paused` is never set.
 - **Effect A, impact burst** (`CHANGE-BRIEF.md` A): `GPUParticles2D` emitters (Shards and Core) in `godot/effects/impact_effect.tscn`, plus `godot/effects/impact_effect_blocked.tscn` for blocked hits. Built and wired: `main._spawn_impact` (`godot/game/main.gd`); tests `test_impact_effect_config.gd`, `test_impact_effect_state.gd`.
-  - Event: melee hits, `Fighter.hit_landed(attacker, attack, blocked)` (declared `godot/fighter/fighter.gd:14`, emitted `:197`), connected to `_on_hit` (`main.gd:62, 204-206`); cork hits, `Cork.struck(cork, blocked)` (declared `godot/fighter/cork.gd:11`, emitted `:24`; the cork frees itself at `:25`), connected at `main.gd:201`.
-  - Both arrive at `main._on_impact(p, blocked)` (`main.gd:208-213`), which draws the kept star spark (`main.gd:209, 240-247`) on the `fx` node at `z_index` 5 (`main.gd:89-92`) and calls `_spawn_impact` (`main.gd:219-229`).
+  - Event: melee hits, `Fighter.hit_landed(attacker, attack, blocked)` (declared `godot/fighter/fighter.gd:14`, emitted `:197`), connected to `_on_hit` (`main.gd:63, 212-214`); cork hits, `Cork.struck(cork, blocked)` (declared `godot/fighter/cork.gd:11`, emitted `:24`; the cork frees itself at `:25`), connected at `main.gd:209`.
+  - Both arrive at `main._on_impact(p, blocked)` (`main.gd:216-221`), which draws the kept star spark (`main.gd:217, 252-259`) on the `fx` node at `z_index` 5 (`main.gd:97-100`) and calls `_spawn_impact` (`main.gd:227-237`).
   - Bursts are instanced per impact as children of Main (overlap), freed on `finished` (`CHANGE-BRIEF.md` A-R3, A-R4).
-- **Effect B, wind steam** (`CHANGE-BRIEF.md` B): `GPUParticles2D` in `godot/effects/wind_steam.tscn` (not yet created), one per fighter, parented to that fighter's `key_sprite` (`fighter.gd:65, 75-77`).
+- **Effect B, wind steam** (`CHANGE-BRIEF.md` B): `GPUParticles2D` in `godot/effects/wind_steam.tscn`, one per fighter, on a `SteamMount` (`godot/effects/steam_mount.gd`) that follows the fighter's `key_sprite` (`fighter.gd:65, 75-77`) in position, facing and visibility but not its REWIND spin squash (TUNING.md, Effect B revision 1). Wired in `main.gd` (`SteamMount.attach`, `steam_ratio`); tests `test_wind_steam_config.gd`, `test_wind_steam_state.gd`.
   - Value: `Fighter.wind`, 0–100 (`fighter.gd:27, 49`), announced by `wind_changed(fighter, wind)` (declared `fighter.gd:17`, emitted `:107, 212, 244`). It drains on walking and attacks (`fighter.gd:29, 41-43, 242-244`) and rises 10 per rewind click (`fighter.gd:31, 211-213`).
   - `key_sprite` is scaled `ART_SCALE` = 1/3 × facing, pulses in x during REWIND, has `z_index` −1, and is hidden on KO (`fighter.gd:76, 260, 269-274`).
-  - The existing low-wind listener is the music, Bolt only (`main.gd:85-87`, `LOW_WIND` 25 at `main.gd:15`).
-- **Fighters:** two `Fighter` nodes (no `.tscn`), created and connected in `main.gd:52-66`. The A5 tint driver is attached per fighter at `main.gd:63-66` (`godot/fighter/rewind_tint_driver.gd`); the F9 capture key at `main.gd:67-70` (`godot/game/debug_capture.gd`).
+  - The existing low-wind listener is the music, Bolt only (`main.gd:93-95`, `LOW_WIND` 25 at `main.gd:15`).
+- **Fighters:** two `Fighter` nodes (no `.tscn`), created and connected in `main.gd:53-74`. The A5 tint driver is attached per fighter at `main.gd:71-74` (`godot/fighter/rewind_tint_driver.gd`); the F9 capture key at `main.gd:75-78` (`godot/game/debug_capture.gd`).
 - **Tests, always through the wrapper, from the repository root** (`scripts/run-test.sh:2`: `<test-file.gd> <fps|realtime> [timeout-seconds]`). A number runs headless with `--fixed-fps <n>` and logs to `logs/<name>_<n>fps.log`; `realtime` runs without `--fixed-fps` and logs to `logs/<name>_realtime.log` (`scripts/run-test.sh:5-11`). The timeout defaults to 120 s (`:11`). It exits 1 if the log contains `SHADER ERROR` or `SCRIPT ERROR` (`:13`). Run `godot --headless --path godot --import` once after cloning (`README.md:118`).
 
   ```bash
@@ -37,6 +37,7 @@
 - A headless run uses a dummy renderer: it draws no particles and runs no GPU particle process. Node state (emitting,one_shot, amount_ratio, visibility, instance counts) is observable; the look is not.
 - A GPU effect's headless CPU price is near zero by construction.
 - Frame strips come from a windowed Movie Maker run, which I start.
+- Capture with `--disable-vsync` as well as `--fixed-fps 30`. Without it, Movie Maker on this Mac sometimes writes copies of an earlier frame while the window is not being drawn: the summary then reports fewer frames than `--quit-after` (e.g. "53 frames" for 100), and the strip's timing is wrong. With the flag, the same capture wrote 100 distinct frames (2026-11-08). Check the summary line says the full count.
 
 ## Current change
 
@@ -70,8 +71,7 @@ This change adds two particle effects as presentation. It must not touch:
 
 ## Unconfirmed
 
-- Effect B's files (`godot/effects/wind_steam.tscn`, `godot/tools/generate_steam_texture.gd`, `godot/previews/steam_preview.tscn`) do not exist yet. Texture scripts live in `godot/tools/`, not the brief's `tools/`, so Godot can run them.
-- Where Effect B's driver lives (in `main.gd` or a new script) is left open by `CHANGE-BRIEF.md` C.
-- The brief cites `main.gd:200` for the cork's `struck` handler; it was at `main.gd:199` (brief revision 2026-11-08) and is at `main.gd:201` after the A6 wiring.
+- Texture scripts live in `godot/tools/`, not the brief's `tools/`, so Godot can run them. `SteamMount` is a `class_name`: after cloning, `godot --headless --path godot --import` registers it.
+- The brief cites `main.gd:200` for the cork's `struck` handler; it was at `main.gd:199` (brief revision 2026-11-08) and is at `main.gd:209` after the A6 wiring.
 - No new test file names are fixed by the brief; the handout's pattern is `godot/tests/test_<effect>_config.gd`.
 - Whether a hidden `GPUParticles2D` keeps simulating, and what shows when it reappears, is not observable headlessly; it is a strip or eyes check (`CHANGE-BRIEF.md` B-R5).

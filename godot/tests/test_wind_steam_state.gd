@@ -52,11 +52,18 @@ func press_event(action: String) -> void:
 class FrozenBrain:
 	func think(_dt): pass
 
+## The steam sits on the fighter's SteamMount, which follows the key but not
+## its rewind spin squash (TUNING.md, Effect B revision 1).
 func steam_of(f: Fighter) -> GPUParticles2D:
-	for c in f.key_sprite.get_children():
-		if c.scene_file_path == STEAM:
-			return c
-	return null
+	var found: GPUParticles2D = null
+	for m in f.get_children():
+		if m is SteamMount:
+			for c in m.get_children():
+				if c.scene_file_path == STEAM:
+					if found:
+						return null      # more than one: fail the lookup
+					found = c
+	return found
 
 func jab() -> void:
 	await tap("jab")
@@ -69,7 +76,7 @@ func run() -> void:
 	await frames(2)
 	var bs := steam_of(main.bolt)
 	var rs := steam_of(main.rivet)
-	ok(bs != null and rs != null, "each fighter has one wind_steam under its key_sprite (B.3, one per fighter)")
+	ok(bs != null and rs != null, "each fighter has exactly one wind_steam, on its SteamMount (B.3, one per fighter)")
 	if bs == null or rs == null:
 		print("\n%d checks, %d failed" % [checks, failures])
 		quit(failures)
@@ -118,12 +125,19 @@ func run() -> void:
 	print("== F5, B-R2: real rewinding raises the wind back past 25")
 	var at24 := -1.0
 	var n := 0
+	var key_min := 1.0                   # narrowest |key scale.x| seen while rewinding
+	var steam_min := 1.0                 # narrowest |steam global scale.x| at the same time
+	var off_key := 0.0                   # largest distance between the steam and the key
 	Input.action_press("rewind")
 	while main.bolt.wind < 34.0 and n < 120:
 		await frames(1)
 		n += 1
 		if is_equal_approx(main.bolt.wind, 24.0) and at24 < 0.0:
 			at24 = bs.amount_ratio
+		if main.bolt.state == Fighter.S.REWIND:
+			key_min = minf(key_min, absf(main.bolt.key_sprite.scale.x))
+			steam_min = minf(steam_min, absf(bs.get_global_transform().get_scale().x))
+			off_key = maxf(off_key, bs.global_position.distance_to(main.bolt.key_sprite.global_position))
 	Input.action_release("rewind")
 	await frames(2)
 	ok(is_equal_approx(at24, 0.04), "ratio 0.04 at wind 24 (got %.3f)" % at24)
@@ -132,6 +146,9 @@ func run() -> void:
 	ok(bs.amount_ratio == 0.0, "B-R2 ratio back to 0 above 25 (got %.3f)" % bs.amount_ratio)
 	ok(bs.emitting, "B-R2 emitting stays true, so live puffs finish their lives")
 	ok(bs.amount == 25, "amount still 25 after rewinding")
+	ok(key_min < 0.1, "the key squashed while rewinding (narrowest |scale.x| %.3f)" % key_min)
+	ok(is_equal_approx(steam_min, 1.0 / 3.0), "the steam did not squash with it: |scale.x| stayed 1/3 (narrowest %.3f) (TUNING Effect B rev 1)" % steam_min)
+	ok(off_key < 0.01, "the steam stayed on the key while rewinding (largest offset %.3f px)" % off_key)
 
 	print("== B-R5: KO hides the steam with the key")
 	main.bolt.position.x = 300; main.rivet.position.x = 350         # SETUP: in jab range

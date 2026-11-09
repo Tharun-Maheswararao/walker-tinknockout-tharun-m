@@ -1,7 +1,7 @@
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 
 == B-R6: scene load
-PASS  each fighter has one wind_steam under its key_sprite (B.3, one per fighter)
+PASS  each fighter has exactly one wind_steam, on its SteamMount (B.3, one per fighter)
 PASS  B-R6 amount_ratio 0 on load (Bolt 0.00, Rivet 0.00)
 PASS  emitting on, amount 25 on load
 PASS  round reached FIGHT
@@ -30,6 +30,9 @@ PASS  3 clicks: wind 34 (got 34.0)
 PASS  B-R2 ratio back to 0 above 25 (got 0.000)
 PASS  B-R2 emitting stays true, so live puffs finish their lives
 PASS  amount still 25 after rewinding
+PASS  the key squashed while rewinding (narrowest |scale.x| 0.050)
+PASS  the steam did not squash with it: |scale.x| stayed 1/3 (narrowest 0.333) (TUNING Effect B rev 1)
+PASS  the steam stayed on the key while rewinding (largest offset 0.000 px)
 == B-R5: KO hides the steam with the key
 PASS  jab at 5 hp -> Rivet KO
 PASS  Rivet's key_sprite hidden on KO (fighter.gd:274)
@@ -41,7 +44,7 @@ PASS  rematch (real event) -> INTRO
 PASS  B-R6 both ratios 0 after reset() announces wind 100 (Bolt 0.00, Rivet 0.00)
 PASS  the same two steam nodes: none added on rematch
 
-34 checks, 0 failed
+37 checks, 0 failed
 WARNING: 24 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
 ERROR: 8 resources still in use at exit (run with --verbose for details).

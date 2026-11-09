@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== B-R6: scene load
+PASS  each fighter has exactly one wind_steam, on its SteamMount (B.3, one per fighter)
+PASS  B-R6 amount_ratio 0 on load (Bolt 0.00, Rivet 0.00)
+PASS  emitting on, amount 25 on load
+PASS  round reached FIGHT
+PASS  B-R6 amount_ratio still 0 at round start, wind 100
+== B-R1, B-R3: real jabs drain Bolt's wind
+PASS  6 jabs: wind 100 -> 28 (got 28.0)
+PASS  B-R1 still dormant at wind 28 >= 25 (ratio 0.000)
+PASS  7th jab: wind 16 (got 16.0)
+PASS  B-R1 active once wind drops below 25 (ratio 0.360)
+PASS  B-R3 ratio 0.36 at wind 16 (got 0.360)
+PASS  B-R3 amount still 25 at wind 16 (got 25)
+PASS  8th jab: wind 4 (got 4.0)
+PASS  B-R3 ratio 0.84 at wind 4 (got 0.840)
+PASS  B-R3 amount still 25 at wind 4: the code changes amount_ratio, not amount (got 25)
+PASS  one per fighter: Rivet's ratio stays 0 at his wind 100 while Bolt's rises (Rivet 0.00)
+== B-R4: pause holds the steam as it is
+PASS  main.paused set (real pause event)
+PASS  wind unchanged while paused (got 4.0)
+PASS  B-R4 ratio 0.84, emitting, speed_scale 1 while paused (ratio 0.840, speed 1.00)
+PASS  B-R4 steam still processes while paused (PROCESS_MODE_ALWAYS inherited)
+PASS  unpaused
+== F5, B-R2: real rewinding raises the wind back past 25
+PASS  ratio 0.04 at wind 24 (got 0.040)
+PASS  F5 at wind 24, amount x amount_ratio = 1.00: the first whole particle
+PASS  3 clicks: wind 34 (got 34.0)
+PASS  B-R2 ratio back to 0 above 25 (got 0.000)
+PASS  B-R2 emitting stays true, so live puffs finish their lives
+PASS  amount still 25 after rewinding
+PASS  the key squashed while rewinding (narrowest |scale.x| 0.050)
+FAIL  the steam did not squash with it: |scale.x| stayed 1/3 (narrowest 0.050) (TUNING Effect B rev 1)
+PASS  the steam stayed on the key while rewinding (largest offset 0.000 px)
+== B-R5: KO hides the steam with the key
+PASS  jab at 5 hp -> Rivet KO
+PASS  Rivet's key_sprite hidden on KO (fighter.gd:274)
+PASS  B-R5 Rivet's steam is not visible in the tree
+PASS  Bolt's key and steam still visible
+== B-R6: rematch resets both
+PASS  before the rematch Bolt's ratio is above 0 (wind 22.0, ratio 0.120)
+PASS  rematch (real event) -> INTRO
+PASS  B-R6 both ratios 0 after reset() announces wind 100 (Bolt 0.00, Rivet 0.00)
+PASS  the same two steam nodes: none added on rematch
+
+37 checks, 1 failed
+WARNING: 24 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

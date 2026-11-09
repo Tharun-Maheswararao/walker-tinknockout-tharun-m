@@ -61,11 +61,12 @@ func _ready() -> void:
 		f.spawn_cork = _spawn_cork
 		add_child(f)
 		f.hit_landed.connect(_on_hit)
-		# A6 Effect B: steam on the fighter's key (B.3). Only amount_ratio is set,
-		# from the wind the fighter already announces (B.1, B-R3); pause, KO hiding
-		# and the round-start reset come from the parent and reset() (B-R4..B-R6).
-		var steam: GPUParticles2D = WIND_STEAM.instantiate()
-		f.key_sprite.add_child(steam)
+		# A6 Effect B: steam at the fighter's key (B.3), on a mount that follows the
+		# key but not its rewind spin squash (effects/steam_mount.gd). Only
+		# amount_ratio is set, from the wind the fighter already announces (B.1,
+		# B-R3); pause, KO hiding and the round-start reset come from the parent,
+		# the key's visibility and reset() (B-R4..B-R6).
+		var steam := SteamMount.attach(f, WIND_STEAM)
 		f.wind_changed.connect(func(_f, w): steam.amount_ratio = steam_ratio(w))
 		var tint := preload("res://fighter/rewind_tint_driver.gd").new()
 		tint.fighter = f

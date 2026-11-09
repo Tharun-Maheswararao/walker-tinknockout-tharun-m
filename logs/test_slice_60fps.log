@@ -29,7 +29,7 @@ PASS  walking right faces right again
 PASS  sound never decides state: muted run == unmuted run
 
 25 checks, 0 failed
-WARNING: 30 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 50 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
 ERROR: 10 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)
