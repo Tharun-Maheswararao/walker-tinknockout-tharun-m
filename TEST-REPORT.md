@@ -553,3 +553,24 @@ Texture Asset & Blend Mode: The source particle sprite texture and blend modes (
 Lives on the GPUParticles2D Node:
 
 Emission & Bounds: amount (particle count cap), local_coords (world vs. local space anchoring), and visibility_rect (culling bounds) are node-level operational configurations.
+
+## A6-4. Headless price (Step 7)
+
+`godot/tests/cost_effects.gd`, through the wrapper: `./scripts/run-test.sh cost_effects.gd 60 300`, exit 0 (log `logs/cost_effects_60fps.log`, copy in `evidence/a6/cost/`). Example 09's script was not available on this machine, so the script was written from the handout's description. Each case runs in a fresh scene: 60 warm-up frames, then 600 measured frames.
+
+| Case | What runs | Wall time per frame, mean ± sd (median, p95) |
+|---|---|---|
+| empty (**control**) | a bare `Node2D` | 0.0028 ± 0.0014 ms (0.003, 0.003) |
+| game_off | `main.tscn` in FIGHT, Rivet frozen, no input; steam emitters freed, no bursts | 0.0230 ± 0.0066 ms (0.021, 0.029) |
+| a_peak | game_off + 4 fresh impact bursts every 15 ticks (mean 4.26 alive per frame; 8 for a frame at each refresh, while the old four free themselves) | 0.0289 ± 0.0157 ms (0.024, 0.080) |
+| b_heavy | game_off but both steam emitters kept at `amount_ratio` 1.0 | 0.0223 ± 0.0022 ms (0.022, 0.024) |
+
+**Read against the control:**
+- **The wall clock works.** game_off − empty = +0.0202 ms, about 3× the larger spread, so the script can see real per-frame work and is not only measuring itself.
+- **Neither effect is distinguishable from the game without it:**
+  - a_peak − game_off = +0.0059 ms, inside a spread of 0.0157;
+  - b_heavy − game_off = −0.0007 ms, inside a spread of 0.0066.
+
+  This matches CHANGE-BRIEF F's prediction, "near zero … within the empty-scene control's spread". It does so by construction: the dummy renderer neither simulates nor draws GPU particles, so all that is left is node work (instancing and freeing bursts, and steam nodes that do nothing).
+- **Two clocks are dead here.** `Performance.TIME_PROCESS` and `TIME_PHYSICS_PROCESS` read 0.0000 in every case, including game_off, whose logic clearly costs 0.02 ms on the wall clock. The script prints them so this is visible, and its own comparison flags them as "WITHIN the spread: these two cases read the same". They are not used for any conclusion.
+- **What this does not show:** any GPU cost. The budgets in CHANGE-BRIEF F are GPU budgets (A < 0.55 ms for 4 bursts, B < 0.20 ms for both streams, against the 0.97 ms Render Viewport baseline), and are measured windowed in the Visual Profiler (Use It).
