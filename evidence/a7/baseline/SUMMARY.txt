@@ -1,0 +1,11 @@
+test_slice.gd 60 | exit 0 | error lines 0 | 25 checks, 0 failed
+check_props3d.gd 60 | exit 0 | error lines 0 | RESULT: PASS (0 failing)
+test_rewind_tint.gd 30 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_rewind_tint.gd 60 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_rewind_tint.gd 144 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_materials.gd 60 | exit 0 | error lines 0 | 55 checks, 0 failed
+test_impact_effect_config.gd 60 | exit 0 | error lines 0 | 136 checks, 0 failed
+test_impact_effect_state.gd 60 | exit 0 | error lines 0 | 44 checks, 0 failed
+test_wind_steam_config.gd 60 | exit 0 | error lines 0 | 33 checks, 0 failed
+test_wind_steam_state.gd 60 | exit 0 | error lines 0 | 37 checks, 0 failed
+cost_effects.gd 60 300 | exit 0 | error lines 0 | cost_effects done, 0 setup problems

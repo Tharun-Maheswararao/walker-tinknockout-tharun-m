@@ -148,7 +148,7 @@ A Godot 3 name set in a `.tres` or `.tscn` loads without an error and is ignored
 | `test_wind_steam_state.gd` | 60 | 37 checks, 0 failed |
 | `cost_effects.gd` | 60, timeout 300 | exit 0, 0 setup problems |
 
-The **A7 baseline** is these, re-run through the A7 wrapper once you have committed it. Not yet run.
+**A7 baseline (2026-11-19, at `3c43c9a`, the A7 wrapper):** the same counts on every run above, exit 0, and no `SHADER ERROR`, `SCRIPT ERROR` or `Failed loading resource` in any log. Logs and summary: `evidence/a7/baseline/`.
 
 ## 11. What CHANGE-BRIEF.md needs (structure only, from the handout)
 
