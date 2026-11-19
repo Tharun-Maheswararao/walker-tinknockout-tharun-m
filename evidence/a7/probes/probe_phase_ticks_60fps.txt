@@ -1,0 +1,123 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+== JAB, whiff (bolt x 200, rivet x 440) Engine.physics_ticks_per_second=60
+  0  f86   IDLE     t=0.100000 box=- hitstop=0.0000
+  1  f87   IDLE     t=0.116667 box=- hitstop=0.0000
+  2  f88   JAB      t=0.000000 box=- hitstop=0.0000
+  3  f89   JAB      t=0.016667 box=- hitstop=0.0000
+  4  f90   JAB      t=0.033333 box=- hitstop=0.0000
+  5  f91   JAB      t=0.050000 box=- hitstop=0.0000
+  6  f92   JAB      t=0.066667 box=- hitstop=0.0000
+  7  f93   JAB      t=0.083333 box=LIVE hitstop=0.0000
+  8  f94   JAB      t=0.100000 box=LIVE hitstop=0.0000
+  9  f95   JAB      t=0.116667 box=LIVE hitstop=0.0000
+ 10  f96   JAB      t=0.133333 box=LIVE hitstop=0.0000
+ 11  f97   JAB      t=0.150000 box=LIVE hitstop=0.0000
+ 12  f98   JAB      t=0.166667 box=LIVE hitstop=0.0000
+ 13  f99   JAB      t=0.183333 box=- hitstop=0.0000
+ 14  f100  JAB      t=0.200000 box=- hitstop=0.0000
+ 15  f101  JAB      t=0.216667 box=- hitstop=0.0000
+ 16  f102  JAB      t=0.233333 box=- hitstop=0.0000
+ 17  f103  JAB      t=0.250000 box=- hitstop=0.0000
+ 18  f104  JAB      t=0.266667 box=- hitstop=0.0000
+ 19  f105  JAB      t=0.283333 box=- hitstop=0.0000
+ 20  f106  JAB      t=0.300000 box=- hitstop=0.0000
+ 21  f107  JAB      t=0.316667 box=- hitstop=0.0000
+ 22  f108  JAB      t=0.333333 box=- hitstop=0.0000
+ 23  f109  IDLE     t=0.000000 box=- hitstop=0.0000
+ 24  f110  IDLE     t=0.016667 box=- hitstop=0.0000
+ 25  f111  IDLE     t=0.033333 box=- hitstop=0.0000
+ 26  f112  IDLE     t=0.050000 box=- hitstop=0.0000
+ 27  f113  IDLE     t=0.066667 box=- hitstop=0.0000
+
+== JAB, lands on idle Rivet (bolt x 390, rivet x 440) Engine.physics_ticks_per_second=60
+  0  f201  IDLE     t=0.100000 box=- hitstop=0.0000
+  1  f202  IDLE     t=0.116667 box=- hitstop=0.0000
+  2  f203  JAB      t=0.000000 box=- hitstop=0.0000
+  3  f204  JAB      t=0.016667 box=- hitstop=0.0000
+  4  f205  JAB      t=0.033333 box=- hitstop=0.0000
+  5  f206  JAB      t=0.050000 box=- hitstop=0.0000
+  6  f207  JAB      t=0.066667 box=- hitstop=0.0000
+  7  f208  JAB      t=0.083333 box=LIVE hitstop=0.0700
+  8  f209  JAB      t=0.083333 box=LIVE hitstop=0.0533
+  9  f210  JAB      t=0.083333 box=LIVE hitstop=0.0367
+ 10  f211  JAB      t=0.083333 box=LIVE hitstop=0.0200
+ 11  f212  JAB      t=0.083333 box=LIVE hitstop=0.0033
+ 12  f213  JAB      t=0.083333 box=LIVE hitstop=-0.0133
+ 13  f214  JAB      t=0.100000 box=LIVE hitstop=-0.0133
+ 14  f215  JAB      t=0.116667 box=LIVE hitstop=-0.0133
+ 15  f216  JAB      t=0.133333 box=LIVE hitstop=-0.0133
+ 16  f217  JAB      t=0.150000 box=LIVE hitstop=-0.0133
+ 17  f218  JAB      t=0.166667 box=LIVE hitstop=-0.0133
+ 18  f219  JAB      t=0.183333 box=- hitstop=-0.0133
+ 19  f220  JAB      t=0.200000 box=- hitstop=-0.0133
+ 20  f221  JAB      t=0.216667 box=- hitstop=-0.0133
+ 21  f222  JAB      t=0.233333 box=- hitstop=-0.0133
+ 22  f223  JAB      t=0.250000 box=- hitstop=-0.0133
+ 23  f224  JAB      t=0.266667 box=- hitstop=-0.0133
+ 24  f225  JAB      t=0.283333 box=- hitstop=-0.0133
+ 25  f226  JAB      t=0.300000 box=- hitstop=-0.0133
+ 26  f227  JAB      t=0.316667 box=- hitstop=-0.0133
+ 27  f228  JAB      t=0.333333 box=- hitstop=-0.0133
+ 28  f229  IDLE     t=0.000000 box=- hitstop=-0.0133
+ 29  f230  IDLE     t=0.016667 box=- hitstop=-0.0133
+ 30  f231  IDLE     t=0.033333 box=- hitstop=-0.0133
+ 31  f232  IDLE     t=0.050000 box=- hitstop=-0.0133
+ 32  f233  IDLE     t=0.066667 box=- hitstop=-0.0133
+ 33  f234  IDLE     t=0.083333 box=- hitstop=-0.0133
+
+== CUTLASS, whiff (bolt x 200, rivet x 440) Engine.physics_ticks_per_second=60
+  0  f322  IDLE     t=0.100000 box=- hitstop=0.0000
+  1  f323  IDLE     t=0.116667 box=- hitstop=0.0000
+  2  f324  CUTLASS  t=0.000000 box=- hitstop=0.0000
+  3  f325  CUTLASS  t=0.016667 box=- hitstop=0.0000
+  4  f326  CUTLASS  t=0.033333 box=- hitstop=0.0000
+  5  f327  CUTLASS  t=0.050000 box=- hitstop=0.0000
+  6  f328  CUTLASS  t=0.066667 box=- hitstop=0.0000
+  7  f329  CUTLASS  t=0.083333 box=- hitstop=0.0000
+  8  f330  CUTLASS  t=0.100000 box=- hitstop=0.0000
+  9  f331  CUTLASS  t=0.116667 box=- hitstop=0.0000
+ 10  f332  CUTLASS  t=0.133333 box=- hitstop=0.0000
+ 11  f333  CUTLASS  t=0.150000 box=LIVE hitstop=0.0000
+ 12  f334  CUTLASS  t=0.166667 box=LIVE hitstop=0.0000
+ 13  f335  CUTLASS  t=0.183333 box=LIVE hitstop=0.0000
+ 14  f336  CUTLASS  t=0.200000 box=LIVE hitstop=0.0000
+ 15  f337  CUTLASS  t=0.216667 box=LIVE hitstop=0.0000
+ 16  f338  CUTLASS  t=0.233333 box=LIVE hitstop=0.0000
+ 17  f339  CUTLASS  t=0.250000 box=LIVE hitstop=0.0000
+ 18  f340  CUTLASS  t=0.266667 box=- hitstop=0.0000
+ 19  f341  CUTLASS  t=0.283333 box=- hitstop=0.0000
+ 20  f342  CUTLASS  t=0.300000 box=- hitstop=0.0000
+ 21  f343  CUTLASS  t=0.316667 box=- hitstop=0.0000
+ 22  f344  CUTLASS  t=0.333333 box=- hitstop=0.0000
+ 23  f345  CUTLASS  t=0.350000 box=- hitstop=0.0000
+ 24  f346  CUTLASS  t=0.366667 box=- hitstop=0.0000
+ 25  f347  CUTLASS  t=0.383333 box=- hitstop=0.0000
+ 26  f348  CUTLASS  t=0.400000 box=- hitstop=0.0000
+ 27  f349  CUTLASS  t=0.416667 box=- hitstop=0.0000
+ 28  f350  CUTLASS  t=0.433333 box=- hitstop=0.0000
+ 29  f351  CUTLASS  t=0.450000 box=- hitstop=0.0000
+ 30  f352  CUTLASS  t=0.466667 box=- hitstop=0.0000
+ 31  f353  CUTLASS  t=0.483333 box=- hitstop=0.0000
+ 32  f354  CUTLASS  t=0.500000 box=- hitstop=0.0000
+ 33  f355  CUTLASS  t=0.516667 box=- hitstop=0.0000
+ 34  f356  CUTLASS  t=0.533333 box=- hitstop=0.0000
+ 35  f357  CUTLASS  t=0.550000 box=- hitstop=0.0000
+ 36  f358  IDLE     t=0.000000 box=- hitstop=0.0000
+ 37  f359  IDLE     t=0.016667 box=- hitstop=0.0000
+ 38  f360  IDLE     t=0.033333 box=- hitstop=0.0000
+ 39  f361  IDLE     t=0.050000 box=- hitstop=0.0000
+
+== API defaults (4.7.2)
+AnimationPlayer.callback_mode_process default = 1 (PHYSICS=0, IDLE=1, MANUAL=2)
+AnimationTree.callback_mode_process default = 1
+AnimationTree.advance_expression_base_node default = '.'
+Animation.step default = 0.033333   length default = 1.000   loop_mode default = 0 (NONE=0 LINEAR=1 PINGPONG=2)
+new value track update mode = 0 (CONTINUOUS=0 DISCRETE=1 CAPTURE=2)
+Godot 3 names: 'loop' in Animation=false  'playback_speed' in AnimationPlayer=false  'speed_scale' in AnimationPlayer=true  'frames' in AnimatedSprite2D=false  'sprite_frames'=true  class AnimatedSprite exists=false
+AnimatedSprite2D has callback_mode_process=false; AnimationPlayer 'current_animation'=true; AnimatedSprite2D 'animation'=true 'current_animation'=false
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 4 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
