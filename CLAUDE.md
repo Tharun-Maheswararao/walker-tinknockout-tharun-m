@@ -3,41 +3,42 @@
 ## Project context
 
 - **Engine:** Godot 4.7.2.stable.official.ed1daf0bf (`godot --version`, `evidence/a5/headless-facts.txt:1`); `config/features` "4.7" (`godot/project.godot:15`).
-- **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"; there is no `rendering_method` line). macOS driver is Vulkan (`godot/project.godot:31`). Viewport 640×360, window 1280×720, stretch `canvas_items` (`godot/project.godot:23-27`).
-- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`), one `Node2D` running `game/main.gd`; everything else is built in code in `main.gd:_ready()` (`godot/game/main.gd:40-106`). Main is `PROCESS_MODE_ALWAYS` (`main.gd:41`), so its children inherit it.
-- **Pause** is a game flag, not a tree pause: `var paused` (`main.gd:22`), toggled at `main.gd:133-135`; the fight loop skips simulation while it is set (`main.gd:152-153`). `get_tree().paused` is never set.
-- **Effect A, impact burst** (`CHANGE-BRIEF.md` A): `GPUParticles2D` emitters (Shards and Core) in `godot/effects/impact_effect.tscn`, plus `godot/effects/impact_effect_blocked.tscn` for blocked hits. Built and wired: `main._spawn_impact` (`godot/game/main.gd`); tests `test_impact_effect_config.gd`, `test_impact_effect_state.gd`.
-  - Event: melee hits, `Fighter.hit_landed(attacker, attack, blocked)` (declared `godot/fighter/fighter.gd:14`, emitted `:197`), connected to `_on_hit` (`main.gd:63, 212-214`); cork hits, `Cork.struck(cork, blocked)` (declared `godot/fighter/cork.gd:11`, emitted `:24`; the cork frees itself at `:25`), connected at `main.gd:209`.
-  - Both arrive at `main._on_impact(p, blocked)` (`main.gd:216-221`), which draws the kept star spark (`main.gd:217, 252-259`) on the `fx` node at `z_index` 5 (`main.gd:97-100`) and calls `_spawn_impact` (`main.gd:227-237`).
-  - Bursts are instanced per impact as children of Main (overlap), freed on `finished` (`CHANGE-BRIEF.md` A-R3, A-R4).
-- **Effect B, wind steam** (`CHANGE-BRIEF.md` B): `GPUParticles2D` in `godot/effects/wind_steam.tscn`, one per fighter, on a `SteamMount` (`godot/effects/steam_mount.gd`) that follows the fighter's `key_sprite` (`fighter.gd:65, 75-77`) in position, facing and visibility but not its REWIND spin squash (TUNING.md, Effect B revision 1). Wired in `main.gd` (`SteamMount.attach`, `steam_ratio`); tests `test_wind_steam_config.gd`, `test_wind_steam_state.gd`.
-  - Value: `Fighter.wind`, 0–100 (`fighter.gd:27, 49`), announced by `wind_changed(fighter, wind)` (declared `fighter.gd:17`, emitted `:107, 212, 244`). It drains on walking and attacks (`fighter.gd:29, 41-43, 242-244`) and rises 10 per rewind click (`fighter.gd:31, 211-213`).
-  - `key_sprite` is scaled `ART_SCALE` = 1/3 × facing, pulses in x during REWIND, has `z_index` −1, and is hidden on KO (`fighter.gd:76, 260, 269-274`).
-  - The existing low-wind listener is the music, Bolt only (`main.gd:93-95`, `LOW_WIND` 25 at `main.gd:15`).
-- **Fighters:** two `Fighter` nodes (no `.tscn`), created and connected in `main.gd:53-74`. The A5 tint driver is attached per fighter at `main.gd:71-74` (`godot/fighter/rewind_tint_driver.gd`); the F9 capture key at `main.gd:75-78` (`godot/game/debug_capture.gd`).
-- **Tests, always through the wrapper, from the repository root** (`scripts/run-test.sh:2`: `<test-file.gd> <fps|realtime> [timeout-seconds]`). A number runs headless with `--fixed-fps <n>` and logs to `logs/<name>_<n>fps.log`; `realtime` runs without `--fixed-fps` and logs to `logs/<name>_realtime.log` (`scripts/run-test.sh:5-11`). The timeout defaults to 120 s (`:11`). It exits 1 if the log contains `SHADER ERROR` or `SCRIPT ERROR` (`:13`). Run `godot --headless --path godot --import` once after cloning (`README.md:118`).
+- **Renderer:** Forward+ (`godot/project.godot:15`, "Forward Plus"). macOS driver Vulkan (`godot/project.godot:31`). Viewport 640×360, window 1280×720, stretch `canvas_items` (`godot/project.godot:23-27`).
+- **Main scene:** `res://game/main.tscn` (`godot/project.godot:14`), one `Node2D` running `game/main.gd`; everything else, both fighters included, is built in code in `main.gd:_ready()` (`godot/game/main.gd:40-107`). Main is `PROCESS_MODE_ALWAYS` (`main.gd:41`); the fighters inherit it.
+- **Pause** is a game flag, not a tree pause: `var paused` (`main.gd:22`), toggled at `main.gd:134-136`; while it is set, FIGHT skips `_simulate` (`main.gd:152-156`). `get_tree().paused` is never set.
+- **The player's state machine** is `Fighter` in `godot/fighter/fighter.gd`, one per fighter, no `.tscn` (`main.gd:53-62`). States `enum S` (`fighter.gd:19`); `step(dt)` adds `dt` to `state_t`, then runs the state (`fighter.gd:128-155`); `_enter(s)` zeroes `state_t` and emits `state_changed` only on a change (`fighter.gd:246-255`). Attack phases in seconds (`fighter.gd:41-45`); the attack box is live while `startup <= state_t < startup + active` (`fighter.gd:117-125`). Hitstop returns from `step` before anything else (`fighter.gd:129-131`).
+- **Clock:** `main._physics_process` (`main.gd:143-168`) calls `step` for both fighters through `_simulate` (`main.gd:180-182`), at 60 ticks per second under any `--fixed-fps` (`evidence/a7/probes/probe_phase_ticks_60fps.txt`, `_30fps.txt`). Measured: jab 5 / 6 / 10 ticks, back to IDLE on tick 21; a landed hit adds 5 hitstop ticks (same files; `design/a7/BRIEF-FACTS.md` §4).
+- **Presentation today:** `Fighter._apply_pose()` (`fighter.gd:263-289`), called from `step` (`:155`) and `_ready` (`:82`), writes the body `sprite`, `key_sprite` and `weapon`, which `_ready` creates unnamed (`fighter.gd:71-80`; names like `@Sprite2D@5`, `design/a7/BRIEF-FACTS.md` §6). No `AnimationPlayer`, `AnimationTree` or `AnimatedSprite2D` exists yet (`design/a7/BRIEF-FACTS.md` §1).
+- **Clip A, `wind_key_cycle` (the cycle)** (`CHANGE-BRIEF.md` §1–3): route **Sprite2D + AnimationPlayer frame track**. Node `key_sprite` (`Sprite2D`, `hframes` 8) at `Fighter/FacingPivot/BodyPivot/KeyMount/KeyBob/key_sprite`; player `KeyAnimPlayer`; clip `godot/animations/wind_key_cycle.tres`; plays in REWIND below wind 100. Sheets from `godot/tools/generate_key_sheets.gd` (`CHANGE-BRIEF.md` §2). All planned; none exists yet.
+- **Clip B, `jab_action` (the committing action)** (`CHANGE-BRIEF.md` §1, §4): route **cutout rig keyed as resource text**. Nodes `BodyPivot` and `KeyBob` (`Node2D`); player `FighterAnimPlayer`; clip `godot/animations/jab_action.tres`; plays in JAB, at 60 fps with `step` 1/60. Planned; none exists yet.
+- **Clock for both clips:** `callback_mode_process` MANUAL, clip position equal to `state_t` after every `step` (`CHANGE-BRIEF.md` §6).
+- **Scenes the clips appear in:** the game, `res://game/main.tscn` (fighters built in code, above), and the fixture `godot/previews/jab_preview.tscn` (planned, `CHANGE-BRIEF.md` §9).
+- **A6 effects still live:** impact bursts `godot/effects/impact_effect.tscn` / `_blocked.tscn`, spawned by `main._spawn_impact` (`main.gd:228-238`); wind steam `godot/effects/wind_steam.tscn` on a `SteamMount` per fighter (`main.gd:69-70`), which copies `key_sprite`'s local position, the facing scale and `visible` every physics tick (`godot/effects/steam_mount.gd:28-35`). The A5 tint driver sets each body `sprite.material` (`godot/fighter/rewind_tint_driver.gd:21`, attached `main.gd:71-74`).
+- **Tests, always through the wrapper, from the repository root** (`scripts/run-test.sh:2`: `<test-file.gd> <fps|realtime> [timeout-seconds]`). A number runs headless with `--fixed-fps <n>`, log `logs/<name>_<n>fps.log`; `realtime` runs without `--fixed-fps`, log `logs/<name>_realtime.log` (`scripts/run-test.sh:5-11`). Timeout defaults to 120 s (`:11`). Exits 1 if the log contains `SHADER ERROR`, `SCRIPT ERROR` or `Failed loading resource` (`:13`). Run `godot --headless --path godot --import` once after cloning (`README.md:120`).
 
   ```bash
-  ./scripts/run-test.sh test_slice.gd 60          # "N checks, N failed" (godot/tests/test_slice.gd:73)
-  ./scripts/run-test.sh check_props3d.gd 60       # "RESULT: PASS (0 failing)" (godot/tests/check_props3d.gd:101)
-  ./scripts/run-test.sh test_rewind_tint.gd 30    # also 60 and 144 (godot/tests/test_rewind_tint.gd:158)
-  ./scripts/run-test.sh test_materials.gd 60      # (godot/tests/test_materials.gd:42)
-  ./scripts/run-test.sh <new_test>.gd realtime    # only for a test that waits on audio
+  ./scripts/run-test.sh test_slice.gd 60                  # "N checks, N failed" (godot/tests/test_slice.gd:73)
+  ./scripts/run-test.sh check_props3d.gd 60               # "RESULT: PASS (0 failing)" (godot/tests/check_props3d.gd:101)
+  ./scripts/run-test.sh test_rewind_tint.gd 30            # also 60 and 144 (godot/tests/test_rewind_tint.gd:158)
+  ./scripts/run-test.sh test_materials.gd 60              # (godot/tests/test_materials.gd:42)
+  ./scripts/run-test.sh test_impact_effect_config.gd 60   # (godot/tests/test_impact_effect_config.gd:145)
+  ./scripts/run-test.sh test_impact_effect_state.gd 60    # (godot/tests/test_impact_effect_state.gd:113)
+  ./scripts/run-test.sh test_wind_steam_config.gd 60      # (godot/tests/test_wind_steam_config.gd:92)
+  ./scripts/run-test.sh test_wind_steam_state.gd 60       # (godot/tests/test_wind_steam_state.gd:172)
+  ./scripts/run-test.sh cost_effects.gd 60 300            # "cost_effects done, N setup problems" (godot/tests/cost_effects.gd:171)
+  ./scripts/run-test.sh <new_test>.gd realtime            # only for a test that waits on audio; no current test does
   ```
 
-  These modes match `README.md:120-135`. A test file name that does not exist still exits 0 ("Can't load script" matches neither pattern; `design/a6/BRIEF-FACTS.md` §7): read the count line, not only the exit code.
+  These modes match `README.md:120-137, 189-203`. Baseline counts at the A7 wrapper: `evidence/a7/baseline/SUMMARY.txt`. A test file name that does not exist still exits 0 ("Can't load script" matches none of the patterns): read the count line, not only the exit code.
 
 ## Headless facts (measured on this Mac: `evidence/a5/headless-facts.txt`)
 
 - A headless run draws nothing, yet still reports `vulkan` / `forward_plus` (line 3); no headless test can judge a colour.
-- A shader that fails to parse prints `SHADER ERROR` and returns an empty `get_shader_uniform_list()` (lines 6-7). Listed types: float = 3, `vec4 : source_color` = 20 (line 4).
-- Defaults are not reported (`shader_get_parameter_default` is null, line 5): read them from the `.gdshader` text.
-- `set_shader_parameter` raises no error for an undeclared name and reads back whatever was set, even 2.0 on `hint_range(0, 1)` (lines 9-10): a readback proves nothing about the shader.
-- Physics runs at 60 ticks per game second under any `--fixed-fps` (lines 12, 23). REWIND starts and stops in physics, so at 144 fps a `_process` driver sees it up to 1/60 s late.
-- A headless run uses a dummy renderer: it draws no particles and runs no GPU particle process. Node state (emitting,one_shot, amount_ratio, visibility, instance counts) is observable; the look is not.
-- A GPU effect's headless CPU price is near zero by construction.
-- Frame strips come from a windowed Movie Maker run, which I start.
-- Capture with `--disable-vsync` as well as `--fixed-fps 30`. Without it, Movie Maker on this Mac sometimes writes copies of an earlier frame while the window is not being drawn: the summary then reports fewer frames than `--quit-after` (e.g. "53 frames" for 100), and the strip's timing is wrong. With the flag, the same capture wrote 100 distinct frames (2026-11-08). Check the summary line says the full count.
+- A shader that fails to parse prints `SHADER ERROR` and returns an empty `get_shader_uniform_list()` (lines 6-7).
+- `set_shader_parameter` raises no error for an undeclared name and reads back whatever was set (lines 9-10): a readback proves nothing about the shader.
+- Physics runs at 60 ticks per game second under any `--fixed-fps` (lines 12, 23). At `--fixed-fps 30` each process frame runs two ticks (`evidence/a7/probes/probe_phase_ticks_30fps.txt`).
+- A headless run uses a dummy renderer: no particles are drawn or simulated. Node state is observable; the look is not.
+- Capture with `--disable-vsync --always-on-top` as well as `--fixed-fps`. Without them, Movie Maker on this Mac sometimes writes copies of an earlier frame: the summary reports fewer frames than `--quit-after`. Check the summary line says the full count (2026-11-08).
 
 ## Current change
 
@@ -45,33 +46,49 @@
 
 ## Ownership
 
-- Files in `godot/shaders/` are hand-written by the human and are never edited by an agent. Do not create, edit, rename, reformat or "fix" them, even to make a test pass; report the problem instead. (`particles_generated.gdshader` is saved there by the human from the editor.)
+- Files in `godot/shaders/` are hand-written by the human and are never edited by an agent. Do not create, edit, rename, reformat or "fix" them, even to make a test pass; report the problem instead.
 - `scripts/run-test.sh` is the handout's wrapper; agents never edit it (`git diff scripts/run-test.sh` is checked after every session).
-- Effect settings live in scene files in `godot/effects/`, not in code. Code may instance a scene, start it, and set `amount_ratio`; it does not set emission, process or draw values.
+- Clips live as resources in `godot/animations/` (or in the scene that owns them) and are never built in code at runtime. Code may create an `AnimationPlayer`, load a clip resource into it, play, stop and seek; it never adds tracks or keys. A clip-baking tool script that saves a `.tres` with `ResourceSaver.save()` is allowed and committed.
+- Effect settings live in scene files in `godot/effects/`, not in code.
+
+## One authority
+
+Exactly one node writes to each animated node. Never add a second writer to a node that already has one; if the brief's authority conflicts with something in the code, say so and stop. Per `CHANGE-BRIEF.md` §1 and §7:
+
+| Node | The one writer | What it writes |
+|---|---|---|
+| `FacingPivot` | `Fighter._apply_pose()` | `scale.x` = `facing` |
+| `BodyPivot` | `FighterAnimPlayer` (`jab_action`) | `position:x`, `rotation` |
+| `sprite` (body) | `Fighter._apply_pose()` | `texture`, `scale` (no facing), `offset` (no facing); `material` is set once by the A5 tint driver, and no clip keys this node |
+| `KeyMount` | `Fighter._apply_pose()` | `position` (anchor, no facing), `visible` (false on KO) |
+| `KeyBob` | `FighterAnimPlayer` (`jab_action`) | `position:y` |
+| `key_sprite` | `KeyAnimPlayer` (`wind_key_cycle`) | `frame`; nothing writes its `scale` any more |
+| `weapon` | `Fighter._apply_pose()` | as today (`fighter.gd:275-289`) |
+
+`SteamMount` only reads the key. Rest pose on entry to any state but JAB is the clip owner's job (snap to rest), not `_apply_pose`'s.
 
 ## Godot 4 names
 
-- Use Godot 4 class and property names for 4.7.2, never Godot 3 names: `ParticleProcessMaterial`, not `ParticlesMaterial`; `initial_velocity_min` / `initial_velocity_max`, not `initial_velocity`; `scale_min` / `scale_max`, not `scale` / `scale_random`.
+- Use Godot 4 names for 4.7.2, never Godot 3 names. Probed in 4.7.2 (`design/a7/BRIEF-FACTS.md` §7): `Animation.loop_mode` (`LOOP_NONE` / `LOOP_LINEAR` / `LOOP_PINGPONG`), not a boolean `loop`; `AnimationPlayer.speed_scale`, not `playback_speed`; `AnimatedSprite2D` with `sprite_frames`, not `AnimatedSprite` / `frames`. The current clip is `AnimationPlayer.current_animation` (and `AnimatedSprite2D.animation`).
+- `callback_mode_process` constants live on `AnimationMixer`: `ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS` 0, `_IDLE` 1 (the default), `_MANUAL` 2. `Animation.step` defaults to 1/30 s; a new value track defaults to `UPDATE_CONTINUOUS` (same probe).
+- Particles (A6): `ParticleProcessMaterial`, `initial_velocity_min` / `_max`, `scale_min` / `_max`.
 - If you are unsure a property exists in this version, say so instead of guessing, or check it with `ClassDB` / `in` in a headless script and report the result.
-- Facts already probed in 4.7.2 (`design/a6/BRIEF-FACTS.md` §5; `CHANGE-BRIEF.md` A.3–A.4, E):
-  - `gravity` and `direction` are `Vector3`; +y is down in 2D. `spread` is a half-angle.
-  - A `Curve`'s `max_value` defaults to 1.0 and silently clamps higher points; set it when a curve peaks above 1.
-  - `amount_ratio` exists on `GPUParticles2D`, not `CPUParticles2D`. `lifetime_randomness` is on the process material. `GradientTexture2D` defaults to 64×64.
-  - A one-shot burst started with `restart()` after it is in the tree emits `finished`. In one early probe, a burst set `emitting = true` before its first frame did not; in main.gd's setup it did (state test M3, `CHANGE-BRIEF.md` A6 revisions, 2026-11-08). Keep `restart()` after `add_child`.
 
 ## Out of scope
 
-This change adds two particle effects as presentation. It must not touch:
+This change adds two clips as presentation. It must not touch (`CHANGE-BRIEF.md` §7):
 
-- Gameplay in `godot/fighter/fighter.gd`: the state machine and its timings, movement, wind and health numbers, attacks, hit and hurt boxes. Presentation may read `wind`, `state` and `key_sprite`; it never writes game state.
-- Input (`godot/game/controls.gd`), round flow, pause and mute logic in `main.gd`. Allowed in `main.gd`: passing `blocked` through `_on_hit` and the `struck` handler to `_on_impact`, spawning the effect scenes there, and attaching and driving Effect B (`CHANGE-BRIEF.md` C).
-- The star spark, camera shake and roll, hitstop, audio, music and HUD.
-- Existing tests and their expectations (`godot/tests/`); new tests are added, old ones are not loosened.
-- `godot/shaders/`, `godot/project.godot`, the A3 props and prop room, and existing texture files and their import settings.
+- Gameplay in `fighter.gd`: the state machine, its transitions and timings, movement, wind and health numbers, attacks, hit and hurt boxes, hitstop. Presentation may read `state`, `state_t`, `wind` and `facing`; it never writes game state. The only `fighter.gd` edits are `_ready` (named nodes and the hierarchy), `_apply_pose`, and the clip sync at the end of `step`.
+- Input (`godot/game/controls.gd`), round flow, pause and mute logic, body separation (`main.gd:184-190`).
+- The A5 shaders and tint; the A6 effects, except that `SteamMount` follows `KeyMount` (`godot/effects/steam_mount.gd`).
+- Existing tests and their expectations, except the four assertions the brief names (`test_wind_steam_state.gd:149, 159`; `test_slice.gd:182, 187`), changed in their own commit after the wiring. New tests are added; old ones are not loosened.
+- `godot/shaders/`, `godot/project.godot`, the A3 props and prop room, existing texture files and their import settings, and the source key PNGs.
 
 ## Unconfirmed
 
-- Texture scripts live in `godot/tools/`, not the brief's `tools/`, so Godot can run them. `SteamMount` is a `class_name`: after cloning, `godot --headless --path godot --import` registers it.
-- The brief cites `main.gd:200` for the cork's `struck` handler; it was at `main.gd:199` (brief revision 2026-11-08) and is at `main.gd:209` after the A6 wiring.
-- No new test file names are fixed by the brief; the handout's pattern is `godot/tests/test_<effect>_config.gd`.
-- Whether a hidden `GPUParticles2D` keeps simulating, and what shows when it reappears, is not observable headlessly; it is a strip or eyes check (`CHANGE-BRIEF.md` B-R5).
+- None of the A7 nodes, players, clips, sheets or the preview exist yet; the paths above are the brief's plan, and `fighter.gd` line numbers will move when they are added.
+- The brief does not say who sets `key_sprite.texture` and `hframes` at setup (one write in `_ready` / `_load_art`), nor whether `weapon` moves under `FacingPivot` or stays a direct child of `Fighter`.
+- The brief does not give `BodyPivot`'s origin. At (0, 0) it pivots at the feet (`fighter.gd:261`), so the lean rotates about the feet.
+- How the clip is held at `state_t` (`seek(state_t, true)` or another call) is not fixed by the brief; only the invariant is (`CHANGE-BRIEF.md` §6).
+- Whether `key_sprite` (`z_index` −1, `fighter.gd:76`) still draws behind the body once it sits under `BodyPivot` is a strip or eyes check.
+- No new A7 test file names are fixed by the brief.
