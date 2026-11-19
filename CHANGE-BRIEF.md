@@ -1,266 +1,224 @@
-# CHANGE-BRIEF — Assignment 6: two particle effects for Tin Knockout
+# A7 Change Brief: Wind Key Cycle & Cutout Rig Jab
 
-*Version 1 · 2026-11-08 · committed before the first prompt. The A2, A3 and A5 briefs are in history at tags `a3` and `a5`. Later changes go under "A6 revisions" at the bottom, dated, and never rewrite this version.*
-
-> **Authorship:**
-> - **Layout:** Claude laid out these headings from the Assignment 6 handout. File:line facts come from `design/a6/BRIEF-FACTS.md`.
-> - **Mine:** the choice of both effects (2026-11-08) and every decision and value under the headings. Drafting help is listed below.
-> - **Help I asked for:**
->   - 2026-11-08, A.2–A.3, B.1–B.4: Used an external LLM, Claude 3.5 Sonnet, to draft initial structural bullet points for sections A.2, A.3, B.1, B.2, B.3, B.4, C, D, E, F and G, which I subsequently reviewed, corrected against Godot particle behavior, and integrated. The corrections came from Claude Code's reviews: an additive layer cannot draw a dark outline, so the dark edge and the cyan core went on separate MIX and ADD emitters; the scale row mixed view and window pixels; a 0.25 s lifetime leaves strip frames 20, 30 and 50 empty and does not remove the need for a retrigger rule; in A.3, a `Curve` clamps points above `max_value` 1.0 (probed in 4.7.2), `gravity` is a `Vector3`, a 64×64 default gradient made the core about 100 px wide, and the core curve's start disagreed with A.2.
->   - 2026-11-08, A.1: Claude's review of my first draft pointed out that hits already have shake, hitstop, the clang and the star; that `p` is the attack box's centre, not the overlap; and that the star is a static polygon, not debris. I rewrote A.1 with those corrections.
+- **Version:** 1.0 (committed before the first setup prompt)
+- **Date:** 2026-11-19
+- **Authorship & Drafting Record:**
+  - Design choices, state conditions, frame rates, key poses, easing curves, hierarchy/authority layout, generator recipe, full-wind crank behavior, and interrupt rules decided by Tharun.
+  - Drafted by Tharun after Claude's pre-commit code and test audits against `fighter.gd`, `main.gd`, `steam_mount.gd`, `test_wind_steam_state.gd`, `test_slice.gd`, `SOURCES.md`, and `design/a7/BRIEF-FACTS.md`.
 
 ---
 
-## A. Effect A — impact burst
+## 1. The two clips
 
-### A.1 The job
+### Clip 1: `wind_key_cycle` (Looping Cycle — Clip A)
+- **What it communicates & why the player needs it:** Communicates active wind-cranking energy when the fighter is rewinding (`S.REWIND`) and wind is still charging, giving clear visual confirmation of active cranking that matches the gameplay ratchet.
+- **Target object:** `key_sprite` (`Sprite2D` with `hframes = 8`, `vframes = 1`) inside the fighter hierarchy `Fighter -> FacingPivot -> BodyPivot -> KeyMount -> KeyBob -> key_sprite`.
+- **Route & why:** Sprite-sheet route using a `Sprite2D` (`hframes = 8`) driven by an `AnimationPlayer` discrete `frame` track (`godot/animations/wind_key_cycle.tres`). Keeping `key_sprite` as a `Sprite2D` with an `AnimationPlayer` frame track keeps both clips on `AnimationPlayer` (so read-back inspects `Animation` resources directly) and avoids `AnimatedSprite2D` running independently on the process tick.
+- **Authority & script/state/signal read:**
+  - `KeyAnimPlayer` is the sole authority over `key_sprite:frame`.
+  - `Fighter._apply_pose()` writes `KeyMount.position` (from `anchors.json` without a facing multiplier) and `KeyMount.visible` (`false` on `KO`, `true` otherwise), never touching `key_sprite.frame` or `key_sprite.scale`.
+  - Reads `Fighter.state` (`S.REWIND`), `Fighter.wind` (stops advancing the turn once `wind` reaches full capacity `100` where the ratchet stops), and `state_changed(fighter, old, new)` (`fighter.gd:246-255`): plays `wind_key_cycle` while `state == S.REWIND` and `wind` is below `100`; holds the current frame when `wind` reaches `100` during `REWIND`; stops and resets to `key_sprite.frame = 0` in every other state (`IDLE`, `WALK`, `JAB`, `CUTLASS`, `POP`, `BLOCK`, `HURT`, `EMPTY`, `KO`, `WIN`). The turning sheet replaces the old code-driven `key_sprite.scale` rewind squash.
+- **Role:** The **cycle** (looping clip).
 
-| | |
-|---|---|
-| **What it tells the player, and why they need it** | Rather than confirming that a hit happened—which the current 0.15s camera shake, 0.07s hitstop, tin clang sound (`SFX-JAB`), and star spark already do—Effect A adds visual contrast and variety. The current feedback uses the exact same static star spark for every single connection, which blends in and easily disappears against bright background elements like the castle wall. Effect A gives the hit distinct visual weight and better readability across different arena backgrounds. |
-| **Blocked hits** | **Different.** Blocked hits show a smaller, muted grey-tin deflection burst instead of the full Effect A, clearly signaling that the attack was successfully parried or guarded. This needs the `blocked` flag passed from `_on_hit` and `Cork.struck` to `_on_impact` (`main.gd:200-207`; `_on_hit` drops it today, `main.gd:202`). |
-| **Event** | Every impact: a melee hit (`Fighter.hit_landed`, `fighter.gd:14`, emitted at `:197`) or a cork hit (`Cork.struck`, `cork.gd:11`, emitted at `:24`). Both already arrive at `main._on_impact(p)` (`main.gd:200, 202-207`). |
-| **Position** | `p` from `main._on_impact`. For melee attacks, `p` represents the center of the attacker's 2D attack box (`main.gd:204`), which means it can sit slightly in front of the target sprite rather than at the exact overlap intersection. We will use `p` directly because it provides a reliable, consistent origin point tied to the attack action without requiring extra 2D polygon intersection math between collision boxes. For cork hits, `p` is the cork's position (`main.gd:200`). |
-| **The existing hand-drawn sparks** (`main.gd:207, 221-228`) | **Kept.** The existing star spark is not particle debris—it is a single 16-point static star polygon that scales slightly and fades over 0.14s (`main.gd:221-228`). Keep the star spark as the base flash layer and use Effect A to add the dynamic, moving element (burst lines/secondary shapes) on top of it. This builds on the existing impact pop rather than removing working feedback code from `main.gd`. |
-
-### A.2 Intent: how it reads
-
-| | |
-|---|---|
-| **Timing phases** (rough durations) | Total lifetime is 0.25 seconds (staying safely below the ~0.4s maximum jab cycle to prevent visual clutter), beginning with an instant 0.05s snap expansion, followed by a 0.20s smooth fade-out and gentle contraction. |
-| **Contrast** against the named background | A dark edge and a bright core, on separate emitters: the shards use `MIX` blend with a dark-rimmed tin shard texture to ensure a visible dark edge against bright castle backgrounds; the core/dust uses `ADD` blend with a soft radial gradient to provide the glowing cyan core. Readable against both the darkest (x 256–287, mean luminance 98) and lightest (x 192–223, mean luminance 160) sections of the background (`design/a6/BRIEF-FACTS.md` §4). |
-| **Scale** against the character | Spans approximately 60 pixels wide in the 1280×720 window (representing roughly 70% of a fighter's helmet height). |
-| **Change over life** (colour, alpha, scale) | Starts at full scale and 100% opacity, expands by 20% to 50% (`1.0` to `1.2–1.5`) during the active phase. The shards fade from dark charcoal to transparent; the core ramp transitions from bright cyan (`0, 1, 1`) through deep blue (`0, 0.3, 0.7`) to transparent. |
-| **Variation** | Randomizes shard ejection angle (full 360 degrees), initial velocity speed (±20%), and particle rotation so rapid repeated hits never look stamped or repetitive. |
-| **Emitters**, each with its job | Two emitters alongside the retained static star flash (`main.gd:221-228`): **Shards** (`MIX`, dark-rimmed tin shard texture), a fast outer ring of tiny tin shards; **Core/Dust** (`ADD`, soft radial gradient), a slower, soft-fading cyan glow at the impact center. Blocked hits: the smaller, muted grey-tin burst above. |
-
-### A.3 Settings
-
-Scene: `godot/effects/impact_effect.tscn`, one root node with the two emitters below. Blocked hits use `godot/effects/impact_effect_blocked.tscn` (A.3c).
-
-**Both emitters** (node settings)
-
-| Setting | Value | Why |
-|---|---|---|
-| Node type | `GPUParticles2D`, process settings in a `ParticleProcessMaterial` | Same node type as Effect B; calculations processed on the GPU. |
-| one_shot | true | _(it is a burst)_ |
-| explosiveness | 1.0 | Forces every particle to emit instantaneously on frame 1, creating the sharp "snap" required for an impact hit. |
-| lifetime | 0.25 s | A.2 timing phases. |
-| local_coords | false | Ensures particles stay anchored in world space at impact point `p` even if the fighters move or get knocked back during the hitstop. |
-| visibility_rect | default `Rect2(-100, -100, 200, 200)`, read back by the config test | The default 200×200 box is more than large enough to safely bound a 30 px burst without risking culling bugs. |
-| preprocess | 0.0 | Instantaneous impact burst. |
-
-**A.3a Shards emitter**
-
-| Setting | Value | Why |
-|---|---|---|
-| amount | 16 | Provides enough individual fragments for a crisp debris feel without cluttering the screen or impacting performance. |
-| emission shape | Point (`EMISSION_SHAPE_POINT`) | |
-| initial_velocity_min / max | 60.0 / 90.0 px/s | Speeds designed to push tin fragments outward into the ~15 px radius ring. |
-| spread | 180.0° | Full omnidirectional burst. |
-| angle_min / max | -180.0 / 180.0° | Fully randomized shard rotation. |
-| gravity | `Vector3(0, 400, 0)` | Gives the tiny tin fragments physical weight so they arc downward like real debris. |
-| damping_min / max | 100.0 / 150.0 | Rapid deceleration so debris stays clustered near the impact point `p`. |
-| color_ramp | `Color(0.25, 0.25, 0.28, 1.0)` → `Color(0.1, 0.1, 0.1, 0.0)` | Dark charcoal fading to transparent. |
-| scale_min / max | 0.8 / 1.2 | |
-| scale_curve | 1.0 at 0.0 → 1.2 at 0.2 (0.05 s) → 0.4 at 1.0 (0.25 s); curve `max_value` 2.0 | `max_value` 2.0 prevents default 1.0 clamping on scale points > 1.0. |
-| texture | 8 × 8 px PNG written by a committed script, `tools/generate_shard_texture.gd` | Provides a custom dark-rimmed tin shard texture since none exists in the base repository. |
-| draw material | `CanvasItemMaterial`, `blend_mode` MIX | Dark edge against bright backgrounds (A.2). |
-
-**A.3b Core emitter**
-
-| Setting | Value | Why |
-|---|---|---|
-| amount | 8 | Keeps the glowing impact flash dense enough to read as a solid core without oversaturating the blend mode. |
-| emission shape | Point (`EMISSION_SHAPE_POINT`) | |
-| initial_velocity_min / max | 10.0 / 20.0 px/s | Slow, controlled energy expansion. |
-| spread | 180.0° | |
-| gravity | `Vector3(0, 0, 0)` | Keeps the energy flash expanding symmetrically around the impact point `p`. |
-| damping_min / max | 50.0 / 80.0 | |
-| color_ramp | `Color(0.0, 1.0, 1.0, 1.0)` at 0.0 → `Color(0.0, 0.3, 0.8, 0.8)` at 0.5 → `Color(0.0, 0.3, 0.7, 0.0)` | Bright cyan, transitions to deep blue, and fades out. |
-| scale_min / max | 1.0 / 1.2 | |
-| scale_curve | 1.0 at 0.0 → 1.5 at 0.2 (0.05 s) → 0.2 at 1.0 (0.25 s); curve `max_value` 2.0 | Rapid flash expansion. |
-| texture | `GradientTexture2D`, `fill` radial, centred _(fill_from (0.5, 0.5))_; explicit size 16 × 16 px (instead of the 64×64 default) so the core particles remain tightly scaled within the 30 px total effect scope | Generates a smooth soft radial gradient purely in engine resources without needing an external image asset file. |
-| draw material | `CanvasItemMaterial`, `blend_mode` ADD | Glowing cyan core (A.2). |
-
-**A.3c Blocked burst** — `godot/effects/impact_effect_blocked.tscn`
-
-A second small scene file. Keeps scene settings declarative and clean per course preference, cleanly separating the grey muted deflection values from the full unblocked effect scene. Values: the shards' colour ramp is replaced with muted grey-tin `Color(0.5, 0.5, 0.5, 1.0)` fading to `Color(0.5, 0.5, 0.5, 0.0)` at the end, matching the unblocked shards so the blocked burst fades out smoothly rather than snapping out abruptly; the core's cyan/blue ramp is replaced with a faint desaturated grey-white ADD flash, `Color(0.6, 0.6, 0.6, 0.8)` fading to alpha `0.0`, so the blocked hit is fully muted across both layers; `amount = 8` for shards, `amount = 4` for core; `scale_min = 0.5`, `scale_max = 0.7`. Everything else as A.3a/A.3b.
-
-> **Shard motion (my decision on Claude's review note, 2026-11-08):** Keep it as it is. The downward gravitational sag (~12 px) and the 10–19 px dispersal radius give the tin debris a physical, heavy feel while relying on the scale curve for the visual snap.
-
-### A.4 Observable rules
-
-| # | Rule | Evidence: headless test, frame strip, or my eyes, and how |
-|---|---|---|
-| A-R1 | Fires on every event the retrigger rule allows, never otherwise, including on scene load. | Headless state test driving automated combat inputs, counting spawned effect instances against `hit_landed` and `struck` event signals to verify it fires on every impact and never otherwise, and asserting that the instance count is strictly `0` immediately upon scene load. |
-| A-R2 | Fires at the event's position `p`. | Headless position assertion test verifying that every spawned effect instance's global position precisely matches the impact coordinate `p` passed from `main._on_impact`. |
-| A-R3 | **Overlap.** Instantiate a fresh `impact_effect.tscn` per impact, connected to free itself via the `finished` signal. Most bursts alive at once: `4` bursts (96 particles max), accounting for the worst-case overlap where both fighters' melee hits and in-flight corks land within the same 0.25s window. | Headless retrigger test invoking two impacts within a single 0.25s lifetime using count tracking to verify that the overlap rule correctly spawns distinct instances without silent instance accumulation or premature cutting. |
-| A-R4 | Spawn the effect as a child of `Main` at position `p` (captured before `cork.queue_free()`, `main.gd:200`), ensuring freeing the cork mid-flight has zero impact on the running animation. | Headless position assertion test verifying the effect node persists independently of the freed cork entity. |
-| A-R5 | Blocked hit scene selection: unblocked hits spawn `impact_effect.tscn`; blocked hits spawn `impact_effect_blocked.tscn`. | Headless scene-type check verifying file paths match the incoming `blocked` flag. |
-| A-R6 | Draw order: the effect node's `z_index = 6`, to draw cleanly above the existing star layer (`z_index = 5`, `main.gd:88`). | Visual check in running game. |
-| A-R7 | Pause: keep `PROCESS_MODE_ALWAYS` (inherited from Main, `main.gd:38`) so the short 0.25s burst finishes its animation naturally even if pause (`main.paused`) is toggled. | Headless pause state assertion test. |
-| A-Look | Reads as the intent above, on screen. | Frame strip verification confirming that frames 10, 12, and 15 show the active burst expansion and fading while frames 20, 30, and 50 are completely empty, backed by a visual run-through at 1280×720 to verify high readability and contrast against both the darkest and lightest stretches of the castle background. |
-
-> **Review note (Claude, 2026-11-08):**
-> - Probed in 4.7.2 (headless and windowed, 30 fps): a one-shot `GPUParticles2D` started with `restart()` after it is in the tree emits `finished` about 7 frames (0.23 s) later. In a probe that set `emitting = true` before the node had processed a frame, `finished` never fired, so a burst freed by `finished` would never be freed.
+### Clip 2: `jab_action` (Committing Action — Clip B)
+- **What it communicates & why the player needs it:** Communicates startup anticipation (rest-to-coil wind-up), rapid acceleration into active strike extension (forward body lunge and punch held across the active window), and eased recovery follow-through so the player can read attack timing, spacing, and punish windows during combat.
+- **Target object:** Named cutout rig pivots under each `Fighter` (`Bolt` and `Rivet`): `BodyPivot` (`Node2D`, child of `FacingPivot`) and `KeyBob` (`Node2D`, child of `KeyMount`). (`weapon` is hidden during `S.JAB` per `fighter.gd:276-280` and has no track in this clip.)
+- **Route & why:** 2D cutout rig using named `Node2D` pivots (`FacingPivot`, `BodyPivot`, `KeyMount`, `KeyBob`) and an `Animation` resource (`godot/animations/jab_action.tres`) played by `FighterAnimPlayer`. Because `Fighter` is instantiated in code without a `.tscn` and existing `.glb` props have no `Skeleton3D`, named `Node2D` pivots driven by a committed `.tres` animation provide deterministic, frame-exact motion without runtime clip construction.
+- **Authority & script/state/signal read:**
+  - `FacingPivot` (`Node2D`, direct child of `Fighter`): `Fighter._apply_pose()` writes `FacingPivot.scale.x = facing` (`+1.0` or `-1.0`), so `sprite.scale` loses its facing factor (`sprite.scale.x` is positive/unsigned) and `KeyMount.position` and `sprite.offset` are written without the facing factor; all positive `+x` and positive rotation values in `jab_action` automatically mean "forward" for both Bolt and Rivet.
+  - `BodyPivot` (`Node2D`, child of `FacingPivot`): `FighterAnimPlayer` is the sole authority over `BodyPivot:position:x` and `BodyPivot:rotation`. `Fighter._apply_pose()` writes `sprite.texture`, `sprite.scale` (without facing), and `sprite.offset` (without facing), and never writes `BodyPivot`.
+  - `KeyMount` (`Node2D`, child of `BodyPivot`): `Fighter._apply_pose()` writes `KeyMount.position` (from `anchors.json` without facing) and `KeyMount.visible` (hidden on `KO`). Because `KeyMount` is a child of `BodyPivot`, the key rides naturally on the fighter's back as the body coils, lunges, and leans.
+  - `KeyBob` (`Node2D`, child of `KeyMount`): `FighterAnimPlayer` is the sole authority over `KeyBob:position:y`, eliminating any two-writer conflict on `KeyMount.position`.
+  - Reads `Fighter.state` (`S.JAB`), `state_t`, and `state_changed` (`fighter.gd:246-255`).
+- **Role:** The **committing action**.
 
 ---
 
-## B. Effect B — wind feedback loop
+## 2. The sheet
 
-### B.1 The job
-
-| | |
-|---|---|
-| **What it tells the player, and why they need it** | While the HUD dial displays exact wind values, players fighting at high speed cannot afford to look away from the character sprites to check UI meters. Effect B places a visceral exhaustion cue directly on the fighter's back (at the key sprite), giving peripheral spatial awareness of critical wind depletion and impending stall states without breaking visual focus. |
-| **Job** | Feedback loop following a game value. |
-| **Value** | `Fighter.wind` (0–100, `fighter.gd:27, 49`), announced by `Fighter.wind_changed(fighter, wind)` (`fighter.gd:17`). It drains 3/s while walking (`:29`) and on each attack (`_spend`, `:242-244`), and rises 10 per ratchet click while rewinding (`:31, 211-212`). |
-| **Which fighters** | One per fighter (both Bolt and Rivet). Applying it to both fighters allows the player to read Rivet's wind status directly during combat, creating clear tactical opportunities to predict and punish low-wind vulnerabilities or incoming rewinds. |
-| **Condition** | It triggers dynamically as wind drops, activating specifically when wind falls below the 25 threshold (matching the musical slowdown cue, `main.gd:15`), signaling an active warning state before hitting the 1.6s defenceless EMPTY stall (`fighter.gd:35`). |
-| **Mapping** | Ramp only below 25. The effect remains entirely dormant (`amount_ratio = 0.0`) while wind is ≥ 25, and scales linearly from `0.0` at wind 25 to `1.0` at wind 0. This matches the existing music slowdown cue and keeps the exhaustion steam hidden during normal high-wind combat. |
-| **Feature Effect A doesn't use** | `amount_ratio` (dynamically scaling active particle density without triggering a system restart), continuous emission (`one_shot = false` instead of a one-shot burst), and local coordinates (`local_coords = true` so the steam/pressure puffs track and move naturally with the fighter's back key sprite). |
-
-> **Review note (Claude, 2026-11-08):**
-> - The handout's candidates for this feature are process or draw features; `amount_ratio` is the one on its list. Continuous emission and `local_coords` are node settings.
-
-
-### B.2 Intent: how it reads
-
-| | |
-|---|---|
-| **Timing** (start, steady state, stop) | Continuous emission begins emitting as wind drops below 25, subject to particle pool threshold (noted as potential failure case F2: slight delay before first visible puff appears); maintains steady-state output proportional to the exact wind level; and stops smoothly over one particle lifetime (when emission cuts via `amount_ratio = 0`) as wind recovers above 25 or during rewind recovery steps. |
-| **Contrast** against the named background | Utilizes a semi-transparent grey-white steam texture with a dark core/outline, ensuring high legibility and contrast against both the bright castle background (mean luminance 160) and dark water/fighter clothing. |
-| **Scale** against the character | Puffs start small (~5 pixels) right at the key sprite's mount point and expand to roughly 15–20 pixels wide, keeping them proportional (about half the width) to the 35–40 view-pixel key sprite on the fighter's back. |
-| **Change over life** | Alpha fades smoothly from 0.8 down to 0.0, the core diffuses outward, and particle scale expands from about 5 px to 15–20 px (a ~3× growth factor matching natural steam expansion) over each puff's individual lifespan as the steam dissipates. |
-| **Variation** | Randomizes initial emission angle (±30° cone), initial velocity, particle rotation, and lifespan variance (`lifetime_randomness = 0.3`) so the continuous steam flow looks natural and organic rather than mechanically uniform. |
-| **Emitters**, each with its job | Uses a single dedicated emitter (`GPUParticles2D`) configured for continuous steam exhaust, driving its density adjustments entirely through real-time `amount_ratio` scaling. |
-
-### B.3 Settings
-
-Scene: `godot/effects/wind_steam.tscn`, one emitter, one instance per fighter, parented to each fighter's `key_sprite`.
-
-**Scale rule:** `key_sprite` is scaled to 1/3 (`ART_SCALE`, `fighter.gd:260, 273`). To compensate, we multiply base velocities by ×3 so they resolve to the intended on-screen sizes and speeds. Lengths in this table are in `key_sprite`'s local units; on screen they are 1/3.
-
-| Setting | Value | Why |
-|---|---|---|
-| Node type | `GPUParticles2D`, `ParticleProcessMaterial` | `amount_ratio` exists only on the GPU node in 4.7 (`design/a6/BRIEF-FACTS.md` §5). |
-| amount (fixed, the maximum) | 25 | Maximum active particle pool scaled dynamically via `amount_ratio`. |
-| one_shot | false | Continuous emission. |
-| explosiveness | 0.0 | Continuous steam exhaust requires an even, steady stream of particles over time rather than a single frame burst (`explosiveness = 1.0`). |
-| lifetime | 0.6 s | |
-| lifetime_randomness (on the process material) | 0.3 | Lifespan variance (B.2). In Godot, randomness only shortens individual particle lives, ensuring frame 70 remains strictly empty. |
-| emission shape | Point (`EMISSION_SHAPE_POINT`) positioned directly at the fighter's back key sprite | |
-| direction | `Vector3(0, -1, 0)` | Combined with gravity, to ensure the steam properly rises upward from the back key. |
-| initial_velocity_min / max | 60.0 / 120.0 local (20 / 40 px/s on screen) | |
-| spread | 30.0° | Godot 4 treats spread as a half-angle, yielding the correct ±30° cone. |
-| gravity | `Vector3(0.0, -180.0, 0.0)` local (−60 px/s² on screen) | Negative Y for rising steam/exhaust. |
-| damping_min / max | 90.0 / 150.0 local (30 / 50 on screen) | |
-| color_ramp (colour and alpha) | `Color(0.85, 0.85, 0.85, 0.8)` → `Color(0.9, 0.9, 0.9, 0.0)` | Soft grey-white fading out to transparent; starting alpha unified at 0.8 with B.2. |
-| scale_min / max | 0.2 / 0.8 | With the 32×32 texture and `key_sprite`'s 1/3: 2–8.5 px on screen at the start (about 5), 6–26 px at the end (about 16), so puffs start small at ~5 px and expand toward 15–20 px. Not multiplied by 3 again. |
-| scale_curve | 1.0 → 3.0 over lifetime, curve `max_value = 3.0` | Preventing default 1.0 clamping. |
-| texture | 32 × 32 px PNG written by a committed script, `tools/generate_steam_texture.gd`: a soft steam puff with a darker core/outline | Prevents it from washing out against bright backgrounds (B.2 contrast). |
-| draw material, blend | `CanvasItemMaterial`, `blend_mode` MIX | |
-| local_coords | true | So the steam/pressure puffs track and move naturally with the fighter's back key sprite. |
-| parent and flip | Parented directly to the fighter's `key_sprite` node, automatically inheriting position and scale flips when the fighter changes direction (facing left/right). This automatically handles position tracking and ensures the steam correctly hides on KO (`fighter.gd:274`). Consequences: it draws behind the body (`key_sprite.z_index = -1`, `fighter.gd:76`) and squashes horizontally with the spinning key during REWIND (`fighter.gd:272-273`). | |
-| visibility_rect | `Rect2(-150, -150, 300, 300)` local (±50 px on screen) | Unscaled, ±17 px on screen would cull puffs that rise 25–30 px. |
-| preprocess | 0.0 | Dormant at round start when wind is 100. |
-
-**Mapping:** wind ≥ 25 → `amount_ratio` 0.0; wind 25 → 0 maps linearly to `amount_ratio` 0.0 → 1.0 (B.1).
-
-### B.4 Observable rules
-
-| # | Rule | Evidence |
-|---|---|---|
-| B-R1 / B-R2 | Activates when wind drops below 25 (`amount_ratio > 0`). Stops smoothly by returning `amount_ratio` to `0.0` while `emitting` stays `true`, allowing existing puffs to fade out naturally over one particle lifetime (0.6s) during wind recovery or rewind. | **Headless:** driving combat attacks to drop wind below 25, then triggering a rewind to raise wind back above 25, asserts that `amount_ratio` transitions from `0` to active (>0) and back down to `0` while `emitting` remains `true`. **Strip / eyes:** verifies the smooth 0.6s particle fade-out without abrupt visual cuts. |
-| B-R3 | `amount_ratio` scales linearly below wind 25: `amount_ratio = (25 − wind) / 25`, while the base `amount` property remains permanently locked at `25`. | **Headless:** real game input (exact jab attacks, each costing 12 wind, `fighter.gd:41`) drops wind from 100 down to 16 and 4 through the live game loop; asserts `amount_ratio` is `0.36` at wind 16 and `0.84` at wind 4, and `amount == 25`. |
-| B-R4 | Inherits `PROCESS_MODE_ALWAYS` from Main, keeping the particle simulation active during game pauses (`main.paused`) so ongoing exhaust puffs complete their natural lifecycle without freezing mid-air. `get_tree().paused`: the game never sets it, but because of `PROCESS_MODE_ALWAYS`, the effect also keeps running under tree pauses unless explicitly overridden. | **Headless:** asserts `can_process() == true` via `PROCESS_MODE_ALWAYS`, that `emitting` and `speed_scale` are unchanged, and that the ratio holds steady while `main.paused = true`. **Strip / eyes:** verifies that particle motion and puff traversal continue uninterrupted during pause. |
-| B-R5 | Automatically hides when parent `key_sprite` is hidden (such as on fighter KO via `fighter.gd:274`), preventing orphaned steam effects from floating in space. | Headless KO state test asserting that when the fighter's state shifts to KO, the key sprite and its particle child inherit hidden visibility. |
-| B-R6 | Wind initializes at 100 on scene load and round restarts (`fighter.gd:101`), forcing `amount_ratio = 0` on frame 1 so zero particles spawn on startup regardless of preprocess settings. | **Headless:** asserts `amount_ratio == 0` on frame 1 of scene load. **Strip / eyes:** confirms zero visible puffs are rendered on startup. |
+- **Source:** Generated by committed Godot tool script `godot/tools/generate_key_sheets.gd` from the existing project key sprites `godot/assets/props/key-bolt.png` and `godot/assets/props/key-rivet.png`.
+- **Author:** Generator script written by Claude Code; source prop sprites (`key-bolt.png`, `key-rivet.png`) generated via SDXL-Turbo (`71153311…`) from prompts authored by Tharun (`SOURCES.md:12-16`).
+- **Licence:** Stability AI Non-Commercial Research Community License (same terms as the rest of the project's SDXL-Turbo art in `SOURCES.md:12-16`; recorded in `godot/assets/props/ATTRIBUTION.md` alongside the committed sheets).
+- **Date checked:** 2026-11-19.
+- **Cell size:** `84 × 60` px per frame (matching the native `84 × 60` px dimensions of `key-bolt.png` and `key-rivet.png`).
+- **Grid (`hframes × vframes`):** `8 × 1` (`672 × 60` px horizontal strip; `hframes = 8`, `vframes = 1`).
+- **Generator recipe (turn-squash projection):** Each frame `k` (`0..7`) represents rotation angle `θ = k * 45°` (`0°, 45°, 90°, 135°, 180°, 225°, 270°, 315°`) around the vertical spindle axis:
+  - Horizontal width factor: `w_scale = max(0.15, abs(cos(θ)))` (clamped at minimum `0.15` width at `90°` and `270°` so the key edge stays legible rather than vanishing to zero width).
+  - Back-half horizontal mirror: for angles strictly between `90°` and `270°` (frames `3, 4, 5`), the source image is flipped horizontally (`flip_x`) to show the opposite side of the bow/bit during the back half of the revolution.
+  - Each `84 × 60` cell centers the horizontally scaled (and back-half mirrored) `84 × 60` key image horizontally and vertically on a transparent background.
+- **Frame order per clip:** `wind_key_cycle` plays frames `0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7` (`0° -> 45° -> 90° -> 135° -> 180° -> 225° -> 270° -> 315°`).
+- **Paths of original and committed files:**
+  - Source PNGs (committed): `godot/assets/props/key-bolt.png`, `godot/assets/props/key-rivet.png`
+  - Generator script (committed): `godot/tools/generate_key_sheets.gd`
+  - Generated sheets (committed): `godot/assets/props/key-bolt-sheet.png`, `godot/assets/props/key-rivet-sheet.png`
+  - Attribution file (committed): `godot/assets/props/ATTRIBUTION.md`
 
 ---
 
-## C. Boundaries
+## 3. The cycle spec (`wind_key_cycle`)
 
-This section defines the strict architectural line between presentation updates and core game simulation rules, establishing what is permitted to change and what must remain untouched.
+- **Frame count:** `8` frames (`0..7`).
+- **Frame rate:** `8` fps (`1` animation frame every `7.5` physics ticks at 60 Hz; `1.0` full `360°` revolution per second while cranking, matching gameplay's `360°/s` crank rate in `fighter.gd:30` with one ratchet click every `2` animation frames / `90°`; clip `length = 8.0 / 8.0 = 1.000000 s`).
+- **`Animation.step` to set:** `0.125` (`1.0 / 8.0` s).
+- **Loop mode (Godot 4 constant):** `Animation.LOOP_LINEAR` (`1`).
+- **Seam rule for track type:** Discrete frame track (`Animation.UPDATE_DISCRETE`, `1`). Keys sit at `t = k / 8.0` for `k = 0..7` (`0.000, 0.125, 0.250, 0.375, 0.500, 0.625, 0.750, 0.875 s`). Frame `0` is **not** duplicated at `t = length` (`1.000 s`); the trailing gap from the last key (`7 / 8.0 = 0.875 s`) to `length` (`1.000 s`) equals one frame interval (`1 / 8.0 = 0.125 s`), so frame `7` holds for one 8 fps step and wraps cleanly into frame `0` on the next cycle with no double-frame stall.
+- **Full-wind behavior (`wind == 100`):** Once wind reaches full (`100`) during `S.REWIND`, the crank clicks stop (`fighter.gd:206-207`) and the clip holds its current position/frame rather than continuing to spin when no wind is being cranked.
 
-**May change (presentation only):**
-- **Combat feedback & impact routing:** modifying `main.gd` (`_on_hit`, struck handlers, and `_on_impact`) to pass the blocked flag and spawn `impact_effect.tscn` or `impact_effect_blocked.tscn` (while keeping the existing star layer intact).
-- **Wind steam integration:** code that attaches a `wind_steam.tscn` instance to each fighter's `key_sprite` and drives `amount_ratio` dynamically from `wind_changed` signals (housed either directly in `main.gd` where the A5 tint driver lived, or via a dedicated driver script).
-- **Assets & tooling:** the new effect scenes, automated state/headless tests, preview scenes, and procedural texture generation scripts (`tools/generate_shard_texture.gd`, `tools/generate_steam_texture.gd`, and their corresponding PNGs).
-- **Debugging utilities:** a vsync debug key (F10–F12).
+---
 
-**Must not change (core engine & simulation):**
-- **Core physics & mechanics:** collision boxes, hurtboxes, movement physics, input handling (`controls.gd`), the fighter state machine and its internal timings, and base wind/health arithmetic (`fighter.gd`).
-- **Existing infrastructure:** existing test expectations, the A5 shaders located in `godot/shaders/`, `project.godot`, the base star spark, camera shake, and hitstop logic.
-- **Read-only boundary rule:** presentation code is strictly permitted to read game state variables (such as wind, blocked status, and impact position `p`); it must never write to or modify core game state simulation variables.
+## 4. The phase table (`jab_action`)
 
-## D. Frame strips
+- **Rate:** `60` fps (`1` animation frame = `1` physics tick = `1/60 s` = `0.016667 s`; `length = 21.0 / 60.0 = 0.350000 s`).
+- **`Animation.step` to set:** `0.016667` (`1.0 / 60.0` s) so key snapping and evaluation align directly with the 60 Hz physics tick rather than `Animation.step`'s `1/30 s` (`0.033333`) default.
 
-All preview captures are **fixture** captures. Each preview instance has `use_fixed_seed` on; the effect scenes never do.
+### Phase timing and player/game behavior (whiffed jab)
 
-### D.1 Effect A: impact burst preview (`godot/previews/impact_preview.tscn`)
+| Phase | Frames (at 60 fps) | Frame phase begins on | What the player may do | What the game reads in each phase |
+|---|---|---|---|---|
+| **Startup** | `0..4` (5 frames) | Frame `0` (tick `0`) | Nothing (`_attack` reads no intent; `just_pressed` is not buffered; a jab press in `0..4` is lost) | `Fighter.state == S.JAB`; `state_t = 0.0000 s` on tick `0` and `0.0667 s` on tick `4` (both less than `startup = 0.07 s`), so the attack hitbox remains closed across ticks `0..4` |
+| **Active (box live)** | `5..10` (6 frames) | Frame `5` (tick `5`) | Nothing (new attack/move/block/rewind inputs are ignored and lost) | On tick `5`, `state_t` reaches `0.0833 s` (at or above `0.07 s`), opening the hitbox (`startup` at or below `state_t` and `state_t` less than `startup + active`) and checking for hits on every tick `5..10` (`fighter.gd:117-125, 192-198`) |
+| **Recovery** | `11..20` (10 frames) | Frame `11` (tick `11`) | Nothing until tick `21` (`state_t` at or above `0.35 s`), when state transitions to `IDLE` (or `EMPTY` if `wind` is zero or less); because `_neutral` does not run on tick `21`, a press landing on tick `21` is also lost, and neutral input is first read on tick `22` | `state_t` advancing past `startup + active`; exit check `state_t` at or above `startup + active + recovery` (`fighter.gd:199-200`) |
 
-- **Background setup:** positioned over the light castle stretch (x = 192–223, mean luminance 160) to rigorously test the dark-rimmed shards and bright cyan core contrast against a high-luminance background where the original star spark vanished.
-- **Trigger:** frame 10. **Retrigger setup:** fires a second impact at frame 11 to demonstrate the `A-R3` overlap rule; the second burst completes its 0.25s lifetime by frame 18.5.
-- **Frame-by-frame predictions (30 fps):**
-  - **Frame 10 (trigger):** instantaneous spawn. Particles may first appear on frame 11; I'll record it once if so.
-  - **Frame 12 (0.067 s):** just past the scale peak. Shards have expanded outward by 4–6 px. Ramps are roughly 25% through their life, displaying the bright cyan core and dark-rimmed debris.
-  - **Frame 15 (0.167 s):** shards have traveled 8–14 px out with noticeable downward gravitational sag. Scale is falling toward 0.4 / 0.2. Simultaneously, the second burst overlaps here: burst 1 is at 67% of its life (fading, scale falling toward 0.4), while burst 2 (triggered at frame 11) is at 53% of its life (past its scale peak, actively dispersing).
-  - **Frames 20, 30 and 50:** completely empty, confirming the 0.25 s lifetime concludes cleanly for both bursts.
+### Keyed rig pose values and segment easing (`jab_action`)
 
-### D.2 Effect B: wind steam preview (`godot/previews/steam_preview.tscn`)
+All values are local to `FacingPivot` (`FacingPivot.scale.x` carries facing `+1.0` or `-1.0`, so positive `+x` and positive rotation always mean forward for both Bolt and Rivet):
 
-- **Rig setup:** uses a stand-in `key_sprite` at scale `1/3` to accurately reflect parent scaling, rendered with `use_fixed_seed` enabled on the preview instance and `--quit-after 80` specified for the Movie Maker capture run.
-- **Wind/ratio schedule:** condition starts at frame 10 (setting `amount_ratio = 1.0`), runs at steady state until frame 50, and cuts emission at frame 50 (`amount_ratio = 0.0`, `emitting` stays true, B-R2).
-- **Background setup:** x = 256–287 (the darkest water/castle boundary stretch, mean luminance 98), to verify steam legibility.
-- **Frame-by-frame predictions (30 fps):**
-  - **Frame 12:** initial emission beginning; small initial puffs (~5 px) emerge upward from the key anchor point.
-  - **Frame 20:** rising exhaust plume establishing density and vertical travel along the `Vector3(0, -1, 0)` direction vector.
-  - **Frame 40:** fully established steady-state stream (exceeding one 0.6 s / 18-frame lifetime). Displays a continuous column of rising steam puffs expanding from ~5 px to ~16 px with soft edges and visible contrast against the background.
-  - **Frame 55:** emission has ceased (ended at frame 50), leaving the remaining active tail-end puffs floating upward and fading out.
-  - **Frame 70:** completely empty, confirming all active particles have completed their lifetime and cleared out.
+| Keyframe | Frame | Time (s) | `BodyPivot:position:x` (px) | `BodyPivot:rotation` (rad) | `KeyBob:position:y` (px) | Outgoing segment easing (`transition` curve) | Visual pose |
+|---|---|---|---|---|---|---|---|
+| **Entry / Rest** | `0` | `0.000000` | `0.0` | `0.0` (`0.0°`) | `0.0` | Ease-out (`0.5`) into anticipation coil | Starts smoothly from neutral rest on entry tick `0` (no 1-tick pop) |
+| **Coil peak** | `3` | `0.050000` | `-6.0` | `-0.10` (`-5.7°`) | `+2.0` | Ease-in (`2.0`) accelerating sharply into strike | Peak wind-up coil during startup |
+| **Active onset** | `5` | `0.083333` | `+14.0` | `+0.12` (`+6.9°`) | `-2.0` | Linear (`1.0`) across live hitbox window | Full forward lunge and punch extension as hitbox opens |
+| **Active end** | `10` | `0.166667` | `+14.0` | `+0.12` (`+6.9°`) | `-2.0` | Linear (`1.0`) into follow-through release | Held full extension through the final active tick (`10`) |
+| **Recovery onset** | `11` | `0.183333` | `+8.0` | `+0.05` (`+2.9°`) | `-1.0` | Ease-out (`0.5`) settling smoothly back to neutral | Initial retraction as hitbox closes on tick `11` |
+| **End / Rest** | `21` | `0.350000` | `0.0` | `0.0` (`0.0°`) | `0.0` | End of clip (`LOOP_NONE`) | Exact neutral rest pose at return to `IDLE` on tick `21` |
 
-## E. Predicted failures
+### Edge-input & interrupt outcomes (before, on, and after every boundary)
 
-| # | Prediction | The check that catches it |
-|---|---|---|
-| F1 | **Scale curve clamping (Effect A & B):** default `Curve` max value is `1.0`. Setting scale points above 1.0 (such as the core's 1.5 or B's 3.0) is silently clamped to 1.0, flattening growth. | Automated configuration test reading back the curve's control points directly (verifying that the core's control point at x = 0.2 retains its value of 1.5 and Effect B's point at x = 1.0 retains its value of 3.0). |
-| F2 | **Finished signal dropout / instance leak (Effect A):** if `emitting = true` is set before a one-shot `GPUParticles2D` node enters the tree or processes its first frame, the `finished` signal never fires, causing instances freed on completion to pile up silently. | Headless instance count tracking test verifying that instance counts return to zero after particle lifetimes expire. |
-| F3 | **Visibility rect culling (Effect B):** default bounding boxes cull steam puffs as they rise and expand, causing particles to pop out abruptly near the edges. | Visual strip inspection and bounds assertion verifying `visibility_rect` (`Rect2(-150, -150, 300, 300)`). |
-| F4 | **Godot 3 property name legacy (config check):** using outdated Godot 3 syntax (e.g., `initial_velocity`) silently leaves velocity min/max at zero. | Property validation test scanning scene files for valid Godot 4 property names (`initial_velocity_min` / `initial_velocity_max`), catching silent Godot 3 legacy failures; the configuration test's read-back of both values fails too (Step 2 mutation). |
-| F5 | **Delayed first puff (Effect B):** Effect B does not emit its first visible puff immediately at wind 25 because `amount_ratio` yields a fractional particle count until wind drops slightly lower (around wind 24). | **Headless node-state check:** automated test verifying that the calculated particle emission threshold (`amount × amount_ratio`) reaches ≥ 1.0 at wind = 24 (25 × 0.04 = 1.0). **Strip / eyes:** visual frame strip inspection to record the exact frame where the first visible puff physically emerges from the key sprite. |
+| Boundary / Event | Tick | State machine outcome | Clip outcome |
+|---|---|---|---|
+| **Startup -> Active (`4 / 5 / 6`)** | `4` (1 before), `5` (on), `6` (1 after) | Jab press on `4`, `5`, or `6` is ignored and lost (`_attack` does not buffer `just_pressed`) | `jab_action` continues uninterrupted through coil (`4`) into full extension (`5`, `6`) |
+| **Active -> Recovery (`10 / 11 / 12`)** | `10` (1 before), `11` (on), `12` (1 after) | Jab press on `10`, `11`, or `12` is ignored and lost | `jab_action` holds extension at `10`, begins retraction at `11`, and eases back at `12` |
+| **Recovery -> IDLE (`20 / 21 / 22`)** | `20` (1 before), `21` (on), `22` (1 after) | On `20`, still in `JAB` (lost). On `21`, `JAB` transitions to `IDLE` at the end of `_attack`, so `_neutral` does not run on `21` and a press on `21` is lost. On `22`, `_neutral` reads the press and enters the next action | `jab_action` reaches frame `21` (`0.0, 0.0, 0.0` rest pose) at the end of `step()` on `21` and stops cleanly at rest |
+| **Hit landed on tick `5` (active onset)** | `5` (landed), `6..10` (hitstop) | `hitstop` freezes both fighters for `5` ticks (`6..10`); active window resumes for `5` more ticks and returns to `IDLE` on `tick 26` (+5 ticks) | Because clip time is synced to `state_t` at the end of `step()`, `jab_action` holds frame `5` across `ticks 6..10` and resumes advancing on `tick 11` |
+| **Unblocked hit received (`receive_hit`) in any phase (`0..20`)** | Any tick `0..20` | Fighter transitions immediately to `S.HURT` (or `S.KO` if `hp` is zero or less) | `FighterAnimPlayer` stops `jab_action` immediately and snaps `BodyPivot` and `KeyBob` to exact rest pose (`0.0, 0.0, 0.0`) on entry to `HURT` / `KO` |
+| **Game paused (`main.paused = true`) in any phase** | Any tick | `main._simulate` skips `fighter.step(dt)`, freezing `state_t` | Both `AnimationPlayer` nodes use `MANUAL` mode and only sync inside `step()`, so both freeze on the exact paused frame until unpaused |
 
-## F. Price predictions and budget
+---
 
-The effects-off reference: Visual Profiler, Render Viewport 0.97 ms GPU / 0.11 ms CPU (2026-11-08, `evidence/a6/visual-profiler-vulkan.webp`).
+## 5. The state machine
 
-| | Effect A (impact burst) | Effect B (wind steam) |
-|---|---|---|
-| Peak particle count | 4 concurrent bursts × 24 particles = 96 particles max | 2 fighters × 25 base amount = 50 particles max at `amount_ratio = 1.0` |
-| Predicted headless CPU price | Near zero for the particle simulation itself (the dummy headless renderer skips GPU particle updates); Effect A's dynamic instancing/freeing (up to 4 scenes per window) incurs minimal CPU instantiation overhead. Within the empty-scene control's spread (±0.03 ms). | Near zero for the particle simulation itself. Within the empty-scene control's spread (±0.03 ms). |
-| Predicted GPU time | ∼0.12 ms per active burst | ∼0.08 ms per fighter at full ratio |
-| Budget, and which price | < 0.55 ms peak for 4 concurrent bursts (comfortably accommodating the 4 × 0.12 ms = 0.48 ms predicted worst case), compared on GPU time against the 0.97 ms baseline | < 0.20 ms combined for both active fighter streams, compared on GPU time |
+- **States (`Fighter.S` in `godot/fighter/fighter.gd:19`):** `IDLE`, `WALK`, `JAB`, `CUTLASS`, `POP`, `BLOCK`, `REWIND`, `HURT`, `EMPTY`, `KO`, `WIN`.
+- **Clip played per state:**
+  - `S.JAB`: `FighterAnimPlayer` plays `jab_action` (`LOOP_NONE`) locked to `state_t`; `KeyAnimPlayer` stops and holds `key_sprite.frame = 0`.
+  - `S.REWIND`: `KeyAnimPlayer` plays `wind_key_cycle` (`LOOP_LINEAR`) while `wind` is below `100` (and holds at full wind `100`); `FighterAnimPlayer` stops and holds rest pose (`0.0, 0.0, 0.0`).
+  - All other states (`IDLE`, `WALK`, `CUTLASS`, `POP`, `BLOCK`, `HURT`, `EMPTY`, `KO`, `WIN`): `FighterAnimPlayer` stops and holds rest pose (`0.0, 0.0, 0.0`); `KeyAnimPlayer` stops and holds `key_sprite.frame = 0` (`KeyMount.visible = false` in `KO`).
+- **Transition conditions (`fighter.gd:128-255`):**
+  - `IDLE` / `WALK` -> `JAB`: `intent.jab` just pressed and `wind` is greater than `0` (enters `JAB`, `state_t = 0.0`, `jab_action` at `0.000 s`).
+  - `JAB` -> `IDLE` (or `EMPTY` if `wind` is zero or less): `state_t` at or above `startup + active + recovery` (`0.35 s`, tick `21` on whiff; snaps/holds `jab_action` at rest).
+  - `IDLE` / `WALK` -> `REWIND`: `intent.rewind` held (enters `REWIND`, starts `wind_key_cycle` at `0.000 s` if `wind` is below `100`).
+  - `REWIND` -> `IDLE`: `intent.rewind` released (stops `wind_key_cycle` and resets `key_sprite.frame = 0`).
+  - Any except `KO`, `WIN` -> `HURT`: `receive_hit` when unblocked (aborts active clip and snaps rig to rest).
+  - Any -> `KO` / `WIN` / `IDLE` (`reset()`): aborts active clip and snaps rig to rest (`frame = 0`, rest transforms).
+- **`AnimationTree` note:** No `AnimationTree` is used in A7; state transitions are driven directly by `Fighter._enter(s)` / `state_changed` and synced in `Fighter.step(dt)` so there is no second state machine alongside `Fighter.S`.
 
-## G. Short answers
+---
 
-1. **Node types & property mutations:** both Effect A and Effect B use `GPUParticles2D`. When configuring them, Godot 4 property name mutations must be respected—specifically using `initial_velocity_min` and `initial_velocity_max` instead of outdated Godot 3 names, which fail silently. `GPUParticles2D` in Godot 4 contains all features required by this brief—including `amount_ratio`, custom scale/color curves, `lifetime_randomness`, `visibility_rect`, and `restart()`. Features that 2D particle nodes lack compared to 3D (such as 3D particle colliders and vector attractors) are not required or used by either effect in this brief.
-2. **Local coordinates (`local_coords`):** setting `local_coords = false` on Effect A anchors impact bursts in world space at position `p` so they don't drift if fighters move; setting `local_coords = true` on Effect B ensures steam puffs inherit the `key_sprite`'s motion trail.
-3. **Peak burst concurrency:** peak concurrency for Effect A is capped at n = 4 bursts (96 particles) to accommodate overlapping melee hits and in-flight corks within the 0.25s lifetime window.
-4. **Price measurement & headless limits:** a headless run reports strictly CPU time because the dummy renderer skips the GPU particle simulation pass entirely, meaning CPU metrics omit the GPU rendering workload. With Vsync enabled, FPS reads identically (pinned to the monitor's refresh rate, e.g., 60 Hz) whether the effect is toggled off or on, proving that frame rate alone cannot measure GPU overhead and requiring direct viewport profiler timestamps instead.
-5. **Lifecycle rules (pause, hidden, load):**
-   - Pause: inherits `PROCESS_MODE_ALWAYS` from Main, keeping simulation active during `main.paused`.
-   - Hidden: automatically hidden when parent `key_sprite` hides on fighter KO (`fighter.gd:274`).
-   - Scene load: initializes at wind 100 (`amount_ratio = 0`), ensuring zero particles spawn on frame 1.
-6. **Setting categorization:**
-   - Emission: `amount`, `amount_ratio`, `emission_shape`, `one_shot`, `preprocess`, `lifetime`, `explosiveness`.
-   - Process (`ParticleProcessMaterial`): `initial_velocity_min`/`max`, `gravity`, `damping_min`/`max`, `spread`, `angle_min`/`max`, `scale_min`/`max`, `lifetime_randomness`, color ramp, and scale curve.
-   - Draw: `texture`, `visibility_rect`, `z_index`, and blend mode.
+## 6. The two clocks
 
-## A6 revisions
+- **`AnimationPlayer.callback_mode_process`:** Both `FighterAnimPlayer` and `KeyAnimPlayer` use `ANIMATION_CALLBACK_MODE_PROCESS_MANUAL` (`2`), **not** `PHYSICS` (`0`) or `IDLE` (`1`).
+- **Exact `state_t` lock invariant:** After every `Fighter.step(dt)` completes, the active clip's playback position equals `state_t` (wrapped modulo `length` for `wind_key_cycle` while `wind` is below `100`, held when `wind == 100`, and clamped to `[0.0, length]` for `jab_action`).
+  - Why this rule matters: Inside `step(dt)`, `state_t` is incremented first, then `_neutral` or `_attack` may call `_enter(JAB)` or `_enter(REWIND)` which resets `state_t = 0.0` on that entry tick. Syncing the clip position to `state_t` at the end of `step()` guarantees that on tick `0` of `JAB`, `state_t == 0.0` and `FighterAnimPlayer.current_animation_position == 0.0`—preventing a 1-tick early shift—while automatically freezing during `INTRO`, `main.paused`, and `hitstop`.
+- **`AnimatedSprite2D` note:** Not used (`key_sprite` remains a `Sprite2D` with `hframes = 8`).
+- **Tick gameplay reads each keyed fact on:** Gameplay reads `state_t`, hitbox active window (`startup` at or below `state_t` and `state_t` less than `startup + active`), hit detection, and state exit on the **60 Hz physics tick** inside `Fighter.step(dt)`.
 
-- **2026-11-08:** the cork's `struck` handler is at `main.gd:199`, not 200 (line 200 is `corks.append(c)`). Applies to A.1 and A-R4; no rule or value changes.
-- 2026-11-08: A.3a Shards `color_ramp` updated with a mid-point keyframe at `0.7: Color(0.25, 0.25, 0.28, 1.0)`, keeping dark charcoal shards fully opaque through 70% of their lifetime before fading out. This resolves castle background contrast issues (TUNING.md revision 1; verdict: keep). Blocked variant remains unchanged.
-- 2026-11-08: F2 particle leak did not reproduce under `main.gd` setup (verified by state test M3); existing state test (M4) continues to catch particle leaks when triggered.
-- 2026-11-08: D.3 rewind strip for Effect B tuning: `godot/previews/steam_rewind_preview.tscn`, wind 4 at frame 10, rewind held from frame 30; frames 28, 31, 34, 38, 46, 53, 60, 72; `--quit-after 100`. Reason: the in-game steam cut out on rewind, and D.2 never rewinds.
-- 2026-11-08: B.3 parent/flip configuration updated: steam now sits on a `SteamMount` node that tracks the key's position, facing, and visibility, but explicitly bypasses its rewind spin-squash. Reason: direct parenting caused the steam plume to prematurely truncate/cut out on rewind (TUNING Effect B rev 1; verdict: keep). No scene values changed.
+---
+
+## 7. Boundaries
+
+- **Presentation authority rule:** Presentation code may read game state; it never writes it.
+- **Allowed files to edit or add in this change:**
+  - `godot/fighter/fighter.gd` (`_ready`, `_apply_pose`, and clip sync in `step`)
+  - `godot/effects/steam_mount.gd` (updated to track `KeyMount`'s global transform and visibility)
+  - `godot/animations/*.tres` (`wind_key_cycle.tres`, `jab_action.tres`)
+  - `godot/tools/generate_key_sheets.gd`, `godot/assets/props/key-bolt-sheet.png`, `godot/assets/props/key-rivet-sheet.png`, and `godot/assets/props/ATTRIBUTION.md`
+  - `godot/previews/jab_preview.tscn` and `godot/previews/jab_preview.gd`
+  - New A7 tests under `godot/tests/` (read-back tests, pin tests, structure/authority test, and edge-input tests)
+  - The four pinned assertions in `godot/tests/test_wind_steam_state.gd` (lines `149` and `159`) and `godot/tests/test_slice.gd` (lines `182` and `187`), committed together in one dedicated commit after the Step 5 wiring.
+- **What stays unchanged:**
+  - Fighter hurtboxes, body separation (`main.gd:184-190`), jab/cutlass/pop attack hitboxes, damage, knockback, and wind costs (`fighter.gd:35-50, 117-125`).
+  - Fighter horizontal movement speed, arena wall bounds (`x = 132` and `x = 500`), and controls/keybindings (`controls.gd`).
+  - `KeyMount.position` and `sprite.offset` are written without the facing factor (`FacingPivot.scale.x` carries facing `1.0` or `-1.0`).
+  - State machine phase durations (`jab: 0.07 / 0.10 / 0.18 s`, `cutlass: 0.14 / 0.12 / 0.30 s`, `pop: 0.10 / 0 / 0.35 s`, `hitstop: 5 ticks`).
+  - All A5 shaders (`godot/shaders/`) and rewind tint behavior (`rewind_tint_driver.gd`).
+  - All A6 particle effects (Effect A impact bursts and Effect B `SteamMount` wind steam); `SteamMount` in `godot/effects/steam_mount.gd` follows `KeyMount`'s global transform and visibility so wind steam continues tracking the key cleanly.
+- **Planned existing pin updates (one dedicated commit after the Step 5 wiring):**
+  1. `godot/tests/test_wind_steam_state.gd:149` (rewind squash): previously asserted `abs(key_sprite.scale.x)` was less than `0.1` while rewinding; now that the 8-frame turning sprite sheet replaces the code scale squash, update this assertion to verify `key_sprite.hframes == 8` and active `wind_key_cycle` progression during `REWIND`.
+  2. `godot/tests/test_wind_steam_state.gd:159` (KO key visibility): previously asserted `not rivet.key_sprite.visible` on `KO`; now that `KeyMount` is hidden on `KO` (`key_sprite.visible` stays `true`), update this assertion to check `not rivet.key_sprite.is_visible_in_tree()`.
+  3. `godot/tests/test_slice.gd:182` and `:187` (walking left/right facing): previously asserted `sprite.scale.x` became negative when walking left and positive when walking right; now that `FacingPivot.scale.x` holds facing and `sprite.scale.x` is unsigned, update both assertions to check `facing_pivot.scale.x` has the sign of `facing`.
+- **Hard implementation rules:**
+  - **No runtime clip construction:** Never build `Animation` tracks or keys in GDScript at runtime; all clips live as committed `.tres` files under `godot/animations/`.
+  - **Fixed node names:** `FacingPivot`, `BodyPivot`, `sprite`, `KeyMount`, `KeyBob`, `key_sprite`, `weapon`, `FighterAnimPlayer`, and `KeyAnimPlayer` must be assigned explicit `.name` values in `fighter.gd` before binding animation tracks.
+  - **One authority per property:** No property written by `FighterAnimPlayer` or `KeyAnimPlayer` may also be written by `Fighter._apply_pose()`.
+  - **Protected files:** Agents never edit `scripts/run-test.sh` or `godot/shaders/`.
+
+---
+
+## 8. The evidence split
+
+Each rule below is paired with its exact verification check:
+
+### Clip A (`wind_key_cycle`) rules
+- **A-R1 (Sheet & attribution provenance):** Committed `godot/tools/generate_key_sheets.gd`, `godot/assets/props/key-bolt-sheet.png`, `godot/assets/props/key-rivet-sheet.png` (`672 × 60`, `8 × 1` of `84 × 60` cells with `max(0.15, abs(cos θ))` width and back-half mirror), and `godot/assets/props/ATTRIBUTION.md` -> **Check (Read-back):** Scripted asset/image read-back verifying dimensions (`672 × 60`), `hframes == 8`, `vframes == 1`, minimum alpha width (`at least 0.15 * 84` px) at 90°/270° frames, and file presence.
+- **A-R2 (Resource & seam integrity):** `godot/animations/wind_key_cycle.tres` uses `loop_mode == Animation.LOOP_LINEAR` (`1`), `UPDATE_DISCRETE` (`1`), `step == 1.0 / 8.0` (`0.125`), `length == 1.0`, `8` keys at `k / 8.0` (`k = 0..7`), no duplicated frame `0` at `length`, and zero Godot 3 property names -> **Check (Read-back):** Headless resource read-back script inspecting `Animation` properties and key times/values.
+- **A-R3 (Rewind playback, 5-wrap seam & full-wind hold):** Plays continuously in `S.REWIND` while `wind` is below `100` at 8 fps, wraps `7 -> 0` cleanly across at least 5 full revolutions (tested with `wind` held below `100` in the fixture so `wind` does not hit `100` early, or across rewinding cycles), holds when `wind == 100`, and resets to `frame == 0` outside `REWIND` -> **Check (Pin + Eyes):** Headless pin test holding `S` (rewind) with `wind` kept below `100` in the test fixture across 5+ full turns (`40+` frames) verifying clean `7 -> 0` wraps and full-wind hold; interactive visual check in `godot --path godot` watching at least five full wraps at the seam.
+- **A-R4 (Single authority & planned pin updates):** `KeyMount` holds position (without facing multiplier) and visibility from `_apply_pose`, `key_sprite:frame` is written only by `KeyAnimPlayer`, `SteamMount` follows `KeyMount`'s global transform and visibility, and the four planned pin assertions (`test_wind_steam_state.gd:149, 159` and `test_slice.gd:182, 187`) are updated in one dedicated commit after the Step 5 wiring -> **Check (Pin):** Running `test_wind_steam_config.gd`, updated `test_wind_steam_state.gd`, updated `test_slice.gd`, and A7 structure/authority test.
+
+### Clip B (`jab_action`) rules
+- **B-R1 (Resource, library existence & 60 fps alignment):** `godot/animations/jab_action.tres` uses `loop_mode == Animation.LOOP_NONE` (`0`), `step == 1.0 / 60.0` (`0.016667`), `length == 21.0 / 60.0` (`0.35`), exact key values and segment easing at frames `0`, `3`, `5`, `10`, `11`, and `21`, and every clip name referenced by `fighter.gd` exists in the `AnimationPlayer` library -> **Check (Read-back + Structure Test):** Headless resource read-back script and structure test verifying library clip names, node paths, `step`, `length`, easing curves, and boundary key values.
+- **B-R2 (Exact `state_t` lock, pause freeze & hitstop freeze):** `FighterAnimPlayer.callback_mode_process == ANIMATION_CALLBACK_MODE_PROCESS_MANUAL` (`2`); after every `Fighter.step(dt)`, `current_animation_position == state_t` (including `0.0` on entry tick `0`); freezes during `main.paused` and during the 5-tick hitstop window on a landed jab -> **Check (Pin):** Headless pin test using `Input.parse_input_event` verifying `current_animation_position == state_t` across ticks `0..21`, 5-tick freeze on hit (`ticks 6..10`, ending at `tick 26`), and freeze during `main.paused`.
+- **B-R3 (Edge interrupts & rest snap):** Inputs at `4/5/6`, `10/11/12`, and `20/21` are lost while `tick 22` triggers the next action; unblocked hit (`HURT`) or `KO` immediately stops `jab_action` and snaps `BodyPivot` and `KeyBob` to `(0.0, 0.0, 0.0)` -> **Check (Pin):** Headless edge-input and hit-interrupt pin tests using `Input.parse_input_event`.
+- **B-R4 (Visual registration & boundary strip):** Key stays registered on fighter's back (`KeyMount` under `BodyPivot`), Bolt and Rivet both lunge forward (`FacingPivot.scale.x`), and startup/active/recovery/rest poses read clearly -> **Check (Strip + Eyes):** Frame strip captured from `godot/previews/jab_preview.tscn` at `--fixed-fps 60 --disable-vsync --always-on-top --quit-after 35` over the light castle stretch (`x 192–223`), plus interactive eyes check in `godot --path godot`.
+
+---
+
+## 9. The frame strip
+
+- **Preview scene & script:** `godot/previews/jab_preview.tscn` and `godot/previews/jab_preview.gd` (loads real arena background with Bolt positioned over the light castle stretch at `x = 207`, inside `x 192–223`, where Bolt's dark outline and limbs have strong contrast).
+- **Capture command flags:** `--fixed-fps 60 --disable-vsync --always-on-top --quit-after 35`. *Reason for 60 fps:* The handout's default strip command uses 30 fps, which only renders every second physics tick and skips odd-tick phase boundaries (`5`, `11`, and `21` ticks after entry). Capturing at `--fixed-fps 60` renders every physics tick so every phase boundary in §4 is directly visible, while `--disable-vsync --always-on-top` prevents duplicate frames during capture.
+- **Trigger timing:** The preview times the press so that the state becomes `JAB` on capture frame `10`; the per-frame log confirms it.
+- **Frames to read & what each shows:**
+  - **Capture frame `10` (jab frame `0`, entry):** State becomes `JAB` at neutral rest pose (`BodyPivot.position.x = 0`, `rotation = 0`, `KeyBob.position.y = 0`), hitbox closed.
+  - **Capture frame `13` (jab frame `3`, coil peak):** Peak startup anticipation coil (`BodyPivot.position.x = -6`, `rotation = -0.10 rad`, `KeyBob.position.y = +2`), key stays anchored on Bolt's back.
+  - **Capture frame `14` (jab frame `4`, final startup):** Last tick before hitbox opens, accelerating forward out of coil.
+  - **Capture frame `15` (jab frame `5`, active onset):** First active frame; full forward lunge (`BodyPivot.position.x = +14`, `rotation = +0.12 rad`, `KeyBob.position.y = -2`), hitbox opens.
+  - **Capture frame `20` (jab frame `10`, active end):** Final active frame; held full extension (`+14 px`, `+0.12 rad`) on the last live hitbox tick.
+  - **Capture frame `21` (jab frame `11`, recovery onset):** First recovery frame; retraction begins (`BodyPivot.position.x = +8`, `rotation = +0.05 rad`, `KeyBob.position.y = -1`), hitbox closed.
+  - **Capture frame `31` (jab frame `21`, end / rest):** Return to `IDLE`; rig settled back at exact neutral rest pose (`0.0, 0.0, 0.0`).
+
+---
+
+## 10. At least three predicted failures
+
+1. **Planned existing test changes (`test_wind_steam_state.gd:149, 159` and `test_slice.gd:182, 187`):** Replacing the rewind scale squash with the turning sheet breaks `test_wind_steam_state.gd:149`; hiding `KeyMount` on `KO` breaks `test_wind_steam_state.gd:159` (`key_sprite.visible` stays true while `is_visible_in_tree()` is false); moving facing to `FacingPivot.scale.x` breaks `test_slice.gd:182` and `:187` (`sprite.scale.x` is unsigned) -> **Check:** Update all four assertions in one dedicated commit right after the Step 5 wiring (`FacingPivot.scale.x` sign for facing, `is_visible_in_tree()` for `KO`, and `hframes == 8` / `wind_key_cycle` active for `REWIND`).
+2. **One-tick early clip offset on `JAB` entry:** If `advance(dt)` runs after `_neutral -> _enter(JAB)` resets `state_t = 0.0` on the entry tick, `current_animation_position` jumps to `1/60 s` while `state_t == 0.0`, shifting every boundary one frame early -> **Check:** Headless pin test asserting `current_animation_position == state_t` (`0.0`) on the `JAB` entry tick (`tick 0`) and on every subsequent tick `0..21`.
+3. **Double authority fight or double facing flip:** If `_apply_pose()` writes `KeyMount.position` while a clip keys `KeyMount:position:y`, or still multiplies `KeyMount.position.x` / `sprite.offset` / `sprite.scale.x` by `facing` under `FacingPivot`, transforms fight or double-flip -> **Check:** Structure/authority test and pin test verifying Bolt and Rivet both lunge forward (`+x` in facing space) with `KeyBob` sole authority over `KeyBob:position:y`.
+4. **Clip advancing during `main.paused` or `hitstop`:** If `callback_mode_process` is set to `IDLE` (`1`) or `PHYSICS` (`0`) instead of `MANUAL` (`2`), the player advances during `main.paused` and during the 5-tick hitstop freeze -> **Check:** Headless pin test toggling `main.paused` mid-jab and landing a jab on Rivet, asserting `current_animation_position` and pose transforms stay frozen across pause and hitstop ticks.
+5. **Seam stall on `wind_key_cycle`:** If frame `0` is duplicated at `t = length` (`1.000 s`) or `length` is misconfigured, the key stalls at the wrap boundary -> **Check:** Resource read-back verifying `length == 1.0`, `step == 0.125`, and key count `== 8`, plus pin test logging `key_sprite.frame` across 5+ full turns with zero repeated indices across wraps.
+
+---
+
+## 11. The seven short answers
+
+1. **Routes and read-back difference:** `wind_key_cycle` uses the sprite-sheet route (`Sprite2D` with `hframes = 8` driven by an `AnimationPlayer` discrete `frame` track), and `jab_action` uses the cutout-rig route (named `Node2D` pivots `FacingPivot -> BodyPivot -> KeyMount -> KeyBob` driven by an `AnimationPlayer` transform resource). If `AnimatedSprite2D` were used instead, it sits outside `AnimationPlayer` so an `AnimationPlayer` read-back would never see it—its read-back would have to run against `SpriteFrames` (`has_animation`, `get_frame_count`, `get_animation_speed`, `get_animation_loop`, and `autoplay == ""`); on our `Sprite2D` + `AnimationPlayer` route, read-back inspects the `Animation` `.tres` tracks directly alongside the `Sprite2D` grid (`hframes == 8`, `vframes == 1`).
+2. **Continuous updates on a frame track:** `Sprite2D.frame` is an integer property, so leaving a frame track on `UPDATE_CONTINUOUS` does not blend textures; instead, linear interpolation sweeps rapidly through every intermediate cell between the two keyed frames.
+3. **`Animation.step` and default side effects:** `Animation.step` is `1.0 / 60.0` (`0.016667 s`) for `jab_action` (and `1.0 / 8.0 = 0.125 s` for `wind_key_cycle`). Leaving `jab_action` at `Animation.step`'s `1/30 s` (`0.033333 s`) default snaps/quantizes key times to 30 fps intervals, shifting odd-tick boundaries (`frame 3` at `0.050 s`, `frame 5` at `0.083333 s`, `frame 11` at `0.183333 s`, and `frame 21` at `0.350000 s`) off their exact 60 Hz physics ticks.
+4. **One authority and other writers:** `KeyAnimPlayer` is the sole authority over `key_sprite:frame`; `FighterAnimPlayer` is the sole authority over `BodyPivot:position:x`, `BodyPivot:rotation`, and `KeyBob:position:y` during `S.JAB`; and `Fighter._apply_pose()` is the sole authority over `FacingPivot:scale:x` (facing), `sprite` texture/base-scale/offset (without facing), `KeyMount:position` (anchor without facing) and `KeyMount:visible`, and `weapon` properties. Other code touching these nodes includes `rewind_tint_driver.gd` (writes `sprite.material` shader parameter only) and `SteamMount` in `godot/effects/steam_mount.gd` (reads `KeyMount` global transform and visibility only).
+5. **Clip tick vs. gameplay tick and max disagreement:** Gameplay reads `state_t`, hitbox active windows, and state transitions on the **60 Hz physics tick** (`1/60 s = 0.016667 s`). Under `--fixed-fps 60` with `MANUAL` mode synced to `state_t` at the end of `step()`, each drawn frame shows the tick just run and the disagreement between the clip's evaluation time and gameplay's `state_t` is **`0.0 s`** (`0` ticks). In the running game, the drawn frame shows the last completed tick, so it trails by less than one tick (under `1/60 s` / `0.016667 s`).
+6. **Cycle seam rule and duplicated wrap frame:** For our discrete frame-track cycle (`wind_key_cycle`), the seam rule is that frame `0` is not duplicated at `t = length` (`1.000 s`), and the gap from the final key (`frame 7` at `0.875 s`) to `length` equals one frame interval (`1/8 s = 0.125 s`). A duplicated frame `0` at the wrap would hold frame `0` for two intervals (`2/8 s = 0.250 s`) on every loop, causing a visible hitch/stutter once per crank revolution.
+7. **Imported rig loop mode and empty-cache proof:** We are not importing a 3D rig in A7 (we use a 2D cutout rig stored as `.tres` resources). If an imported rig were used, its loop mode would have to live in the `.import` file's per-animation import settings so reimporting preserves it; to prove it survives an empty import cache, you delete `godot/.godot`, run `godot --headless --path godot --import`, and run the read-back check to confirm `loop_mode` is still set with zero `Failed loading resource` errors.
+
+---
+
+## A7 revisions
+
+- None yet.
