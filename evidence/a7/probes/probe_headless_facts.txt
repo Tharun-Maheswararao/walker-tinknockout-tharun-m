@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+1. headless advance(0.5): Target.position.x = 50.000 (expect 50), current_animation=probe pos=0.500
+2a. before save: key 1 time == 5/60.0 -> true (0.08333333333333333)
+2b. after .tres round trip: key 0 time 0.05000000074505806 vs 0.05000000000000000  == false  |diff| 0.0000000007  within half a frame true
+2b. after .tres round trip: key 1 time 0.08333333581686020 vs 0.08333333333333333  == false  |diff| 0.0000000025  within half a frame true
+2b. after .tres round trip: key 2 time 0.18333333730697632 vs 0.18333333333333332  == false  |diff| 0.0000000040  within half a frame true
+2b. after .tres round trip: key 3 time 0.34999999403953552 vs 0.34999999999999998  == false  |diff| 0.0000000060  within half a frame true
+2c. .tres text: ["\"times\": PackedFloat32Array(0.05, 0.083333336, 0.18333334, 0.35),"]
+ERROR: Condition "t->type != TYPE_VALUE" is true. Returning: UPDATE_CONTINUOUS
+   at: value_track_get_update_mode (scene/resources/animation.cpp:2756)
+   GDScript backtrace (most recent call first):
+       [0] run (/Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/evidence/a7/probes/probe_headless_facts.gd:45)
+3. update mode on a POSITION_3D track (expect an error line above/below and CONTINUOUS=0): 0

@@ -39,6 +39,12 @@
 - Physics runs at 60 ticks per game second under any `--fixed-fps` (lines 12, 23). At `--fixed-fps 30` each process frame runs two ticks (`evidence/a7/probes/probe_phase_ticks_30fps.txt`).
 - A headless run uses a dummy renderer: no particles are drawn or simulated. Node state is observable; the look is not.
 - Capture with `--disable-vsync --always-on-top` as well as `--fixed-fps`. Without them, Movie Maker on this Mac sometimes writes copies of an earlier frame: the summary reports fewer frames than `--quit-after`. Check the summary line says the full count (2026-11-08).
+- A headless run advances clips and reads their structure. It draws
+  nothing, so whether the motion reads is not observable here.
+- Key times are 32-bit floats; compare them with a tolerance.
+- value_track_get_update_mode applies only to value tracks.
+- Frame strips come from a windowed Movie Maker run, which I start.
+  (Confirmed 2026-11-19: evidence/a7/probes/probe_headless_facts.txt.)
 
 ## Current change
 
