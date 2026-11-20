@@ -1,0 +1,21 @@
+Read CLAUDE.md first. The rig is the fighter's cutout rig (Fighter/FacingPivot/
+BodyPivot, with KeyMount/KeyBob under BodyPivot), built in code by
+godot/fighter/fighter.gd, and its route is keyed cutout. The phase table for
+jab_action is in CHANGE-BRIEF.md §4, in frames at 60 fps.
+
+For a keyed cutout rig: write the jab_action clip for the AnimationPlayer
+(FighterAnimPlayer) in the game, using Godot 4 Animation properties for the
+version in CLAUDE.md (loop_mode, not loop). Put a key at every phase boundary
+in the table, and list each key's time beside the frame it comes from.
+
+Either way, add a read-back test that asserts every track resolves to a real
+node and property, bone or blend shape; that the key times or clip length
+match the brief, compared with a tolerance; and that the loop mode is as
+stated. Branch the track check on track type: a 3D position, rotation or
+scale track names a bone, and a blend-shape track names a blend shape.
+
+Run it through ./scripts/run-test.sh and show the real output. Do not wire the
+clip into the state machine yet. Do not commit.
+
+(Filled in from the handout's Step 4 template on 2026-11-19. Run in the
+interactive Claude Code session: claude -p is spend-limited until 2026-12-01.)
