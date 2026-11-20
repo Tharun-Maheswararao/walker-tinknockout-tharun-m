@@ -22,10 +22,14 @@ PASS  spring < 25% -> music slowed (pitch 0.85)
 PASS  pause -> Music bus low-pass on
 PASS  pause -> fighters frozen
 PASS  unpause -> low-pass off
-FAIL  walking left flips Bolt's sprite (runtime flip)
-PASS  walking right faces right again
+PASS  walking left flips Bolt (runtime flip, FacingPivot; was: sprite.scale.x)
+PASS  walking right faces right again (FacingPivot; was: sprite.scale.x, vacuous after A7)
       unmuted end state [62.5, 83.0, 30.7, 23.0, 191.69, 287.03, 2]
       muted   end state [62.5, 83.0, 30.7, 23.0, 191.69, 287.03, 2]
 PASS  sound never decides state: muted run == unmuted run
 
-25 checks, 1 failed
+25 checks, 0 failed
+WARNING: 30 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 10 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

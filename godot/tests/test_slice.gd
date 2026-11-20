@@ -179,12 +179,14 @@ func test_facing_follows_input() -> void:
 	await frames(10)
 	Input.action_release("move_left")
 	await frames(2)
-	ok(main.bolt.facing == -1 and main.bolt.sprite.scale.x < 0.0, "walking left flips Bolt's sprite (runtime flip)")
+	# A7 pin update (CHANGE-BRIEF.md §7, planned): facing moved from sprite.scale.x to
+	# FacingPivot.scale.x, which mirrors the whole rig (sprite.scale.x is now always positive).
+	ok(main.bolt.facing == -1 and main.bolt.facing_pivot.scale.x < 0.0, "walking left flips Bolt (runtime flip, FacingPivot; was: sprite.scale.x)")
 	Input.action_press("move_right")
 	await frames(10)
 	Input.action_release("move_right")
 	await frames(2)
-	ok(main.bolt.facing == 1 and main.bolt.sprite.scale.x > 0.0, "walking right faces right again")
+	ok(main.bolt.facing == 1 and main.bolt.facing_pivot.scale.x > 0.0, "walking right faces right again (FacingPivot; was: sprite.scale.x, vacuous after A7)")
 
 ## The same scripted fight, muted and unmuted, must end identically.
 func scripted_fight(muted: bool) -> Array:

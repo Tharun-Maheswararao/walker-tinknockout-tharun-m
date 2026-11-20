@@ -1,0 +1,79 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+-- A. structure (real Bolt and Rivet in main.tscn)
+PASS  bolt: every named node of the brief's rig, with its parentage and class (missing or wrong: [])
+PASS  bolt: the script's rig variables are those named nodes
+PASS  bolt FighterAnimPlayer: callback_mode_process MANUAL (got 2)
+PASS  bolt FighterAnimPlayer: root_node .. resolves to the fighter
+PASS  bolt KeyAnimPlayer: callback_mode_process MANUAL (got 2)
+PASS  bolt KeyAnimPlayer: root_node .. resolves to the fighter
+PASS  bolt: FighterAnimPlayer holds exactly the clip the code requests, jab_action, from its resource
+PASS  bolt: KeyAnimPlayer holds exactly the clip the code requests, wind_key_cycle, from its resource
+PASS  bolt: track_problems finds nothing on the REAL rig []
+PASS  bolt: key_sprite shows key-bolt-sheet.png sliced 8 x 1
+PASS  bolt: no AnimationTree and no AnimatedSprite2D (brief §5-6)
+PASS  bolt: at load, no clip playing, rig at rest, key on frame 0
+PASS  rivet: every named node of the brief's rig, with its parentage and class (missing or wrong: [])
+PASS  rivet: the script's rig variables are those named nodes
+PASS  rivet FighterAnimPlayer: callback_mode_process MANUAL (got 2)
+PASS  rivet FighterAnimPlayer: root_node .. resolves to the fighter
+PASS  rivet KeyAnimPlayer: callback_mode_process MANUAL (got 2)
+PASS  rivet KeyAnimPlayer: root_node .. resolves to the fighter
+PASS  rivet: FighterAnimPlayer holds exactly the clip the code requests, jab_action, from its resource
+PASS  rivet: KeyAnimPlayer holds exactly the clip the code requests, wind_key_cycle, from its resource
+PASS  rivet: track_problems finds nothing on the REAL rig []
+PASS  rivet: key_sprite shows key-rivet-sheet.png sliced 8 x 1
+PASS  rivet: no AnimationTree and no AnimatedSprite2D (brief §5-6)
+PASS  rivet: at load, no clip playing, rig at rest, key on frame 0
+
+-- A. one authority, from the source (every assignment to a rig node, by function)
+rig writes found: ["fighter/fighter.gd:90 _ready facing_pivot.name", "fighter/fighter.gd:93 _ready body_pivot.name", "fighter/fighter.gd:100 _ready key_mount.name", "fighter/fighter.gd:103 _ready key_bob.name", "fighter/fighter.gd:106 _ready key_sprite.name", "fighter/fighter.gd:107 _ready key_sprite.z_index", "fighter/fighter.gd:133 _load_art key_sprite.texture", "fighter/fighter.gd:134 _load_art key_sprite.hframes", "fighter/fighter.gd:135 _load_art key_sprite.vframes", "fighter/fighter.gd:136 _load_art key_sprite.scale", "fighter/fighter.gd:306 _apply_pose facing_pivot.scale", "fighter/fighter.gd:313 _apply_pose key_mount.position", "fighter/fighter.gd:315 _apply_pose key_mount.visible"]
+PASS  no script outside fighter.gd writes a rig node
+PASS  after setup, the only code writes to the rig are _apply_pose's FacingPivot.scale and KeyMount.position/visible (got ["_apply_pose facing_pivot.scale", "_apply_pose key_mount.position", "_apply_pose key_mount.visible"])
+PASS  BodyPivot and KeyBob are never written by code (only named at setup): FighterAnimPlayer is their one writer
+PASS  key_sprite.frame is never written by code: KeyAnimPlayer is its one writer
+PASS  _sync_clips assigns to no rig node; it only moves the two players
+
+-- B1. jab whiff: jab_action only in JAB, at state_t, pose = the clip's value
+PASS  B-R2 jab_action plays on every JAB tick e..e+20 with position = state_t (within half a frame)
+PASS  one authority: on every JAB tick BodyPivot x, rotation and KeyBob y equal the clip's own value at state_t (largest gap 0.00000)
+PASS  before the jab: no clip, rig at rest
+PASS  IDLE on e+21: no clip, rig back at rest
+PASS  during the jab the key holds frame 0 with no key clip
+
+-- B2. jab lands: the clip freezes with state_t through hitstop
+PASS  B-R2 clip position and pose frozen on e+6..e+10 (hitstop), at 0.0833 s and +14 px
+PASS  the clip moves again on e+11
+PASS  IDLE on e+26 with the rig at rest
+PASS  Rivet, hit, shows no clip and a resting rig
+
+-- B3. pause mid-jab
+PASS  B-R2 paused 10 ticks: clip position and pose frozen at 0.0333 s (10 paused ticks)
+
+-- B4. hit in each phase: the rig snaps to rest on the tick the hit lands
+PASS  B-R3 startup (hit on e+2): jab_action on e+1, then no clip and rest pose on the hit tick itself (x 0.00)
+PASS  B-R3 startup: the rig stays at rest through the hitstop that follows
+PASS  B-R3 active (hit on e+7): jab_action on e+6, then no clip and rest pose on the hit tick itself (x 0.00)
+PASS  B-R3 active: the rig stays at rest through the hitstop that follows
+PASS  B-R3 recovery (hit on e+15): jab_action on e+14, then no clip and rest pose on the hit tick itself (x 0.00)
+PASS  B-R3 recovery: the rig stays at rest through the hitstop that follows
+PASS  B-R3 KO: no clip and the rig at rest on the KO tick
+KO on tick 27; key first hidden on tick 33 (hitstop 6 ticks)
+PASS  B-R5 KO: the key is hidden from the first tick after the hitstop (KO+6) and stays hidden
+
+-- B5. rewind: the key cycle at state_t, held at full wind, frame 0 after
+PASS  A-R3 r..full (ticks 5..95): wind_key_cycle at state_t mod 1 s, frame = floor(8 x that)
+PASS  A-R3 at full wind the key holds frame 4 until release (ticks 95..149)
+PASS  during REWIND no jab clip and the rig at rest
+PASS  A-R3 release: IDLE on tick 150 with the key back on frame 0 and no key clip
+PASS  A-R3 REWIND entered at full wind: the key never turns (frame 0, no clip)
+
+-- B6. facing lives on FacingPivot
+PASS  walking left: facing -1, FacingPivot.scale.x -1, sprite.scale.x stays positive (0.333)
+PASS  Rivet's jab goes forward for him: body -14.0 px from his feet at active onset (want -14)
+
+54 checks, 0 failed
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 4 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

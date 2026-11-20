@@ -1,0 +1,68 @@
+diff --git a/godot/tests/test_slice.gd b/godot/tests/test_slice.gd
+index 7a9fb6e..3642c1e 100644
+--- a/godot/tests/test_slice.gd
++++ b/godot/tests/test_slice.gd
+@@ -179,12 +179,14 @@ func test_facing_follows_input() -> void:
+ 	await frames(10)
+ 	Input.action_release("move_left")
+ 	await frames(2)
+-	ok(main.bolt.facing == -1 and main.bolt.sprite.scale.x < 0.0, "walking left flips Bolt's sprite (runtime flip)")
++	# A7 pin update (CHANGE-BRIEF.md §7, planned): facing moved from sprite.scale.x to
++	# FacingPivot.scale.x, which mirrors the whole rig (sprite.scale.x is now always positive).
++	ok(main.bolt.facing == -1 and main.bolt.facing_pivot.scale.x < 0.0, "walking left flips Bolt (runtime flip, FacingPivot; was: sprite.scale.x)")
+ 	Input.action_press("move_right")
+ 	await frames(10)
+ 	Input.action_release("move_right")
+ 	await frames(2)
+-	ok(main.bolt.facing == 1 and main.bolt.sprite.scale.x > 0.0, "walking right faces right again")
++	ok(main.bolt.facing == 1 and main.bolt.facing_pivot.scale.x > 0.0, "walking right faces right again (FacingPivot; was: sprite.scale.x, vacuous after A7)")
+ 
+ ## The same scripted fight, muted and unmuted, must end identically.
+ func scripted_fight(muted: bool) -> Array:
+diff --git a/godot/tests/test_wind_steam_state.gd b/godot/tests/test_wind_steam_state.gd
+index 905ba6d..f853de0 100644
+--- a/godot/tests/test_wind_steam_state.gd
++++ b/godot/tests/test_wind_steam_state.gd
+@@ -125,7 +125,8 @@ func run() -> void:
+ 	print("== F5, B-R2: real rewinding raises the wind back past 25")
+ 	var at24 := -1.0
+ 	var n := 0
+-	var key_min := 1.0                   # narrowest |key scale.x| seen while rewinding
++	var key_frames := {}                 # A7 pin update: key_sprite frames seen while rewinding
++	var key_clip := false                # A7 pin update: wind_key_cycle seen playing while rewinding
+ 	var steam_min := 1.0                 # narrowest |steam global scale.x| at the same time
+ 	var off_key := 0.0                   # largest distance between the steam and the key
+ 	Input.action_press("rewind")
+@@ -135,7 +136,8 @@ func run() -> void:
+ 		if is_equal_approx(main.bolt.wind, 24.0) and at24 < 0.0:
+ 			at24 = bs.amount_ratio
+ 		if main.bolt.state == Fighter.S.REWIND:
+-			key_min = minf(key_min, absf(main.bolt.key_sprite.scale.x))
++			key_frames[main.bolt.key_sprite.frame] = true
++			key_clip = key_clip or main.bolt.key_anim.current_animation == &"wind_key_cycle"
+ 			steam_min = minf(steam_min, absf(bs.get_global_transform().get_scale().x))
+ 			off_key = maxf(off_key, bs.global_position.distance_to(main.bolt.key_sprite.global_position))
+ 	Input.action_release("rewind")
+@@ -146,7 +148,10 @@ func run() -> void:
+ 	ok(bs.amount_ratio == 0.0, "B-R2 ratio back to 0 above 25 (got %.3f)" % bs.amount_ratio)
+ 	ok(bs.emitting, "B-R2 emitting stays true, so live puffs finish their lives")
+ 	ok(bs.amount == 25, "amount still 25 after rewinding")
+-	ok(key_min < 0.1, "the key squashed while rewinding (narrowest |scale.x| %.3f)" % key_min)
++	# A7 pin update (CHANGE-BRIEF.md §7, planned): the 8-frame turning sheet replaced the
++	# code-driven scale squash, so the key turns through its frames instead of narrowing.
++	ok(main.bolt.key_sprite.hframes == 8 and key_clip and key_frames.size() >= 5,
++		"the key turned while rewinding: hframes 8, wind_key_cycle playing, frames seen %s (was: the key squashed)" % [key_frames.keys()])
+ 	ok(is_equal_approx(steam_min, 1.0 / 3.0), "the steam did not squash with it: |scale.x| stayed 1/3 (narrowest %.3f) (TUNING Effect B rev 1)" % steam_min)
+ 	ok(off_key < 0.01, "the steam stayed on the key while rewinding (largest offset %.3f px)" % off_key)
+ 
+@@ -156,7 +161,9 @@ func run() -> void:
+ 	await tap("jab")
+ 	await frames(20)
+ 	ok(main.rivet.state == Fighter.S.KO and main.round_state == main.R.KO, "jab at 5 hp -> Rivet KO")
+-	ok(not main.rivet.key_sprite.visible, "Rivet's key_sprite hidden on KO (fighter.gd:274)")
++	# A7 pin update (CHANGE-BRIEF.md §7, planned): KO now hides KeyMount, the key's parent,
++	# so key_sprite.visible itself stays true; what the player sees is visibility in the tree.
++	ok(not main.rivet.key_sprite.is_visible_in_tree(), "Rivet's key hidden on KO (KeyMount hidden; was: key_sprite.visible)")
+ 	ok(not rs.is_visible_in_tree(), "B-R5 Rivet's steam is not visible in the tree")
+ 	ok(main.bolt.key_sprite.visible and bs.is_visible_in_tree(), "Bolt's key and steam still visible")
+ 
