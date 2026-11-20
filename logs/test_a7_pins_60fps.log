@@ -1,0 +1,229 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+test_a7_pins: physics 60 ticks/s
+
+-- P1 scripted run: walk, jab, cutlass, block, rewind
+P1 tick   1  IDLE     t=0.0333 box=- wind=100.0 paused=false
+P1 tick   2  IDLE     t=0.0500 box=- wind=100.0 paused=false
+P1 tick   3  WALK     t=0.0000 box=- wind=100.0 paused=false
+P1 tick   4  WALK     t=0.0167 box=- wind= 99.9 paused=false
+P1 tick   5  WALK     t=0.0333 box=- wind= 99.9 paused=false
+P1 tick   6  WALK     t=0.0500 box=- wind= 99.8 paused=false
+P1 tick   7  WALK     t=0.0667 box=- wind= 99.8 paused=false
+P1 tick   8  WALK     t=0.0833 box=- wind= 99.7 paused=false
+P1 tick   9  WALK     t=0.1000 box=- wind= 99.7 paused=false
+P1 tick  10  WALK     t=0.1167 box=- wind= 99.6 paused=false
+P1 tick  11  WALK     t=0.1333 box=- wind= 99.6 paused=false
+P1 tick  12  WALK     t=0.1500 box=- wind= 99.5 paused=false
+P1 tick  13  WALK     t=0.1667 box=- wind= 99.5 paused=false
+P1 tick  14  WALK     t=0.1833 box=- wind= 99.4 paused=false
+P1 tick  15  WALK     t=0.2000 box=- wind= 99.4 paused=false
+P1 tick  16  WALK     t=0.2167 box=- wind= 99.3 paused=false
+P1 tick  17  WALK     t=0.2333 box=- wind= 99.3 paused=false
+P1 tick  18  WALK     t=0.2500 box=- wind= 99.2 paused=false
+P1 tick  19  WALK     t=0.2667 box=- wind= 99.2 paused=false
+P1 tick  20  WALK     t=0.2833 box=- wind= 99.1 paused=false
+P1 tick  21  WALK     t=0.3000 box=- wind= 99.1 paused=false
+P1 tick  22  WALK     t=0.3167 box=- wind= 99.0 paused=false
+P1 tick  23  IDLE     t=0.0000 box=- wind= 99.0 paused=false
+P1 tick  24  IDLE     t=0.0167 box=- wind= 99.0 paused=false
+P1 tick  25  IDLE     t=0.0333 box=- wind= 99.0 paused=false
+P1 tick  26  IDLE     t=0.0500 box=- wind= 99.0 paused=false
+P1 tick  27  IDLE     t=0.0667 box=- wind= 99.0 paused=false
+P1 tick  28  IDLE     t=0.0833 box=- wind= 99.0 paused=false
+P1 tick  29  IDLE     t=0.1000 box=- wind= 99.0 paused=false
+P1 tick  30  JAB      t=0.0000 box=- wind= 87.0 paused=false
+P1 tick  31  JAB      t=0.0167 box=- wind= 87.0 paused=false
+P1 tick  32  JAB      t=0.0333 box=- wind= 87.0 paused=false
+P1 tick  33  JAB      t=0.0500 box=- wind= 87.0 paused=false
+P1 tick  34  JAB      t=0.0667 box=- wind= 87.0 paused=false
+P1 tick  35  JAB      t=0.0833 box=LIVE wind= 87.0 paused=false
+P1 tick  36  JAB      t=0.1000 box=LIVE wind= 87.0 paused=false
+P1 tick  37  JAB      t=0.1167 box=LIVE wind= 87.0 paused=false
+P1 tick  38  JAB      t=0.1333 box=LIVE wind= 87.0 paused=false
+P1 tick  39  JAB      t=0.1500 box=LIVE wind= 87.0 paused=false
+P1 tick  40  JAB      t=0.1667 box=LIVE wind= 87.0 paused=false
+P1 tick  41  JAB      t=0.1833 box=- wind= 87.0 paused=false
+P1 tick  42  JAB      t=0.2000 box=- wind= 87.0 paused=false
+P1 tick  43  JAB      t=0.2167 box=- wind= 87.0 paused=false
+P1 tick  44  JAB      t=0.2333 box=- wind= 87.0 paused=false
+P1 tick  45  JAB      t=0.2500 box=- wind= 87.0 paused=false
+P1 tick  46  JAB      t=0.2667 box=- wind= 87.0 paused=false
+P1 tick  47  JAB      t=0.2833 box=- wind= 87.0 paused=false
+P1 tick  48  JAB      t=0.3000 box=- wind= 87.0 paused=false
+P1 tick  49  JAB      t=0.3167 box=- wind= 87.0 paused=false
+P1 tick  50  JAB      t=0.3333 box=- wind= 87.0 paused=false
+P1 tick  51  IDLE     t=0.0000 box=- wind= 87.0 paused=false
+P1 tick  52  IDLE     t=0.0167 box=- wind= 87.0 paused=false
+P1 tick  53  IDLE     t=0.0333 box=- wind= 87.0 paused=false
+P1 tick  54  IDLE     t=0.0500 box=- wind= 87.0 paused=false
+P1 tick  55  IDLE     t=0.0667 box=- wind= 87.0 paused=false
+P1 tick  56  IDLE     t=0.0833 box=- wind= 87.0 paused=false
+P1 tick  57  IDLE     t=0.1000 box=- wind= 87.0 paused=false
+P1 tick  58  IDLE     t=0.1167 box=- wind= 87.0 paused=false
+P1 tick  59  IDLE     t=0.1333 box=- wind= 87.0 paused=false
+P1 tick  60  CUTLASS  t=0.0000 box=- wind= 65.0 paused=false
+P1 tick  61  CUTLASS  t=0.0167 box=- wind= 65.0 paused=false
+P1 tick  62  CUTLASS  t=0.0333 box=- wind= 65.0 paused=false
+P1 tick  63  CUTLASS  t=0.0500 box=- wind= 65.0 paused=false
+P1 tick  64  CUTLASS  t=0.0667 box=- wind= 65.0 paused=false
+P1 tick  65  CUTLASS  t=0.0833 box=- wind= 65.0 paused=false
+P1 tick  66  CUTLASS  t=0.1000 box=- wind= 65.0 paused=false
+P1 tick  67  CUTLASS  t=0.1167 box=- wind= 65.0 paused=false
+P1 tick  68  CUTLASS  t=0.1333 box=- wind= 65.0 paused=false
+P1 tick  69  CUTLASS  t=0.1500 box=LIVE wind= 65.0 paused=false
+P1 tick  70  CUTLASS  t=0.1667 box=LIVE wind= 65.0 paused=false
+P1 tick  71  CUTLASS  t=0.1833 box=LIVE wind= 65.0 paused=false
+P1 tick  72  CUTLASS  t=0.2000 box=LIVE wind= 65.0 paused=false
+P1 tick  73  CUTLASS  t=0.2167 box=LIVE wind= 65.0 paused=false
+P1 tick  74  CUTLASS  t=0.2333 box=LIVE wind= 65.0 paused=false
+P1 tick  75  CUTLASS  t=0.2500 box=LIVE wind= 65.0 paused=false
+P1 tick  76  CUTLASS  t=0.2667 box=- wind= 65.0 paused=false
+P1 tick  77  CUTLASS  t=0.2833 box=- wind= 65.0 paused=false
+P1 tick  78  CUTLASS  t=0.3000 box=- wind= 65.0 paused=false
+P1 tick  79  CUTLASS  t=0.3167 box=- wind= 65.0 paused=false
+P1 tick  80  CUTLASS  t=0.3333 box=- wind= 65.0 paused=false
+P1 tick  81  CUTLASS  t=0.3500 box=- wind= 65.0 paused=false
+P1 tick  82  CUTLASS  t=0.3667 box=- wind= 65.0 paused=false
+P1 tick  83  CUTLASS  t=0.3833 box=- wind= 65.0 paused=false
+P1 tick  84  CUTLASS  t=0.4000 box=- wind= 65.0 paused=false
+P1 tick  85  CUTLASS  t=0.4167 box=- wind= 65.0 paused=false
+P1 tick  86  CUTLASS  t=0.4333 box=- wind= 65.0 paused=false
+P1 tick  87  CUTLASS  t=0.4500 box=- wind= 65.0 paused=false
+P1 tick  88  CUTLASS  t=0.4667 box=- wind= 65.0 paused=false
+P1 tick  89  CUTLASS  t=0.4833 box=- wind= 65.0 paused=false
+P1 tick  90  CUTLASS  t=0.5000 box=- wind= 65.0 paused=false
+P1 tick  91  CUTLASS  t=0.5167 box=- wind= 65.0 paused=false
+P1 tick  92  CUTLASS  t=0.5333 box=- wind= 65.0 paused=false
+P1 tick  93  CUTLASS  t=0.5500 box=- wind= 65.0 paused=false
+P1 tick  94  IDLE     t=0.0000 box=- wind= 65.0 paused=false
+P1 tick  95  IDLE     t=0.0167 box=- wind= 65.0 paused=false
+P1 tick  96  IDLE     t=0.0333 box=- wind= 65.0 paused=false
+P1 tick  97  IDLE     t=0.0500 box=- wind= 65.0 paused=false
+P1 tick  98  IDLE     t=0.0667 box=- wind= 65.0 paused=false
+P1 tick  99  IDLE     t=0.0833 box=- wind= 65.0 paused=false
+P1 tick 100  BLOCK    t=0.0000 box=- wind= 65.0 paused=false
+P1 tick 101  BLOCK    t=0.0167 box=- wind= 65.0 paused=false
+P1 tick 102  BLOCK    t=0.0333 box=- wind= 65.0 paused=false
+P1 tick 103  BLOCK    t=0.0500 box=- wind= 65.0 paused=false
+P1 tick 104  BLOCK    t=0.0667 box=- wind= 65.0 paused=false
+P1 tick 105  BLOCK    t=0.0833 box=- wind= 65.0 paused=false
+P1 tick 106  BLOCK    t=0.1000 box=- wind= 65.0 paused=false
+P1 tick 107  BLOCK    t=0.1167 box=- wind= 65.0 paused=false
+P1 tick 108  BLOCK    t=0.1333 box=- wind= 65.0 paused=false
+P1 tick 109  BLOCK    t=0.1500 box=- wind= 65.0 paused=false
+P1 tick 110  IDLE     t=0.0000 box=- wind= 65.0 paused=false
+P1 tick 111  IDLE     t=0.0167 box=- wind= 65.0 paused=false
+P1 tick 112  IDLE     t=0.0333 box=- wind= 65.0 paused=false
+P1 tick 113  IDLE     t=0.0500 box=- wind= 65.0 paused=false
+P1 tick 114  IDLE     t=0.0667 box=- wind= 65.0 paused=false
+P1 tick 115  IDLE     t=0.0833 box=- wind= 65.0 paused=false
+P1 tick 116  IDLE     t=0.1000 box=- wind= 65.0 paused=false
+P1 tick 117  IDLE     t=0.1167 box=- wind= 65.0 paused=false
+P1 tick 118  IDLE     t=0.1333 box=- wind= 65.0 paused=false
+P1 tick 119  IDLE     t=0.1500 box=- wind= 65.0 paused=false
+P1 tick 120  REWIND   t=0.0000 box=- wind= 65.0 paused=false
+P1 tick 121  REWIND   t=0.0167 box=- wind= 65.0 paused=false
+P1 tick 122  REWIND   t=0.0333 box=- wind= 65.0 paused=false
+P1 tick 123  REWIND   t=0.0500 box=- wind= 65.0 paused=false
+P1 tick 124  REWIND   t=0.0667 box=- wind= 65.0 paused=false
+P1 tick 125  REWIND   t=0.0833 box=- wind= 65.0 paused=false
+P1 tick 126  REWIND   t=0.1000 box=- wind= 65.0 paused=false
+P1 tick 127  REWIND   t=0.1167 box=- wind= 65.0 paused=false
+P1 tick 128  REWIND   t=0.1333 box=- wind= 65.0 paused=false
+P1 tick 129  REWIND   t=0.1500 box=- wind= 65.0 paused=false
+P1 tick 130  REWIND   t=0.1667 box=- wind= 65.0 paused=false
+P1 tick 131  REWIND   t=0.1833 box=- wind= 65.0 paused=false
+P1 tick 132  REWIND   t=0.2000 box=- wind= 65.0 paused=false
+P1 tick 133  REWIND   t=0.2167 box=- wind= 65.0 paused=false
+P1 tick 134  REWIND   t=0.2333 box=- wind= 65.0 paused=false
+P1 tick 135  REWIND   t=0.2500 box=- wind= 75.0 paused=false
+P1 tick 136  REWIND   t=0.2667 box=- wind= 75.0 paused=false
+P1 tick 137  REWIND   t=0.2833 box=- wind= 75.0 paused=false
+P1 tick 138  REWIND   t=0.3000 box=- wind= 75.0 paused=false
+P1 tick 139  REWIND   t=0.3167 box=- wind= 75.0 paused=false
+P1 tick 140  IDLE     t=0.0000 box=- wind= 75.0 paused=false
+P1 tick 141  IDLE     t=0.0167 box=- wind= 75.0 paused=false
+P1 tick 142  IDLE     t=0.0333 box=- wind= 75.0 paused=false
+P1 tick 143  IDLE     t=0.0500 box=- wind= 75.0 paused=false
+P1 tick 144  IDLE     t=0.0667 box=- wind= 75.0 paused=false
+P1 tick 145  IDLE     t=0.0833 box=- wind= 75.0 paused=false
+P1 tick 146  IDLE     t=0.1000 box=- wind= 75.0 paused=false
+P1 tick 147  IDLE     t=0.1167 box=- wind= 75.0 paused=false
+P1 tick 148  IDLE     t=0.1333 box=- wind= 75.0 paused=false
+P1 tick 149  IDLE     t=0.1500 box=- wind= 75.0 paused=false
+P1 tick 150  IDLE     t=0.1667 box=- wind= 75.0 paused=false
+P1 transition ticks: ["3 IDLE->WALK", "23 WALK->IDLE", "30 IDLE->JAB", "51 JAB->IDLE", "60 IDLE->CUTLASS", "94 CUTLASS->IDLE", "100 IDLE->BLOCK", "110 BLOCK->IDLE", "120 IDLE->REWIND", "140 REWIND->IDLE"]
+PASS  P1 order IDLE>WALK>IDLE>JAB>IDLE>CUTLASS>IDLE>BLOCK>IDLE>REWIND>IDLE (got ["WALK", "IDLE", "JAB", "IDLE", "CUTLASS", "IDLE", "BLOCK", "IDLE", "REWIND", "IDLE"])
+PASS  P1 JAB lasts 21 ticks (got 21)
+PASS  P1 CUTLASS lasts 34 ticks (got 34)
+PASS  P1 WALK, BLOCK and REWIND last as long as their keys are held: 20, 10, 20 (got [20, 10, 20])
+
+-- P2 jab whiff (phase ticks)
+P2 JAB entered on tick 5
+PASS  P2 JAB entry tick has state_t 0 (got 0.0000)
+PASS  P2 box live on e+5..e+10, 6 ticks (got [10, 11, 12, 13, 14, 15], e=5)
+PASS  P2 startup ends on e+4 (state_t 0.0667 < 0.07), active opens on e+5 (0.0833)
+PASS  P2 last JAB tick e+20, IDLE on e+21 (21 ticks, 0.35 s)
+PASS  P2 jab costs 12 wind on entry (100.0 -> 88.0)
+PASS  P2 JAB starts on the tick the press lands (press 5, JAB 5)
+
+-- P3 cutlass whiff (phase ticks)
+PASS  P3 box live on e+9..e+15, 7 ticks (got [14, 15, 16, 17, 18, 19, 20], e=5)
+PASS  P3 last CUTLASS tick e+33, IDLE on e+34 (34 ticks)
+
+-- P4 jab lands (the gameplay fact the clip is read against)
+PASS  P4 one unblocked jab hit, on e+5, the first active tick (got [[10, "bolt", "jab", false]], e=5)
+PASS  P4 hitstop: state_t frozen at 0.0833 on e+6..e+10 (5 ticks)
+PASS  P4 state_t moves again on e+11 (0.1000)
+PASS  P4 IDLE on e+26: a landed jab lasts 5 ticks longer than a whiff
+PASS  P4 Rivet HURT on e+5
+PASS  P4 Rivet HURT -> IDLE on e+29: frozen e+5..e+9 (his step follows Bolt's), then 20 ticks (0.32 s) (got e+29)
+
+-- P5 second jab press before, on and after each boundary (no buffering)
+PASS  P5 press landing on e+4 (scheduled e+4) is lost: one JAB only (got [5], e=5)
+PASS  P5 press landing on e+5 (scheduled e+5) is lost: one JAB only (got [65], e=65)
+PASS  P5 press landing on e+6 (scheduled e+6) is lost: one JAB only (got [125], e=125)
+PASS  P5 press landing on e+10 (scheduled e+10) is lost: one JAB only (got [185], e=185)
+PASS  P5 press landing on e+11 (scheduled e+11) is lost: one JAB only (got [245], e=245)
+PASS  P5 press landing on e+12 (scheduled e+12) is lost: one JAB only (got [305], e=305)
+PASS  P5 press landing on e+20 (scheduled e+20) is lost: one JAB only (got [365], e=365)
+PASS  P5 press landing on e+21 (scheduled e+21) is lost: one JAB only (got [425], e=425)
+PASS  P5 press landing on e+22 (scheduled e+22): a new JAB starts that tick (got [485, 507], e=485)
+P5 second presses landed on e+[4, 5, 6, 10, 11, 12, 20, 21, 22]
+PASS  P5 one tick per frame: every press landed where scheduled, incl. e+21 (lost) and e+22 (accepted) (landed [4, 5, 6, 10, 11, 12, 20, 21, 22])
+
+-- P6 hit interrupts in startup, active and recovery
+PASS  P6 hit on e+2 (startup): JAB -> HURT that tick (got JAB -> HURT)
+PASS  P6 the hit fell in startup as intended (e+2)
+PASS  P6 startup: the jab never reached its own end
+PASS  P6 startup: Bolt takes the cutlass's 13 damage
+PASS  P6 hit on e+7 (active): JAB -> HURT that tick (got JAB -> HURT)
+PASS  P6 the hit fell in active as intended (e+7)
+PASS  P6 active: the jab never reached its own end
+PASS  P6 active: Bolt takes the cutlass's 13 damage
+PASS  P6 hit on e+15 (recovery): JAB -> HURT that tick (got JAB -> HURT)
+PASS  P6 the hit fell in recovery as intended (e+15)
+PASS  P6 recovery: the jab never reached its own end
+PASS  P6 recovery: Bolt takes the cutlass's 13 damage
+PASS  P6 hit with hp 5 during active: JAB -> KO (on e+7)
+
+-- P7 pause mid-jab
+PASS  P7 paused for 10 ticks with JAB's state_t frozen at 0.0333 (paused ticks 10)
+PASS  P7 the jab still runs 21 unpaused ticks (got 21)
+
+-- P8 rewind: a click every 15 ticks, none at full wind
+PASS  P8 REWIND starts on the tick the key lands (tick 5)
+PASS  P8 clicks on r+15, 30, 45, 60, 75, 90: 40 -> 100 (got r+[15, 30, 45, 60, 75, 90])
+PASS  P8 still REWIND at full wind with no more clicks (r+125)
+PASS  P8 IDLE on the tick the release lands (tick 140)
+
+-- P9 walking to 0 wind: EMPTY, then IDLE
+PASS  P9 one EMPTY entry (got [24])
+PASS  P9 EMPTY lasts 97 ticks: 1.60 s plus one tick of float accumulation (got 97)
+
+49 checks, 0 failed
+WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 6 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
