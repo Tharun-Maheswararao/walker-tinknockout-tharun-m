@@ -1,0 +1,84 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+-- 1. res://animations/jab_action.tres
+PASS  clip loads as an Animation
+PASS  loop_mode is Animation.LOOP_NONE: the jab commits once (got 0)
+PASS  step is one frame period at 60 fps, 1/60 s (got 0.0166667)
+PASS  length is 21 frames = 0.35 s (got 0.3500000)
+PASS  no Godot 3 names (loop =, playback_speed) in the resource text
+PASS  3 tracks (got 3)
+
+-- 2. tracks
+PASS  track 0 path FacingPivot/BodyPivot:position:x is one the brief names
+PASS  FacingPivot/BodyPivot:position:x: value track
+PASS  FacingPivot/BodyPivot:position:x: continuous updates (a transform moves between keys)
+PASS  FacingPivot/BodyPivot:position:x: linear interpolation, shaped by each key's transition
+PASS  FacingPivot/BodyPivot:position:x: 6 keys (got 6)
+PASS  BodyPivot:position:x key 0: frame 0 (time 0.0000000), value 0.000, transition 0.5
+PASS  BodyPivot:position:x key 1: frame 3 (time 0.0500000), value -6.000, transition 2.0
+PASS  BodyPivot:position:x key 2: frame 5 (time 0.0833333), value 14.000, transition 1.0
+PASS  BodyPivot:position:x key 3: frame 10 (time 0.1666667), value 14.000, transition 1.0
+PASS  BodyPivot:position:x key 4: frame 11 (time 0.1833333), value 8.000, transition 0.5
+PASS  BodyPivot:position:x key 5: frame 21 (time 0.3500000), value 0.000, transition 1.0
+FAIL  track 1 path FacingPivot/BodyPivot:rotatoin is one the brief names
+PASS  track 2 path FacingPivot/BodyPivot/KeyMount/KeyBob:position:y is one the brief names
+PASS  FacingPivot/BodyPivot/KeyMount/KeyBob:position:y: value track
+PASS  FacingPivot/BodyPivot/KeyMount/KeyBob:position:y: continuous updates (a transform moves between keys)
+PASS  FacingPivot/BodyPivot/KeyMount/KeyBob:position:y: linear interpolation, shaped by each key's transition
+PASS  FacingPivot/BodyPivot/KeyMount/KeyBob:position:y: 6 keys (got 6)
+PASS  KeyBob:position:y key 0: frame 0 (time 0.0000000), value 0.000, transition 0.5
+PASS  KeyBob:position:y key 1: frame 3 (time 0.0500000), value 2.000, transition 2.0
+PASS  KeyBob:position:y key 2: frame 5 (time 0.0833333), value -2.000, transition 1.0
+PASS  KeyBob:position:y key 3: frame 10 (time 0.1666667), value -2.000, transition 1.0
+PASS  KeyBob:position:y key 4: frame 11 (time 0.1833333), value -1.000, transition 0.5
+PASS  KeyBob:position:y key 5: frame 21 (time 0.3500000), value 0.000, transition 1.0
+FAIL  every track the brief names is present
+PASS  a key sits on phase boundary frame 0
+PASS  a key sits on phase boundary frame 5
+PASS  a key sits on phase boundary frame 11
+PASS  a key sits on phase boundary frame 21
+
+-- 3. track resolution on a FIXTURE built to the brief's hierarchy
+FAIL  track_problems finds nothing: every track names a real node and property ["jab_action track 1: BodyPivot has no property rotatoin"]
+
+-- 4. played on the fixture (MANUAL, seek to each frame)
+frame  x       rot     keybob_y
+    0    0.00   0.000    0.00
+    1   -3.33   0.000    1.11
+    2   -5.33   0.000    1.78
+    3   -6.00   0.000    2.00
+    4   -1.00   0.000    1.00
+    5   14.00   0.000   -2.00
+    6   14.00   0.000   -2.00
+    7   14.00   0.000   -2.00
+    8   14.00   0.000   -2.00
+    9   14.00   0.000   -2.00
+   10   14.00   0.000   -2.00
+   11    8.00   0.000   -1.00
+   12    6.48   0.000   -0.81
+   13    5.12   0.000   -0.64
+   14    3.92   0.000   -0.49
+   15    2.88   0.000   -0.36
+   16    2.00   0.000   -0.25
+   17    1.28   0.000   -0.16
+   18    0.72   0.000   -0.09
+   19    0.32   0.000   -0.04
+   20    0.08   0.000   -0.01
+   21    0.00   0.000    0.00
+PASS  pose at frame 0 is (0.00, 0.000, 0.00) as the brief keys it
+FAIL  pose at frame 3 is (-6.00, -0.100, 2.00) as the brief keys it
+FAIL  pose at frame 5 is (14.00, 0.120, -2.00) as the brief keys it
+FAIL  pose at frame 10 is (14.00, 0.120, -2.00) as the brief keys it
+FAIL  pose at frame 11 is (8.00, 0.050, -1.00) as the brief keys it
+PASS  pose at frame 21 is (0.00, 0.000, 0.00) as the brief keys it
+FAIL  the extension holds at +14 px, +0.12 rad on every active frame 5..10
+PASS  startup 0->3 eases out: the first frame moves furthest back (-3.33 vs -0.67)
+PASS  3->5 eases in: it accelerates into the active frame (5.00 then 15.00 px)
+PASS  recovery 11->21 eases out: it settles (first step 1.52 px, last 0.08 px)
+PASS  after the end the rig stays at rest: LOOP_NONE does not wrap into the coil
+
+-- 5. facing comes from FacingPivot, not the clip
+PASS  facing +1: at active onset the body is +14.0 px from the feet (forward)
+PASS  facing -1: at active onset the body is -14.0 px from the feet (forward)
+
+48 checks, 8 failed

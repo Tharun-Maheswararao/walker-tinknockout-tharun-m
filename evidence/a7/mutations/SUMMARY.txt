@@ -1,0 +1,22 @@
+--- mutation M1: rename the property a jab track names: BodyPivot:rotation -> BodyPivot:rotatoin (clip only)
+ godot/animations/jab_action.tres | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+-tracks/1/path = NodePath("FacingPivot/BodyPivot:rotation")
++tracks/1/path = NodePath("FacingPivot/BodyPivot:rotatoin")
+M1 | test_jab_action_readback.gd | exit 8 | 48 checks, 8 failed | FAIL  track 1 path FacingPivot/BodyPivot:rotatoin is one the brief names FAIL  every track the brief names is present FAIL  track_problems finds nothing: every track names a real node and property ["jab_action track 1: BodyPivot has no property rotatoin"] 
+M1 | test_a7_structure.gd | exit 2 | 54 checks, 2 failed | FAIL  bolt: track_problems finds nothing on the REAL rig ["jab_action track 1: BodyPivot has no property rotatoin"] FAIL  rivet: track_problems finds nothing on the REAL rig ["jab_action track 1: BodyPivot has no property rotatoin"] 
+--- mutation M2: flip the cycle's loop mode: loop_mode = 1 -> 0 (Animation.LOOP_NONE)
+ godot/animations/wind_key_cycle.tres | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+-loop_mode = 1
++loop_mode = 0
+M2 | test_wind_key_cycle_readback.gd | exit 2 | 26 checks, 2 failed | FAIL  loop_mode is Animation.LOOP_LINEAR (got 0) FAIL  at least 5 full turns seen (8 frames shown) 
+--- mutation M3: key a cell the sheet does not have: last frame key 7 -> 8 (= hframes x vframes)
+ godot/animations/wind_key_cycle.tres | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+-"values": [0, 1, 2, 3, 4, 5, 6, 7]
++"values": [0, 1, 2, 3, 4, 5, 6, 8]
+M3 | test_wind_key_cycle_readback.gd | exit 5 | 26 checks, 5 failed | FAIL  key values are frames 0..7 in order (got [0, 1, 2, 3, 4, 5, 6, 8]) FAIL  every frame key is inside the sheet: 0 <= frame < hframes x vframes = 8 FAIL  frames change 0,1,..,7,0,1,.. in order across the wraps (35 changes) 
+M4 | test_jab_action_readback.gd | exit 0 | 58 checks, 0 failed | 
+M4 | test_wind_key_cycle_readback.gd | exit 0 | 26 checks, 0 failed | 
+M4 | test_a7_structure.gd | exit 0 | 54 checks, 0 failed | 
