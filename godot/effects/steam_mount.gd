@@ -28,8 +28,11 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	follow()
 
+## A7: the key now sits at Fighter/FacingPivot/BodyPivot/KeyMount/KeyBob/key_sprite
+## (CHANGE-BRIEF.md §7), so the mount follows KeyMount's global position (it rides
+## the jab's lunge and lean) and KeyMount's visibility (hidden on KO).
 func follow() -> void:
-	var key := fighter.key_sprite
-	position = key.position
+	var km := fighter.key_mount
+	global_position = km.global_position
 	scale = Vector2(Fighter.ART_SCALE * fighter.facing, Fighter.ART_SCALE)
-	visible = key.visible
+	visible = km.visible

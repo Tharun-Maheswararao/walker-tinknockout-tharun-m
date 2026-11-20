@@ -1,0 +1,18 @@
+test_slice.gd 60 | exit 1 | error lines 0 | 25 checks, 1 failed
+      FAIL  walking left flips Bolt's sprite (runtime flip)
+check_props3d.gd 60 | exit 0 | error lines 0 | RESULT: PASS (0 failing)
+test_rewind_tint.gd 30 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_rewind_tint.gd 60 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_rewind_tint.gd 144 | exit 0 | error lines 0 | 50 checks, 0 failed
+test_materials.gd 60 | exit 0 | error lines 0 | 55 checks, 0 failed
+test_impact_effect_config.gd 60 | exit 0 | error lines 0 | 136 checks, 0 failed
+test_impact_effect_state.gd 60 | exit 0 | error lines 0 | 44 checks, 0 failed
+test_wind_steam_config.gd 60 | exit 0 | error lines 0 | 33 checks, 0 failed
+test_wind_steam_state.gd 60 | exit 2 | error lines 0 | 37 checks, 2 failed
+      FAIL  the key squashed while rewinding (narrowest |scale.x| 0.333)
+      FAIL  Rivet's key_sprite hidden on KO (fighter.gd:274)
+cost_effects.gd 60 300 | exit 0 | error lines 0 | cost_effects done, 0 setup problems
+test_a7_pins.gd 60 | exit 0 | error lines 0 | 49 checks, 0 failed
+test_a7_pins.gd 30 | exit 0 | error lines 0 | 49 checks, 0 failed
+test_wind_key_cycle_readback.gd 60 | exit 0 | error lines 0 | 26 checks, 0 failed
+test_jab_action_readback.gd 60 | exit 0 | error lines 0 | 58 checks, 0 failed

@@ -1,0 +1,110 @@
+diff --git a/godot/effects/steam_mount.gd b/godot/effects/steam_mount.gd
+index b02d2d4..10cfe8a 100644
+--- a/godot/effects/steam_mount.gd
++++ b/godot/effects/steam_mount.gd
+@@ -28,8 +28,11 @@ func _ready() -> void:
+ func _physics_process(_delta: float) -> void:
+ 	follow()
+ 
++## A7: the key now sits at Fighter/FacingPivot/BodyPivot/KeyMount/KeyBob/key_sprite
++## (CHANGE-BRIEF.md §7), so the mount follows KeyMount's global position (it rides
++## the jab's lunge and lean) and KeyMount's visibility (hidden on KO).
+ func follow() -> void:
+-	var key := fighter.key_sprite
+-	position = key.position
++	var km := fighter.key_mount
++	global_position = km.global_position
+ 	scale = Vector2(Fighter.ART_SCALE * fighter.facing, Fighter.ART_SCALE)
+-	visible = key.visible
++	visible = km.visible
+diff --git a/godot/fighter/fighter.gd b/godot/fighter/fighter.gd
+index f12b0e6..e284e86 100644
+--- a/godot/fighter/fighter.gd
++++ b/godot/fighter/fighter.gd
+@@ -61,21 +61,43 @@ var stun := 0.0
+ var push_v := 0.0
+ var spawn_cork: Callable          # set by main: func(fighter) -> spawns projectile
+ 
+-var sprite: Sprite2D
+-var key_sprite: Sprite2D
+-var weapon: Sprite2D
++## A7 cutout rig (CHANGE-BRIEF.md §1, §7): fixed names so clip tracks can point at
++## them. Fighter/FacingPivot/BodyPivot/{sprite, KeyMount/KeyBob/key_sprite}, and
++## weapon directly under Fighter. One writer per node (CLAUDE.md, One authority).
++var facing_pivot: Node2D   # _apply_pose: scale.x = facing
++var body_pivot: Node2D     # FighterAnimPlayer (jab_action): position.x, rotation
++var sprite: Sprite2D       # _apply_pose: texture, scale (no facing), offset
++var key_mount: Node2D      # _apply_pose: position (anchor, no facing), visible
++var key_bob: Node2D        # FighterAnimPlayer (jab_action): position.y
++var key_sprite: Sprite2D   # KeyAnimPlayer (wind_key_cycle): frame
++var weapon: Sprite2D       # _apply_pose, as before A7
+ var textures := {}
+ var anchors := {}
+ var key_spin := 0.0
+ 
+ func _ready() -> void:
++	facing_pivot = Node2D.new()
++	facing_pivot.name = "FacingPivot"
++	add_child(facing_pivot)
++	body_pivot = Node2D.new()
++	body_pivot.name = "BodyPivot"
++	facing_pivot.add_child(body_pivot)
+ 	sprite = Sprite2D.new()
++	sprite.name = "sprite"
+ 	sprite.centered = false   # offset = -FEET puts the feet on the node origin (was double-shifted when centred)
+-	add_child(sprite)
++	body_pivot.add_child(sprite)
++	key_mount = Node2D.new()
++	key_mount.name = "KeyMount"
++	body_pivot.add_child(key_mount)
++	key_bob = Node2D.new()
++	key_bob.name = "KeyBob"
++	key_mount.add_child(key_bob)
+ 	key_sprite = Sprite2D.new()
++	key_sprite.name = "key_sprite"
+ 	key_sprite.z_index = -1   # behind the body, as on the toy
+-	add_child(key_sprite)
++	key_bob.add_child(key_sprite)
+ 	weapon = Sprite2D.new()
++	weapon.name = "weapon"
+ 	weapon.centered = false
+ 	add_child(weapon)
+ 	_load_art()
+@@ -90,9 +112,13 @@ func _load_art() -> void:
+ 	var f := FileAccess.open("res://assets/fighters/anchors.json", FileAccess.READ)
+ 	if f:
+ 		anchors = JSON.parse_string(f.get_as_text())
+-	var kp := "res://assets/props/key-%s.png" % skin
++	# A7: the key is the 8 x 1 turning sheet (CHANGE-BRIEF.md §2), set up once here.
++	var kp := "res://assets/props/key-%s-sheet.png" % skin
+ 	if ResourceLoader.exists(kp):
+ 		key_sprite.texture = load(kp)
++		key_sprite.hframes = 8
++		key_sprite.vframes = 1
++	key_sprite.scale = Vector2(ART_SCALE, ART_SCALE)   # facing comes from FacingPivot
+ 
+ func reset(x: float, face: int) -> void:
+ 	position.x = x
+@@ -261,17 +287,16 @@ const ART_SCALE := 1.0 / 3.0   # sprites are stored at 3x game size (Bolt = 336
+ const FEET := Vector2(240, 435) # feet anchor inside every 480x450 sprite canvas
+ 
+ func _apply_pose() -> void:
++	facing_pivot.scale = Vector2(facing, 1.0)   # A7: facing lives here, so the rig's +x is always forward
+ 	if textures.has(state):
+ 		sprite.texture = textures[state]
+-	sprite.scale = Vector2(ART_SCALE * facing, ART_SCALE)
++	sprite.scale = Vector2(ART_SCALE, ART_SCALE)
+ 	sprite.offset = -FEET
+ 	var pa: Dictionary = anchors.get(POSE[state], {})
+ 	var k: Array = pa.get("key", [-42, -50])
+-	key_sprite.position = Vector2(k[0] * facing, k[1])
+-	# a key spinning about the body axis, seen in profile, looks like it narrows and widens
+-	var spin := cos(deg_to_rad(key_spin * 2.0)) if state == S.REWIND else 1.0
+-	key_sprite.scale = Vector2(ART_SCALE * facing * maxf(0.15, absf(spin)), ART_SCALE)
+-	key_sprite.visible = key_sprite.texture != null and state != S.KO
++	key_mount.position = Vector2(k[0], k[1])   # no facing factor: FacingPivot mirrors it
++	# A7: the REWIND squash is gone; the turning sheet (KeyAnimPlayer) replaces it.
++	key_mount.visible = key_sprite.texture != null and state != S.KO
+ 	var wname := ""
+ 	if state == S.CUTLASS:
+ 		wname = "cutlass"
