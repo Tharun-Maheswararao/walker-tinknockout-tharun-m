@@ -8,7 +8,7 @@
 | 1 | 3 | inside startup: coil peak | 0.05 | 0.050000 | −6.0 | −0.10 | +2.0 | 2.0 (ease-in) |
 | 2 | 5 | **active begins** | 0.0833333 | 0.083333… | +14.0 | +0.12 | −2.0 | 1.0 (linear, hold) |
 | 3 | 10 | last active frame | 0.1666667 | 0.166666… | +14.0 | +0.12 | −2.0 | 1.0 (linear) |
-| 4 | 11 | **recovery begins** | 0.1833333 | 0.183333… | +8.0 | +0.05 | −1.0 | 1.0 (linear; was 0.5 ease-out until revision 1, 2026-11-22) |
+| 4 | 11 | **recovery begins** | 0.1833333 | 0.183333… | +12.0 (was +8.0 until revision 2) | +0.10 (was +0.05) | −1.75 (was −1.0) | 1.0 (linear; was 0.5 ease-out until revision 1, 2026-11-22) |
 | 5 | 21 | **end: back to IDLE, rest** | 0.35 | 0.350000 | 0.0 | 0.0 | 0.0 | 1.0 (no segment after) |
 
 - **Clip:** `length` 0.35 s (21 frames), `step` 0.0166667 (1/60 s), `loop_mode` absent, so `LOOP_NONE` (0, the default).

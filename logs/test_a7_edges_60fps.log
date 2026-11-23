@@ -29,8 +29,8 @@ PASS  E1 setup: JAB on e=485, second press landed on e+22 (want e+22)
 PASS  E1 press on e+22 (after the end boundary): a new JAB starts on e+22 with jab_action from 0 (entries [485, 507])
 PASS  E1 ran with one physics tick per frame, as the edge tests need (got 1)
 PASS  E1 clip: coil eases out to -1 px on e+4, full extension +14 on e+5 and e+6
-PASS  E1 clip: holds +14 on e+10, retracts to +8 on e+11, eases back on e+12 (7.20)
-PASS  E1 clip: e+20 at 0.80 px, rest on e+21
+PASS  E1 clip: holds +14 on e+10, retracts to +12 on e+11 (revision 2), moves back on e+12 (10.80)
+PASS  E1 clip: e+20 at 1.20 px, rest on e+21
 
 -- E2 move, block and rewind inputs in each phase are ignored
 PASS  E2 move in startup, block in active, rewind in recovery: JAB runs its 21 ticks, IDLE on e+21

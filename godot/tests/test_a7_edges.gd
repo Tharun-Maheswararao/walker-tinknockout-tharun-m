@@ -164,7 +164,7 @@ func run() -> void:
 	# what the clip shows at the boundaries (brief §4, "Clip outcome")
 	var e1 := 5
 	ok(near(d.rows[e1 + 4].x, -1.0) and near(d.rows[e1 + 5].x, 14.0) and near(d.rows[e1 + 6].x, 14.0), "E1 clip: coil eases out to -1 px on e+4, full extension +14 on e+5 and e+6")
-	ok(near(d.rows[e1 + 10].x, 14.0) and near(d.rows[e1 + 11].x, 8.0) and d.rows[e1 + 12].x < 8.0, "E1 clip: holds +14 on e+10, retracts to +8 on e+11, eases back on e+12 (%.2f)" % d.rows[e1 + 12].x)
+	ok(near(d.rows[e1 + 10].x, 14.0) and near(d.rows[e1 + 11].x, 12.0) and d.rows[e1 + 12].x < 12.0, "E1 clip: holds +14 on e+10, retracts to +12 on e+11 (revision 2), moves back on e+12 (%.2f)" % d.rows[e1 + 12].x)
 	ok(near(d.rows[e1 + 20].x, clip_x(20.0 / F)) and at_rest(d.rows[e1 + 21]), "E1 clip: e+20 at %.2f px, rest on e+21" % d.rows[e1 + 20].x)
 	await done(main)
 

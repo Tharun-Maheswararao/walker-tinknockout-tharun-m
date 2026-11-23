@@ -223,3 +223,4 @@ Each rule below is paired with its exact verification check:
 
 - 2026-11-22: §4 key 4 (frame 11) outgoing transition 0.5 (ease-out) → 1.0 (linear) on all three tracks, after the r0 strip showed the recovery nearly still on frames 27–30 before the idle image snaps back on 31 (TUNING.md, jab_action revision 1). No key time or value changes.
 
+- 2026-11-22: §4 key 4 (frame 11) pose +8 px / 0.05 rad / −1.0 → +12 px / 0.10 rad / −1.75 on the three tracks, after play showed the retraction pop on frame 11 up close (TUNING.md, jab_action revision 2). No key time or transition changes.

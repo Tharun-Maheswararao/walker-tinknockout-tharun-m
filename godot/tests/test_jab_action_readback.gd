@@ -31,9 +31,11 @@ const KEY_FRAMES := [0, 3, 5, 10, 11, 21]  # every phase boundary (0, 5, 11, 21)
 ## TUNING.md jab_action revision 1 and CHANGE-BRIEF.md A7 revisions, 2026-11-22.
 const TRANS := [0.5, 2.0, 1.0, 1.0, 1.0, 1.0]
 const TRACKS := {
-	"FacingPivot/BodyPivot:position:x": [0.0, -6.0, 14.0, 14.0, 8.0, 0.0],
-	"FacingPivot/BodyPivot:rotation": [0.0, -0.10, 0.12, 0.12, 0.05, 0.0],
-	"FacingPivot/BodyPivot/KeyMount/KeyBob:position:y": [0.0, 2.0, -2.0, -2.0, -1.0, 0.0],
+	# Key 4 (frame 11) was +8 / 0.05 / -1.0 in version 1.0 of the brief; +12 / 0.10 / -1.75
+	# from TUNING.md jab_action revision 2 and CHANGE-BRIEF.md A7 revisions, 2026-11-22.
+	"FacingPivot/BodyPivot:position:x": [0.0, -6.0, 14.0, 14.0, 12.0, 0.0],
+	"FacingPivot/BodyPivot:rotation": [0.0, -0.10, 0.12, 0.12, 0.10, 0.0],
+	"FacingPivot/BodyPivot/KeyMount/KeyBob:position:y": [0.0, 2.0, -2.0, -2.0, -1.75, 0.0],
 }
 
 var checks := 0
@@ -183,7 +185,7 @@ func run() -> void:
 	var steps := []
 	for fr in range(11, 21):
 		steps.append(poses[fr][0] - poses[fr + 1][0])
-	ok(steps.all(func(s): return near(s, 0.8, 1e-3)), "recovery 11->21 is linear (revision 1): an even 0.8 px back each frame, still moving on frame 30 (steps %s)" % [steps.map(func(s): return "%.2f" % s)])
+	ok(steps.all(func(s): return near(s, 1.2, 1e-3)), "recovery 11->21 is linear (revisions 1 and 2): an even 1.2 px back each frame, still moving on frame 30 (steps %s)" % [steps.map(func(s): return "%.2f" % s)])
 	f.player.seek(LENGTH_FRAMES / FPS, true)
 	f.player.advance(0.5)
 	ok(near(f.body.position.x, 0.0) and near(f.body.rotation, 0.0) and near(f.bob.position.y, 0.0), "after the end the rig stays at rest: LOOP_NONE does not wrap into the coil")

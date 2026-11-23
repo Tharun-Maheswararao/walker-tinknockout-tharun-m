@@ -204,3 +204,38 @@ Started `walker-tinknockout (DEBUG)` via Godot, pressed Enter into Round 1, and 
 **Revision 1 verdict:** Keep. The return carries into the stance.
 
 **Opens revision 2:** The retraction pop is still noticeable—especially up close—and mashing `J` to chain jabs feels abrupt alongside the image swaps into and out of the jab pose.
+## 2026-11-22 — A7 jab_action, revision 2: the change (Tharun's observation in play) and Claude's prediction
+
+*Opened by Tharun's play observation above: the retraction pop is still noticeable up close. Claude's account of where it comes from, and the prediction, written before the edit. A claim, not a check.*
+
+**Where the pop comes from:** clip frames 10 → 11 (capture frames 20 → 21). In one frame the body drops from +14 px to +8 px and the lean from 0.12 to 0.05 rad; in r1 the helmet centre moved −23 window px on frame 21 (measured), against about 2.5 per frame through the rest of the recovery.
+
+**What the clip cannot change:** the image swaps into and out of the jab picture (frames 10 and 31, `_apply_pose`), and the one-frame idle picture between chained jabs when J is mashed (the jab ends on tick 21, the next starts on tick 22). Both come from the fighter's art per state, outside the brief; recorded as findings.
+
+**The one change (approved by Tharun):** the recovery-onset pose, key 4 (frame 11), on all three tracks: `BodyPivot:position:x` +8 → **+12 px**, `BodyPivot:rotation` 0.05 → **0.10 rad**, `KeyBob:position:y` −1.0 → **−1.75**. No key time or transition changes (revision 1's linear recovery stays).
+
+**Prediction for r2, before the edit:**
+- **Frame 21:** pose +12 px / 0.10 rad; the helmet centre steps about **−8 window px** (r1: −23), so the release reads as a short step, not a jump.
+- **Frames 22–30:** x = 10.8, 9.6, 8.4, 7.2, 6.0, 4.8, 3.6, 2.4, 1.2 px (r1: 7.2 … 0.8); rotation 0.09 … 0.01; the helmet steps about **4.3 window px** each frame (r1: about 2.5), so the return is faster but still even, and still moving on frame 30.
+- **Frames 9–20 and 31:** byte-identical to r1. The swap on 31 now starts from a body 1.2 px forward (r1: 0.8).
+- **The cost:** a larger last step into the idle picture. The body is further forward on every recovery frame, so the swap on 31 jumps from slightly further out.
+
+## 2026-11-22 — A7 jab_action, revision 2: r2 captured, Claude's comparison
+
+*Fixture capture r2 (`captures/jab_action/r2/`, log `logs/jab_preview_r2.log`), run by Tharun: 35 frames at 60 fps. Side by side with r1: `captures/jab_action/r1_vs_r2_sheet.png` (frames 20, 21, 26, 30, 31). Claude's comparison with the prediction. A claim, not a check.*
+
+| Prediction | r2 (measured) | Match |
+|---|---|---|
+| Frame 21 at +12 px / 0.10 rad; helmet step about −8 window px (r1 −23) | log +12.00 / 0.100; helmet step **−7.7** window px | yes |
+| Frames 22–30 at 10.8, 9.6 … 1.2 px; rotation 0.09 … 0.01 | log: exactly those values | yes |
+| Helmet steps about 4.3 window px each, even, still moving on 30 | steps **3.4 to 4.3, mean 3.9**; even, still moving on 30 | partly: even and still moving, but about 10 % smaller than predicted (I overestimated how much the lean adds at the helmet) |
+| Frames 9–20 and 31 byte-identical to r1 | frames 9, 10, 13, 14, 15, 20 and 31 identical (md5) | yes |
+| Cost: a larger last step into the idle picture | frame 31 step **−30.1** window px (r1 −28.4) | yes, as predicted |
+
+**In the frames:** r2's frame 21 still leans almost as far as frame 20, where r1's frame 21 had already straightened up; frame 26 is still clearly leaning forward. Unchanged: the image swaps on 10 and 31.
+
+## 2026-11-22 — A7 jab_action, revision 2: my verdict in the running game (Tharun)
+
+Ran `walker-tinknockout (DEBUG)` into Round 1 / `FIGHT!` and closed in right next to Rivet to test repeated jabs up close, along with rewinding (`rewinding`), hitting an `EMPTY!` spring state, and taking a `K.O.` (`RIVET WINS`). Up close against Rivet, the retraction feels less jarring and less like a sudden snap-back than before, while the underlying jab pose swaps, close-quarters hit/rewind transitions, and spring depletion/KO flow still read brisk and punchy.
+
+**Verdict:** Keep
