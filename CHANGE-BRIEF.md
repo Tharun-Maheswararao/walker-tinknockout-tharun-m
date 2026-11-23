@@ -223,10 +223,3 @@ Each rule below is paired with its exact verification check:
 
 - 2026-11-22: §4 key 4 (frame 11) outgoing transition 0.5 (ease-out) → 1.0 (linear) on all three tracks, after the r0 strip showed the recovery nearly still on frames 27–30 before the idle image snaps back on 31 (TUNING.md, jab_action revision 1). No key time or value changes.
 
-## 2026-11-22 — A7 jab_action, revision 1: my verdict in the running game (Tharun)
-
-Started `walker-tinknockout (DEBUG)` via Godot, pressed Enter into Round 1, and threw repeated `J` jabs both standing still and moving/engaging up close with Rivet; I also rewound and got KO’d. In live play, the return carries more noticeably into the neutral stance rather than dead-stopping early, though when fighting up close or mashing `J` to chain jabs, the retraction pop and rapid image swaps/flashes are still noticeable.
-
-**Revision 1 verdict:** Keep. The return carries into the stance.
-
-**Opens revision 2:** The retraction pop is still noticeable—especially up close—and mashing `J` to chain jabs feels abrupt alongside the image swaps into and out of the jab pose.

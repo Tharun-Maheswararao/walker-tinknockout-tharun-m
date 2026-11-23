@@ -196,3 +196,11 @@ Windowed run, `godot --path godot`, 1280×720. I whiffed jabs to bring Bolt's wi
 | Frame 31 still swaps the image | the profile helmet and lowered arm return on 31 | yes (the swap is not the clip's) |
 
 **What the change did not touch:** the image swaps on frame 10 (into the jab picture) and frame 31 (back to idle), and the single-frame retraction on frame 21 (helmet −23 window px, from +14 px and 0.12 rad to +8 px and 0.05 rad), are as in r0.
+
+## 2026-11-22 — A7 jab_action, revision 1: my verdict in the running game (Tharun)
+
+Started `walker-tinknockout (DEBUG)` via Godot, pressed Enter into Round 1, and threw repeated `J` jabs both standing still and moving/engaging up close with Rivet; I also rewound and got KO’d. In live play, the return carries more noticeably into the neutral stance rather than dead-stopping early, though when fighting up close or mashing `J` to chain jabs, the retraction pop and rapid image swaps/flashes are still noticeable.
+
+**Revision 1 verdict:** Keep. The return carries into the stance.
+
+**Opens revision 2:** The retraction pop is still noticeable—especially up close—and mashing `J` to chain jabs feels abrupt alongside the image swaps into and out of the jab pose.
