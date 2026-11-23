@@ -321,4 +321,4 @@ The A5 and A6 commands above still give their counts.
 - A single rewind in the game reaches full wind after at most 2.5 turns, and the key then holds.
 - `claude -p` was spend-limited until 2026-12-01, so all agent prompts ran in the interactive Claude Code session.
 
-**A7 film:** _link and SHA-256 to be added._
+**A7 film:** [claude-liam-walker-tinknockout-tharun-m-a7-animation.mp4](https://drive.google.com/file/d/1gdxG-RNG4bh9KgMArhkk_oH-PP5GQH_9/view?usp=sharing) (Google Drive) · SHA-256 `0318373f1799c3629c910038feb023871aa5eefdf6fdf4ee6d88a873776046bd` · 4K 3840×2160, 11:57 · shows game source `a5978c0`. Watched in full by Tharun on 2026-11-22. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a7-animation/` (the MP4 itself is not in GitHub).

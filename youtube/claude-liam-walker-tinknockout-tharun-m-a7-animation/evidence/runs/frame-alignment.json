@@ -1,0 +1,19 @@
+{
+ "play_frame_minus_movie": 0,
+ "play_note": "Movie Maker frame index m = the 'frame' field (Engine.get_process_frames) of the log line for that tick. Measured: the jab image first differs on movie frame 155 (tick 154, JAB entry, logged frame 155); the lunge (+14 px) on movie frame 160 (tick 159, logged frame 160); frame 161 identical to 160 (the hold).",
+ "key_box_play": [
+  1216,
+  1184,
+  1984,
+  1616
+ ],
+ "key_box_play_note": "16:9 box around Bolt's key in REWIND, read from movie frame 680 (key at about 4K x 1574, y 1402).",
+ "key_tick_minus_movie": 0,
+ "key_box_preview": [
+  620,
+  1130,
+  1580,
+  1670
+ ],
+ "key_note": "key_cycle_preview run 2: Movie Maker summary '380 frames at 60 FPS'; movie index = the preview log's tick. Measured: every key-cell change and the REWIND pose (tick 10) first differ on the movie frame of the same number. Run 1 was discarded: its summary said 373 of 380 and movie frames 10-16 repeated the idle pose (evidence/runs/key-cycle-capture-run1-DISCARDED-log.txt). Key box from movie frame 40 (key at about 4K x 1030, y 1400)."
+}

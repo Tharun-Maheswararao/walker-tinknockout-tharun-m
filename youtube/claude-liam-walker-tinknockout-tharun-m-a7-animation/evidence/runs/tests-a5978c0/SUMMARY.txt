@@ -1,0 +1,20 @@
+test_wind_key_cycle_readback.gd 60 exit 0
+test_jab_action_readback.gd 60 exit 0
+test_a7_structure.gd 60 exit 0
+test_a7_structure.gd 30 exit 0
+test_a7_edges.gd 60 exit 0
+test_a7_pins.gd 60 exit 0
+test_a7_pins.gd 30 exit 0
+test_slice.gd 60 exit 0
+test_wind_steam_state.gd 60 exit 0
+logs/test_a7_edges_60fps.log: 70 checks, 0 failed  errs=0
+logs/test_a7_pins_30fps.log: 49 checks, 0 failed  errs=0
+logs/test_a7_pins_60fps.log: 49 checks, 0 failed  errs=0
+logs/test_a7_structure_30fps.log: 57 checks, 0 failed  errs=0
+logs/test_a7_structure_60fps.log: 57 checks, 0 failed  errs=0
+logs/test_jab_action_readback_60fps.log: 58 checks, 0 failed  errs=0
+logs/test_slice_60fps.log: 25 checks, 0 failed  errs=0
+logs/test_wind_key_cycle_readback_60fps.log: 26 checks, 0 failed  errs=0
+logs/test_wind_steam_state_60fps.log: 37 checks, 0 failed  errs=0
+
+[exited with code 0]

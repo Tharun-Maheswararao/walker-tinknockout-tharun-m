@@ -1,29 +1,36 @@
-# SUBMISSION — Assignment 6
+# SUBMISSION — Assignment 7
 
-*(The Assignment 5 submission note is preserved at tag `a5`; Assignment 3's at `a3`; Assignment 2's at `a2`.)*
+*(The Assignment 6 submission note is preserved at tag `a6`; Assignment 5's at `a5`; Assignment 3's at `a3`; Assignment 2's at `a2`.)*
 
-- **Assignment:** Assignment 6 - Creating Particle Effects with Godot and Claude
+- **Assignment:** Assignment 7 - Doing Animation with Claude and Godot
 - **Student:** Tharun Maheswararao (maheswararao.t@northeastern.edu)
 - **Project name:** walker-tinknockout-tharun-m (Tin Knockout)
 - **GitHub repository URL:** https://github.com/Tharun-Maheswararao/walker-tinknockout-tharun-m
-- **Git tag and submitted commit SHA:** tag `a6`. The SHA is given in the Canvas copy of this note, because a commit cannot contain its own hash.
-- **Game-source revision shown in the film:** `c844ab2`. Later commits change only the film's records (`youtube/…-a6-particles/`), `.gitignore`, README / TEST-REPORT text (the GPU-price status and the film link) and this note. No game code, scene, test or shader changed after `c844ab2`.
-- **Godot version, renderer, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Forward+ on Vulkan 1.2.334 (MoltenVK) · macOS 15.6 (Darwin 24.6.0)
-- **GPU used for the GPU price:** Apple M4 (integrated). The GPU price itself was **not measured**: I chose to skip it (2026-11-09). The fixture is `godot/previews/gpu_price.tscn` (TEST-REPORT A6-5).
-- **Effect A: event, node type, retrigger rule:** an impact burst on every hit, melee (`Fighter.hit_landed`) and cork (`Cork.struck`), both arriving at `main._on_impact(p, blocked)`. Two one-shot `GPUParticles2D` emitters in `godot/effects/impact_effect.tscn`: Shards (MIX, dark tin, code-written texture) and Core (ADD, cyan radial gradient), 0.25 s, on top of the kept star spark. Blocked hits spawn a smaller grey `impact_effect_blocked.tscn`. Retrigger: a fresh instance per impact, so bursts overlap (peak 4 bursts, 96 particles), each freed on `finished`.
-- **Effect B: job, condition, node type, feature Effect A doesn't use:** a feedback loop following `Fighter.wind` (0–100) on both fighters: steam from the wind-up key when wind is below 25, `amount_ratio = (25 − wind) / 25`, 0 at wind ≥ 25. One continuous `GPUParticles2D` in `godot/effects/wind_steam.tscn`, on a `SteamMount` that follows the key but not its rewind squash. Feature Effect A doesn't use: `amount_ratio` (also continuous emission and `local_coords = true`).
-- **Budgets, and the price each is compared on:** GPU time in the Visual Profiler, against the 0.97 ms effects-off Render Viewport baseline: Effect A < 0.55 ms at 4 concurrent bursts; Effect B < 0.20 ms for both fighters at ratio 1.0. Both are **unchecked** (GPU price not measured). Headless CPU price (`cost_effects.gd`, wall clock): both effects within the spread of the effects-off game (a_peak 0.0289 ± 0.0157 ms, b_heavy 0.0223 ± 0.0022 ms vs game_off 0.0230 ± 0.0066 ms), as predicted; near zero by construction, because the dummy renderer does not run GPU particles.
-- **Texture sources and licences (or model, version, and terms):** no third-party or model-generated textures. `shard_8.png` and `steam_32.png` are written by committed scripts (`godot/tools/generate_shard_texture.gd`, `generate_steam_texture.gd`), under the repository's own licence; Effect A's core uses an in-scene `GradientTexture2D` (`godot/effects/textures/ATTRIBUTION.md`).
-- **Final film URL and filename:** https://drive.google.com/file/d/10_Dj02-oApqbA52NZSiLufxgmR-TbomC/view?usp=sharing · `claude-liam-walker-tinknockout-tharun-m-a6-particles.mp4` (4K 3840×2160, 11:57, Brutalist `godot-gamedev` walker workflow, Liam narration; records in `youtube/claude-liam-walker-tinknockout-tharun-m-a6-particles/`)
-- **Final film SHA-256:** `04d435e30352681ac1bfecd855072acf700a9afc3a02cc5e601407e4b010630a`
-- **Summary of my work:** From SOURCES.md "Who did what (A6)": I chose both effects and every value in CHANGE-BRIEF.md (with the drafting help listed there) and wrote every dated revision; ran every Movie Maker capture and both Step 2 mutations; approved each wiring step and tuning change, choosing the holder fix for Effect B; gave the first-look notes, human checks and in-game verdicts in TUNING.md and TEST-REPORT.md; and converted the process shader in the editor and wrote its line references. Claude Code wrote the facts file and probes, built both effect scenes, the texture scripts, the tests, the preview fixtures, the wiring and `SteamMount`, the cost script, the F10 key and the GPU-price fixture, read and measured the strips, and drafted the docs.
-- **Known limitations:**
-  - The GPU price was not measured, so the GPU budgets are unchecked; no GPU number is claimed.
-  - Rivet's steam rarely shows: his pattern brain rewinds as soon as his wind drops below 25, the same threshold where the steam starts (TEST-REPORT A6-3; probe: steam on 7 s of 30, max ratio 0.29).
-  - Effect A's dark shards are weak over the dark stretch of the background; the cyan core still reads (A6-5a).
-  - The in-play human check is partial: landed jab, block, cork and pause for A; low wind and rewind for B (A6-5).
-  - Headless, the engine's process and physics time monitors read 0, so only the wall clock is used for the CPU price.
-  - `claude -p` hit the account's spend limit (until 2026-12-01), so every agent prompt ran in the interactive Claude Code session.
-  - The film was built by a separate Claude film session and passed the workflow's checks; I watched it in full before uploading. Narration is Kokoro TTS (Liam).
-- **Changed games since Assignment 2:** no.
+- **Git tag and submitted commit SHA:** tag `a7`. The SHA is given in the Canvas copy of this note, because a commit cannot contain its own hash.
+- **Game-source revision shown in the film:** `a5978c0`. Later commits add only the film's records (`youtube/claude-liam-walker-tinknockout-tharun-m-a7-animation/`), the README film link and this note. Nothing under `godot/` or `scripts/` changed after `a5978c0`.
+- **Godot version, renderer, and operating system:** Godot 4.7.2.stable.official.ed1daf0bf · Forward+ on Vulkan 1.2.334 (MoltenVK) · macOS 15.6 (Darwin 24.6.0), Apple M4
+- **Sprite clip: route, node, scene, frame rate:** `wind_key_cycle` (`godot/animations/wind_key_cycle.tres`). Route: Sprite2D + AnimationPlayer frame track (discrete). Node: `key_sprite` (Sprite2D, `hframes` 8) at `Fighter/FacingPivot/BodyPivot/KeyMount/KeyBob/key_sprite`, on both fighters. Scene: the game, `res://game/main.tscn` (fighters built in code by `godot/fighter/fighter.gd`). 8 fps, `step` 1/8, 8 frames, `LOOP_LINEAR`.
+- **Rig clip: route, rig source, node, scene, frame rate:** `jab_action` (`godot/animations/jab_action.tres`). Route: cutout rig keyed as resource text. Rig source: the fighter's own art parts under named Node2D pivots built in `fighter.gd` (`FacingPivot/BodyPivot/{sprite, KeyMount/KeyBob/key_sprite}`). Nodes: `BodyPivot` (`position:x`, `rotation`) and `KeyBob` (`position:y`). Scene: `res://game/main.tscn`. 60 fps, `step` 1/60, 21 frames: startup 0–4, active 5–10, recovery 11–20.
+- **Which clip loops and which commits:** `wind_key_cycle` loops (the key turning while the fighter rewinds); `jab_action` commits (the jab).
+- **The one authority over each animated node:**
+  - `KeyAnimPlayer` → `key_sprite.frame`;
+  - `FighterAnimPlayer` → `BodyPivot` and `KeyBob`;
+  - `Fighter._apply_pose()` → `FacingPivot.scale.x`, the body `sprite`, `KeyMount` and `weapon`.
 
+  Both players are MANUAL and are put at `state_t` at the end of each physics step (`godot/tests/test_a7_structure.gd` checks the writers from the source and the behaviour).
+- **Sprite sheet source and licence (or model, version, and terms):**
+  - Sheets: `godot/assets/props/key-bolt-sheet.png` and `key-rivet-sheet.png`, written by `godot/tools/generate_key_sheets.gd` from the committed A2 key art.
+  - Source art: SDXL-Turbo (`stabilityai/sdxl-turbo`, revision `71153311d3dbb46851df1931d3ca6e939de83304`), run locally, prompt row PROP-KEY in `ASSET-LOG.md`.
+  - Licence: Stability AI Non-Commercial Research Community License.
+  - Credits: `godot/assets/props/ATTRIBUTION.md`.
+- **Final film URL and filename:** https://drive.google.com/file/d/1gdxG-RNG4bh9KgMArhkk_oH-PP5GQH_9/view?usp=sharing · `claude-liam-walker-tinknockout-tharun-m-a7-animation.mp4` (4K 3840×2160, 11:57, 30 fps; Brutalist `godot-gamedev` walker workflow, Liam narration; records in `youtube/claude-liam-walker-tinknockout-tharun-m-a7-animation/`)
+- **Final film SHA-256:** `0318373f1799c3629c910038feb023871aa5eefdf6fdf4ee6d88a873776046bd`
+- **Summary of my work:** From SOURCES.md "Who did what (A7)": I chose both clips, the routes, the 60 fps phase table with its poses and easing, the 8 fps cycle and its sheet recipe, the authority layout and the interrupt rules, and wrote the two dated brief revisions; swapped in the A7 wrapper; reviewed CLAUDE.md and added the Headless-facts lines; approved the Step 5 plan, its four decisions and the seam fix, and committed the four planned pin updates; ran every Movie Maker capture; wrote the first look before Claude read the strip and both in-game verdicts (revision 2 came from my own play observation); and did the Use It human checks and the two-clocks run. Claude Code wrote the facts file and probes, the sheet generator, both clip resources, the read-backs, the pins, the wiring in `fighter.gd` and `steam_mount.gd`, the structure, state and edge tests and both previews; ran the mutations in worktrees; found and fixed (with my approval) the seam bug; read and measured the strips; and drafted the docs. A separate Claude session built the film, which I watched in full before uploading.
+- **Known limitations:**
+  - The fighter's jab picture appears on the first JAB tick, five frames before the hitbox, and swaps back on the IDLE tick; mashing J shows the idle picture for one frame between jabs. Both come from the A2 art per state, not the clips (TEST-REPORT A7-12).
+  - Rivet is drawn facing right on the title and intro until the first FIGHT tick. This was there before A7.
+  - In the game a single rewind reaches full wind after at most 2.5 turns of the key, which then holds; the five-wrap seam check used the key-cycle fixture as well as repeated low-wind rewinds.
+  - The edge tests run at 60 fps only: at 30 fps, input can only arrive on a frame's first tick.
+  - `claude -p` was spend-limited until 2026-12-01, so every agent prompt ran in the interactive Claude Code session (`prompts/a7/`).
+  - The film was built by a separate Claude film session and passed the workflow's checks; I watched it in full before uploading.
+- **Changed games since Assignment 2:** no.

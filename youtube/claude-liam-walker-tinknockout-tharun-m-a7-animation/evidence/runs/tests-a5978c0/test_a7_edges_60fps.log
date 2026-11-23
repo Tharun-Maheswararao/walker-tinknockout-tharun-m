@@ -1,0 +1,85 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+-- E1 jab press one tick before, on and after each boundary
+PASS  E1 setup: JAB on e=5, second press landed on e+4 (want e+4)
+PASS  E1 press on e+4 (startup, before boundary 5): lost; one JAB, IDLE on e+21 (JAB entries [5])
+PASS  E1 press on e+4: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=65, second press landed on e+5 (want e+5)
+PASS  E1 press on e+5 (active, on boundary 5): lost; one JAB, IDLE on e+21 (JAB entries [65])
+PASS  E1 press on e+5: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=125, second press landed on e+6 (want e+6)
+PASS  E1 press on e+6 (active, after boundary 5): lost; one JAB, IDLE on e+21 (JAB entries [125])
+PASS  E1 press on e+6: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=185, second press landed on e+10 (want e+10)
+PASS  E1 press on e+10 (active, before boundary 11): lost; one JAB, IDLE on e+21 (JAB entries [185])
+PASS  E1 press on e+10: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=245, second press landed on e+11 (want e+11)
+PASS  E1 press on e+11 (recovery, on boundary 11): lost; one JAB, IDLE on e+21 (JAB entries [245])
+PASS  E1 press on e+11: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=305, second press landed on e+12 (want e+12)
+PASS  E1 press on e+12 (recovery, after boundary 11): lost; one JAB, IDLE on e+21 (JAB entries [305])
+PASS  E1 press on e+12: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=365, second press landed on e+20 (want e+20)
+PASS  E1 press on e+20 (recovery, before boundary 21): lost; one JAB, IDLE on e+21 (JAB entries [365])
+PASS  E1 press on e+20: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=425, second press landed on e+21 (want e+21)
+PASS  E1 press on e+21 (after the jab, on boundary 21): lost; one JAB, IDLE on e+21 (JAB entries [425])
+PASS  E1 press on e+21: jab_action runs uninterrupted at state_t and ends at rest on e+21
+PASS  E1 setup: JAB on e=485, second press landed on e+22 (want e+22)
+PASS  E1 press on e+22 (after the end boundary): a new JAB starts on e+22 with jab_action from 0 (entries [485, 507])
+PASS  E1 ran with one physics tick per frame, as the edge tests need (got 1)
+PASS  E1 clip: coil eases out to -1 px on e+4, full extension +14 on e+5 and e+6
+PASS  E1 clip: holds +14 on e+10, retracts to +12 on e+11 (revision 2), moves back on e+12 (10.80)
+PASS  E1 clip: e+20 at 1.20 px, rest on e+21
+
+-- E2 move, block and rewind inputs in each phase are ignored
+PASS  E2 move in startup, block in active, rewind in recovery: JAB runs its 21 ticks, IDLE on e+21
+PASS  E2 the move input did not move Bolt during the jab (x 200.0 -> 200.0)
+PASS  E2 jab_action stays at state_t throughout
+
+-- E3 a hit landing one tick before, on and after each boundary
+PASS  E3 hit on e+4 (startup): JAB -> HURT that tick (HURT on ["e+4"])
+PASS  E3 hit on e+4: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+4: until then jab_action was at state_t
+PASS  E3 hit on e+5 (active): JAB -> HURT that tick (HURT on ["e+5"])
+PASS  E3 hit on e+5: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+5: until then jab_action was at state_t
+PASS  E3 hit on e+6 (active): JAB -> HURT that tick (HURT on ["e+6"])
+PASS  E3 hit on e+6: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+6: until then jab_action was at state_t
+PASS  E3 hit on e+10 (active): JAB -> HURT that tick (HURT on ["e+10"])
+PASS  E3 hit on e+10: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+10: until then jab_action was at state_t
+PASS  E3 hit on e+11 (recovery): JAB -> HURT that tick (HURT on ["e+11"])
+PASS  E3 hit on e+11: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+11: until then jab_action was at state_t
+PASS  E3 hit on e+12 (recovery): JAB -> HURT that tick (HURT on ["e+12"])
+PASS  E3 hit on e+12: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+12: until then jab_action was at state_t
+PASS  E3 hit on e+20 (recovery): JAB -> HURT that tick (HURT on ["e+20"])
+PASS  E3 hit on e+20: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+20: until then jab_action was at state_t
+PASS  E3 hit on e+21 (on the end boundary): the jab ends, then the hit lands, both on e+21 (transitions that tick ["JAB>IDLE", "IDLE>HURT"])
+PASS  E3 hit on e+21: no clip and the rig at rest from the hit tick through the hitstop
+PASS  E3 hit on e+22 (after the jab): IDLE -> HURT that tick, the jab already over (HURT on ["e+22"])
+PASS  E3 hit on e+22: no clip and the rig at rest from the hit tick through the hitstop
+
+-- E4 pause landing on each boundary tick
+PASS  E4 pause on e+5: 8 paused ticks frozen at state_t 0.0667 (the e+4 pose)
+PASS  E4 pause on e+5: the jab still runs 21 unpaused ticks (got 21)
+PASS  E4 pause on e+5: active still opens at state_t 5/60 with the +14 pose
+PASS  E4 pause on e+5: jab_action at state_t on every JAB tick, paused or not
+PASS  E4 pause on e+11: 8 paused ticks frozen at state_t 0.1667 (the e+10 pose)
+PASS  E4 pause on e+11: the jab still runs 21 unpaused ticks (got 21)
+PASS  E4 pause on e+11: active still opens at state_t 5/60 with the +14 pose
+PASS  E4 pause on e+11: jab_action at state_t on every JAB tick, paused or not
+PASS  E4 pause on e+21: 8 paused ticks frozen at state_t 0.3333 (the e+20 pose)
+PASS  E4 pause on e+21: the jab still runs 21 unpaused ticks (got 21)
+PASS  E4 pause on e+21: active still opens at state_t 5/60 with the +14 pose
+PASS  E4 pause on e+21: jab_action at state_t on every JAB tick, paused or not
+
+70 checks, 0 failed
+WARNING: 22 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 4 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

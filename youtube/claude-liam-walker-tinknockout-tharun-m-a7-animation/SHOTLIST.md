@@ -1,0 +1,36 @@
+# SHOTLIST.md — what is on screen in each beat, and where it came from
+
+Generated from beat_sheet.json (measured durations) by _tools/make_shotlist.py. Lane: REMOTION = toolkit composition; OWN = composite of real files / recorded output / real engine captures built by _tools/make_media.py.
+
+| Beat | Act | s | Lane | On screen | Provenance label on screen |
+|---|---|---|---|---|---|
+| B00 | ASK | 17.00 | REMOTION ClaudeComposerAsk | composer types the reconstructed Walker ask; output lines land | RECONSTRUCTED PROMPT — illustrative, not a transcript |
+| B01 | BLUF | 16.18 | REMOTION BrutalistHesitantWriter | writer types the overview; "display" is struck and corrected to "physics" | — |
+| B02 | SETUP | 30.18 | OWN setup | two held frames from the film capture (scripted input): the lunge, and the key turning; CLIP A card lights: route, node, authority, loops; CLIP B card lights: route, nodes, authority, commits | HELD FRAME · MOVIE MAKER CAPTURE · SCRIPTED INPUT (zoom); TEST-REPORT verbatim |
+| B03 | MECHANISM | 20.33 | REMOTION GodotDevWorkbench | godot/animations/jab_action.tres:22-30 at reading size; line 22: path = node : property; line 26: six key times: frames 0, 3, 5, 10, 11, 21; line 27: outgoing easing, one per key; line 29: values in radians | Godot editor reconstruction · verbatim at a5978c0 |
+| B04 | RESULT | 19.41 | OWN m1 | the M1 change: jab_action.tres track 1 path, rotation -> rotatoin; "What the engine said": nothing (README, verbatim); FAIL lines from M1-test_jab_action_readback.log; exit 8; M1-test_a7_structure.log, exit 2 | MUTATION M1 (worktree, not in the repo); recorded logs verbatim |
+| B05 | MECHANISM | 27.19 | OWN auth | godot/fighter/fighter.gd:67-73 and :306-315 at reading size; _apply_pose rows highlighted (67, 69, 70, 73); FighterAnimPlayer rows highlighted (68, 71); KeyAnimPlayer row highlighted (72); line 306 highlighted, then 313 | SOURCE VIEW · a5978c0 |
+| B06 | RESULT | 21.16 | OWN scan | test_a7_structure_60fps.log section A, verbatim (re-run); per-tick writes line highlighted; B1 line: largest gap 0.00000; held frame of the lunge, x +14.00 from the log | recorded output (re-run), verbatim; HELD FRAME · SCRIPTED INPUT |
+| B07 | MECHANISM | 20.10 | REMOTION GodotDevWorkbench | godot/fighter/fighter.gd:346-356 at reading size; line 347: called at the end of step(): pause and hitstop skip it; line 351: jab_action only in JAB; line 354: clip position = state_t, clamped | Godot editor reconstruction · verbatim at a5978c0 |
+| B08 | RESULT | 26.45 | OWN clocks | film capture, case 2: nine consecutive ticks e+4..e+12, zoomed on Bolt, each with its logged state_t and clip position; ticks e+5..e+10 ringed: clip position 0.0833 held; CLOCKS line (Tharun, jab_preview --loop --clocks), verbatim | MOVIE MAKER CAPTURE · SCRIPTED INPUT (one frame per tick); recorded CLOCKS line (Tharun), verbatim |
+| B09 | MECHANISM | 27.90 | OWN phase | CHANGE-BRIEF §4 phase rows (verbatim) beside jab_action_keys.md key rows (verbatim); key table lights; keys 1, 2-3, 4 highlighted in turn; float note lights | CHANGE-BRIEF §4 and jab_action_keys.md, verbatim |
+| B10 | RESULT | 31.33 | OWN strip | r0 frames 9, 10, 13, 14, 15, 20, 21, 31 (fixture, held frames, zoom) with the log pose; frames 13, 15, 20, 21, 31 ringed in turn; Tharun's first look, verbatim | FIXTURE CAPTURE · HELD FRAMES · captured by Tharun; first look verbatim |
+| B11 | MECHANISM | 21.27 | OWN gen | godot/tools/generate_key_sheets.gd:37-47 at reading size; line 39 highlighted; lines 44-45 highlighted; line 47 highlighted | SOURCE VIEW · a5978c0 |
+| B12 | RESULT | 28.35 | OWN sheet | key-bolt-sheet.png and key-rivet-sheet.png, nearest-neighbour enlarged, grid 8 x 1; cells 2 and 6 ringed; A7-9c measurement line; ATTRIBUTION.md source and licence | COMMITTED SPRITE SHEET (enlarged, nearest); ATTRIBUTION verbatim |
+| B13 | MECHANISM | 21.78 | OWN track | godot/animations/wind_key_cycle.tres:3-19 at reading size; lines 6-7 highlighted; line 11 highlighted; line 17 highlighted; CHANGE-BRIEF §11 answer 2; lines 5 and 15 highlighted: no key at length | SOURCE VIEW · a5978c0 |
+| B14 | RESULT | 20.76 | OWN cycle | key_cycle_preview capture at real speed, zoom on the key, readout from its log; labelled 0.25x replay of a wrap; Tharun's seam check, verbatim | FIXTURE · MOVIE MAKER CAPTURE · made for this film; REPLAY label |
+| B15 | MECHANISM | 30.46 | OWN rev1 | Claude's reading of r0 (TUNING.md, verbatim) beside logs/jab_preview_r0.log frames 22-31; git 8a9dbed: transitions line, before and after; Claude's prediction, verbatim | SOURCE VIEW · git 8a9dbed; log and TUNING verbatim |
+| B16 | RESULT | 18.75 | OWN res1 | r1_recovery_sheet.png (fixture, held frames); Claude's comparison rows: yes; Tharun's verdict, verbatim: Keep; Tharun's 'Opens revision 2', verbatim | FIXTURE CAPTURE · HELD FRAMES · captured by Tharun; TUNING verbatim |
+| B17 | MECHANISM | 30.42 | OWN rev2 | Tharun's play observation, verbatim; Claude's account: frames 10 -> 11, -23 window px (TUNING.md); git a1d6072: the three values lines, before and after; Claude's prediction, verbatim | SOURCE VIEW · git a1d6072; TUNING verbatim |
+| B18 | RESULT | 27.13 | OWN res2 | r1_vs_r2_sheet.png, frames 20, 21, 26, 30, 31 (fixture); frame 21 column ringed; comparison row: yes; comparison row: partly; comparison row: frame 31 -30.1; Tharun's observation, verbatim; Verdict (Tharun): Keep (A7-8) | FIXTURE CAPTURES · HELD FRAMES · captured by Tharun; TUNING / TEST-REPORT verbatim |
+| B19 | RESULT | 22.25 | OWN play1 | capture from FIGHT through cases 1-2 at real speed (every 2nd tick), zoom, readout; labelled 0.5x replay of case 1; labelled 0.25x replay of case 2 | MOVIE MAKER CAPTURE · SCRIPTED INPUT · made for this film; REPLAY labels; SETUP disclosed |
+| B20 | RESULT | 26.81 | OWN play2 | cases 3-5 side by side, synchronised on the jab start, 0.25x, looped; readout per case; case 3 panel ringed; case 4 panel ringed; case 5 panel ringed; all three ringed; case 6: REWIND, zoom on the key, wind and key frame from the log | MOVIE MAKER CAPTURE · SCRIPTED INPUT · made for this film; REPLAY labels; SETUP disclosed |
+| B21 | TESTS | 37.03 | OWN tests | counts from the re-run logs (evidence/runs/tests-a5978c0/); mutation table M1-M4 (TEST-REPORT A7-5); M4 row lights: passed, explained; CLAUDE.md headless fact, verbatim | recorded output (re-run), verbatim |
+| B22 | VERDICT | 33.06 | OWN mistakes | A7-11 mistakes, each with its record; seam bug card: cause, why the suite was green; structure B7 before (3 failed) and after (0 failed), log lines | TEST-REPORT and seam logs, verbatim |
+| B23 | VERDICT | 30.78 | OWN against | A7-9f table rows, verbatim; A7-9b, A7-9c, A7-9d HUMAN CHECK quotes, verbatim; FRICTIONAL.md In my words, verbatim | TEST-REPORT / FRICTIONAL, verbatim |
+| B24 | CREDITS | 40.02 | OWN credits | SOURCES.md "Who did what (A7)" verbatim, two columns; Claude column lights; drafting note and sheet licence (SOURCES.md A7) light | SOURCES.md · verbatim |
+| B25 | VERDICT | 37.63 | REMOTION ClaudeVerdictArtifact | verdict artifact lines land | — |
+| B26 | YOUR_TURN | 29.03 | REMOTION ClaudeComposerAsk | composer types the suggested prompt; prediction rule and credits land | — |
+| B27 | OUTRO | 4.41 | REMOTION ClaudeTitleOutro | locked title card | — |
+
+Total 717.17 s.
