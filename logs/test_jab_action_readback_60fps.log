@@ -18,7 +18,7 @@ PASS  BodyPivot:position:x key 0: frame 0 (time 0.0000000), value 0.000, transit
 PASS  BodyPivot:position:x key 1: frame 3 (time 0.0500000), value -6.000, transition 2.0
 PASS  BodyPivot:position:x key 2: frame 5 (time 0.0833333), value 14.000, transition 1.0
 PASS  BodyPivot:position:x key 3: frame 10 (time 0.1666667), value 14.000, transition 1.0
-PASS  BodyPivot:position:x key 4: frame 11 (time 0.1833333), value 8.000, transition 0.5
+PASS  BodyPivot:position:x key 4: frame 11 (time 0.1833333), value 8.000, transition 1.0
 PASS  BodyPivot:position:x key 5: frame 21 (time 0.3500000), value 0.000, transition 1.0
 PASS  track 1 path FacingPivot/BodyPivot:rotation is one the brief names
 PASS  FacingPivot/BodyPivot:rotation: value track
@@ -29,7 +29,7 @@ PASS  BodyPivot:rotation key 0: frame 0 (time 0.0000000), value 0.000, transitio
 PASS  BodyPivot:rotation key 1: frame 3 (time 0.0500000), value -0.100, transition 2.0
 PASS  BodyPivot:rotation key 2: frame 5 (time 0.0833333), value 0.120, transition 1.0
 PASS  BodyPivot:rotation key 3: frame 10 (time 0.1666667), value 0.120, transition 1.0
-PASS  BodyPivot:rotation key 4: frame 11 (time 0.1833333), value 0.050, transition 0.5
+PASS  BodyPivot:rotation key 4: frame 11 (time 0.1833333), value 0.050, transition 1.0
 PASS  BodyPivot:rotation key 5: frame 21 (time 0.3500000), value 0.000, transition 1.0
 PASS  track 2 path FacingPivot/BodyPivot/KeyMount/KeyBob:position:y is one the brief names
 PASS  FacingPivot/BodyPivot/KeyMount/KeyBob:position:y: value track
@@ -40,7 +40,7 @@ PASS  KeyBob:position:y key 0: frame 0 (time 0.0000000), value 0.000, transition
 PASS  KeyBob:position:y key 1: frame 3 (time 0.0500000), value 2.000, transition 2.0
 PASS  KeyBob:position:y key 2: frame 5 (time 0.0833333), value -2.000, transition 1.0
 PASS  KeyBob:position:y key 3: frame 10 (time 0.1666667), value -2.000, transition 1.0
-PASS  KeyBob:position:y key 4: frame 11 (time 0.1833333), value -1.000, transition 0.5
+PASS  KeyBob:position:y key 4: frame 11 (time 0.1833333), value -1.000, transition 1.0
 PASS  KeyBob:position:y key 5: frame 21 (time 0.3500000), value 0.000, transition 1.0
 PASS  every track the brief names is present
 PASS  a key sits on phase boundary frame 0
@@ -65,15 +65,15 @@ frame  x       rot     keybob_y
     9   14.00   0.120   -2.00
    10   14.00   0.120   -2.00
    11    8.00   0.050   -1.00
-   12    6.48   0.040   -0.81
-   13    5.12   0.032   -0.64
-   14    3.92   0.024   -0.49
-   15    2.88   0.018   -0.36
-   16    2.00   0.012   -0.25
-   17    1.28   0.008   -0.16
-   18    0.72   0.004   -0.09
-   19    0.32   0.002   -0.04
-   20    0.08   0.000   -0.01
+   12    7.20   0.045   -0.90
+   13    6.40   0.040   -0.80
+   14    5.60   0.035   -0.70
+   15    4.80   0.030   -0.60
+   16    4.00   0.025   -0.50
+   17    3.20   0.020   -0.40
+   18    2.40   0.015   -0.30
+   19    1.60   0.010   -0.20
+   20    0.80   0.005   -0.10
    21    0.00   0.000    0.00
 PASS  pose at frame 0 is (0.00, 0.000, 0.00) as the brief keys it
 PASS  pose at frame 3 is (-6.00, -0.100, 2.00) as the brief keys it
@@ -84,7 +84,7 @@ PASS  pose at frame 21 is (0.00, 0.000, 0.00) as the brief keys it
 PASS  the extension holds at +14 px, +0.12 rad on every active frame 5..10
 PASS  startup 0->3 eases out: the first frame moves furthest back (-3.33 vs -0.67)
 PASS  3->5 eases in: it accelerates into the active frame (5.00 then 15.00 px)
-PASS  recovery 11->21 eases out: it settles (first step 1.52 px, last 0.08 px)
+PASS  recovery 11->21 is linear (revision 1): an even 0.8 px back each frame, still moving on frame 30 (steps ["0.80", "0.80", "0.80", "0.80", "0.80", "0.80", "0.80", "0.80", "0.80", "0.80"])
 PASS  after the end the rig stays at rest: LOOP_NONE does not wrap into the coil
 
 -- 5. facing comes from FacingPivot, not the clip

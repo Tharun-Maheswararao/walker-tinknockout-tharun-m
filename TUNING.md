@@ -156,3 +156,43 @@ Windowed run, `godot --path godot`, 1280×720. I whiffed jabs to bring Bolt's wi
 **Normal speed:** The fighter's whole body leans back first, then pushes forward with the punch arm already extended as part of the jab picture, holds briefly, and pulls back to the starting stance. The key does not turn on its own; it stays fixed and rides along with the body's tilt and slight shift. The green outline stays around the body the whole time, while the red box flashes on only during the forward push/hold part of the jab and then disappears as the body returns.
 
 **Quarter speed, with boxes:** You can clearly see the body lean back first, then push forward with the extended arm in a single combined picture, hold, and step back, with no separate arm extension or key rotation. The green box stays around the fighter throughout, while the red box appears only right around the forward thrust/hold and drops out on the return.
+## 2026-11-22 — A7 jab_action, revision 1: Claude's reading of r0 and prediction (before any change)
+
+*Claude's reading of the fixture capture r0 (`captures/jab_action/r0/`, contact sheet `captures/jab_action/r0_sheet.png`) beside its per-frame log (`logs/jab_preview_r0.log`). A claim, not a check.*
+
+| Frame | Table phase | What the frame shows |
+|---|---|---|
+| 9 | idle | helmet in profile, arm down, key on a short orange stem |
+| 10 | startup begins | the whole picture changes in one frame: helmet turned to the front, arm already fully extended (the fighter's jab image) |
+| 13 | coil peak (−6 px, −0.10 rad) | body leans back with the arm still out |
+| 14 | last startup (−1 px) | coming forward |
+| 15 | active begins | lunge +14 px and lean forward: a 15 px jump in one frame, the largest move in the clip |
+| 15–20 | active | six identical frames: a clear hold |
+| 21 | recovery begins (+8 px) | retraction starts |
+| 27–30 | late recovery | each within about 1 px of rest (1.28, 0.72, 0.32, 0.08): nearly still |
+| 31 | IDLE | the picture swaps back to the profile helmet and lowered arm |
+
+**Where the motion and the table disagree:**
+1. **The punch shows before the active window.** The arm is fully out on frame 10, five frames before the hitbox opens on frame 15. This is not the clip: `_apply_pose` shows the jab image from the first JAB tick, as it did before A7. It needs a startup image (drawing) or a code change outside the brief. Recorded as a finding, not proposed.
+2. **The recovery ends in a stall, then a pop.** The ease-out (0.5) from frame 11 covers most of the distance by frame 26. Frames 27–30 barely move, then frame 31 swaps to the idle image, so the return reads as stop, then snap.
+
+**The one change (approved by Tharun):** key 4 (frame 11), outgoing transition 0.5 (ease-out) → 1.0 (linear), on all three tracks. No key time or value changes.
+
+**Prediction for r1, before the edit:**
+- **Frames 22–30:** x = 7.2, 6.4, 5.6, 4.8, 4.0, 3.2, 2.4, 1.6, 0.8 px (r0: 6.48, 5.12, 3.92, 2.88, 2.00, 1.28, 0.72, 0.32, 0.08). Frame 26 is still visibly forward (4.0 px, was 2.0), and the body is still moving on frame 30.
+- **Rotation and key bob:** even steps too, for example rotation 0.025 rad on frame 26 (was 0.012).
+- **Frames 10–21 and 31:** identical to r0 (no boundary key changes); frame 31 still swaps the image, but from a body still moving.
+
+## 2026-11-22 — A7 jab_action, revision 1: r1 captured, Claude's comparison
+
+*Fixture capture r1 (`captures/jab_action/r1/`, recovery contact sheet `captures/jab_action/r1_recovery_sheet.png`, log `logs/jab_preview_r1.log`), run by Tharun: 35 frames at 60 fps. Claude's comparison with the prediction. A claim, not a check.*
+
+| Prediction | r1 | Match |
+|---|---|---|
+| Frames 22–30 at 7.2, 6.4, 5.6, 4.8, 4.0, 3.2, 2.4, 1.6, 0.8 px | log: exactly those values | yes |
+| Frame 26 still visibly forward, about 4.0 px (r0: 2.0) | log 4.00; in the frame the lean is still clear | yes |
+| Still moving on frame 30 | helmet centre steps 2.2–2.7 window px every frame from 22 to 30 (measured from the pixels; r0 log: 1.28 → 0.08 view px on 27–30) | yes |
+| Frames 10–21 and 31 unchanged | frames 9, 10, 13, 14, 15, 20, 21 and 31 are byte-identical in r0 and r1 (md5) | yes |
+| Frame 31 still swaps the image | the profile helmet and lowered arm return on 31 | yes (the swap is not the clip's) |
+
+**What the change did not touch:** the image swaps on frame 10 (into the jab picture) and frame 31 (back to idle), and the single-frame retraction on frame 21 (helmet −23 window px, from +14 px and 0.12 rad to +8 px and 0.05 rad), are as in r0.

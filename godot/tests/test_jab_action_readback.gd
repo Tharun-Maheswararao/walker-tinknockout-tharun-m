@@ -27,7 +27,9 @@ const CLIP := "res://animations/jab_action.tres"
 const FPS := 60.0                          # CHANGE-BRIEF §4
 const LENGTH_FRAMES := 21
 const KEY_FRAMES := [0, 3, 5, 10, 11, 21]  # every phase boundary (0, 5, 11, 21) plus the coil peak and the end of the hold
-const TRANS := [0.5, 2.0, 1.0, 1.0, 0.5, 1.0]
+## Key 4 (frame 11) was 0.5 (ease-out) in version 1.0 of the brief; 1.0 (linear) from
+## TUNING.md jab_action revision 1 and CHANGE-BRIEF.md A7 revisions, 2026-11-22.
+const TRANS := [0.5, 2.0, 1.0, 1.0, 1.0, 1.0]
 const TRACKS := {
 	"FacingPivot/BodyPivot:position:x": [0.0, -6.0, 14.0, 14.0, 8.0, 0.0],
 	"FacingPivot/BodyPivot:rotation": [0.0, -0.10, 0.12, 0.12, 0.05, 0.0],
@@ -178,7 +180,10 @@ func run() -> void:
 	ok(hold, "the extension holds at +14 px, +0.12 rad on every active frame 5..10")
 	ok(poses[1][0] - poses[0][0] < poses[3][0] - poses[2][0], "startup 0->3 eases out: the first frame moves furthest back (%.2f vs %.2f)" % [poses[1][0] - poses[0][0], poses[3][0] - poses[2][0]])
 	ok(poses[4][0] - poses[3][0] < poses[5][0] - poses[4][0], "3->5 eases in: it accelerates into the active frame (%.2f then %.2f px)" % [poses[4][0] - poses[3][0], poses[5][0] - poses[4][0]])
-	ok(poses[11][0] - poses[12][0] > poses[20][0] - poses[21][0], "recovery 11->21 eases out: it settles (first step %.2f px, last %.2f px)" % [poses[11][0] - poses[12][0], poses[20][0] - poses[21][0]])
+	var steps := []
+	for fr in range(11, 21):
+		steps.append(poses[fr][0] - poses[fr + 1][0])
+	ok(steps.all(func(s): return near(s, 0.8, 1e-3)), "recovery 11->21 is linear (revision 1): an even 0.8 px back each frame, still moving on frame 30 (steps %s)" % [steps.map(func(s): return "%.2f" % s)])
 	f.player.seek(LENGTH_FRAMES / FPS, true)
 	f.player.advance(0.5)
 	ok(near(f.body.position.x, 0.0) and near(f.body.rotation, 0.0) and near(f.bob.position.y, 0.0), "after the end the rig stays at rest: LOOP_NONE does not wrap into the coil")
