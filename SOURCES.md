@@ -162,7 +162,7 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
 
 **No new model, asset or third-party content** was used in A7.
 
-**Drafting help for the brief:** Drafted and refined interactively through iterative Q&A sessions, using live screen recordings, frame/measurement notes, and playtest verdicts to shape observations, compare predictions against measurements, and structure the write-ups while running commands, inspecting captures, and editing files locally.
+**Drafting help for the brief:** Drafted and refined across four review rounds with Claude Code in the terminal, cross-checking the facts sheet and headless Godot probe outputs (`ba0c012`) against the codebase to catch conflicts like duplicate `KeyMount.position` writers, facing handling, and entry-tick offsets before committing (`18a3d78`).
 
 **Tools (A7):**
 - Godot 4.7.2.stable.official.ed1daf0bf (Forward+, Vulkan/MoltenVK), macOS 15.6, Apple M4; Movie Maker for the strips (`--fixed-fps 60 --disable-vsync --always-on-top`).

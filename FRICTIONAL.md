@@ -309,7 +309,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
 - **What happened:**
   - **CLAUDE.md:** drafted by Claude (`e6e89f5`). My review added the Headless-facts lines after a probe confirmed them on this Mac; the reloaded 0.35 key reads 0.3499999940 (`cd13984`).
   - **Pins:** written before any clip (`a7e1ff7`), 49/0 at 60 and 30. Claude's first expectations were wrong twice (Rivet's hitstop, EMPTY's 97 ticks). The first version failed at 30 because input there only arrives on a frame's first tick.
-- **In my words:** Writing the pins before the clips forced us to confront real engine behavior early, like Rivet's hitstop timing, EMPTY's 97 ticks, and how 30 fps only reads input on a frame's first tick. Probing headless float reload behavior on my Mac (`0.3499999940` for `0.35`) also taught me to record hardware-verified facts directly in `CLAUDE.md` instead of assuming exact decimals.
+- **In my words:** Writing the pins before the clips forced us to confront real engine behavior early, like Rivet's hitstop timing, EMPTY's 97 ticks, and how 30 fps only reads input on a frame's first tick. Probing headless `.tres` 32-bit float reload precision on my machine (`0.3499999940` for `0.35`) also taught me to record verified local probe facts directly in `CLAUDE.md` instead of assuming exact decimals.
 
 ## 11-19 to 11-20 — the clips, the wiring, edges and mutations
 
@@ -317,7 +317,7 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Clips:** sprite clip and sheets (`1aee23f`, read-back 26/0); rig clip (`840a849`, 58/0).
   - **Wiring:** I approved the Step 5 plan with four decisions (`bbb233a`). `test_slice:187` did not fail as the brief predicted; it became vacuous. The four planned pin updates went in their own commit (`b3750b0`).
   - **Edges and mutations:** 70/0 at 60. M1–M3 failed their tests from worktrees; M4 passed, because nothing is imported (`603d87c`). M1 was silent in the game; M3 printed an engine `ERROR` that the wrapper ignores.
-- **In my words:** Wiring the clips showed where predictions and reality diverge—`test_slice:187` became vacuous instead of failing as expected, so isolating the four pin updates into their own commit kept the diff clear. Running mutations in worktrees also revealed that a test suite passing doesn't catch everything on its own, since M4 passed with nothing imported and M3's engine `ERROR` was ignored by the wrapper.
+- **In my words:** Wiring the clips showed where predictions and reality diverge—`test_slice:187` became vacuous instead of failing as expected, so isolating the four pin updates into their own commit kept the diff clear. Running mutations in worktrees also highlighted real runtime blind spots: while M4 passed as expected since nothing is imported, M1 stayed silent in the game and M3 printed an engine `ERROR` that the wrapper ignores.
 
 ## 11-22 — the strip, two revisions
 
