@@ -361,7 +361,16 @@ func _sync_clips() -> void:
 		if turning:
 			if key_anim.current_animation != KEY_CLIP:
 				key_anim.play(KEY_CLIP)
-			key_anim.seek(fposmod(state_t, key_anim.current_animation_length), true)
+				key_anim.seek(0.0, true)
+			# Always move FORWARD to state_t mod length. A backward seek across the wrap
+			# (e.g. 0.99999 -> 0.017, which float rounding of state_t produces after the
+			# first turn) evaluates the discrete frame track backwards and shows the NEXT
+			# key, frame 1, for one tick: 7 -> 1 -> 0 at every wrap (TEST-REPORT A7, the
+			# cycle seam; fix approved by Tharun 2026-11-22). advance() wraps forward.
+			var length := key_anim.current_animation_length
+			var ahead := fposmod(fposmod(state_t, length) - key_anim.current_animation_position, length)
+			if ahead > 0.0:
+				key_anim.advance(ahead)
 		_key_turning = wind < MAX_WIND
 	else:
 		_key_turning = false

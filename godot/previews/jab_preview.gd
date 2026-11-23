@@ -21,8 +21,14 @@ extends Node2D
 ##   --loop    re-requests the jab every 45 ticks (0.75 s), wind refilled each time
 ##   --boxes   draws the hurtbox (green) and the live attack box (red), as F1 does in game
 ##   --left    stands Bolt facing left at x 433 (mirror check)
-##   godot --path godot res://previews/jab_preview.tscn -- --loop [--boxes] [--left]
+##   --dark    stands Bolt at x 271, over the darkest stretch x 256-287 (Use It: background)
+##   godot --path godot res://previews/jab_preview.tscn -- --loop [--boxes] [--left] [--dark]
 ## Slow motion: add the engine flag --time-scale 0.25 before `--`.
+##
+## Two clocks (Use It), run WITHOUT --fixed-fps so the window runs at the display's rate:
+##   godot --path godot res://previews/jab_preview.tscn -- --loop --clocks
+## counts drawn frames per physics tick and, on every JAB tick, the gap between the
+## clip's position and state_t, then prints a summary after 600 ticks (10 s) and quits.
 
 const TRIGGER := 10
 const LOOP_TICKS := 45
@@ -33,7 +39,13 @@ var args := OS.get_cmdline_user_args()
 var loop := "--loop" in args
 var boxes := "--boxes" in args
 var left := "--left" in args
+var dark := "--dark" in args
+var clocks := "--clocks" in args
 var overlay: Node2D
+var draws_this_tick := 0
+var draws_per_tick := {}     # drawn frames between two physics ticks -> how often
+var worst_gap := 0.0         # largest |clip position - state_t| on a JAB tick
+var jab_ticks := 0
 
 func _ready() -> void:
 	var cam := Camera2D.new()
@@ -48,7 +60,7 @@ func _ready() -> void:
 	bolt = Fighter.new()
 	bolt.skin = "bolt"
 	add_child(bolt)
-	bolt.reset(433.0 if left else 207.0, -1 if left else 1)
+	bolt.reset(433.0 if left else (271.0 if dark else 207.0), -1 if left else 1)
 	bolt.position.y = 292.0                   # FLOOR_Y, main.gd:12
 	overlay = Node2D.new()
 	overlay.z_index = 5
@@ -63,6 +75,18 @@ func _physics_process(dt: float) -> void:
 	bolt.intent = {"move": 0, "jab": fire, "cutlass": false, "pop": false, "block": false, "rewind": false}
 	bolt.step(dt)
 	var fa: AnimationPlayer = bolt.fighter_anim
+	if clocks:
+		draws_per_tick[draws_this_tick] = draws_per_tick.get(draws_this_tick, 0) + 1
+		draws_this_tick = 0
+		if bolt.state == Fighter.S.JAB:
+			jab_ticks += 1
+			worst_gap = maxf(worst_gap, absf(fa.current_animation_position - bolt.state_t))
+		if tick == 600:
+			var dps := Engine.get_frames_per_second()
+			print("CLOCKS: display %d fps, physics %d ticks/s; drawn frames per tick %s; clip vs state_t on %d JAB ticks: largest gap %.6f s" % [dps, Engine.physics_ticks_per_second, draws_per_tick, jab_ticks, worst_gap])
+			get_tree().quit()
+		tick += 1
+		return
 	print("frame %3d  %-5s state_t %.4f  clip %s %.4f  x %6.2f  rot %6.3f  keybob %5.2f  box %s" % [tick,
 		Fighter.S.keys()[bolt.state], bolt.state_t,
 		"jab_action" if fa.current_animation != &"" else "-         ",
@@ -71,6 +95,9 @@ func _physics_process(dt: float) -> void:
 		"LIVE" if bolt.attack_box().has_area() else "-"])
 	overlay.queue_redraw()
 	tick += 1
+
+func _process(_dt: float) -> void:
+	draws_this_tick += 1
 
 func _draw_boxes() -> void:
 	if not boxes:

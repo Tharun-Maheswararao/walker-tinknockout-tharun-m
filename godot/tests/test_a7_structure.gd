@@ -73,6 +73,7 @@ class Driver extends Node:
 	var schedule := {}
 	var rows: Array = []
 	var transitions: Array = []
+	var hold_wind := -1.0             # SETUP: when >= 0, Bolt's wind is reset to this after every tick
 	func _ready() -> void:
 		process_physics_priority = 1000   # after main
 	func snap(f) -> Dictionary:
@@ -92,6 +93,8 @@ class Driver extends Node:
 			k.physical_keycode = ev[0]
 			k.pressed = ev[1]
 			Input.parse_input_event(k)
+		if hold_wind >= 0.0:
+			game.bolt.wind = hold_wind
 		tick += 1
 
 class ScriptBrain:
@@ -375,6 +378,43 @@ func run() -> void:
 			re = i
 			break
 	ok(re > 0 and d.rows[re + 5].r.face == -1.0 and near(d.rows[re + 5].r.gx, -14.0), "Rivet's jab goes forward for him: body %.1f px from his feet at active onset (want -14)" % (d.rows[re + 5].r.gx if re > 0 else 0.0))
+	await done(main)
+
+	print("\n-- B7. six turns of the key (the seam at every wrap, not only the first)")
+	# Added after the key-cycle preview showed 7 -> 1 -> 0 at every wrap after the first
+	# (TEST-REPORT A7 Use It, the cycle seam). B5 stops at 1.5 turns, so it never saw it.
+	r = await fresh(200, 440); main = r[0]; d = r[1]
+	d.hold_wind = 50.0   # SETUP: the ratchet never reaches full wind, so the key keeps turning
+	land(d, 5, KEY_S, true)
+	land(d, 400, KEY_S, false)
+	await run_to(d, 395)
+	rw = first_entry(d, S.REWIND, 0)
+	var seq := []
+	var holds := []
+	var run := 0
+	for i in range(rw, 396):
+		var fr: int = d.rows[i].b.frame
+		if seq.is_empty() or fr != seq[-1]:
+			if not seq.is_empty():
+				holds.append(run)
+			seq.append(fr)
+			run = 1
+		else:
+			run += 1
+	var in_order := true
+	for i in range(1, seq.size()):
+		in_order = in_order and seq[i] == (seq[i - 1] + 1) % 8
+	var wraps := 0
+	for i in range(1, seq.size()):
+		if seq[i - 1] == 7 and seq[i] == 0:
+			wraps += 1
+	var bad := []
+	for i in range(1, seq.size()):
+		if seq[i] != (seq[i - 1] + 1) % 8:
+			bad.append("%d>%d" % [seq[i - 1], seq[i]])
+	ok(in_order, "A-R3 seam: the key's frames run 0,1,..,7,0,.. in order through every wrap (out of order: %s)" % [bad])
+	ok(wraps >= 6, "A-R3 seam: at least six wraps seen (%d)" % wraps)
+	ok(holds.all(func(h): return h == 7 or h == 8), "A-R3 seam: every frame, frame 0 after each wrap included, held 7 or 8 ticks (holds seen %s)" % [holds.reduce(func(acc, h): return acc if h in acc else acc + [h], [])])
 	await done(main)
 
 	print("\n%d checks, %d failed" % [checks, failures])

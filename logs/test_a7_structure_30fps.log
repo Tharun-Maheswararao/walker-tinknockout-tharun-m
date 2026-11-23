@@ -72,8 +72,13 @@ PASS  A-R3 REWIND entered at full wind: the key never turns (frame 0, no clip)
 PASS  walking left: facing -1, FacingPivot.scale.x -1, sprite.scale.x stays positive (0.333)
 PASS  Rivet's jab goes forward for him: body -14.0 px from his feet at active onset (want -14)
 
-54 checks, 0 failed
-WARNING: 20 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+-- B7. six turns of the key (the seam at every wrap, not only the first)
+PASS  A-R3 seam: the key's frames run 0,1,..,7,0,.. in order through every wrap (out of order: [])
+PASS  A-R3 seam: at least six wraps seen (6)
+PASS  A-R3 seam: every frame, frame 0 after each wrap included, held 7 or 8 ticks (holds seen [8, 7])
+
+57 checks, 0 failed
+WARNING: 64 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
-ERROR: 4 resources still in use at exit (run with --verbose for details).
+ERROR: 6 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)
