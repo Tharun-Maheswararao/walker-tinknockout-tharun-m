@@ -246,3 +246,79 @@ The A5 commands above still give their baseline counts.
 - `claude -p` was spend-limited until 2026-12-01, so all agent prompts ran in the interactive Claude Code session (SOURCES.md).
 
 **A6 film:** [claude-liam-walker-tinknockout-tharun-m-a6-particles.mp4](https://drive.google.com/file/d/10_Dj02-oApqbA52NZSiLufxgmR-TbomC/view?usp=sharing) (Google Drive) · SHA-256 `04d435e30352681ac1bfecd855072acf700a9afc3a02cc5e601407e4b010630a` · 4K 3840×2160, 11:57 · shows game source `c844ab2`. Watched in full by Tharun on 2026-11-09. Beat sheet, script, evidence ledger and QC records: `youtube/claude-liam-walker-tinknockout-tharun-m-a6-particles/` (the MP4 itself is not in GitHub).
+
+---
+
+## Assignment 7 — animation (tag `a7`)
+
+**Started from:** tag `a6` (`66c8cbc`). Godot 4.7.2.stable, Forward+ on Vulkan (MoltenVK), Apple M4, window 1280×720 (viewport 640×360). Physics 60 ticks/s.
+
+**Added:**
+- **`wind_key_cycle`, the looping clip.** Route: Sprite2D + AnimationPlayer frame track. The wind-up key on each fighter's back turns while he rewinds, one turn per second (8 frames at 8 fps, `LOOP_LINEAR`), and holds at full wind.
+  - Sheet: `godot/assets/props/key-bolt-sheet.png` / `key-rivet-sheet.png`, written by `godot/tools/generate_key_sheets.gd` from the committed key art (credits: `godot/assets/props/ATTRIBUTION.md`).
+  - Clip: `godot/animations/wind_key_cycle.tres`.
+- **`jab_action`, the committing action.** Route: cutout rig keyed as resource text. A wind-up lean back, a lunge held through the active window, and a linear return, keyed at every phase boundary of the 60 fps phase table (startup 0–4, active 5–10, recovery 11–20). Clip: `godot/animations/jab_action.tres`.
+- **One authority per animated node** (`godot/fighter/fighter.gd`):
+  - each fighter now builds a named rig, `FacingPivot/BodyPivot/{sprite, KeyMount/KeyBob/key_sprite}`;
+  - `FighterAnimPlayer` is the only writer of `BodyPivot` and `KeyBob`; `KeyAnimPlayer` is the only writer of `key_sprite.frame`;
+  - both run MANUAL and are put at `state_t` at the end of each physics step, so they freeze with hitstop and pause;
+  - `SteamMount` (A6) now follows `KeyMount`.
+- **Fixtures, not part of the game:** `godot/previews/jab_preview.tscn` (the strip; `--loop`, `--boxes`, `--dark`, `--left`, `--clocks`) and `key_cycle_preview.tscn` (the seam; `--dark`, `--zoom`).
+
+**Run the tests** from the repo root, through the wrapper. Run `godot --headless --path godot --import` once after cloning:
+```bash
+./scripts/run-test.sh test_wind_key_cycle_readback.gd 60
+```
+```bash
+./scripts/run-test.sh test_jab_action_readback.gd 60
+```
+```bash
+./scripts/run-test.sh test_a7_structure.gd 60
+```
+```bash
+./scripts/run-test.sh test_a7_edges.gd 60
+```
+```bash
+./scripts/run-test.sh test_a7_pins.gd 60
+```
+
+Expected results:
+- `test_wind_key_cycle_readback`: 26 checks, 0 failed;
+- `test_jab_action_readback`: 58 checks, 0 failed;
+- `test_a7_structure`: 57 checks, 0 failed (also at 30);
+- `test_a7_edges`: 70 checks, 0 failed (60 only: at 30, input can't land on odd ticks);
+- `test_a7_pins`: 49 checks, 0 failed (also at 30).
+
+The A5 and A6 commands above still give their counts.
+
+**See it:**
+- **In the game:** `godot --path godot`, Enter. Jab with **J**. Walk or jab until the wind is low, then hold **S** to see the key turn.
+- **Fixtures:**
+  ```bash
+  godot --path godot res://previews/jab_preview.tscn -- --loop
+  ```
+  ```bash
+  godot --path godot res://previews/key_cycle_preview.tscn
+  ```
+- **Captures:** `--fixed-fps 60 --disable-vsync --always-on-top` (the capture command is at the top of each preview script).
+
+**Docs for A7:**
+- CLAUDE.md (reviewed; imports the brief);
+- CHANGE-BRIEF.md (v1 plus two dated revisions);
+- TUNING.md ("A7 jab_action");
+- TEST-REPORT.md ("Assignment 7");
+- FRICTIONAL.md;
+- SOURCES.md;
+- `godot/assets/props/ATTRIBUTION.md`;
+- `design/a7/BRIEF-FACTS.md`;
+- `evidence/a7/` (probes, baseline, pins, Step 5 plan and logs, edges, mutations, seam fix);
+- `captures/jab_action/` (strip frames r0–r2);
+- `prompts/a7/`.
+
+**Known limitations (A7):**
+- The fighter's jab picture appears on the first JAB tick, five frames before the hitbox, and swaps back on the IDLE tick. Mashing J shows the idle picture for one frame between jabs. Both come from the A2 art per state, not the clips (TEST-REPORT A7-12).
+- Rivet is drawn facing right on the title and intro until the first FIGHT tick. This was there before A7.
+- A single rewind in the game reaches full wind after at most 2.5 turns, and the key then holds.
+- `claude -p` was spend-limited until 2026-12-01, so all agent prompts ran in the interactive Claude Code session.
+
+**A7 film:** _link and SHA-256 to be added._

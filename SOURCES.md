@@ -151,3 +151,35 @@ Seeds use a CPU `torch.Generator`, so the latent noise is reproducible. On anoth
   - **Build:** built both effect scenes, the texture scripts, the config and state tests, the preview fixtures, the wiring in `main.gd`, `SteamMount`, the cost script, the F10 key and the GPU-price fixture.
   - **Tuning:** read every strip, wrote the predictions and comparisons, and measured the frames.
   - **Docs:** drafted the TEST-REPORT, README, SOURCES and FRICTIONAL sections.
+
+## Assignment 7 — animation
+
+**Sprite sheet:**
+- `godot/assets/props/key-bolt-sheet.png` and `key-rivet-sheet.png` are written by `godot/tools/generate_key_sheets.gd` (Claude) from the committed A2 key art: SDXL-Turbo, revision `71153311…`, prompt row PROP-KEY in `ASSET-LOG.md`; `key-rivet.png` is its recolour.
+- Licence: Stability AI Non-Commercial Research Community License, as all of this project's SDXL-Turbo art.
+- Each sheet is a derivative made by resizing and mirroring only.
+- Credits: `godot/assets/props/ATTRIBUTION.md`.
+
+**No new model, asset or third-party content** was used in A7.
+
+**Drafting help for the brief:** Drafted and refined interactively through iterative Q&A sessions, using live screen recordings, frame/measurement notes, and playtest verdicts to shape observations, compare predictions against measurements, and structure the write-ups while running commands, inspecting captures, and editing files locally.
+
+**Tools (A7):**
+- Godot 4.7.2.stable.official.ed1daf0bf (Forward+, Vulkan/MoltenVK), macOS 15.6, Apple M4; Movie Maker for the strips (`--fixed-fps 60 --disable-vsync --always-on-top`).
+- Claude Code (Claude Opus 5.5) in the interactive desktop session. `claude -p` was still spend-limited until 2026-12-01, so every agent prompt ran there; the prompts are in `prompts/a7/`.
+- Python 3 with Pillow, for contact sheets and pixel measurements of the strips.
+
+**Who did what (A7):**
+- **Me (Tharun):**
+  - **Brief:** chose both clips, the routes, the 60 fps phase table and its poses and easing, the 8 fps cycle and its sheet recipe, the authority layout and the interrupt rules; wrote the two dated revisions.
+  - **Wrapper:** replaced `scripts/run-test.sh` with the A7 wrapper (`3c43c9a`).
+  - **Reviews and decisions:** reviewed CLAUDE.md and added the Headless-facts lines; approved the Step 5 plan with its four decisions and the seam fix; made the four planned pin updates' commit.
+  - **Captures:** ran every Movie Maker capture (r0, r1, r2).
+  - **Looks and verdicts:** wrote the first look before Claude read the strip, and both in-game verdicts; revision 2 came from my own play observation.
+  - **Use It:** did the human checks (seam, registration, backgrounds, the action in play) and ran the two-clocks measurement.
+- **Claude Code:**
+  - **Facts:** wrote `design/a7/BRIEF-FACTS.md` and the probes; reviewed the brief drafts; drafted CLAUDE.md.
+  - **Build:** wrote the sheet generator, both clip resources, the read-backs, the pins, the wiring in `fighter.gd` and `steam_mount.gd`, the structure, state and edge tests, and both previews.
+  - **Verification:** ran the mutations in worktrees; found and fixed (with approval) the seam bug.
+  - **Tuning:** read the strips, wrote the predictions and comparisons, and measured the frames.
+  - **Docs:** drafted the TEST-REPORT, README, SOURCES and FRICTIONAL sections.

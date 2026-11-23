@@ -291,3 +291,46 @@ The Claude app was closed overnight for longer than either of us realised. Work 
   - **Cost script:** both effects within the spread of the game without them. Two engine monitors read 0, so only the wall clock was used (`a2b7a67`).
   - **GPU price:** the F10 key and the GPU-price fixture were added (`f825d97`).
 - **In my words:** Searching through the generated shader lines was tedious but gave a clear view of how particle parameters map to underlying GPU code, while the empty-scene control usefully isolated the measuring script's own overhead during headless runs.
+
+# Assignment 7 — animation (2026-11-19 to 11-22)
+
+*Written at the end, not as the work happened. Claude organised the facts below from the commit log, the plans and the logs, citing each commit. Every "In my words" line is mine; Claude left them blank.*
+
+## 11-19 — facts, wrapper, baseline, brief
+
+- **What happened:**
+  - **Facts:** Claude's facts sheet and a probe of the real jab (`ba0c012`): 5 / 6 / 10 ticks, IDLE on tick 21, a landed hit 5 ticks longer. At 30 fps the boundaries fall on half frames, which is why the phase table is at 60.
+  - **Wrapper and baseline:** I swapped in the A7 wrapper (`3c43c9a`); every earlier suite kept its count through it (`a00d26e`).
+  - **Brief:** four review rounds before the commit (`18a3d78`). Claude's reviews found, among others: two writers on `KeyMount.position`; the key left behind when the body lunges; facing not handled; a one-tick clip offset on entry; three existing assertions the hierarchy would break.
+- **In my words:** Putting the phase table at 60 fps and going through four brief review rounds before writing clips caught subtle bugs like two writers on `KeyMount.position`, the key getting left behind on lunges, and an entry tick offset before any test broke. It surprised me how much cleaner the A7 wrapper swap went once the baseline counts were locked in first.
+
+## 11-19 — CLAUDE.md and the pins
+
+- **What happened:**
+  - **CLAUDE.md:** drafted by Claude (`e6e89f5`). My review added the Headless-facts lines after a probe confirmed them on this Mac; the reloaded 0.35 key reads 0.3499999940 (`cd13984`).
+  - **Pins:** written before any clip (`a7e1ff7`), 49/0 at 60 and 30. Claude's first expectations were wrong twice (Rivet's hitstop, EMPTY's 97 ticks). The first version failed at 30 because input there only arrives on a frame's first tick.
+- **In my words:** Writing the pins before the clips forced us to confront real engine behavior early, like Rivet's hitstop timing, EMPTY's 97 ticks, and how 30 fps only reads input on a frame's first tick. Probing headless float reload behavior on my Mac (`0.3499999940` for `0.35`) also taught me to record hardware-verified facts directly in `CLAUDE.md` instead of assuming exact decimals.
+
+## 11-19 to 11-20 — the clips, the wiring, edges and mutations
+
+- **What happened:**
+  - **Clips:** sprite clip and sheets (`1aee23f`, read-back 26/0); rig clip (`840a849`, 58/0).
+  - **Wiring:** I approved the Step 5 plan with four decisions (`bbb233a`). `test_slice:187` did not fail as the brief predicted; it became vacuous. The four planned pin updates went in their own commit (`b3750b0`).
+  - **Edges and mutations:** 70/0 at 60. M1–M3 failed their tests from worktrees; M4 passed, because nothing is imported (`603d87c`). M1 was silent in the game; M3 printed an engine `ERROR` that the wrapper ignores.
+- **In my words:** Wiring the clips showed where predictions and reality diverge—`test_slice:187` became vacuous instead of failing as expected, so isolating the four pin updates into their own commit kept the diff clear. Running mutations in worktrees also revealed that a test suite passing doesn't catch everything on its own, since M4 passed with nothing imported and M3's engine `ERROR` was ignored by the wrapper.
+
+## 11-22 — the strip, two revisions
+
+- **What happened:**
+  - **First look:** my first version described things the game doesn't draw (the key spinning during the jab, a separate arm thrust). Claude pointed that out, and I rewatched and rewrote it before Claude read the strip (`ba980e9`).
+  - **Revision 1** (Claude's reading of r0): the recovery stalled, then snapped. A linear recovery matched its prediction exactly; my verdict: keep (`8a9dbed`, `247d64c`). My verdict was first pasted into CHANGE-BRIEF.md by mistake and moved.
+  - **Revision 2** (my observation in play): the retraction pop up close. The frame-11 pose cut it from −23 to −7.7 px; Claude's step prediction was 10 % high; my verdict: keep (`a1d6072`).
+- **In my words:** Writing my first look before reading the strip taught me how easy it is to project motion that isn't actually drawn, like thinking the key spun or the arm extended separately. In live play, revision 1 fixed the late recovery stall, while testing up close against Rivet exposed the sharper frame-21 retraction pop that drove revision 2 and cut the jump from −23 to −7.7 px.
+
+## 11-22 — Use It, and the seam bug
+
+- **What happened:**
+  - **The bug:** the key-cycle preview's first log showed 7 → 1 → 0 at every wrap after the first. The cause was a backward seek in Claude's `_sync_clips`; the suite had missed it. I approved the fix and a six-turn regression test, which failed before and passes after (`b4046b1`).
+  - **My checks:** seam, registration, backgrounds, the jab in play.
+  - **Two clocks:** clip vs `state_t` 0 s; display 129 fps against 60 ticks/s.
+- **In my words:** Using the preview actually caught a real seam bug (`7 → 1 → 0` on wraps from a backward seek in `_sync_clips`) that our existing test suite had missed, so adding a six-turn regression test locked the fix in. Checking the two clocks also gave concrete proof that clip timing matches gameplay `state_t` with 0 s drift at 60 ticks/s even while the Mac display renders at 129 fps.

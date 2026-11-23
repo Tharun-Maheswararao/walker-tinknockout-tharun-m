@@ -639,3 +639,235 @@ Each of Claude's strip readings beside my verdict. The left two columns quote TU
 | Background, Effect A dark stretch | Shard darkening 42 here, against 105 on the castle | First: "flecks pop cleanly"; corrected: "charcoal shards are much fainter and harder to make out" | Disagreed at first; my answer was corrected after Claude's measurement |
 
 **My statement on where we disagreed:** On the steam size and shard scale disagreements, I accept the objective pixel measurements—the plume is a quarter of Bolt's height, and the shard scale remained unchanged at 0.8–1.2. However, I keep my visual observation for gameplay evaluation: in active motion, the extended opacity timing makes the effects feel larger and more readable to the player on screen. That live perceptual impact is what matters most for feel and feedback.
+
+# Assignment 7 — animation: wind_key_cycle and jab_action
+
+*Drafted by Claude from the logs and commits named in each section. Tharun's own observations are marked "(Tharun)" and quoted as he wrote them.*
+
+**Environment for every A7 result:** Godot 4.7.2.stable.official.ed1daf0bf; Forward+ on Vulkan 1.2.334 (MoltenVK); Apple M4; macOS 15.6. Window 1280×720, viewport 640×360; physics 60 ticks/s. Tests always through `scripts/run-test.sh` (A7 wrapper, `3c43c9a`). Checked at revision `b4046b1`.
+
+**The two clips** (`CHANGE-BRIEF.md` §1):
+
+| Clip | Route | Node | Authority | Loops / commits |
+|---|---|---|---|---|
+| `wind_key_cycle` (`godot/animations/wind_key_cycle.tres`) | Sprite2D + AnimationPlayer frame track | `Fighter/FacingPivot/BodyPivot/KeyMount/KeyBob/key_sprite` (`hframes` 8) | `KeyAnimPlayer` (`frame`) | loops (`LOOP_LINEAR`, 8 keys at 8 fps) |
+| `jab_action` (`godot/animations/jab_action.tres`) | cutout rig keyed as resource text | `BodyPivot` (`position:x`, `rotation`), `KeyBob` (`position:y`) | `FighterAnimPlayer` | commits (`LOOP_NONE`, 21 frames at 60 fps, `step` 1/60) |
+
+## A7-1. Baseline, before and after
+
+| Suite | Before A7 (`a00d26e`, A7 wrapper) | After A7 (`b4046b1`) |
+|---|---|---|
+| `test_slice` 60 | 25/0 | 25/0 (two assertions updated as planned, A7-3) |
+| `check_props3d` 60 | PASS | PASS |
+| `test_rewind_tint` 30 / 60 / 144 | 50/0 each | 50/0 each |
+| `test_materials` 60 | 55/0 | 55/0 |
+| `test_impact_effect_config` 60 | 136/0 | 136/0 |
+| `test_impact_effect_state` 60 | 44/0 | 44/0 |
+| `test_wind_steam_config` 60 | 33/0 | 33/0 |
+| `test_wind_steam_state` 60 | 37/0 | 37/0 (two assertions updated as planned, A7-3) |
+| `cost_effects` 60 | exit 0 | exit 0 |
+
+No log, before or after, contains `SHADER ERROR`, `SCRIPT ERROR` or `Failed loading resource`. Logs: `evidence/a7/baseline/`, `evidence/a7/seam/after-fix-all/`.
+
+## A7-2. Pins (Step 2): before and after
+
+`godot/tests/test_a7_pins.gd`, written by Claude, committed before any clip (`a7e1ff7`). It drives the real game loop, with Bolt through `Input.parse_input_event`. It pins:
+- one scripted run's ten transitions in order;
+- the jab's 5 / 6 / 10 ticks (IDLE on e+21);
+- the cutlass's 9 / 7 / 18 ticks;
+- a landed jab hitting on e+5 with hitstop freezing `state_t` on e+6..e+10 (IDLE on e+26);
+- a second jab press lost on e+4..e+21 and accepted on e+22;
+- a hit in startup, active and recovery (JAB → HURT; KO at 5 hp);
+- pause;
+- rewind clicks every 15 ticks;
+- EMPTY's length.
+
+| | 60 fps | 30 fps |
+|---|---|---|
+| Before the change (`evidence/a7/pins/before_*.log`) | 49/0 | 49/0 |
+| After the wiring (`evidence/a7/pins/after_*.log`) | 49/0, every check line and the whole 151-tick P1 log identical to before | the same |
+
+The brief predicted no change to these pins, and none happened.
+
+**What writing the pins found (Claude's expectations, corrected from the runs):**
+- **The defender's hitstop starts a tick earlier than the attacker's.** Rivet is HURT until e+29, not e+30, because Bolt steps before Rivet (`main.gd:181-182`).
+- **EMPTY lasts 97 ticks, not 96:** 96 × 1/60 accumulates to just under 1.60.
+- **At `--fixed-fps 30`, parsed input reaches the game only on the first tick of a drawn frame.** A press meant for e+5, e+11 or e+21 lands on e+4, e+10 or e+20. So the pins anchor on the tick an action actually started, and the edge tests run at 60.
+
+## A7-3. The four planned pin updates (`CHANGE-BRIEF.md` §7)
+
+Committed on their own, with the reason, after the wiring (`b3750b0`):
+
+| Assertion | Predicted | Observed after the wiring | Update |
+|---|---|---|---|
+| `test_wind_steam_state.gd:149`, the key squashed while rewinding | fails | failed | now: the key turns (`hframes` 8, `wind_key_cycle` playing, frames 0–6 seen) |
+| `test_wind_steam_state.gd:159`, `key_sprite.visible` false on KO | fails | failed | now `is_visible_in_tree()` |
+| `test_slice.gd:182`, walking left flips `sprite.scale.x` | fails | failed | now `FacingPivot.scale.x` |
+| `test_slice.gd:187`, walking right, `sprite.scale.x > 0` | fails | **did not fail: it became vacuous** (`sprite.scale.x` is always positive now) | now `FacingPivot.scale.x` |
+
+**Finding, left as is (Tharun's choice, 2026-11-22):** `test_wind_steam_state.gd:161`, "Bolt's key and steam still visible", reads `key_sprite.visible`, which is now always true. It passes, but its key half can no longer fail. The brief did not name it, so it was not changed.
+
+## A7-4. Read-backs
+
+| Test | Count | What it asserts |
+|---|---|---|
+| `test_wind_key_cycle_readback.gd` 60 | 26/0 | `LOOP_LINEAR`; `step` 1/8; `length` 1.0; one **value** track keying `…/key_sprite:frame` with **discrete** updates (update mode asked only of value tracks); 8 keys at k/8 s **within half a frame**; values 0–7, all `< hframes × vframes` = 8; seam: last key + 1/8 = `length`, no key at `length`, no duplicate across the wrap; no Godot 3 names in the `.tres`; both sheets 672×60 = 8 × 1 cells, the 90°/270° cells ≥ 0.15 × 84 px; `track_problems` empty; five turns played |
+| `test_jab_action_readback.gd` 60 | 58/0 | `LOOP_NONE`; `step` 1/60; `length` 21/60; three value tracks, continuous, linear; keys at frames 0, 3, 5, 10, 11, 21 (every phase boundary) within half a frame, with the brief's values and transitions (revisions 1 and 2); `track_problems` empty (branching on track type); poses when played; the hold through 5–10; the linear recovery; rest after the end; facing ±1 |
+
+Both read-backs resolve tracks on a fixture built to the brief's hierarchy; `test_a7_structure.gd` repeats `track_problems` on the **real** Bolt and Rivet (A7-6).
+
+## A7-5. Mutations, each in its own git worktree (`../a7-mutate` at `b3750b0`)
+
+| # | Mutation | Test, exit | Caught by |
+|---|---|---|---|
+| M1 | a jab track's property renamed (`BodyPivot:rotation` → `rotatoin`) | read-back **8**; structure **2** | `track_problems`: "BodyPivot has no property rotatoin", on the fixture and on the real rig |
+| M2 | the cycle's `loop_mode` 1 → 0 | key read-back **2** | the loop-mode check; played headless it stopped after 8 frames |
+| M3 | a frame key set to 8 (= `hframes × vframes`) | key read-back **5** | the frame-range check |
+| M4 | `godot/.godot` deleted, `--import`, read-backs run | **0, 0, 0** (passed) | **did not fail, as expected for this route:** both clips are hand-written `.tres` resources, not imported, so `loop_mode` lives in the committed text and an empty cache cannot drop it. It shows the project rebuilds from an empty cache |
+
+**What the engine itself said:**
+- **M1:** nothing. The track was silently inert.
+- **M3:** a plain `ERROR: Index p_frame = 8 is out of bounds`, which the wrapper does not fail on. Only the read-back caught it.
+
+Details: `evidence/a7/mutations/README.md`.
+
+## A7-6. State machine: structure and state test
+
+`godot/tests/test_a7_structure.gd`: **57/0 at 60 and at 30.**
+- **Structure:** every named node, its parentage and class; both players MANUAL with `root_node` at the fighter; each player holds exactly the clip the code requests, loaded from its resource; `track_problems` empty on the real rig; the key shows its skin's sheet sliced 8 × 1; no AnimationTree and no AnimatedSprite2D.
+- **One authority, from the source:** every assignment to a rig node in every script, grouped by function. After setup, only `_apply_pose` writes `FacingPivot.scale` and `KeyMount.position`/`visible`; nothing in code writes `BodyPivot`, `KeyBob` or `key_sprite.frame`.
+- **State, through `Input.parse_input_event`**, reading the current clip with `current_animation`:
+  - `jab_action` plays only in JAB, with its position equal to `state_t` on every tick, and the pose equal to the clip's own value at `state_t` (largest gap 0.00000);
+  - the clip freezes through hitstop and pause;
+  - a hit in each phase snaps the rig to rest on the hit tick;
+  - the key cycle follows `state_t` in REWIND, holds at full wind, and returns to frame 0 on release;
+  - REWIND entered at full wind never turns the key;
+  - six turns with wind held low run 0..7 in order at every wrap (B7, A7-9);
+  - facing lives on `FacingPivot`; Rivet's jab goes −14 px.
+- **It cannot show:** whether either motion reads, the seam by eye, registration, the backgrounds.
+
+## A7-7. Edges (Step 6)
+
+`godot/tests/test_a7_edges.gd`: **70/0 at 60.** It runs at 60 only, because at 30 a press cannot land on odd ticks (A7-2); it checks that each press landed where intended.
+
+| Boundary | Jab press on (before / on / after) | Outcome | Hit landing on | Outcome |
+|---|---|---|---|---|
+| startup → active (5) | e+4 / e+5 / e+6 | lost; one JAB; clip −1 px, then +14, +14 | e+4 / e+5 / e+6 | JAB → HURT that tick; rig at rest, no clip, through the hitstop |
+| active → recovery (11) | e+10 / e+11 / e+12 | lost; clip holds +14, then +12, then steps back | e+10 / e+11 / e+12 | the same |
+| recovery → IDLE (21) | e+20 / e+21 / e+22 | lost / **lost** (`_neutral` does not run on e+21) / a new JAB starts on e+22 with the clip from 0 | e+20 / e+21 / e+22 | e+20: JAB → HURT; **e+21: JAB → IDLE, then IDLE → HURT, on the same tick** (Bolt steps before Rivet); e+22: IDLE → HURT |
+
+Also:
+- move, block and rewind inputs during startup, active and recovery are ignored;
+- a pause landing on e+5, e+11 or e+21 freezes the clip with `state_t`, and the active pose still opens at `state_t` 5/60.
+
+## A7-8. Frame strips (fixture captures) and the two revisions
+
+Fixture `godot/previews/jab_preview.tscn`: the real Fighter at x 207 over the light stretch, scripted jab on frame 10, `--fixed-fps 60 --disable-vsync --always-on-top --quit-after 35`, run by Tharun. Each of r0, r1 and r2 is 35 frames with a per-frame log. The read frames are kept: `captures/jab_action/r0`, `r1`, `r2`, with contact sheets.
+
+| Revision | Driven by | Change | Prediction vs result | Verdict (Tharun) |
+|---|---|---|---|---|
+| 1 | Claude's reading of r0: the recovery nearly still on 27–30, then the idle image snaps back on 31 | key 4 transition 0.5 → 1.0 | frames 22–30 even at 0.8 px, other read frames byte-identical: **matched** | Keep |
+| 2 | **Tharun's play observation:** "the retraction pop is still noticeable—especially up close" | frame-11 pose +8 / 0.05 / −1.0 → +12 / 0.10 / −1.75 | frame-21 helmet step −23 → −7.7 window px (predicted −8): **matched**; recovery steps 3.9 px (predicted 4.3): **partly** | Keep |
+
+Full record (first look, readings, predictions, comparisons, verdicts): `TUNING.md`, "A7 jab_action".
+
+## A7-9. Use It: checklist
+
+| Check | Status | Where |
+|---|---|---|
+| Baseline | **done**: every earlier suite at its count before and after | A7-1 |
+| Pins | **done**: 49/0 before and after at 60 and 30, logs identical; the four planned updates in their own commit | A7-2, A7-3 |
+| Read-back | **done**: 26/0 and 58/0 | A7-4 |
+| Mutations | **done**: M1–M3 fail their tests from worktrees; M4 passes, explained | A7-5 |
+| Fresh cache | **done**: M4, from an empty `godot/.godot`, all three tests pass | A7-5 |
+| State machine | **done**: 57/0 at 60 and 30 | A7-6 |
+| Edges | **done**: 70/0 at 60 | A7-7 |
+| Frame strips (fixture) | **done**: r0, r1, r2 | A7-8 |
+| The cycle seam (HUMAN CHECK) | **done** after a fix (below) | A7-9a |
+| The action in play (HUMAN CHECK) | **done** | A7-9b |
+| Registration (HUMAN CHECK) | **done** | A7-9c |
+| Against the background (HUMAN CHECK) | **done** | A7-9d |
+| Two clocks | **done**, measured | A7-9e |
+| Claude against you | **done** | A7-9f |
+
+### A7-9a. The cycle seam
+
+**Found first by a fixture log, then fixed (Claude, fix approved by Tharun, `b4046b1`):**
+- **What it showed:** the first run of `godot/previews/key_cycle_preview.tscn`, which holds REWIND with wind kept low so the key turns non-stop, logged **7 → 1 → 0** at every wrap after the first.
+- **Cause:** `_sync_clips` sought the clip **backwards** across the wrap (float rounding put `state_t` at 1.99999…), and a backward seek on a discrete track shows the next key.
+- **Why the suite was green:** the structure test stopped at 1.5 turns, and the read-back used `advance()`.
+- **The fix:** advance forward.
+- **The regression:** structure test B7, six turns, failed 3 before the fix and passes after.
+- Details: `evidence/a7/seam/README.md`.
+
+**HUMAN CHECK (Tharun), after the fix:** "Over five or more turns in preview and while holding `S` at low wind in game, the key rotation stays continuous across the wrap without a visible jump at the seam."
+
+### A7-9b. The action in play
+
+**HUMAN CHECK (Tharun):** "Startup, hold, and return read as distinct moments including when getting hit mid-jab cuts cleanly into the hit/reaction state rather than feeling stuck, and when close-range jabbing, rewinding, or KO transitions occur."
+
+### A7-9c. Registration
+
+**HUMAN CHECK (Tharun),** `key_cycle_preview -- --zoom`: "Zoomed in on the key within its spot, the pivot/anchor stays locked in place with no noticeable drift or wandering relative to its mount."
+
+Measured (Claude, `evidence/a7/sheets/`): every cell is centred at x 41.5 or 42.0 of 84, a half-pixel difference for the odd-width cells, 0.17 view px at the key's 1/3 scale.
+
+### A7-9d. Against the background
+
+**HUMAN CHECK (Tharun):** "Both clips remain readable over both light and dark backgrounds, with clear enough contrast to follow the motion without losing the silhouette."
+
+Runs: `jab_preview` at x 207 (lightest stretch, 192–223) and with `--dark` at x 271 (darkest, 256–287); `key_cycle_preview` the same.
+
+### A7-9e. Two clocks (measured)
+
+| Clock | Rate | Source |
+|---|---|---|
+| Gameplay (`state_t`, hitbox, transitions) | physics tick, 60/s | `fighter.gd` `step`, `main._physics_process` |
+| Both clips | the same physics tick: `callback_mode_process` MANUAL, put at `state_t` at the end of `step` | `fighter.gd` `_sync_clips` |
+| The drawn picture | about 129 fps on this display | measured |
+
+Measured windowed by Tharun, `jab_preview -- --loop --clocks` (600 ticks, no `--fixed-fps`):
+
+> `CLOCKS: display 129 fps, physics 60 ticks/s; drawn frames per tick { 0: 11, 1: 12, 2: 440, 3: 136, 4: 2 }; clip vs state_t on 279 JAB ticks: largest gap 0.000000 s`
+
+- **Clip vs gameplay:** the largest disagreement is **0 s**.
+- **Picture vs gameplay:** each drawn frame shows the last completed tick, so the picture trails gameplay by less than one tick (**under 1/60 s**). Most poses are drawn 2–3 times; 11 of 601 ticks were never drawn.
+- Method tracks are not used.
+
+### A7-9f. Claude against me 
+
+| Claude's reading | Tharun in play | Agreed? |
+|---|---|---|
+| r0: the problem is the recovery nearly stopping on frames 27–30, then the snap to idle | revision 1 helped; the **retraction pop on frame 21**, which Claude's r0 reading did not flag, was still noticeable up close | **disagreed:** Tharun's observation found the larger problem and drove revision 2 |
+| r2: helmet steps about 4.3 px per frame | (measured 3.9) | Claude's prediction partly wrong |
+| r1 and r2 fixed what they targeted | Keep, Keep | agreed |
+
+## A7-10. Predicted failures (`CHANGE-BRIEF.md` §10): outcomes
+
+| # | Prediction | Outcome |
+|---|---|---|
+| 1 | four existing assertions change | three failed as predicted; `test_slice:187` became vacuous instead of failing; also found `test_wind_steam_state:161` vacuous (A7-3) |
+| 2 | one-tick early clip on JAB entry | did not happen: the clip is put at `state_t` after `_enter`; position 0 on the entry tick (A7-6) |
+| 3 | double authority or double facing flip | did not happen: source scan and facing checks (A7-6) |
+| 4 | clip advancing during pause or hitstop | did not happen (A7-6, A7-7) |
+| 5 | seam stall from a duplicated wrap frame | the clip has no duplicate (A7-4), but a **different seam fault** appeared: 7 → 1 → 0 from a backward seek, found by the preview log and fixed (A7-9a) |
+
+## A7-11. Agent mistakes caught
+
+- **Claude's expectations in the pins were wrong twice** (defender hitstop e+29, EMPTY 97 ticks). Corrected from the runs, with the reasons in the test.
+- **The pins first hard-coded the scheduled ticks** and failed at 30 fps. They were rewritten to anchor on the actual start tick.
+- **The structure test's first draft:**
+  - flagged a *read* of `key_sprite.texture` as a write;
+  - counted one-time `.name` setup lines as authority writes;
+  - expected the key to hide on the KO tick itself, when `_apply_pose` hides it after the hitstop: 6 ticks later, as before A7.
+- **The edge test expected the row before a hit on e+21 to be IDLE.** The jab ends and the hit lands on the same tick.
+- **Claude's `_sync_clips` seeked backwards across the wrap:** the seam bug in A7-9a. The read-back and the 1.5-turn state test did not catch it; a fixture log did.
+- **Claude's revision 2 prediction overestimated the helmet steps by about 10 %.**
+
+## A7-12. Findings and limitations
+
+- **The jab picture appears before the active window.** `_apply_pose` swaps in the jab image on the first JAB tick, so the arm is out 5 frames before the hitbox; the image swaps back on the IDLE tick. This was there before A7 and is outside the clip. Fixing it needs a startup image (drawing) or a code change the brief does not allow.
+- **Mashing J shows the idle image for one frame between jabs** (the jab ends on tick 21; the next starts on tick 22).
+- **Rivet is drawn facing right on the title and intro** until the first FIGHT tick (`reset()` does not redraw the pose). This was there before A7, checked at `840a849`.
+- **In the game a single rewind reaches full wind** after at most ten clicks (2.5 turns) and the key then holds, as the brief says. So five wraps were watched in the fixture, plus repeated low-wind rewinds in the game.
+- **`claude -p` was spend-limited until 2026-12-01.** Every agent prompt ran in the interactive Claude Code session; the prompts are in `prompts/a7/`.
