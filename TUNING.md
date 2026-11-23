@@ -149,3 +149,10 @@ Windowed run, `godot --path godot`, 1280×720. I whiffed jabs to bring Bolt's wi
 - **Starting to rewind:** it kept going and tapered off smoothly instead of cutting out.
 - **Anything wrong:** no, the steam stayed correctly anchored to the key without drifting away.
 - **Verdict: Keep.**
+
+
+## 2026-11-22 — A7 jab_action, first look (before Claude read any strip)
+
+**Normal speed:** The fighter's whole body leans back first, then pushes forward with the punch arm already extended as part of the jab picture, holds briefly, and pulls back to the starting stance. The key does not turn on its own; it stays fixed and rides along with the body's tilt and slight shift. The green outline stays around the body the whole time, while the red box flashes on only during the forward push/hold part of the jab and then disappears as the body returns.
+
+**Quarter speed, with boxes:** You can clearly see the body lean back first, then push forward with the extended arm in a single combined picture, hold, and step back, with no separate arm extension or key rotation. The green box stays around the fighter throughout, while the red box appears only right around the forward thrust/hold and drops out on the return.

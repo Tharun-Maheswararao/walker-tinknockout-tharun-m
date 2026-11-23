@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.2.334 - Forward+ - Using Device #0: Apple - Apple M4
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+jab_preview: FIXTURE, scripted intent; Bolt at x 207 facing +1; jab requested on tick 10
+frame   0  IDLE  state_t 0.0167  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   1  IDLE  state_t 0.0333  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   2  IDLE  state_t 0.0500  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   3  IDLE  state_t 0.0667  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   4  IDLE  state_t 0.0833  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   5  IDLE  state_t 0.1000  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   6  IDLE  state_t 0.1167  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   7  IDLE  state_t 0.1333  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   8  IDLE  state_t 0.1500  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame   9  IDLE  state_t 0.1667  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame  10  JAB   state_t 0.0000  clip jab_action 0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame  11  JAB   state_t 0.0167  clip jab_action 0.0167  x  -3.33  rot -0.056  keybob  1.11  box -
+frame  12  JAB   state_t 0.0333  clip jab_action 0.0333  x  -5.33  rot -0.089  keybob  1.78  box -
+frame  13  JAB   state_t 0.0500  clip jab_action 0.0500  x  -6.00  rot -0.100  keybob  2.00  box -
+frame  14  JAB   state_t 0.0667  clip jab_action 0.0667  x  -1.00  rot -0.045  keybob  1.00  box -
+frame  15  JAB   state_t 0.0833  clip jab_action 0.0833  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  16  JAB   state_t 0.1000  clip jab_action 0.1000  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  17  JAB   state_t 0.1167  clip jab_action 0.1167  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  18  JAB   state_t 0.1333  clip jab_action 0.1333  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  19  JAB   state_t 0.1500  clip jab_action 0.1500  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  20  JAB   state_t 0.1667  clip jab_action 0.1667  x  14.00  rot  0.120  keybob -2.00  box LIVE
+frame  21  JAB   state_t 0.1833  clip jab_action 0.1833  x   8.00  rot  0.050  keybob -1.00  box -
+frame  22  JAB   state_t 0.2000  clip jab_action 0.2000  x   6.48  rot  0.040  keybob -0.81  box -
+frame  23  JAB   state_t 0.2167  clip jab_action 0.2167  x   5.12  rot  0.032  keybob -0.64  box -
+frame  24  JAB   state_t 0.2333  clip jab_action 0.2333  x   3.92  rot  0.024  keybob -0.49  box -
+frame  25  JAB   state_t 0.2500  clip jab_action 0.2500  x   2.88  rot  0.018  keybob -0.36  box -
+frame  26  JAB   state_t 0.2667  clip jab_action 0.2667  x   2.00  rot  0.012  keybob -0.25  box -
+frame  27  JAB   state_t 0.2833  clip jab_action 0.2833  x   1.28  rot  0.008  keybob -0.16  box -
+frame  28  JAB   state_t 0.3000  clip jab_action 0.3000  x   0.72  rot  0.004  keybob -0.09  box -
+frame  29  JAB   state_t 0.3167  clip jab_action 0.3167  x   0.32  rot  0.002  keybob -0.04  box -
+frame  30  JAB   state_t 0.3333  clip jab_action 0.3333  x   0.08  rot  0.000  keybob -0.01  box -
+frame  31  IDLE  state_t 0.0000  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame  32  IDLE  state_t 0.0167  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame  33  IDLE  state_t 0.0333  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+frame  34  IDLE  state_t 0.0500  clip -          0.0000  x   0.00  rot  0.000  keybob  0.00  box -
+--------------------------------------------------------------------------------
+Done recording movie at path: /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/captures/jab_action/r0/frame.png
+35 frames at 60 FPS (movie length: 00:00:00:35), recorded in 00:00:07 (14% of real-time speed).
+CPU render time: 0.00 seconds (average: 0.04 ms/frame)
+GPU render time: 0.01 seconds (average: 0.18 ms/frame)
+Encoding time: 7.01 seconds (average: 200.25 ms/frame)
+--------------------------------------------------------------------------------
