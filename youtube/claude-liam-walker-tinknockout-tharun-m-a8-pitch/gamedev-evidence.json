@@ -1,0 +1,856 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "game": {
+  "package": "walker-tinknockout-tharun-m",
+  "godot_folder": "godot",
+  "revision": "a0c95cc6c81836d3db0cbd6af0fdbc556082170d",
+  "tag": "a7",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Forward+ (Vulkan/MoltenVK)"
+ },
+ "files": [
+  {
+   "path": "animations/jab_action.tres",
+   "sha256": "bbb8b3c198761ed11b78ef0b9de6277040358be9231e4e7a064074a6eaa05089",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "animation-layer"
+   ]
+  },
+  {
+   "path": "animations/wind_key_cycle.tres",
+   "sha256": "5a21ccfaa0c8e51b48ec93910ea6e27a205e73214d51f080c7c0b8a762116c5a",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "animation-layer"
+   ]
+  },
+  {
+   "path": "fighter/fighter.gd",
+   "sha256": "c59c82c3361423fa25386b0496de46849bb65671cc7fcb40d0a510e33c515da4",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "fighter-state-machine",
+    "animation-layer"
+   ]
+  },
+  {
+   "path": "fighter/rivet_brain.gd",
+   "sha256": "7fdf6f047d4606444d919fa2514577ab37978cbf793344e2b8c6c1c821c229e3",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "controller-seam"
+   ]
+  },
+  {
+   "path": "game/controls.gd",
+   "sha256": "bbe072fa687a941fbe277e43c730eda4ecc84a0255ea8decb8170e0515a71a6e",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "controller-seam"
+   ]
+  },
+  {
+   "path": "game/main.gd",
+   "sha256": "4c6963d9b16764f2d94e385404bc06e857fd2f302ab9434d7b3128bebcfcfab8",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "controller-seam"
+   ]
+  },
+  {
+   "path": "tests/test_a7_edges.gd",
+   "sha256": "98e29dca950641da4aca203cd3b35af8975781cf9d108797f383cd7f0700cd37",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "pinning-tests"
+   ]
+  },
+  {
+   "path": "tests/test_a7_pins.gd",
+   "sha256": "a4dd6b36b6df8a43beb2270aae8defd1e9179ecafa510544c4f4d9cbadb80bdb",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "pinning-tests"
+   ]
+  },
+  {
+   "path": "tests/test_a7_structure.gd",
+   "sha256": "201c0e3d47e86f08544f9d9b4b4fdb02c98e51b456654f6944b359fdad2c73be",
+   "role": "pitched system at a7",
+   "component_ids": [
+    "pinning-tests"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "fighter-state-machine",
+   "explanation": "The 11-state Fighter (fighter.gd): the attack table in seconds (lines 41-45), step() on the 60 Hz physics tick, hitboxes, hitstop, wind, and the five signals out. The system the pitch proposes to package as Fighter.tscn.",
+   "beat_ids": [
+    "B00",
+    "B02",
+    "B03",
+    "B07",
+    "B09",
+    "B14"
+   ],
+   "files": [
+    "fighter/fighter.gd"
+   ]
+  },
+  {
+   "id": "controller-seam",
+   "explanation": "What drives a fighter today: main.gd creates both fighters in code, sets opponent and spawn_cork, and calls step() in _simulate (lines 180-182); input actions from controls.gd (J jab, K cutlass, S rewind); Rivet's deterministic rules in rivet_brain.gd. The coupling the pitch names as its risk.",
+   "beat_ids": [
+    "B03",
+    "B07",
+    "B11",
+    "B12"
+   ],
+   "files": [
+    "fighter/rivet_brain.gd",
+    "game/controls.gd",
+    "game/main.gd"
+   ]
+  },
+  {
+   "id": "animation-layer",
+   "explanation": "The A7 clips, jab_action and wind_key_cycle, put at state_t every tick by the fighter; one authority per animated node.",
+   "beat_ids": [
+    "B03",
+    "B07",
+    "B09",
+    "B14"
+   ],
+   "files": [
+    "animations/jab_action.tres",
+    "animations/wind_key_cycle.tres",
+    "fighter/fighter.gd"
+   ]
+  },
+  {
+   "id": "pinning-tests",
+   "explanation": "The suites that pin the system at a7 and that the pitch's first milestone must keep: pins (49), structure (57), edges (70), re-run for this film.",
+   "beat_ids": [
+    "B04",
+    "B08",
+    "B10",
+    "B12"
+   ],
+   "files": [
+    "tests/test_a7_edges.gd",
+    "tests/test_a7_pins.gd",
+    "tests/test_a7_structure.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B02",
+   "path": "fighter/fighter.gd",
+   "start_line": 41,
+   "end_line": 45,
+   "text": "const ATTACKS := {\n\tS.JAB: {\"name\": \"jab\", \"cost\": 12.0, \"startup\": 0.07, \"active\": 0.10, \"recovery\": 0.18, \"dmg\": 7.0, \"box\": Rect2(24, -76, 30, 22), \"push\": 40.0},\n\tS.CUTLASS: {\"name\": \"cutlass\", \"cost\": 22.0, \"startup\": 0.14, \"active\": 0.12, \"recovery\": 0.30, \"dmg\": 13.0, \"box\": Rect2(20, -98, 58, 40), \"push\": 70.0},\n\tS.POP: {\"name\": \"pop\", \"cost\": 30.0, \"startup\": 0.10, \"active\": 0.0, \"recovery\": 0.35, \"dmg\": 10.0, \"push\": 50.0},\n}"
+  },
+  {
+   "beat_id": "B11",
+   "path": "game/main.gd",
+   "start_line": 180,
+   "end_line": 182,
+   "text": "func _simulate(dt: float) -> void:\n\tbolt.step(dt)\n\trivet.step(dt)"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "MATERIALS.md",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "assets/env/bowl.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/env/bowl.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/anchors.json",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/block.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/cutlass.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/empty.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/hurt.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/idle.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/jab.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/ko.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/pop.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/rewind.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/walk.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/bolt/win.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/block.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/cutlass.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/empty.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/hurt.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/idle.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/jab.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/ko.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/pop.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/rewind.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/walk.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/fighters/rivet/win.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/music/waltz.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/music/waltz.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/ATTRIBUTION.md",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/cork.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/cork.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/cutlass.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/cutlass.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-bolt-sheet.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-bolt-sheet.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-bolt.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-bolt.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-rivet-sheet.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-rivet-sheet.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-rivet.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/key-rivet.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/popgun.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props/popgun.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/castle.glb",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/castle.glb.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/toybox.glb",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/toybox.glb.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/windkey.glb",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/props3d/windkey.glb.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/bell.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/bell.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/cutlass.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/empty.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/empty.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/jab.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/jab.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/pop.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/pop.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/sfx/rewind.ogg.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/hint/hint_greys_3x1.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/ATTRIBUTION.md",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_diff_1k.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_dx_1k.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "assets/textures/metal_plate/metal_plate_rough_1k.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "audio/music.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "audio/sfx.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "default_bus_layout.tres",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "effects/impact_effect.tscn",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/impact_effect_blocked.tscn",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/steam_mount.gd",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/textures/ATTRIBUTION.md",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/textures/shard_8.png",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/textures/shard_8.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "effects/textures/steam_32.png",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "effects/textures/steam_32.png.import",
+   "reason": "Art, audio or import settings (A2 generated assets, A7 key sheets); context only, not the pitched system."
+  },
+  {
+   "path": "effects/wind_steam.tscn",
+   "reason": "A6 particle presentation; named in the pitch as an existing skill (a6), not part of the pitched system."
+  },
+  {
+   "path": "fighter/cork.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "fighter/rewind_tint_driver.gd",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "game/debug_capture.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "game/debug_vsync.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "game/main.tscn",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "hint_experiment/hint_data.tres",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "hint_experiment/hint_experiment.tscn",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "hint_experiment/hint_source_color.tres",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "previews/gpu_price.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/gpu_price.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/impact_preview.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/impact_preview.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/jab_preview.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/jab_preview.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/key_cycle_preview.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/key_cycle_preview.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/steam_preview.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/steam_preview.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/steam_rewind_preview.gd",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "previews/steam_rewind_preview.tscn",
+   "reason": "A7 fixture scene (strips, key cycle); not part of the pitched system."
+  },
+  {
+   "path": "project.godot",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "prop_room/materials/toybox_fresh.tres",
+   "reason": "A3 3D prop room; not used by the fight."
+  },
+  {
+   "path": "prop_room/materials/toybox_worn.tres",
+   "reason": "A3 3D prop room; not used by the fight."
+  },
+  {
+   "path": "prop_room/prop_room.tscn",
+   "reason": "A3 3D prop room; not used by the fight."
+  },
+  {
+   "path": "shaders/hint_experiment.gdshader",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "shaders/painted_tin.gdshader",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "shaders/particles_generated.gdshader",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "shaders/rewind_tint.gdshader",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "shaders/standard_generated.gdshader",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "tests/calibrate_normal_map.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/check_props3d.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/cost_effects.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/normal_map_check.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_impact_effect_config.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_impact_effect_state.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_jab_action_readback.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_materials.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_rewind_tint.gd",
+   "reason": "A5 shader presentation; named in the pitch as an existing skill (a5), not part of the pitched system."
+  },
+  {
+   "path": "tests/test_slice.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_wind_key_cycle_readback.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_wind_steam_config.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tests/test_wind_steam_state.gd",
+   "reason": "Earlier or narrower test (read-backs, A2-A6 suites); still passes at a7, not one of the three suites the pitch pins."
+  },
+  {
+   "path": "tools/a5_capture_hint.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/a5_capture_run.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/a5_capture_side_by_side.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/a5_capture_toybox.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/capture_film.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/generate_key_sheets.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/generate_shard_texture.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/generate_steam_texture.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/make_hint_scene.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/make_toybox_materials.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/shot_prop_room.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/shot_prop_views.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/shots.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "tools/write_hint_png.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  },
+  {
+   "path": "ui/hud.gd",
+   "reason": "Part of the game at a7 outside the pitched fighter system (round flow, HUD, audio, tools, project settings)."
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B02",
+   "result_beat": "B03",
+   "observation": "Real play at a7 (scripted input, Movie Maker 60 fps): the jab's state_t crosses 0.07 s on its 5th tick (phase ACTIVE, box live); case 2 lands there and hitstop holds state_t for 5 ticks; the cutlass (K) lands on its 9th tick, where its 0.14 s startup ends. Readout from the capture log.",
+   "media": {
+    "path": "media/B03.mp4",
+    "sha256": "4e053c78c05c7848cbbdb98422dd25b03a3b4f4cb870a99d08973b879c537983"
+   }
+  },
+  {
+   "code_beat": "B11",
+   "result_beat": "B12",
+   "observation": "test_a7_pins.gd drives the real main.tscn (main calls step) through the input path; re-run on a0c95cc at 60 and at 30 fps: 49 checks, 0 failed each. The pitch's rule: the refactor is committed only if these pass with identical logs.",
+   "media": {
+    "path": "media/B12.mp4",
+    "sha256": "eb95735534192e52c987369da5e2ace32716012ec9b948bbff65fb1730736c78"
+   }
+  }
+ ],
+ "engine_captures": [
+  {
+   "path": "capture/play-4k60.mp4",
+   "sha256": "fbca3cb03290047e52934054bb87c5cdbc461530e5bb8ab560ff4d6e1a4838e2",
+   "fps": 60,
+   "size": "3840x2160",
+   "revision": "a0c95cc",
+   "tag": "a7",
+   "input": "SCRIPTED INPUT (_tools/film_a8_play.gd)",
+   "method": "Movie Maker, windowed, --disable-vsync --always-on-top --fixed-fps 60",
+   "log": "evidence/runs/play-capture-log.txt"
+  }
+ ]
+}

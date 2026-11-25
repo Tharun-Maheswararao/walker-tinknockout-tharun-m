@@ -1,0 +1,39 @@
+[typecheck] wrote /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a8-pitch/TYPECHECK.md
+[typecheck] §8.10 B00: SKIP
+[typecheck] §8.10 B01: SKIP
+[typecheck] §8.10 B02: SKIP
+[typecheck] §8.10 B03: SKIP
+[typecheck] §8.10 B04: SKIP
+[typecheck] §8.10 B05: SKIP
+[typecheck] §8.10 B06: SKIP
+[typecheck] §8.10 B07: SKIP
+[typecheck] §8.10 B08: SKIP
+[typecheck] §8.10 B09: SKIP
+[typecheck] §8.10 B10: SKIP
+[typecheck] §8.10 B11: SKIP
+[typecheck] §8.10 B12: SKIP
+[typecheck] §8.10 B13: SKIP
+[typecheck] §8.10 B14: SKIP
+[typecheck] §8.10 B15: SKIP
+[typecheck] GATE T: PASS
+[art] compiled B00  VIDEO    16.2s  ← B00.mp4
+[art] compiled B01  VIDEO    13.1s  ← B01.mp4
+[art] compiled B02  VIDEO    11.0s  ← B02.mp4
+[art] compiled B03  VIDEO    16.0s  ← B03.mp4
+[art] compiled B04  VIDEO    12.9s  ← B04.mp4
+[art] compiled B05  VIDEO     9.8s  ← B05.mp4
+[art] compiled B06  VIDEO    13.9s  ← B06.mp4
+[art] compiled B07  VIDEO     8.2s  ← B07.mp4
+[art] compiled B08  VIDEO    17.1s  ← B08.mp4
+[art] compiled B09  VIDEO    19.8s  ← B09.mp4
+[art] compiled B10  VIDEO    17.0s  ← B10.mp4
+[art] compiled B11  VIDEO    12.1s  ← B11.mp4
+[art] compiled B12  VIDEO    16.2s  ← B12.mp4
+[art] compiled B13  VIDEO    17.3s  ← B13.mp4
+[art] compiled B14  VIDEO    16.3s  ← B14.mp4
+[art] compiled B15  VIDEO     4.6s  ← B15.mp4
+[art] REFUSED: [art] command failed:
+/Users/tharunmaheswararao/Documents/csye7270/_brutalist/.venv/bin/python3 /Users/tharunmaheswararao/Documents/csye7270/_brutalist/runtime/qc/final_frame_check.py /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a8-pitch --mp4 /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a8-pitch/exports/landscape/.claude-liam-walker-tinknockout-tharun-m-a8-pitch-candidate-e3vcgnql/candidate.mp4 --sheet /Users/tharunmaheswararao/Documents/csye7270/walker-tinknockout-tharun-m/youtube/claude-liam-walker-tinknockout-tharun-m-a8-pitch/clips/_work/resolved-sheet.json
+
+[art] motion histogram: hold:16
+EXIT 2

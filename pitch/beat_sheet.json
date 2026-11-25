@@ -1,0 +1,927 @@
+{
+  "metadata": {
+    "title": "Tin Knockout Fighter Kit",
+    "slug": "claude-liam-walker-tinknockout-tharun-m-a8-pitch",
+    "topic": "CSYE 7270 · FINAL PROJECT PITCH",
+    "kind": "godot-gamedev",
+    "playlist": "Walker",
+    "brand": "claude-liam",
+    "audience": "CSYE 7270 reviewers; a lead gameplay engineer or hiring manager",
+    "register": "Pitch, first person",
+    "engine": "kokoro",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "aspect_ratio": "16:9",
+    "captions": false,
+    "channel_title": "",
+    "channel": "Tharun Maheswararao",
+    "presenter": "Tharun Maheswararao, first person (Kokoro am_onyx voice)",
+    "persona": "Tharun Maheswararao, first person (Kokoro am_onyx voice)",
+    "episode_id": "walker-tinknockout-tharun-m-a8",
+    "mode": "walker (pitch adaptation)",
+    "game": {
+      "name": "walker-tinknockout-tharun-m",
+      "revision": "a0c95cc6c81836d3db0cbd6af0fdbc556082170d",
+      "tag": "a7",
+      "docs_revision": "fcb873c",
+      "godot_path": "godot",
+      "engine_version": "4.7.2.stable.official.ed1daf0bf",
+      "renderer": "Forward+ (Vulkan/MoltenVK)"
+    },
+    "student": "Tharun Maheswararao",
+    "course": "CSYE 7270 Fall 2026 · Assignment 8 · final project pitch",
+    "note": "Pitch film for the Tin Knockout Fighter Kit (option c, a gameplay system). Script from pitch/PROJECT-BRIEF.md at fcb873c, in its order. Gameplay is real play captured with Movie Maker from an isolated git archive of tag a7 (a0c95cc), scripted input, labelled. The training room, the frame-data overlay and Fighter.tscn do not exist: their pictures are labelled CONSTRUCTED. The walker bookends are adapted for a pitch: no reconstructed Claude prompt or response is shown, and the closing card carries the film title and the student only.",
+    "build": {
+      "at": "2026-11-24T17:12:35",
+      "cut": "master",
+      "filled": 16,
+      "of": 16,
+      "slates": [],
+      "skin_warnings": [
+        "B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B15: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "WHAT",
+      "role_note": "Q1 what it is, one sentence (BRIEF §1). Real play at a7, scripted input: the jab landing.",
+      "narration_text": "I'm Tharun Maheswararao. My final project is the Tin Knockout Fighter Kit: a fighter controller and animation state machine for Godot four, where every move is written in frames and pinned by tests a stranger can rerun. This is my game at tag a seven, from scripted input.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "title and one sentence over real a7 play (Movie Maker, scripted input)"
+          }
+        ],
+        "anchors": [],
+        "panel": {
+          "title": "Tin Knockout Fighter Kit"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "evidence_media": "media/B00.mp4"
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.15,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 16.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "WHAT",
+      "role_note": "Q1 the artifact and its form when done (BRIEF §1): macOS training-room build and the reusable Fighter.tscn. Neither exists: the picture is CONSTRUCTED.",
+      "narration_text": "When it's done, it will be two things: a mac O S build of a training room, where you fight a dummy with a frame-data overlay; and the fighter as a reusable scene, Fighter dot T S C N. Neither exists yet. This picture is a proposal.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "CONSTRUCTED: two proposal panels, the build and the scene"
+          },
+          {
+            "at": "Neither exists yet",
+            "event": "NOT BUILT YET stamp lands"
+          }
+        ],
+        "anchors": [
+          [
+            "stamp",
+            "Neither exists yet"
+          ]
+        ],
+        "panel": {
+          "title": "What It Will Be"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "stamp": 10.57
+        }
+      },
+      "estimated_duration_s": 15,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 13.1,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 13.1,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "MECHANISM",
+      "role_note": "Q2 why care (BRIEF §2): feel written in frames. fighter.gd:41-45 at a7, the attack table; the measured ticks are EXISTS-FACTS §3 (probe_phase_ticks).",
+      "narration_text": "Why care? Because here, feel is written down. Line forty-two: the jab's startup, active and recovery, in seconds, measured at five, six and ten ticks. Line forty-three: the slower cutlass.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/fighter/fighter.gd:41-45 at reading size"
+          },
+          {
+            "at": "Line forty-two",
+            "event": "line 42: the jab: startup 0.07, active 0.10, recovery 0.18 s"
+          },
+          {
+            "at": "Line forty-three",
+            "event": "line 43: the cutlass: 0.14, 0.12, 0.30 s"
+          }
+        ],
+        "anchors": [
+          [
+            "42",
+            "Line forty-two"
+          ],
+          [
+            "43",
+            "Line forty-three"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "Feel, Written Down",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://fighter/fighter.gd  ·  lines 41–45  ·  tag a7 (a0c95cc)",
+            "source": "Godot editor reconstruction · godot/fighter/fighter.gd lines 41–45 at a7 (a0c95cc), verbatim",
+            "code": "const ATTACKS := {\n\tS.JAB: {\"name\": \"jab\", \"cost\": 12.0, \"startup\": 0.07, \"active\": 0.10, \"recovery\": 0.18, \"dmg\": 7.0, \"box\": Rect2(24, -76, 30, 22), \"push\": 40.0},\n\tS.CUTLASS: {\"name\": \"cutlass\", \"cost\": 22.0, \"startup\": 0.14, \"active\": 0.12, \"recovery\": 0.30, \"dmg\": 13.0, \"box\": Rect2(20, -98, 58, 40), \"push\": 70.0},\n\tS.POP: {\"name\": \"pop\", \"cost\": 30.0, \"startup\": 0.10, \"active\": 0.0, \"recovery\": 0.35, \"dmg\": 10.0, \"push\": 50.0},\n}",
+            "startLine": 41,
+            "codeFontSize": 30,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "Measured (headless, a7)",
+                "value": "jab 5 / 6 / 10 ticks · cutlass 9 / 7 / 18 ticks"
+              },
+              {
+                "label": "Source",
+                "value": "evidence/a7/probes/probe_phase_ticks_60fps.txt"
+              }
+            ],
+            "cues": [
+              {
+                "at": 2.62,
+                "line": 42,
+                "label": "the jab: startup 0.07, active 0.10, recovery 0.18 s"
+              },
+              {
+                "at": 8.82,
+                "line": 43,
+                "label": "the cutlass: 0.14, 0.12, 0.30 s"
+              }
+            ],
+            "output": [
+              "exists at tag a7 · code → result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 10.94
+          },
+          "rendered": {
+            "out": "media/B02.mp4",
+            "at": "2026-11-24T21:27:50.515023+00:00"
+          }
+        },
+        "cue_times": {
+          "42": 2.62,
+          "43": 8.82
+        }
+      },
+      "estimated_duration_s": 13,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 10.94,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 10.966666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "WHY",
+      "role_note": "Q2 result of B02: the jab whiff, the jab landing with hitstop, and the cutlass (K), real play at a7, scripted input; readout from the capture log. Clock gap: TEST-REPORT A7-9e.",
+      "narration_text": "In play: the jab's box opens on its fifth tick. When it lands, hitstop holds both fighters, and the animation holds with them, because each clip is put at the state timer every tick. On my Apple M four, that gap measured zero seconds. Press K, and the cutlass lands nine ticks in.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "case 1 jab whiff, real speed"
+          },
+          {
+            "at": "When it lands",
+            "event": "case 2 jab lands: 0.25x replay through hitstop"
+          },
+          {
+            "at": "Press K",
+            "event": "case 3 cutlass lands on its ninth tick: 0.5x replay"
+          }
+        ],
+        "anchors": [
+          [
+            "land",
+            "When it lands"
+          ],
+          [
+            "k",
+            "Press K"
+          ]
+        ],
+        "panel": {
+          "title": "The Frames, In Play"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "evidence_media": "media/B03.mp4",
+        "cue_times": {
+          "land": 2.72,
+          "k": 13.0
+        }
+      },
+      "estimated_duration_s": 20,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.02,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 16.033333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "WHY",
+      "role_note": "Q2: the frames are checked. The three a7 suites re-run for this film on an isolated copy of a0c95cc; count lines quoted from those logs.",
+      "narration_text": "So the frames and the animation can't drift apart without a test failing. Re-run on a clean copy of a seven: pins, forty-nine checks; structure, fifty-seven; edges, seventy. None failed. Every new move will join them.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "terminal: the three count lines, recorded output"
+          },
+          {
+            "at": "Every new move",
+            "event": "WILL line: each new move joins the same suites"
+          }
+        ],
+        "anchors": [
+          [
+            "will",
+            "Every new move"
+          ]
+        ],
+        "panel": {
+          "title": "Checked, Not Eyeballed"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "evidence_media": "media/B04.mp4",
+        "cue_times": {
+          "will": 10.4
+        }
+      },
+      "estimated_duration_s": 14,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 12.84,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 12.866666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "GIVES",
+      "role_note": "Q3 what it gives (BRIEF §3). CONSTRUCTED overlay drawn over a real a7 frame; the command line is real and runs today.",
+      "narration_text": "What will it give you? Open the build, press J, and the overlay will draw the jab's frames as they happen. Then run one command, and see the same frames confirmed by tests.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "real a7 frame with a CONSTRUCTED overlay bar: startup 5 / active 6 / recovery 10"
+          },
+          {
+            "at": "Then run one command",
+            "event": "the real command and its real count line"
+          }
+        ],
+        "anchors": [
+          [
+            "cmd",
+            "Then run one command"
+          ]
+        ],
+        "panel": {
+          "title": "What It Will Give You"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "cmd": 5.9
+        }
+      },
+      "estimated_duration_s": 12,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 9.75,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 9.766666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "DIFFERENT",
+      "role_note": "Q4 different (BRIEF §4): Street Fighter 6 and Tekken 8 named in text only (games Tharun has played); no footage or art from them.",
+      "narration_text": "I've played Street Fighter six and Tekken eight. They're far larger, finished games, and this doesn't compete with them. Their frame data is something a player reads. Here, a programmer can open the state machine that makes the frames, and rerun the tests that prove them.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "left: SF6 and Tekken 8, named only"
+          },
+          {
+            "at": "Here, a programmer",
+            "event": "right: the state machine and the tests"
+          }
+        ],
+        "anchors": [
+          [
+            "here",
+            "Here, a programmer"
+          ]
+        ],
+        "panel": {
+          "title": "Different From What I Play"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "here": 7.85
+        }
+      },
+      "estimated_duration_s": 16,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 13.89,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 13.9,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "DIFFERENT",
+      "role_note": "Q4 its own mechanic (BRIEF §4): the wind-up spring. Real play at a7, scripted input: Bolt holds S, the key turns, wind climbs.",
+      "narration_text": "And Tin Knockout has its own mechanic: a wind-up spring that every move drains. You rewind it by holding S, and you're open while you crank.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "case 4: Bolt holds S, real speed; wind readout from the log"
+          }
+        ],
+        "anchors": [],
+        "panel": {
+          "title": "Its Own Mechanic"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "evidence_media": "media/B07.mp4"
+      },
+      "estimated_duration_s": 9,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 8.15,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 8.166666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "WHO",
+      "role_note": "Q5 who opens it and the first sixty seconds (BRIEF §5). Steps 1-4 are WILL; the second path is real recorded output today.",
+      "narration_text": "My target role is gameplay programmer. The reader is a lead engineer or hiring manager, with sixty seconds. They'll double-click the build, land in the training room with no menu, press J to see the jab counted, then K for the cutlass's different timing. Today, one command already prints seventy checks, zero failed.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "role and reader"
+          },
+          {
+            "at": "They'll double-click",
+            "event": "four WILL steps light in turn"
+          },
+          {
+            "at": "Today, one command",
+            "event": "TODAY: the real command and count line"
+          }
+        ],
+        "anchors": [
+          [
+            "s1",
+            "They'll double-click"
+          ],
+          [
+            "s2",
+            "land in the training"
+          ],
+          [
+            "s3",
+            "press J"
+          ],
+          [
+            "s4",
+            "then K"
+          ],
+          [
+            "today",
+            "Today, one command"
+          ]
+        ],
+        "panel": {
+          "title": "The First Sixty Seconds"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "s1": 5.52,
+          "s2": 6.81,
+          "s3": 9.4,
+          "s4": 11.66,
+          "today": 13.92
+        }
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.13,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 17.133333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "PROVES",
+      "role_note": "Q6 what it proves (BRIEF §6), each with its tag and TEST-REPORT record.",
+      "narration_text": "What does it prove? Animation and state: one authority per animated node, clips synced to the state timer. Verification: pins before and after a change, edge tests at every boundary, mutations in git worktrees, and a seam bug a fixture log caught after the suite passed it. Profiling: two clocks, measured on the M four. And shaders and particles that read the fighter, and never write it.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "ledger row: animation and state"
+          },
+          {
+            "at": "Verification",
+            "event": "row: verification habits"
+          },
+          {
+            "at": "Profiling",
+            "event": "row: profiling"
+          },
+          {
+            "at": "And shaders",
+            "event": "row: shaders and particles"
+          }
+        ],
+        "anchors": [
+          [
+            "v",
+            "Verification:"
+          ],
+          [
+            "p",
+            "Profiling"
+          ],
+          [
+            "s",
+            "And shaders"
+          ]
+        ],
+        "panel": {
+          "title": "What It Proves"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "v": 5.02,
+          "p": 13.6,
+          "s": 15.97
+        }
+      },
+      "estimated_duration_s": 22,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 19.82,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 19.833333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "SCOPE",
+      "role_note": "Q7 in, out, first (BRIEF §7).",
+      "narration_text": "Out: netcode, a second character's art, more arenas, saving. In: the reusable scene; an animated cutlass, block and hurt; an input buffer; the overlay; the training room; and the mac export. First, the fighter will run as its own scene against a still dummy, and the three a seven suites will give the same counts against it.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "OUT column"
+          },
+          {
+            "at": "In:",
+            "event": "IN column"
+          },
+          {
+            "at": "First,",
+            "event": "FIRST: the check that says it ran"
+          }
+        ],
+        "anchors": [
+          [
+            "in",
+            "In: the"
+          ],
+          [
+            "first",
+            "First, the"
+          ]
+        ],
+        "panel": {
+          "title": "In, Out, First"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "in": 2.39,
+          "first": 8.96
+        }
+      },
+      "estimated_duration_s": 18,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.02,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 17.033333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "MECHANISM",
+      "role_note": "Q7 the risk (BRIEF §7): main.gd drives the fighter. main.gd:180-182 at a7; lines 61 and 80-81 as source notes.",
+      "narration_text": "What could sink it? Today, main dot G D drives the fighter: line one eighty-one calls its step, and main also sets its opponent and its cork spawner. Untangling that could silently move a frame boundary.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "hold",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "godot/game/main.gd:180-182 at reading size"
+          },
+          {
+            "at": "line one eighty-one",
+            "event": "line 181: main calls the fighter's step every physics tick"
+          }
+        ],
+        "anchors": [
+          [
+            "181",
+            "line one eighty-one"
+          ]
+        ],
+        "remotion": {
+          "pattern": "GodotDevWorkbench",
+          "props": {
+            "mode": "code",
+            "title": "What Could Sink It",
+            "project": "walker-tinknockout-tharun-m",
+            "path": "res://game/main.gd  ·  lines 180–182  ·  tag a7 (a0c95cc)",
+            "source": "Godot editor reconstruction · godot/game/main.gd lines 180–182 at a7 (a0c95cc), verbatim",
+            "code": "func _simulate(dt: float) -> void:\n\tbolt.step(dt)\n\trivet.step(dt)",
+            "startLine": 180,
+            "codeFontSize": 34,
+            "inspectorLabel": "Source notes — not Inspector values",
+            "notes": [
+              {
+                "label": "Line 61",
+                "value": "f.spawn_cork = _spawn_cork"
+              },
+              {
+                "label": "Lines 80–81",
+                "value": "bolt.opponent = rivet · rivet.opponent = bolt"
+              }
+            ],
+            "cues": [
+              {
+                "at": 3.74,
+                "line": 181,
+                "label": "main calls the fighter's step every physics tick"
+              }
+            ],
+            "output": [
+              "exists at tag a7 · code → result next",
+              "Godot editor reconstruction"
+            ],
+            "durationSeconds": 12.12
+          },
+          "rendered": {
+            "out": "media/B11.mp4",
+            "at": "2026-11-24T21:30:45.679680+00:00"
+          }
+        },
+        "cue_times": {
+          "181": 3.74
+        }
+      },
+      "estimated_duration_s": 12,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 12.12,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 12.133333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "remotion:GodotDevWorkbench",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "RISK",
+      "role_note": "Result of B11: the mitigation. test_a7_pins.gd (which runs main.tscn) re-run at 60 and 30 on a0c95cc, recorded output; plus the renderer risk (BRIEF §7).",
+      "narration_text": "So the pins come first: they lock every boundary at sixty and at thirty frames a second, and the refactor won't be committed unless they pass with identical logs. And since the game renders with Forward plus on Vulkan, the Mac build will be tested on the M four before I claim anything. No web build.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "pins at 60 and at 30, recorded output"
+          },
+          {
+            "at": "And since the game",
+            "event": "second risk: Forward+ on Vulkan, no web build"
+          }
+        ],
+        "anchors": [
+          [
+            "vk",
+            "And since the game"
+          ]
+        ],
+        "panel": {
+          "title": "What I Will Do About It"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "evidence_media": "media/B12.mp4",
+        "cue_times": {
+          "vk": 8.11
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.23,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 16.233333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B12.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "WHY_ME",
+      "role_note": "Q8 why this project (BRIEF §8): a mix, with tags for the existing skills.",
+      "narration_text": "Why this project? A mix. I already have shaders, particles and a pinned state machine, and I've directed an agent with scoped plans. New to me: a reusable scene, an input buffer, an overlay, and a desktop export with a measured frame rate. And I'll test whether an AnimationTree helps by building the cutlass both ways.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "HAVE column, with tags"
+          },
+          {
+            "at": "New to me",
+            "event": "NEW column"
+          },
+          {
+            "at": "And I'll test",
+            "event": "UNKNOWN: the AnimationTree comparison"
+          }
+        ],
+        "anchors": [
+          [
+            "new",
+            "New to me"
+          ],
+          [
+            "unk",
+            "And I'll test"
+          ]
+        ],
+        "panel": {
+          "title": "Why This Project"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "new": 6.81,
+          "unk": 12.98
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 17.3,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 17.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B13.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "CLOSE",
+      "role_note": "Closing lists (BRIEF \"Exists today\" / \"Will exist\").",
+      "narration_text": "Exists today: the playable slice, at a two; the eleven-state fighter, the animated jab and key cycle, and their passing tests, at a seven; shaders at a five, particles at a six. Will exist: the reusable scene and training room, three more animated moves, the buffer, the overlay, and a measured mac build.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "EXISTS TODAY column, each with its tag"
+          },
+          {
+            "at": "Will exist",
+            "event": "WILL EXIST column"
+          }
+        ],
+        "anchors": [
+          [
+            "will",
+            "Will exist"
+          ]
+        ],
+        "panel": {
+          "title": "Exists Today · Will Exist"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED).",
+        "cue_times": {
+          "will": 9.54
+        }
+      },
+      "estimated_duration_s": 17,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "actual_duration_s": 16.3,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 16.3,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B14.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "OUTRO",
+      "role_note": "Closing title card: the film title and the student. No instructor handle or credit line (task rule); spoken, no music; 1.0 s silent tail.",
+      "narration_text": "Tin Knockout Fighter Kit. Tharun Maheswararao.",
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "treatment": "none",
+        "show": [
+          {
+            "at": "0.00",
+            "event": "title card"
+          }
+        ],
+        "anchors": [],
+        "panel": {
+          "title": "Tin Knockout Fighter Kit"
+        },
+        "note": "Composite built by _tools/make_media.py; every embedded image and every drawn proposal is labelled on screen with its provenance (REAL PLAY a7 / RECORDED OUTPUT / CONSTRUCTED)."
+      },
+      "estimated_duration_s": 4,
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "kind": "outro_voice",
+      "actual_duration_s": 4.63,
+      "audio_file": "mp3/beat-B15.mp3",
+      "outro_tail_s": 1.0,
+      "voice_duration_s": 3.63,
+      "render_duration_s": 4.633333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B15.mp4",
+        "filled_by": "media",
+        "at": "2026-11-24T17:12:35"
+      }
+    }
+  ]
+}

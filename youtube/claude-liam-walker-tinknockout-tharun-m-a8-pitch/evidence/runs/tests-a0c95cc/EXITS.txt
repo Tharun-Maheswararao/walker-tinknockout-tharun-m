@@ -1,0 +1,20 @@
+49 checks, 0 failed
+WARNING: 40 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+pins 60 exit 0
+49 checks, 0 failed
+WARNING: 32 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+pins 30 exit 0
+57 checks, 0 failed
+WARNING: 70 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 6 resources still in use at exit (run with --verbose for details).
+structure 60 exit 0
+57 checks, 0 failed
+WARNING: 64 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 6 resources still in use at exit (run with --verbose for details).
+structure 30 exit 0
+70 checks, 0 failed
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 4 resources still in use at exit (run with --verbose for details).
+edges 60 exit 0

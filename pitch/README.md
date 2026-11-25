@@ -5,8 +5,8 @@
 - **Target role:** gameplay programmer
 - **Runtime:**
   - **Game:** Godot 4.7.2.stable, GDScript, Forward+ on Vulkan (MoltenVK), macOS 15.6 on an Apple M4. Export target: macOS desktop (no export exists yet; `pitch/EXISTS-FACTS.md` §4).
-  - **Film:** _length to be added_.
-- **Film:** _link, filename and SHA-256 to be added._
+  - **Film:** 3:41 (221.6 s), 4K 3840×2160, 30 fps.
+- **Film:** [claude-liam-walker-tinknockout-tharun-m-a8-pitch.mp4](https://drive.google.com/file/d/1mN8WBEmDE0O2L-2lBtXl5eUDFAqixRTb/view?usp=sharing) (Google Drive) · SHA-256 `190ed4b2491eb0d0f70284ff7fb30a94624c87ef4dbdc0fb754a2fa9fc072cdc` · gameplay footage from tag `a7` (`a0c95cc`), labelled scripted input; constructed pictures labelled as proposals. The MP4 is not in GitHub.
 
 ## What is here
 

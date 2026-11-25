@@ -21,3 +21,12 @@
 
 - **What happened:** Tharun read the draft brief and approved it without changes, in chat ("Reviewed, start the film"). The pitch folder was committed and the film session started.
 - **In my words:** _(Tharun)_
+
+## 2026-11-24 — the film
+
+- **What happened:**
+  - **The build:** a separate Claude Code session built the film from the brief with the Brutalist toolkit. It made real Movie Maker captures from an isolated copy of tag `a7`, re-ran the tests on a clean copy (pins 49, structure 57, edges 70, 0 failed), and took four renders: one render-integrity report refused a render, which was fixed and re-rendered (`gate-reports/REPORT-render1-REFUSED.md`). The final gate showed 0 blocker and 0 major defects (`gate-reports/REPORT.md`).
+  - **The master:** 3:41, SHA-256 `190ed4b2…2cdc`.
+  - **Claude's check of the narration:** it is honest, with one wording slip in B03, "opens on its fifth tick" (it is tick 5 counted from 0).
+  - **Upload:** Tharun uploaded the master to Google Drive and gave the link.
+- **In my words:** _(Tharun: whether you watched it, what you checked, and what you thought)_
